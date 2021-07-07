@@ -61,8 +61,6 @@ public class PlayerCamera : MonoBehaviour
 
         if(player.health > 0)
             player.transform.Rotate(Vector3.up * mouseX);
-        else
-            transform.Rotate(Vector3.up * mouseX);
 
         lastPos = transform.position;
     }

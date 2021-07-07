@@ -42,5 +42,4 @@ public class Gun : PlayerWeapon
 
         base.UsePrimary();
     }
-
 }

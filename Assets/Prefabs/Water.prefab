@@ -163,17 +163,17 @@ MonoBehaviour:
     m_NumAlphaKeys: 2
   colorGradientTexture: {fileID: 0}
   shallowColor: {r: 0, g: 0.6076317, b: 0.8, a: 0.47843137}
-  deepColor: {r: 0.01176471, g: 0.28619584, b: 0.50980073, a: 1}
+  deepColor: {r: 0.01176471, g: 0.28616494, b: 0.50980073, a: 1}
   colorDepth: 1
-  horizonColor: {r: 0, g: 0.22737235, b: 0.8, a: 1}
+  horizonColor: {r: 0, g: 0.22734144, b: 0.8, a: 1}
   horizonDistance: 5
   shoreFade: 1
-  shoreColor: {r: 0, g: 0.98039216, b: 0.30188212, a: 0}
+  shoreColor: {r: 0, g: 0.98039216, b: 0.3018512, a: 0}
   shoreStrength: 0
   shoreBlend: 1
   shoreDepth: 2
   waveColor: {r: 0, g: 0, b: 0, a: 0}
-  underwaterColor: {r: 0.38458276, g: 0.48911834, b: 0.6981132, a: 0.389}
+  underwaterColor: {r: 0.38455185, g: 0.48911834, b: 0.6981132, a: 0.389}
   underwaterColorStrength: 0.389
   underwaterRefractionStrength: 0.099
   surfaceFoamTexture: {fileID: 2800000, guid: d3b0d77dfe711a04c8ff18ecc260aa66, type: 3}
@@ -231,7 +231,7 @@ MonoBehaviour:
   normalsScale: 1
   normalsSpeed: 0.04
   refractionStrength: 0.035
-  waveVisuals: {x: 0.132, y: 7.9, z: 1.38}
+  waveVisuals: {x: 0.15, y: 8, z: 1.38}
   waveSteepness: 0.15
   waveLength: 8
   waveSpeed: 1.38
@@ -242,7 +242,7 @@ MonoBehaviour:
   waveDirection4: 0.33
   waterUVs: 1
   hideComponents: 0
-  enableFoamShadows: 1
+  enableFoamShadows: 0
   enableRefraction: 0
   meshRenderer: {fileID: 2496914107064364275}
   meshFilter: {fileID: 8185955663247069194}
@@ -293,4 +293,4 @@ MonoBehaviour:
   syncInterval: 0.1
   damage: 99999
   destoryRigidbodys: 1
-  destroyDelay: 1.5
+  destroyDelay: 1

@@ -158,7 +158,7 @@ MonoBehaviour:
   cameraObj: {fileID: 8395054064927053673, guid: cf666aa8ac64cb9488d0a1a513b02fc2, type: 3}
   corpseRB: {fileID: 7702760000857554192}
   spawnableObjects:
-  - {fileID: 1485948473867767497, guid: 32fed8c2ee3b3a14cb8de68391b8733d, type: 3}
+  - {fileID: 2809265603616378744, guid: 48120d00173fdf94ea015c5ef7850de3, type: 3}
 --- !u!1 &8171759826159655432
 GameObject:
   m_ObjectHideFlags: 0
@@ -343,10 +343,6 @@ PrefabInstance:
     - target: {fileID: 5445405219674382018, guid: 4f06b16c97f8a4748b7fbe8c05c5f65f, type: 3}
       propertyPath: m_Name
       value: PlayerBody
-      objectReference: {fileID: 0}
-    - target: {fileID: 5445405219674382018, guid: 4f06b16c97f8a4748b7fbe8c05c5f65f, type: 3}
-      propertyPath: m_TagString
-      value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 5921605509922554979, guid: 4f06b16c97f8a4748b7fbe8c05c5f65f, type: 3}
       propertyPath: m_RootOrder

@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 3984817777026128593}
   - component: {fileID: 3328026766683151625}
   - component: {fileID: 1419930551973801905}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Bullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -150,6 +150,10 @@ MonoBehaviour:
   destroyDelay: 10
   initalForce: 0
   constForce: 5
+  layer:
+    serializedVersion: 2
+    m_Bits: 0
+  myCollider: {fileID: 0}
 --- !u!114 &1419930551973801905
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -165,3 +169,5 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0.1
   damage: 100
+  destoryRigidbodys: 0
+  destroyDelay: 0

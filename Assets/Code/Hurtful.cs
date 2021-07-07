@@ -36,26 +36,6 @@ public class Hurtful : NetworkBehaviour
             StartCoroutine(WaitThenDestory(rb.gameObject));
     }
 
-    [Server]
-
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (collision.collider.tag == "Player")
-        {
-            var player = collision.gameObject.GetComponent<Player>();
-            if (player != null)
-                player.health -= damage;
-            return;
-        }
-
-        if (!destoryRigidbodys)
-            return;
-
-        Rigidbody rb = collision.gameObject.GetComponent<Rigidbody>();
-        if (rb != null)
-            StartCoroutine(WaitThenDestory(rb.gameObject));
-    }
-
     IEnumerator WaitThenDestory(GameObject obj)
     {
         yield return new WaitForSeconds(destroyDelay);

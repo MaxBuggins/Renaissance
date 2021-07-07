@@ -11,11 +11,12 @@ public class Player : NetworkBehaviour
     public GameObject floatingInfo;
 
     [Header("Player Stats")]
+    public int maxHealth = 100;
     [SyncVar(hook = nameof(OnHealthChanged))]
-    public int health = 100;
+    public int health;
 
     [SyncVar(hook = nameof(OnNameChanged))]
-    public string playerName;
+    public string playerName = "NoNameNed";
     [SyncVar(hook = nameof(OnColorChanged))]
     public Color playerColor = Color.white;
 
@@ -56,8 +57,14 @@ public class Player : NetworkBehaviour
     private LevelManager levelManager;
     public GameObject[] spawnableObjects;
 
+    public UI_Main uIMain;
+
     public override void OnStartLocalPlayer() //just for the local client
     {
+        uIMain = FindObjectOfType<UI_Main>();
+        uIMain.player = this;
+        uIMain.UIUpdate();
+
         controls = new Controls();
 
         controls.Game.Jump.performed += funny => Jump();
@@ -210,6 +217,9 @@ public class Player : NetworkBehaviour
 
     void OnHealthChanged(int _Old, int _New)
     {
+        if(isLocalPlayer)
+            uIMain.UIUpdate();
+
         if (_Old > 0 && _New <= 0) //on death
         {
             PlayerAlive(false);
@@ -238,9 +248,9 @@ public class Player : NetworkBehaviour
         if (!isServer) //only the server runs this
             return;
 
-        //need to sync rigidbody between clients   
+        //need to sync rigidbody between clients wont work AHHHHHH   
         corpseRB.velocity = (transform.position - lastPos) * 10;
-        corpseRB.GetComponent<Mirror.Experimental.NetworkRigidbody>().SyncToClients();
+        //corpseRB.GetComponent<Mirror.Experimental.NetworkRigidbody>().SyncToClients();
     }
 
     [Command]
@@ -251,7 +261,12 @@ public class Player : NetworkBehaviour
         playerColor = _col;
     }
 
-    
+    [Command]
+    public void CmdSpawnPlayer()
+    {
+        netTrans.ServerTeleport(levelManager.GetSpawnPoint());
+        health = maxHealth;
+    }
 
     [ClientCallback]
     void IsDead()
@@ -263,13 +278,6 @@ public class Player : NetworkBehaviour
             CmdSpawnPlayer();
             deadTime = 0;
         }
-    }
-
-    [Command]
-    void CmdSpawnPlayer()
-    {
-        netTrans.ServerTeleport(levelManager.GetSpawnPoint());
-        health = 100;
     }
 
     [Command]
