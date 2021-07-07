@@ -8,21 +8,17 @@ public class Projectile : NetworkBehaviour
     public int damage;
 
     public float destroyDelay = 5;
-    public float initalForce = 0;
+    public float initalForce = 5;
     public float constForce = 5;
+    public float maxVelocity = 10;
 
-    [Header("Dont Go Through Stuff")]
-    private Vector3 previousPos;
-    private float minimumExtent;
-    private float partialExtent;
-    private float sqrMinimumExtent;
-    private Vector3 previousPosition;
+    public int destoryOnHits = 0;
 
-    public LayerMask myLayer;
-
-    public Collider myCollider;
+    [Header("Projectile Refrences")]
     private Rigidbody rb;
     private NetworkTransform netTrans;
+
+    public GameObject hitPartical;
 
 
     // Server and Clients must run
@@ -31,60 +27,19 @@ public class Projectile : NetworkBehaviour
         rb = GetComponent<Rigidbody>();
         netTrans = GetComponent<NetworkTransform>();
 
-        if (rb.isKinematic == false)
-            rb.AddForce(transform.up * initalForce, ForceMode.Impulse);
+        rb.AddForce(transform.up * initalForce, ForceMode.VelocityChange);
     }
 
     public override void OnStartServer()
     {
         Invoke(nameof(DestroySelf), destroyDelay);
-
-        previousPosition = rb.position;
-        minimumExtent = Mathf.Min(Mathf.Min(myCollider.bounds.extents.x, myCollider.bounds.extents.y), myCollider.bounds.extents.z);
-        partialExtent = minimumExtent * 0.9f;
-        sqrMinimumExtent = minimumExtent * minimumExtent;
     }
 
     void Update()
     {
-        if (rb.isKinematic)
-            rb.MovePosition(transform.position + transform.up * constForce * Time.deltaTime);
-        else
-            rb.AddForce(transform.up * constForce, ForceMode.Force);
-    }
+        if(rb.velocity.magnitude < maxVelocity)
+            rb.AddForce(transform.up * constForce * Time.deltaTime, ForceMode.Acceleration);
 
-    [ServerCallback] //only the server needs to do this
-    void FixedUpdate()
-    {
-        //have we moved more than our minimum extent? 
-        Vector3 movementThisStep = rb.position - previousPos;
-        float movementSqrMagnitude = movementThisStep.sqrMagnitude;
-
-        if (movementSqrMagnitude > sqrMinimumExtent)
-        {
-            float movementMagnitude = Mathf.Sqrt(movementSqrMagnitude);
-            RaycastHit hit;
-
-            //check for obstructions we might have missed 
-            if (Physics.Raycast(previousPos, movementThisStep, out hit, movementMagnitude, myLayer.value))
-            {
-                if (hit.collider == myCollider)
-                    return;
-
-               // rb.position = hit.point - (movementThisStep / movementMagnitude) * partialExtent;
-               // netTrans.ServerTeleport(rb.position);
-
-               // if (hit.collider.tag == "Player")
-                //{
-                //    var player = hit.collider.gameObject.GetComponent<Player>();
-                //    if (player != null)
-               //         player.health -= damage;
-                //    return;
-                //}
-            }
-        }
-
-        previousPos = rb.position;
     }
 
     // destroy for everyone on the server
@@ -94,18 +49,29 @@ public class Projectile : NetworkBehaviour
         NetworkServer.Destroy(gameObject);
     }
 
+    [ServerCallback]
     // ServerCallback because we don't want a warning if OnTriggerEnter is
     // called on the client
-    [ServerCallback]
-    private void OnTriggerEnter(Collider other)
+    private void OnCollisionEnter(Collision collision)
     {
-        if (other.tag == "Player")
+        if (collision.gameObject.tag == "Player")
         {
-            var player = other.GetComponent<Player>();
+            var player = collision.gameObject.GetComponent<Player>();
             if (player != null)
                 player.health -= damage;
-            return;
         }
+
+        RpcHit();
+
+        destoryOnHits -= 1;
+        if (destoryOnHits < 0)
+            Invoke(nameof(DestroySelf), 0.1f);
+    }
+
+    [ClientRpc] //server tells all clients it has hit
+    void RpcHit()
+    {
+        Instantiate(hitPartical, transform.position, transform.rotation);
     }
 }
 

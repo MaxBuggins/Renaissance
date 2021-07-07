@@ -51,7 +51,9 @@ public class Player : NetworkBehaviour
     [Header("Unity Stuff Internals")]
     public GameObject cameraObj;
     private CharacterController character;
+    public GameObject body;
     public Rigidbody corpseRB;
+
     private NetworkTransform netTrans;
 
     private LevelManager levelManager;
@@ -234,16 +236,21 @@ public class Player : NetworkBehaviour
     {
         character.enabled = alive;
         floatingInfo.SetActive(alive);
-        corpseRB.isKinematic = alive;
+        body.SetActive(alive);
+        corpseRB.gameObject.SetActive(!alive);
 
         if (alive == true)
         {
             corpseRB.transform.parent = transform;
             corpseRB.transform.eulerAngles = Vector3.zero;
             corpseRB.transform.localPosition = Vector3.zero;
+            corpseRB.GetComponent<Collider>().enabled = false;
         }
         else
+        {
             corpseRB.transform.parent = null;
+            corpseRB.GetComponent<Collider>().enabled = true;
+        }
 
         if (!isServer) //only the server runs this
             return;

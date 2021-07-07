@@ -44,6 +44,14 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
+                },
+                {
+                    "name": "Special",
+                    "type": "Button",
+                    "id": "5a32aada-c0a8-4d4d-9781-5caf8a554204",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -143,6 +151,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "Seconday",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "99137b07-4f74-4244-9b71-1e227c129992",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Special",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

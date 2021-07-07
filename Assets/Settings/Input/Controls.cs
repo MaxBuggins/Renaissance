@@ -57,6 +57,14 @@ public class @Controls : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Special"",
+                    ""type"": ""Button"",
+                    ""id"": ""5a32aada-c0a8-4d4d-9781-5caf8a554204"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -158,6 +166,17 @@ public class @Controls : IInputActionCollection, IDisposable
                     ""action"": ""Seconday"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""99137b07-4f74-4244-9b71-1e227c129992"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Special"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -171,6 +190,7 @@ public class @Controls : IInputActionCollection, IDisposable
         m_Game_Look = m_Game.FindAction("Look", throwIfNotFound: true);
         m_Game_Primary = m_Game.FindAction("Primary", throwIfNotFound: true);
         m_Game_Seconday = m_Game.FindAction("Seconday", throwIfNotFound: true);
+        m_Game_Special = m_Game.FindAction("Special", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -225,6 +245,7 @@ public class @Controls : IInputActionCollection, IDisposable
     private readonly InputAction m_Game_Look;
     private readonly InputAction m_Game_Primary;
     private readonly InputAction m_Game_Seconday;
+    private readonly InputAction m_Game_Special;
     public struct GameActions
     {
         private @Controls m_Wrapper;
@@ -234,6 +255,7 @@ public class @Controls : IInputActionCollection, IDisposable
         public InputAction @Look => m_Wrapper.m_Game_Look;
         public InputAction @Primary => m_Wrapper.m_Game_Primary;
         public InputAction @Seconday => m_Wrapper.m_Game_Seconday;
+        public InputAction @Special => m_Wrapper.m_Game_Special;
         public InputActionMap Get() { return m_Wrapper.m_Game; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -258,6 +280,9 @@ public class @Controls : IInputActionCollection, IDisposable
                 @Seconday.started -= m_Wrapper.m_GameActionsCallbackInterface.OnSeconday;
                 @Seconday.performed -= m_Wrapper.m_GameActionsCallbackInterface.OnSeconday;
                 @Seconday.canceled -= m_Wrapper.m_GameActionsCallbackInterface.OnSeconday;
+                @Special.started -= m_Wrapper.m_GameActionsCallbackInterface.OnSpecial;
+                @Special.performed -= m_Wrapper.m_GameActionsCallbackInterface.OnSpecial;
+                @Special.canceled -= m_Wrapper.m_GameActionsCallbackInterface.OnSpecial;
             }
             m_Wrapper.m_GameActionsCallbackInterface = instance;
             if (instance != null)
@@ -277,6 +302,9 @@ public class @Controls : IInputActionCollection, IDisposable
                 @Seconday.started += instance.OnSeconday;
                 @Seconday.performed += instance.OnSeconday;
                 @Seconday.canceled += instance.OnSeconday;
+                @Special.started += instance.OnSpecial;
+                @Special.performed += instance.OnSpecial;
+                @Special.canceled += instance.OnSpecial;
             }
         }
     }
@@ -288,5 +316,6 @@ public class @Controls : IInputActionCollection, IDisposable
         void OnLook(InputAction.CallbackContext context);
         void OnPrimary(InputAction.CallbackContext context);
         void OnSeconday(InputAction.CallbackContext context);
+        void OnSpecial(InputAction.CallbackContext context);
     }
 }

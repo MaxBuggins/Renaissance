@@ -6,11 +6,14 @@ using Mirror;
 //this script is for the local client to run only
 public class PlayerWeapon : NetworkBehaviour
 {
+    public bool canHoldPrimay;
 
     private Controls controls;
 
+    private bool primaryHeld = false;
+
     [Header("Unity Things")]
-    private Player player;
+    public Player player;
 
 
     protected virtual void Start()
@@ -23,22 +26,32 @@ public class PlayerWeapon : NetworkBehaviour
         controls = new Controls();
 
         controls.Game.Primary.performed += funny => UsePrimary();
+        controls.Game.Primary.canceled += funny => primaryHeld = false;
+
         controls.Game.Seconday.performed += funnyer => UseSeconday();
+
+        controls.Game.Special.performed += funnyiest => UseSpecial();
 
         controls.Enable();
     }
 
     protected virtual void Update()
     {
-
+        if (canHoldPrimay == true && primaryHeld == true)
+            UsePrimary();
     }
 
     public virtual void UsePrimary()
     {
-
+        primaryHeld = true;
     }
 
     public virtual void UseSeconday()
+    {
+
+    }
+
+    public virtual void UseSpecial()
     {
 
     }

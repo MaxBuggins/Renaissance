@@ -22,7 +22,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &5921605509922554979
 Transform:
   m_ObjectHideFlags: 0
@@ -112,7 +112,7 @@ Rigidbody:
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 1
-  m_IsKinematic: 1
+  m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
@@ -147,7 +147,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.25
-  clientAuthority: 1
+  clientAuthority: 0
   localPositionSensitivity: 0.1
   localRotationSensitivity: 1
   localScaleSensitivity: 0.1

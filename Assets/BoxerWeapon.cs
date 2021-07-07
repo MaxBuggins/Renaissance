@@ -3,49 +3,52 @@ using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
 
-//this script is for the local client to run only
-public class Gun : PlayerWeapon
+public class BoxerWeapon : PlayerWeapon
 {
     [Header("Gun Propertys")]
-    public float shootDelay = 0.125f;
-    private float shootTime = 0;
+    public float throwDelay = 0.125f;
+    private float throwTime = 0;
 
-    public int clipSize = 6;
-    private int clipLeft; 
-
-    public float reloadDelay = 1.2f;
-    private float reloadTime = 0;
-
-    [Header("Gun Refrences")]
+    [Header("Weapon Refrences")]
     public Transform shootPos;
     public GameObject projectile;
-
-    private Player player;
 
     protected override void Start()
     {
         player = GetComponentInParent<Player>();
-        clipLeft = clipSize;
 
         base.Start();
     }
 
     protected override void Update()
     {
-        shootTime += Time.deltaTime;
+        throwTime += Time.deltaTime;
         base.Update();
     }
-    
+
     [Client]
     public override void UsePrimary()
     {
-        if (shootTime < shootDelay)
+
+        base.UsePrimary();
+    }
+
+    [Client]
+    public override void UseSeconday()
+    {
+        if (throwTime < throwDelay)
             return;
 
-        shootTime = 0;
+        throwTime = 0;
 
         player.CmdSpawnObject(0, shootPos.position, shootPos.eulerAngles);
 
-        base.UsePrimary();
+        base.UseSeconday();
+    }
+
+    [Client]
+    public override void UseSpecial()
+    {
+        
     }
 }

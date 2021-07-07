@@ -221,16 +221,16 @@ MonoBehaviour:
   shoreFoamBreakupStrength: 0
   shoreFoamBreakupScale: 0
   lighting: 1
-  lightingSmoothness: 1
+  lightingSmoothness: 0.5
   lightingSpecularColor: {r: 1, g: 1, b: 1, a: 0}
   lightingDiffuseColor: {r: 0, g: 0, b: 0, a: 0}
-  lightingHardness: 0
-  normalsTexture: {fileID: 2800000, guid: a41da5f5671718b47bbc71e9ef691103, type: 3}
+  lightingHardness: 0.4
+  normalsTexture: {fileID: 2800000, guid: 35fea3f34fa38fd4ca09415e7d192aa3, type: 3}
   normalsMovement: {x: 0.04, y: 1}
-  normalsStrength: 0.29
-  normalsScale: 1
-  normalsSpeed: 0.04
-  refractionStrength: 0.035
+  normalsStrength: 1
+  normalsScale: 1.5
+  normalsSpeed: 0.01
+  refractionStrength: 0.3
   waveVisuals: {x: 0.15, y: 8, z: 1.38}
   waveSteepness: 0.15
   waveLength: 8
