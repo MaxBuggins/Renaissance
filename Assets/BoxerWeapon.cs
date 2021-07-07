@@ -49,6 +49,6 @@ public class BoxerWeapon : PlayerWeapon
     [Client]
     public override void UseSpecial()
     {
-        
+        player.speed = 25;
     }
 }

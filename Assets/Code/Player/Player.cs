@@ -104,6 +104,10 @@ public class Player : NetworkBehaviour
             IsDead();
             return;
         }
+        else
+        {
+            //do special
+        }
 
         IsGrounded();
         Movement();
@@ -293,5 +297,4 @@ public class Player : NetworkBehaviour
         GameObject spawned = Instantiate(spawnableObjects[objID], pos, Quaternion.Euler(rot));
         NetworkServer.Spawn(spawned);
     }
-
 }
