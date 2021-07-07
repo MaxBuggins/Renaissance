@@ -8,8 +8,9 @@ public class PlayerWeapon : NetworkBehaviour
 {
     public bool canHoldPrimay;
 
-    private Controls controls;
+    public int specialCost;
 
+    private Controls controls;
     private bool primaryHeld = false;
 
     [Header("Unity Things")]

@@ -43,7 +43,6 @@ GameObject:
   - component: {fileID: 599220566532982339}
   - component: {fileID: 5908972681012063404}
   - component: {fileID: 4841276276231126794}
-  - component: {fileID: 7758475129214324898}
   - component: {fileID: 2883281170198477639}
   m_Layer: 0
   m_Name: Player
@@ -126,30 +125,6 @@ MonoBehaviour:
   interpolateRotation: 1
   interpolatePosition: 1
   syncScale: 1
---- !u!114 &7758475129214324898
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5152954251791426242}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 734b48bea0b204338958ee3d885e11f0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  syncMode: 0
-  syncInterval: 0.1
-  clientAuthority: 0
-  localPositionSensitivity: 0.01
-  localRotationSensitivity: 0.01
-  localScaleSensitivity: 0.01
-  compressRotation: 0
-  interpolateScale: 1
-  interpolateRotation: 1
-  interpolatePosition: 1
-  syncScale: 1
-  target: {fileID: 0}
 --- !u!114 &2883281170198477639
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -168,6 +143,8 @@ MonoBehaviour:
   floatingInfo: {fileID: 830156719981706348}
   maxHealth: 100
   health: 100
+  maxSpecial: 10
+  special: 10
   playerName: 
   playerColor: {r: 1, g: 1, b: 1, a: 1}
   cameraOffset: {x: 0, y: 0.75, z: 0}
@@ -182,6 +159,7 @@ MonoBehaviour:
   coyotTime: 0.3
   pushForce: 5
   cameraObj: {fileID: 8395054064927053673, guid: cf666aa8ac64cb9488d0a1a513b02fc2, type: 3}
+  character: {fileID: 0}
   body: {fileID: 6227654299155050500}
   corpseRB: {fileID: 5132489865552457209}
   spawnableObjects:

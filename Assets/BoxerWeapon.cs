@@ -5,9 +5,17 @@ using Mirror;
 
 public class BoxerWeapon : PlayerWeapon
 {
-    [Header("Gun Propertys")]
+    [Header("Throw Propertys")]
     public float throwDelay = 0.125f;
     private float throwTime = 0;
+
+    [Header("Charge Propertys")]
+    public float chargeDuration = 2.75f;
+    private float chargeTime;
+    public float chargeSpeed = 5;
+    public float gravityMultiplyer = 0.5f;
+
+    private Vector3 chargeDirection;
 
     [Header("Weapon Refrences")]
     public Transform shootPos;
@@ -16,6 +24,7 @@ public class BoxerWeapon : PlayerWeapon
     protected override void Start()
     {
         player = GetComponentInParent<Player>();
+        chargeTime = chargeDuration;
 
         base.Start();
     }
@@ -23,6 +32,15 @@ public class BoxerWeapon : PlayerWeapon
     protected override void Update()
     {
         throwTime += Time.deltaTime;
+
+        if (chargeTime < chargeDuration)
+        {
+            chargeTime += Time.deltaTime;
+            player.character.Move(chargeDirection * chargeSpeed * Time.deltaTime);
+            if (chargeTime >= chargeDuration)
+                EndSpecial();
+        }
+
         base.Update();
     }
 
@@ -49,6 +67,20 @@ public class BoxerWeapon : PlayerWeapon
     [Client]
     public override void UseSpecial()
     {
-        player.speed = 25;
+        if (player.special - specialCost < 0)
+            return;
+
+        player.CmdUseSpecial(specialCost);
+
+        player.pushForce *= 7;
+        player.gravitY *= gravityMultiplyer;
+        chargeDirection = transform.forward;
+        chargeTime = 0;
+    }
+
+    void EndSpecial()
+    {
+        player.pushForce /= 7;
+        player.gravitY /= gravityMultiplyer;
     }
 }

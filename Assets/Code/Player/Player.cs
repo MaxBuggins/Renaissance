@@ -15,6 +15,12 @@ public class Player : NetworkBehaviour
     [SyncVar(hook = nameof(OnHealthChanged))]
     public int health;
 
+    public int maxSpecial = 10;
+    [SyncVar(hook = nameof(OnSpecialChanged))]
+    public int special;
+    public float specialChargeRate = 4;
+    private float specialChargeTime = 0;
+
     [SyncVar(hook = nameof(OnNameChanged))]
     public string playerName = "NoNameNed";
     [SyncVar(hook = nameof(OnColorChanged))]
@@ -50,7 +56,7 @@ public class Player : NetworkBehaviour
 
     [Header("Unity Stuff Internals")]
     public GameObject cameraObj;
-    private CharacterController character;
+    public CharacterController character;
     public GameObject body;
     public Rigidbody corpseRB;
 
@@ -96,6 +102,17 @@ public class Player : NetworkBehaviour
 
     void FixedUpdate()
     {
+        if (isServer && health > 0)
+        {
+            specialChargeTime += Time.fixedDeltaTime;
+            if (specialChargeTime > specialChargeRate)
+            {
+                special += 1;
+                specialChargeTime = 0;
+            }
+        }
+
+
         if (!isLocalPlayer) //only the player runs this
             return;
 
@@ -220,10 +237,12 @@ public class Player : NetworkBehaviour
         //GetComponent<Renderer>().material = playerMaterialClone;
     }
 
-
     void OnHealthChanged(int _Old, int _New)
     {
-        if(isLocalPlayer)
+        if (health > maxHealth)
+            health = maxHealth;
+
+        if (isLocalPlayer)
             uIMain.UIUpdate();
 
         if (_Old > 0 && _New <= 0) //on death
@@ -234,6 +253,14 @@ public class Player : NetworkBehaviour
         {
             PlayerAlive(true);
         }
+    }
+    void OnSpecialChanged(int _Old, int _New)
+    {
+        if (special > maxSpecial)
+            special = maxSpecial;
+
+        if (isLocalPlayer)
+            uIMain.UIUpdate();
     }
 
     void PlayerAlive(bool alive)
@@ -276,6 +303,7 @@ public class Player : NetworkBehaviour
     public void CmdSpawnPlayer()
     {
         netTrans.ServerTeleport(levelManager.GetSpawnPoint());
+        special += 1;
         health = maxHealth;
     }
 
@@ -296,5 +324,11 @@ public class Player : NetworkBehaviour
     {
         GameObject spawned = Instantiate(spawnableObjects[objID], pos, Quaternion.Euler(rot));
         NetworkServer.Spawn(spawned);
+    }
+
+    [Command]
+    public void CmdUseSpecial(int used)
+    {
+        special -= used;
     }
 }
