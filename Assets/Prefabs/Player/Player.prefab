@@ -145,6 +145,7 @@ MonoBehaviour:
   health: 100
   maxSpecial: 10
   special: 10
+  specialChargeRate: 4
   playerName: 
   playerColor: {r: 1, g: 1, b: 1, a: 1}
   cameraOffset: {x: 0, y: 0.75, z: 0}
@@ -163,6 +164,7 @@ MonoBehaviour:
   body: {fileID: 6227654299155050500}
   corpseRB: {fileID: 5132489865552457209}
   spawnableObjects:
+  - {fileID: 9135064866333483514, guid: e5d4d549e335e3e4dad3c3d49731c6fc, type: 3}
   - {fileID: 2809265603616378744, guid: 48120d00173fdf94ea015c5ef7850de3, type: 3}
   uIMain: {fileID: 0}
 --- !u!1 &6227654299155050500

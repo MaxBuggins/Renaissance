@@ -12,6 +12,7 @@ public class Projectile : NetworkBehaviour
     public float constForce = 5;
     public float maxVelocity = 10;
 
+    public float collisionDelay = 0.15f;
     public int destoryOnHits = 0;
 
     [Header("Projectile Refrences")]
@@ -26,6 +27,9 @@ public class Projectile : NetworkBehaviour
     {
         rb = GetComponent<Rigidbody>();
         netTrans = GetComponent<NetworkTransform>();
+
+        rb.detectCollisions = false;
+        Invoke(nameof(ActivateCollision), collisionDelay);
 
         rb.AddForce(transform.up * initalForce, ForceMode.VelocityChange);
     }
@@ -47,6 +51,11 @@ public class Projectile : NetworkBehaviour
     void DestroySelf()
     {
         NetworkServer.Destroy(gameObject);
+    }
+
+    void ActivateCollision()
+    {
+        rb.detectCollisions = true;
     }
 
     [ServerCallback]

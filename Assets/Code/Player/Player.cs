@@ -239,8 +239,9 @@ public class Player : NetworkBehaviour
 
     void OnHealthChanged(int _Old, int _New)
     {
-        if (health > maxHealth)
-            health = maxHealth;
+        if (isServer)
+            if (health > maxHealth)
+                health = maxHealth;
 
         if (isLocalPlayer)
             uIMain.UIUpdate();
@@ -256,8 +257,9 @@ public class Player : NetworkBehaviour
     }
     void OnSpecialChanged(int _Old, int _New)
     {
-        if (special > maxSpecial)
-            special = maxSpecial;
+        if(isServer)
+            if (special > maxSpecial)
+                special = maxSpecial;
 
         if (isLocalPlayer)
             uIMain.UIUpdate();
@@ -320,10 +322,15 @@ public class Player : NetworkBehaviour
     }
 
     [Command]
-    public void CmdSpawnObject(int objID, Vector3 pos, Vector3 rot)
+    public void CmdSpawnObject(int objID, Vector3 pos, Vector3 rot, bool serverOnly)
     {
         GameObject spawned = Instantiate(spawnableObjects[objID], pos, Quaternion.Euler(rot));
-        NetworkServer.Spawn(spawned);
+
+        if(spawned.GetComponent<Hurtful>() != null)
+            spawned.GetComponent<Hurtful>().ignorePlayer = this;
+        
+        if(serverOnly == false)
+            NetworkServer.Spawn(spawned);
     }
 
     [Command]

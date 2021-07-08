@@ -20,6 +20,7 @@ public class BoxerWeapon : PlayerWeapon
     [Header("Weapon Refrences")]
     public Transform shootPos;
     public GameObject projectile;
+    public GameObject hurtCube;
 
     protected override void Start()
     {
@@ -47,7 +48,7 @@ public class BoxerWeapon : PlayerWeapon
     [Client]
     public override void UsePrimary()
     {
-
+        player.CmdSpawnObject(0, transform.position, transform.eulerAngles, true);
         base.UsePrimary();
     }
 
@@ -59,7 +60,7 @@ public class BoxerWeapon : PlayerWeapon
 
         throwTime = 0;
 
-        player.CmdSpawnObject(0, shootPos.position, shootPos.eulerAngles);
+        player.CmdSpawnObject(1, shootPos.position, shootPos.eulerAngles, false);
 
         base.UseSeconday();
     }

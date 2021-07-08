@@ -44,7 +44,7 @@ public class Gun : PlayerWeapon
 
         shootTime = 0;
 
-        player.CmdSpawnObject(0, shootPos.position, shootPos.eulerAngles);
+        player.CmdSpawnObject(0, shootPos.position, shootPos.eulerAngles, false);
 
         base.UsePrimary();
     }
