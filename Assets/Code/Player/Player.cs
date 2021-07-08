@@ -154,13 +154,14 @@ public class Player : NetworkBehaviour
             movement = movement * airMovementMultiplyer;
 
 
-        velocity.x = Mathf.Clamp(velocity.x, -maxMoveVelocity, maxMoveVelocity);
-        velocity.z = Mathf.Clamp(velocity.z, -maxMoveVelocity, maxMoveVelocity);
+        //velocity.x = Mathf.Clamp(velocity.x, -maxMoveVelocity, maxMoveVelocity);
+        //velocity.z = Mathf.Clamp(velocity.z, -maxMoveVelocity, maxMoveVelocity);
 
         velocity.x = Mathf.Lerp(velocity.x, 0, fricktion * Time.fixedDeltaTime);
         velocity.z = Mathf.Lerp(velocity.z, 0, fricktion * Time.fixedDeltaTime);
 
-        movement *= speed;
+        if (velocity.x < maxMoveVelocity && velocity.z < maxMoveVelocity)
+            movement *= speed;
 
         character.Move((movement + velocity) * Time.fixedDeltaTime); //apply movement to charhcter contoler
 
@@ -316,8 +317,9 @@ public class Player : NetworkBehaviour
 
         if(deadTime > levelManager.respawnDelay)
         {
-            CmdSpawnPlayer();
             deadTime = 0;
+            velocity = Vector3.zero;
+            CmdSpawnPlayer();
         }
     }
 
@@ -331,6 +333,12 @@ public class Player : NetworkBehaviour
         
         if(serverOnly == false)
             NetworkServer.Spawn(spawned);
+    }
+
+    [ClientRpc]
+    public void RpcAddVelocity(Vector3 vel)
+    {
+        velocity += vel;
     }
 
     [Command]

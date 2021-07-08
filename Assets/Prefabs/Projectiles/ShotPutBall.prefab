@@ -311,8 +311,9 @@ MonoBehaviour:
   syncInterval: 0.1
   damage: 35
   destroyDelay: 5
-  initalForce: 15
+  initalForce: 20
   constForce: 0
   maxVelocity: 75
+  collisionDelay: 0.15
   destoryOnHits: 1
   hitPartical: {fileID: 6704984473634513958, guid: cc74bbebfeacfd24c9fcf0ead0de6311, type: 3}

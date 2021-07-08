@@ -12,6 +12,9 @@ public class Hurtful : NetworkBehaviour
 
     private float timeSinceDamage = 0;
 
+    public float collisionForce = 0;
+    public float upwardsForce = 0;
+
     private List<Player> inTrigger = new List<Player>();
 
     public Player ignorePlayer;
@@ -20,24 +23,36 @@ public class Hurtful : NetworkBehaviour
     public bool destoryRigidbodys = false;
     public float destroyDelay;
 
+    private Vector3 lastPos;
+
 
     void Awake()
     {
         if (isClient) //only for the server to run
             enabled = false;
+
+        lastPos = transform.position;
     }
 
     private void Update()
     {
-        timeSinceDamage += Time.deltaTime;
+        if (inTrigger.Count == 0)
+            return;
+
+            timeSinceDamage += Time.deltaTime;
 
         if(timeSinceDamage > 1)
         {
-            foreach (Player player in inTrigger)
-                HurtPlayer(player, damage);
+            //foreach throws errors not sure why
+            for(int i = 0; i < inTrigger.Count; i++)
+            {
+                HurtPlayer(inTrigger[i], damage);
+            }
 
             timeSinceDamage = 0;
         }
+
+        lastPos = transform.position;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -83,12 +98,19 @@ public class Hurtful : NetworkBehaviour
         NetworkServer.Destroy(obj);
     }
 
+    [Server]
     void HurtPlayer(Player player, int Damage)
     {
         player.health -= damage;
         if(player.health <= 0)
         {
             inTrigger.Remove(player);
+        }
+
+        if(collisionForce != 0)
+        {
+            Vector3 vel = transform.position - lastPos;
+            player.RpcAddVelocity((vel * collisionForce) + (vel.magnitude * Vector3.up * upwardsForce));
         }
     }
 }

@@ -163,17 +163,17 @@ MonoBehaviour:
     m_NumAlphaKeys: 2
   colorGradientTexture: {fileID: 0}
   shallowColor: {r: 0, g: 0.6076317, b: 0.8, a: 0.47843137}
-  deepColor: {r: 0.01176471, g: 0.28616494, b: 0.50980073, a: 1}
+  deepColor: {r: 0.01176471, g: 0.28608173, b: 0.50980073, a: 1}
   colorDepth: 1
-  horizonColor: {r: 0, g: 0.22734144, b: 0.8, a: 1}
+  horizonColor: {r: 0, g: 0.22725824, b: 0.8, a: 1}
   horizonDistance: 5
   shoreFade: 1
-  shoreColor: {r: 0, g: 0.98039216, b: 0.3018512, a: 0}
+  shoreColor: {r: 0, g: 0.98039216, b: 0.30176803, a: 0}
   shoreStrength: 0
   shoreBlend: 1
   shoreDepth: 2
   waveColor: {r: 0, g: 0, b: 0, a: 0}
-  underwaterColor: {r: 0.38455185, g: 0.48911834, b: 0.6981132, a: 0.389}
+  underwaterColor: {r: 0.38446864, g: 0.48911834, b: 0.6981132, a: 0.389}
   underwaterColorStrength: 0.389
   underwaterRefractionStrength: 0.099
   surfaceFoamTexture: {fileID: 2800000, guid: d3b0d77dfe711a04c8ff18ecc260aa66, type: 3}
@@ -220,13 +220,13 @@ MonoBehaviour:
   shoreFoamFrequency: 0
   shoreFoamBreakupStrength: 0
   shoreFoamBreakupScale: 0
-  lighting: 1
+  lighting: 0
   lightingSmoothness: 0.5
   lightingSpecularColor: {r: 1, g: 1, b: 1, a: 0}
   lightingDiffuseColor: {r: 0, g: 0, b: 0, a: 0}
   lightingHardness: 0.4
   normalsTexture: {fileID: 2800000, guid: 35fea3f34fa38fd4ca09415e7d192aa3, type: 3}
-  normalsMovement: {x: 0.04, y: 1}
+  normalsMovement: {x: 0.01, y: 1.5}
   normalsStrength: 1
   normalsScale: 1.5
   normalsSpeed: 0.01
@@ -259,7 +259,7 @@ BoxCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 10, y: 0.5, z: 10}
-  m_Center: {x: 0, y: -0.25, z: 0}
+  m_Center: {x: 0, y: -0.5, z: 0}
 --- !u!114 &5629722424679073875
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -292,5 +292,8 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0.1
   damage: 99999
+  destoryOnHurt: 0
+  collisionForce: 0
+  ignorePlayer: {fileID: 0}
   destoryRigidbodys: 1
   destroyDelay: 1

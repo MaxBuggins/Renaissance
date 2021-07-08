@@ -79,6 +79,8 @@ MonoBehaviour:
   syncInterval: 0.1
   damage: 1
   destoryOnHurt: 0
+  collisionForce: 1
+  upwardsForce: 0
   ignorePlayer: {fileID: 0}
   destoryRigidbodys: 0
   destroyDelay: 0
