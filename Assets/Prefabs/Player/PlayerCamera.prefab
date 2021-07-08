@@ -181,7 +181,7 @@ MonoBehaviour:
   player: {fileID: 0}
   throwDelay: 0.5
   chargeDuration: 0.4
-  chargeSpeed: 35
+  chargeSpeed: 33
   pushForceMultipyer: 5
   gravityMultiplyer: 0.5
   shootPos: {fileID: 1793813062749898694}
@@ -296,7 +296,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 60
+  field of view: 75
   orthographic: 0
   orthographic size: 5
   m_Depth: 0
@@ -366,7 +366,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64edb88d9811ccb4fb5c728bd8e6c1fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mouseLookSensitivty: 25
+  mouseLookSensitivty: 18
   gamepadLookSensitivty: 50
   headBobHeight: 0
   headBobDuration: 0
