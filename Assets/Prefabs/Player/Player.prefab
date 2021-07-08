@@ -159,6 +159,7 @@ MonoBehaviour:
   jumpHeight: 1
   coyotTime: 0.3
   pushForce: 5
+  velocity: {x: 0, y: 0, z: 0}
   cameraObj: {fileID: 8395054064927053673, guid: cf666aa8ac64cb9488d0a1a513b02fc2, type: 3}
   character: {fileID: 0}
   body: {fileID: 6227654299155050500}
@@ -166,6 +167,7 @@ MonoBehaviour:
   spawnableObjects:
   - {fileID: 9135064866333483514, guid: e5d4d549e335e3e4dad3c3d49731c6fc, type: 3}
   - {fileID: 2809265603616378744, guid: 48120d00173fdf94ea015c5ef7850de3, type: 3}
+  - {fileID: 5753342421408394649, guid: 92ba6ac3aa8d84a49859003e1a1b3d8a, type: 3}
   uIMain: {fileID: 0}
 --- !u!1 &6227654299155050500
 GameObject:

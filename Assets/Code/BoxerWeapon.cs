@@ -13,7 +13,13 @@ public class BoxerWeapon : PlayerWeapon
     public float chargeDuration = 2.75f;
     private float chargeTime;
     public float chargeSpeed = 5;
+
+    public float pushForceMultipyer = 5;
     public float gravityMultiplyer = 0.5f;
+
+    //to store default values
+    private float orginalPushForce;
+    private float orginalGravitY;
 
     private Vector3 chargeDirection;
 
@@ -26,6 +32,9 @@ public class BoxerWeapon : PlayerWeapon
     {
         player = GetComponentInParent<Player>();
         chargeTime = chargeDuration;
+
+        orginalPushForce = player.pushForce;
+        orginalGravitY = player.gravitY;
 
         base.Start();
     }
@@ -48,7 +57,7 @@ public class BoxerWeapon : PlayerWeapon
     [Client]
     public override void UsePrimary()
     {
-        player.CmdSpawnObject(0, transform.position, transform.eulerAngles, true);
+        player.CmdSpawnObject(0, transform.position, transform.eulerAngles, true, true);
         base.UsePrimary();
     }
 
@@ -60,7 +69,7 @@ public class BoxerWeapon : PlayerWeapon
 
         throwTime = 0;
 
-        player.CmdSpawnObject(1, shootPos.position, shootPos.eulerAngles, false);
+        player.CmdSpawnObject(1, shootPos.position, shootPos.eulerAngles, false, false);
 
         base.UseSeconday();
     }
@@ -73,15 +82,25 @@ public class BoxerWeapon : PlayerWeapon
 
         player.CmdUseSpecial(specialCost);
 
-        player.pushForce *= 7;
+        player.velocity = Vector3.zero;
+
+        //orginalPushForce = player.pushForce;
+        player.pushForce *= pushForceMultipyer;
+
+        //orginalGravitY = player.gravitY;
         player.gravitY *= gravityMultiplyer;
+
         chargeDirection = transform.forward;
         chargeTime = 0;
+
+        player.CmdSpawnObject(2, transform.position, transform.eulerAngles, true, true);
     }
 
-    void EndSpecial()
+    public override void EndSpecial()
     {
-        player.pushForce /= 7;
-        player.gravitY /= gravityMultiplyer;
+        player.pushForce = orginalPushForce;
+        player.gravitY = orginalGravitY;
+
+        chargeTime = chargeDuration; //make sure if called outside of script
     }
 }

@@ -56,4 +56,9 @@ public class PlayerWeapon : NetworkBehaviour
     {
 
     }
+
+    public virtual void EndSpecial()
+    {
+
+    }
 }

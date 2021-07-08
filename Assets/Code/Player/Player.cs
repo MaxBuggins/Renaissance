@@ -48,7 +48,7 @@ public class Player : NetworkBehaviour
     [Header("Player Internals")]
     private Vector2 move;
     private Vector3 lastPos;
-    private Vector3 velocity;
+    public Vector3 velocity;
 
     private float deadTime;
 
@@ -286,6 +286,11 @@ public class Player : NetworkBehaviour
             corpseRB.GetComponent<Collider>().enabled = true;
         }
 
+        if (isLocalPlayer)
+        {
+            GetComponentInChildren<PlayerWeapon>().EndSpecial();
+        }
+
         if (!isServer) //only the server runs this
             return;
 
@@ -306,7 +311,7 @@ public class Player : NetworkBehaviour
     public void CmdSpawnPlayer()
     {
         netTrans.ServerTeleport(levelManager.GetSpawnPoint());
-        special += 1;
+        special = 4;
         health = maxHealth;
     }
 
@@ -324,9 +329,13 @@ public class Player : NetworkBehaviour
     }
 
     [Command]
-    public void CmdSpawnObject(int objID, Vector3 pos, Vector3 rot, bool serverOnly)
+    public void CmdSpawnObject(int objID, Vector3 pos, Vector3 rot, bool serverOnly, bool playerParent)
     {
-        GameObject spawned = Instantiate(spawnableObjects[objID], pos, Quaternion.Euler(rot));
+        Transform parent = null;
+        if (playerParent)
+            parent = transform;
+
+        GameObject spawned = Instantiate(spawnableObjects[objID], pos, Quaternion.Euler(rot), parent);
 
         if(spawned.GetComponent<Hurtful>() != null)
             spawned.GetComponent<Hurtful>().ignorePlayer = this;
