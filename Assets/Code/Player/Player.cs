@@ -21,34 +21,38 @@ public class Player : NetworkBehaviour
     public float specialChargeRate = 4;
     private float specialChargeTime = 0;
 
+    [Header("Player Info")]
     [SyncVar(hook = nameof(OnNameChanged))]
     public string playerName = "NoNameNed";
     [SyncVar(hook = nameof(OnColorChanged))]
     public Color playerColor = Color.white;
 
+    public ObjectPlayerClass playerClass;
+
     public Vector3 cameraOffset;
 
-    [Header("Player Movement")]
-    public float speed = 5;
-    public float backSpeedMultiplyer = 0.65f;
-    public float sideSpeedMultiplyer = 0.8f;
-    public float airMovementMultiplyer = 0.6f;
+    [Header("Player Atrabuits")] //internal use only on spawn resets varibles accoring to playerclass
+    [HideInInspector] public float speed = 5;
+    [HideInInspector] public float backSpeedMultiplyer = 0.65f;
+    [HideInInspector] public float sideSpeedMultiplyer = 0.8f;
+    [HideInInspector] public float airMovementMultiplyer = 0.6f;
 
-    public float gravitY = -10f; //manual gravity for gameplay reasons
-    public float fricktion = 5f;
-    public float maxMoveVelocity = 6;
+    [HideInInspector] public float gravitY = -10f; //manual gravity for gameplay reasons
+    [HideInInspector] public float fricktion = 5f;
+    [HideInInspector] public float maxMoveVelocity = 6;
 
-    private float fallTime; //for counting seconds of falling
-    public float jumpHeight = 2f;
-    public float coyotTime = 0.3f; //lol mesh has good idears NO WAY
+    [HideInInspector] public float jumpHeight = 2f;
+    [HideInInspector] public float coyotTime = 0.3f; //lol mesh has good idears NO WAY
 
-    public float pushForce = 5f;
+    [HideInInspector] public float pushForce = 5f;
 
 
     [Header("Player Internals")]
     private Vector2 move;
     private Vector3 lastPos;
+
     public Vector3 velocity;
+    private float fallTime; //for counting seconds of falling
 
     private float deadTime;
 
@@ -88,6 +92,7 @@ public class Player : NetworkBehaviour
         Color color = new Color(Random.Range(0f, 1f), Random.Range(0f, 1f), Random.Range(0f, 1f));
 
         CmdSetupPlayer(name, color);
+        OwnerSpawnPlayer();
 
         lastPos = transform.position;
     }
@@ -120,10 +125,6 @@ public class Player : NetworkBehaviour
         {
             IsDead();
             return;
-        }
-        else
-        {
-            //do special
         }
 
         IsGrounded();
@@ -160,12 +161,12 @@ public class Player : NetworkBehaviour
         velocity.x = Mathf.Lerp(velocity.x, 0, fricktion * Time.fixedDeltaTime);
         velocity.z = Mathf.Lerp(velocity.z, 0, fricktion * Time.fixedDeltaTime);
 
-        if (velocity.x < maxMoveVelocity && velocity.z < maxMoveVelocity)
+        if (Mathf.Abs(velocity.x) < maxMoveVelocity && Mathf.Abs(velocity.z) < maxMoveVelocity)
             movement *= speed;
 
         character.Move((movement + velocity) * Time.fixedDeltaTime); //apply movement to charhcter contoler
 
-        velocity += transform.right * move.x + transform.forward * move.y;
+        velocity += transform.right * x + transform.forward * z;
     }
 
     [ClientCallback]
@@ -289,6 +290,9 @@ public class Player : NetworkBehaviour
         if (isLocalPlayer)
         {
             GetComponentInChildren<PlayerWeapon>().EndSpecial();
+
+            if (alive == true)
+                OwnerSpawnPlayer();
         }
 
         if (!isServer) //only the server runs this
@@ -313,6 +317,24 @@ public class Player : NetworkBehaviour
         netTrans.ServerTeleport(levelManager.GetSpawnPoint());
         special = 4;
         health = maxHealth;
+    }
+
+    public void OwnerSpawnPlayer()
+    {
+        //reset according to the players class
+        speed = playerClass.speed;
+        backSpeedMultiplyer = playerClass.backSpeedMultiplyer;
+        sideSpeedMultiplyer = playerClass.sideSpeedMultiplyer;
+        airMovementMultiplyer = playerClass.airMovementMultiplyer;
+
+        gravitY = playerClass.gravitY;
+        fricktion = playerClass.fricktion;
+        maxMoveVelocity = playerClass.maxMoveVelocity;
+
+        jumpHeight = playerClass.jumpHeight;
+        coyotTime = playerClass.coyotTime;
+
+        pushForce = playerClass.pushForce;
     }
 
     [ClientCallback]

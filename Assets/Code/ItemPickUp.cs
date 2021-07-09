@@ -18,8 +18,11 @@ public class ItemPickUp : NetworkBehaviour
     public float respawnDelay;
     private float respawnTime;
 
+    public enum PowerUp { None, Jump, Speed }
+
     public int health;
     public int special;
+    public PowerUp powerUp = PowerUp.None;
 
     [Header("Internals")]
     private Renderer render;
@@ -58,10 +61,16 @@ public class ItemPickUp : NetworkBehaviour
             return;
 
         Player player = other.GetComponent<Player>();
-        if(player != null)
+        if (player != null)
         {
             player.health += health;
             player.special += special;
+
+            if (powerUp != PowerUp.None)
+            {
+                NetworkIdentity target = player.netIdentity;
+                ApplyPowerUp(target.connectionToClient);
+            }
 
             isActive = false;
             respawnTime = 0;
@@ -73,5 +82,28 @@ public class ItemPickUp : NetworkBehaviour
     void RpcSetItem(bool active)
     {
         render.enabled = active;
+    }
+
+    [TargetRpc]
+    void ApplyPowerUp(NetworkConnection target)
+    {
+        Player player = target.identity.GetComponentInChildren<Player>();
+        switch (powerUp)
+        {
+            case (PowerUp.Jump):
+                {
+                    player.jumpHeight *= 1.5f;
+                    player.gravitY /= 1.2f;
+
+                    break;
+                }
+
+            case (PowerUp.Speed):
+                {
+                    player.speed *= 1.35f;
+                    player.maxMoveVelocity *= 1.5f;
+                    break;
+                }
+        }
     }
 }

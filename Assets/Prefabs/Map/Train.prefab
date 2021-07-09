@@ -154,7 +154,7 @@ GameObject:
   - component: {fileID: 7021919712819100277}
   - component: {fileID: 3923764388559855812}
   m_Layer: 0
-  m_Name: Particle System
+  m_Name: Smoke
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1007,7 +1007,7 @@ ParticleSystem:
     rateOverTime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 15
+      scalar: 16
       minScalar: 10
       maxCurve:
         serializedVersion: 2
@@ -1134,20 +1134,20 @@ ParticleSystem:
         - serializedVersion: 3
           time: 0.05
           value: 0.4
-          inSlope: 1.4800323
-          outSlope: 1.4800323
+          inSlope: 0.7465048
+          outSlope: 0.7465048
           tangentMode: 0
           weightedMode: 0
           inWeight: 0.33333334
-          outWeight: 0.33333334
+          outWeight: 0.17354819
         - serializedVersion: 3
           time: 1
           value: 1
-          inSlope: 0
-          outSlope: 0
+          inSlope: 1.3257217
+          outSlope: 1.3257217
           tangentMode: 0
           weightedMode: 0
-          inWeight: 0
+          inWeight: 0.1465859
           outWeight: 0
         m_PreInfinity: 2
         m_PostInfinity: 2
@@ -2829,11 +2829,11 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
   NoiseModule:
-    enabled: 0
+    enabled: 1
     strength:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 1
+      scalar: 0.5
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -2990,16 +2990,16 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     separateAxes: 0
-    frequency: 0.5
+    frequency: 0.25
     damping: 1
     octaves: 1
     octaveMultiplier: 0.5
     octaveScale: 2
-    quality: 2
+    quality: 1
     scrollSpeed:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0
+      scalar: 0.1
       minScalar: 0
       maxCurve:
         serializedVersion: 2

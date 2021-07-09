@@ -45,7 +45,7 @@ GameObject:
   - component: {fileID: 4841276276231126794}
   - component: {fileID: 2883281170198477639}
   m_Layer: 0
-  m_Name: Player
+  m_Name: BoxerPlayer
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -148,6 +148,7 @@ MonoBehaviour:
   specialChargeRate: 4
   playerName: 
   playerColor: {r: 1, g: 1, b: 1, a: 1}
+  playerClass: {fileID: 11400000, guid: 111dcb192fc61f74cbb00309b9cc4f68, type: 2}
   cameraOffset: {x: 0, y: 0.75, z: 0}
   speed: 5
   backSpeedMultiplyer: 0.65
