@@ -31,7 +31,7 @@ Transform:
   m_GameObject: {fileID: 4222692179176953903}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: -3, z: 10}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 10, y: 10, z: 10}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -43,7 +43,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4222692179176953903}
-  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: -618246179706927764, guid: fb606524fcd88254ba3dad41413af47c, type: 3}
 --- !u!23 &2496914107064364275
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -232,14 +232,14 @@ MonoBehaviour:
   normalsSpeed: 0.01
   refractionStrength: 0.3
   waveVisuals: {x: 0.15, y: 8, z: 1.38}
-  waveSteepness: 0.15
-  waveLength: 8
-  waveSpeed: 1.38
+  waveSteepness: 0.075
+  waveLength: 20
+  waveSpeed: 2
   waveDirections: {x: 0, y: 0.64, z: 1, w: 0.33}
   waveDirection1: 0
-  waveDirection2: 0.64
+  waveDirection2: 0.33
   waveDirection3: 1
-  waveDirection4: 0.33
+  waveDirection4: 0.75
   waterUVs: 1
   hideComponents: 0
   enableFoamShadows: 0
@@ -258,7 +258,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 10, y: 0.5, z: 10}
+  m_Size: {x: 7.5, y: 0.65, z: 7.5}
   m_Center: {x: 0, y: -0.5, z: 0}
 --- !u!114 &5629722424679073875
 MonoBehaviour:
@@ -294,6 +294,7 @@ MonoBehaviour:
   damage: 99999
   destoryOnHurt: 0
   collisionForce: 0
+  upwardsForce: 0
   ignorePlayer: {fileID: 0}
   destoryRigidbodys: 1
   destroyDelay: 1

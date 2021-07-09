@@ -5,6 +5,11 @@ using Mirror;
 
 public class BoxerWeapon : PlayerWeapon
 {
+    [Header("Punch Propertys")]
+    public float punchDelay;
+    public float punchCooldown;
+    private float timeSincePunch;
+
     [Header("Throw Propertys")]
     public float throwDelay = 0.125f;
     private float throwTime = 0;
@@ -24,6 +29,8 @@ public class BoxerWeapon : PlayerWeapon
     private Vector3 chargeDirection;
 
     [Header("Weapon Refrences")]
+    public GameObject punchHand;
+
     public Transform shootPos;
     public GameObject projectile;
     public GameObject hurtCube;
@@ -42,6 +49,7 @@ public class BoxerWeapon : PlayerWeapon
     protected override void Update()
     {
         throwTime += Time.deltaTime;
+        timeSincePunch += Time.deltaTime;
 
         if (chargeTime < chargeDuration)
         {
@@ -57,9 +65,21 @@ public class BoxerWeapon : PlayerWeapon
     [Client]
     public override void UsePrimary()
     {
-        player.CmdSpawnObject(0, transform.position, transform.eulerAngles, true, true);
-        base.UsePrimary();
+        if (timeSincePunch < punchCooldown)
+            return;
+
+        punchHand.transform.position += transform.forward * 0.75f;
+        Invoke(nameof(Punch), punchDelay);
+        timeSincePunch = 0;
     }
+
+    void Punch()
+    {
+        player.CmdSpawnObject(0, player.transform.position, transform.eulerAngles, true, true);
+        base.UsePrimary();
+        punchHand.transform.position -= transform.forward * 0.75f;
+    }
+
 
     [Client]
     public override void UseSeconday()
