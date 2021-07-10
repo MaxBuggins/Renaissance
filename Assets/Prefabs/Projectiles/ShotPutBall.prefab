@@ -235,10 +235,10 @@ CapsuleCollider:
   m_Material: {fileID: 13400000, guid: cf44887655e1fea488e30de6d0126c39, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.6
-  m_Height: 3
+  m_Radius: 0.7
+  m_Height: 2
   m_Direction: 1
-  m_Center: {x: 0, y: 1, z: 0}
+  m_Center: {x: 0, y: 0.5, z: 0}
 --- !u!54 &2809265603616378738
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -314,6 +314,6 @@ MonoBehaviour:
   initalForce: 20
   constForce: 0
   maxVelocity: 75
-  collisionDelay: 0.15
+  collisionDelay: 0.05
   destoryOnHits: 1
   hitPartical: {fileID: 6704984473634513958, guid: cc74bbebfeacfd24c9fcf0ead0de6311, type: 3}
