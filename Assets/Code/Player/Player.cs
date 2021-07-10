@@ -11,6 +11,8 @@ public class Player : NetworkBehaviour
     public GameObject floatingInfo;
 
     [Header("Player Stats")]
+    [SyncVar] public int score;
+
     public int maxHealth = 100;
     [SyncVar(hook = nameof(OnHealthChanged))]
     public int health;
@@ -18,6 +20,7 @@ public class Player : NetworkBehaviour
     public int maxSpecial = 10;
     [SyncVar(hook = nameof(OnSpecialChanged))]
     public int special;
+
     public float specialChargeRate = 4;
     private float specialChargeTime = 0;
 
@@ -25,7 +28,7 @@ public class Player : NetworkBehaviour
     [SyncVar(hook = nameof(OnNameChanged))]
     public string playerName = "NoNameNed";
     [SyncVar(hook = nameof(OnColorChanged))]
-    public Color playerColor = Color.white;
+    public Color playerColour = Color.white;
 
     public ObjectPlayerClass playerClass;
 
@@ -69,10 +72,12 @@ public class Player : NetworkBehaviour
     private LevelManager levelManager;
     public GameObject[] spawnableObjects;
 
+    private ClientManager clientManager;
     public UI_Main uIMain;
 
     public override void OnStartLocalPlayer() //just for the local client
     {
+        clientManager = FindObjectOfType<ClientManager>();
         uIMain = FindObjectOfType<UI_Main>();
         uIMain.player = this;
         uIMain.UIUpdate();
@@ -88,10 +93,7 @@ public class Player : NetworkBehaviour
 
         Instantiate(cameraObj, transform.position + cameraOffset, transform.rotation, transform);
 
-        string name = "NoNameNed" + Random.Range(0, 99);
-        Color color = new Color(Random.Range(0f, 1f), Random.Range(0f, 1f), Random.Range(0f, 1f));
-
-        CmdSetupPlayer(name, color);
+        CmdSetupPlayer(clientManager.playerName, clientManager.playerColour);
         OwnerSpawnPlayer();
 
         lastPos = transform.position;
@@ -107,13 +109,23 @@ public class Player : NetworkBehaviour
 
     void FixedUpdate()
     {
-        if (isServer && health > 0)
+        if (isServer)
         {
-            specialChargeTime += Time.fixedDeltaTime;
-            if (specialChargeTime > specialChargeRate)
+            //prevents infiti health and special stacking
+            if (health > maxHealth)
+                health = maxHealth;
+
+            if (special > maxSpecial)
+                special = maxSpecial;
+
+            else if (health > 0)
             {
-                special += 1;
-                specialChargeTime = 0;
+                specialChargeTime += Time.fixedDeltaTime;
+                if (specialChargeTime > specialChargeRate)
+                {
+                    special += 1;
+                    specialChargeTime = 0;
+                }
             }
         }
 
@@ -241,10 +253,6 @@ public class Player : NetworkBehaviour
 
     void OnHealthChanged(int _Old, int _New)
     {
-        if (isServer)
-            if (health > maxHealth)
-                health = maxHealth;
-
         if (isLocalPlayer)
             uIMain.UIUpdate();
 
@@ -259,10 +267,6 @@ public class Player : NetworkBehaviour
     }
     void OnSpecialChanged(int _Old, int _New)
     {
-        if(isServer)
-            if (special > maxSpecial)
-                special = maxSpecial;
-
         if (isLocalPlayer)
             uIMain.UIUpdate();
     }
@@ -285,6 +289,8 @@ public class Player : NetworkBehaviour
         {
             corpseRB.transform.parent = null;
             corpseRB.GetComponent<Collider>().enabled = true;
+            if (isServer)
+                score -= 1;
         }
 
         if (isLocalPlayer)
@@ -308,7 +314,7 @@ public class Player : NetworkBehaviour
     {
         // player info sent to server, then server updates sync vars which handles it on all clients
         playerName = _name;
-        playerColor = _col;
+        playerColour = _col;
     }
 
     [Command]
@@ -353,6 +359,9 @@ public class Player : NetworkBehaviour
     [Command]
     public void CmdSpawnObject(int objID, Vector3 pos, Vector3 rot, bool serverOnly, bool playerParent)
     {
+        if (health <= 0) //dead players cant spawn objects
+            return;
+
         Transform parent = null;
         if (playerParent)
             parent = transform;
@@ -367,7 +376,7 @@ public class Player : NetworkBehaviour
     }
 
     [ClientRpc]
-    public void RpcAddVelocity(Vector3 vel)
+    public void RpcAddVelocity(Vector3 vel) //TEMP apply to local player only
     {
         velocity += vel;
     }

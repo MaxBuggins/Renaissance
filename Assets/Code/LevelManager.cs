@@ -1,12 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Mirror;
 
-public class LevelManager : MonoBehaviour
+public class LevelManager : NetworkBehaviour
 {
     public float respawnDelay = 1;
 
     private List<Transform> spawnPoints = new List<Transform>();
+    public List<Player> players = new List<Player>();
 
     void Start()
     {
@@ -17,6 +19,10 @@ public class LevelManager : MonoBehaviour
         }
     }
 
+    private void Update()
+    {
+
+    }
 
     public Vector3 GetSpawnPoint()
     {
