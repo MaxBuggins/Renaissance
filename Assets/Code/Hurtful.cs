@@ -55,6 +55,7 @@ public class Hurtful : NetworkBehaviour
         lastPos = transform.position;
     }
 
+    [Server]
     private void OnTriggerEnter(Collider other)
     {
         if (other.tag == "Player")
@@ -80,6 +81,7 @@ public class Hurtful : NetworkBehaviour
             StartCoroutine(WaitThenDestory(rb.gameObject));
     }
 
+    [Server]
     private void OnTriggerExit(Collider other)
     {
         if (other.tag == "Player")
@@ -92,10 +94,13 @@ public class Hurtful : NetworkBehaviour
         }
     }
 
+    [Server]
     IEnumerator WaitThenDestory(GameObject obj)
     {
         yield return new WaitForSeconds(destroyDelay);
-        NetworkServer.Destroy(obj);
+
+        if (obj.GetComponent<NetworkIdentity>() != null)
+            NetworkServer.Destroy(obj);
     }
 
     [Server]

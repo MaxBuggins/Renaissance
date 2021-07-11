@@ -17,7 +17,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &1365542294323761434
 Transform:
@@ -94,9 +94,9 @@ CapsuleCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 2
-  m_Height: 17
+  m_Height: 20
   m_Direction: 2
-  m_Center: {x: 0, y: 0, z: 8}
+  m_Center: {x: 0, y: 0, z: 9}
 --- !u!1 &7469456577745907317
 GameObject:
   m_ObjectHideFlags: 0
@@ -123,7 +123,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7469456577745907317}
   m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0, z: 16.999998}
+  m_LocalPosition: {x: 0, y: -0.00000029802322, z: 18.499998}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1365542294323761434}
@@ -3728,7 +3728,7 @@ ParticleSystem:
     m_Dampen:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.5
+      scalar: 0
       minScalar: 0
       maxCurve:
         serializedVersion: 2

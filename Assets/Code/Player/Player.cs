@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
 using TMPro;
+using Pixelplacement;
 
 public class Player : NetworkBehaviour
 {
@@ -49,6 +50,9 @@ public class Player : NetworkBehaviour
 
     [HideInInspector] public float pushForce = 5f;
 
+    public float hurtScale = 1.1f;
+    public float hurtDuration = 0.5f;
+    public AnimationCurve hurtCurve;
 
     [Header("Player Internals")]
     private Vector2 move;
@@ -256,10 +260,18 @@ public class Player : NetworkBehaviour
         if (isLocalPlayer)
             uIMain.UIUpdate();
 
-        if (_Old > 0 && _New <= 0) //on death
+
+        if (_Old > _New) //if damage taken
         {
-            PlayerAlive(false);
+            Tween.LocalScale(body.transform, Vector3.one * hurtScale, hurtDuration,
+                0, hurtCurve);
+
+            if (_Old > 0 && _New <= 0) //on death
+            {
+                PlayerAlive(false);
+            }
         }
+
         if (_Old <= 0 && _New > 0) //on death
         {
             PlayerAlive(true);
