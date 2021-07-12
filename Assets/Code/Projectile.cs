@@ -19,6 +19,8 @@ public class Projectile : NetworkBehaviour
     private Rigidbody rb;
     private NetworkTransform netTrans;
 
+    public Player shooter;
+
     public GameObject hitPartical;
 
 
@@ -67,7 +69,12 @@ public class Projectile : NetworkBehaviour
         {
             var player = collision.gameObject.GetComponent<Player>();
             if (player != null)
+            {
                 player.health -= damage;
+                if (player.health <= 0)
+                    if (shooter != null)
+                        shooter.score += 1;
+            }
         }
 
         RpcHit();

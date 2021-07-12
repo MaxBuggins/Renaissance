@@ -69,7 +69,10 @@ public class Player : NetworkBehaviour
     public GameObject cameraObj;
     public CharacterController character;
     public GameObject body;
-    public Rigidbody corpseRB;
+    public Transform bodyTrans;
+
+    public GameObject corpsePrefab;
+    private GameObject corpseObject;
 
     private NetworkTransform netTrans;
 
@@ -115,15 +118,12 @@ public class Player : NetworkBehaviour
     {
         if (isServer)
         {
-            //prevents infiti health and special stacking
-            if (health > maxHealth)
-                health = maxHealth;
-
-            if (special > maxSpecial)
-                special = maxSpecial;
-
-            else if (health > 0)
+            //prevents infiti special stacking
+            if (health > 0)
             {
+                if (special > maxSpecial)
+                    special = maxSpecial;
+
                 specialChargeTime += Time.fixedDeltaTime;
                 if (specialChargeTime > specialChargeRate)
                 {
@@ -288,19 +288,19 @@ public class Player : NetworkBehaviour
         character.enabled = alive;
         floatingInfo.SetActive(alive);
         body.SetActive(alive);
-        corpseRB.gameObject.SetActive(!alive);
 
         if (alive == true)
         {
-            corpseRB.transform.parent = transform;
-            corpseRB.transform.eulerAngles = Vector3.zero;
-            corpseRB.transform.localPosition = Vector3.zero;
-            corpseRB.GetComponent<Collider>().enabled = false;
+            if (corpseObject != null)
+                Destroy(corpseObject);
+
+            //corpseRB.GetComponent<Collider>().enabled = false;
         }
         else
         {
-            corpseRB.transform.parent = null;
-            corpseRB.GetComponent<Collider>().enabled = true;
+            corpseObject = Instantiate(corpsePrefab, bodyTrans);
+            //corpseRB.transform.parent = null;
+            //corpseRB.GetComponent<Collider>().enabled = true;
             if (isServer)
                 score -= 1;
         }
@@ -316,8 +316,9 @@ public class Player : NetworkBehaviour
         if (!isServer) //only the server runs this
             return;
 
-        //need to sync rigidbody between clients wont work AHHHHHH   
-        corpseRB.velocity = (transform.position - lastPos) * 10;
+        //need to sync rigidbody between clients wont work AHHHHHH  
+        if (corpseObject != null)
+            corpseObject.GetComponentInChildren<Rigidbody>().velocity = (transform.position - lastPos) * 10;
         //corpseRB.GetComponent<Mirror.Experimental.NetworkRigidbody>().SyncToClients();
     }
 
@@ -382,8 +383,11 @@ public class Player : NetworkBehaviour
 
         if(spawned.GetComponent<Hurtful>() != null)
             spawned.GetComponent<Hurtful>().ignorePlayer = this;
-        
-        if(serverOnly == false)
+
+        if (spawned.GetComponent<Projectile>() != null)
+            spawned.GetComponent<Projectile>().shooter = this;
+
+        if (serverOnly == false)
             NetworkServer.Spawn(spawned);
     }
 
@@ -398,4 +402,14 @@ public class Player : NetworkBehaviour
     {
         special -= used;
     }
+
+    //[Command]
+    //public void hurt(int damage)
+    //{
+    //    health -= damage;
+
+    //    //prevents infiti health stacking
+    //    if (health > maxHealth)
+     //       health = maxHealth;
+    //}
 }

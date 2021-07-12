@@ -1,16 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Mirror;
 
-public class MoveWithPlatform : NetworkBehaviour
+public class MoveWithPlatform : MonoBehaviour
 {
-    private List<Player> inTrigger = new List<Player>();
+    //private List<Player> inTrigger = new List<Player>();
 
     void Start()
     {
-        if (isClient)
-            enabled = false;
+
     }
 
     void Update()
@@ -25,7 +23,25 @@ public class MoveWithPlatform : NetworkBehaviour
             var player = other.GetComponent<Player>();
             if (player != null)
             {
-                inTrigger.Add(player);
+                if (player.isLocalPlayer)
+                {
+                    player.transform.parent = transform;
+                }
+            }
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.tag == "Player")
+        {
+            var player = other.GetComponent<Player>();
+            if (player != null)
+            {
+                if (player.isLocalPlayer)
+                {
+                    player.transform.parent = null;
+                }
             }
         }
     }

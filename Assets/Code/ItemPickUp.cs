@@ -64,6 +64,9 @@ public class ItemPickUp : NetworkBehaviour
         if (player != null)
         {
             player.health += health;
+            if (player.health > player.maxHealth)
+                player.health = player.maxHealth;
+
             player.special += special;
 
             if (powerUp != PowerUp.None)

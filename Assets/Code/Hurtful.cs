@@ -99,8 +99,9 @@ public class Hurtful : NetworkBehaviour
     {
         yield return new WaitForSeconds(destroyDelay);
 
-        if (obj.GetComponent<NetworkIdentity>() != null)
-            NetworkServer.Destroy(obj);
+        if(obj != null)
+            if (obj.GetComponent<NetworkIdentity>() != null)
+                NetworkServer.Destroy(obj);
     }
 
     [Server]
@@ -110,6 +111,8 @@ public class Hurtful : NetworkBehaviour
         if(player.health <= 0)
         {
             inTrigger.Remove(player);
+            if (ignorePlayer != null)
+                ignorePlayer.score += 1;
         }
 
         if(collisionForce != 0)
