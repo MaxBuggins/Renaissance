@@ -110,7 +110,7 @@ public class BoxerWeapon : PlayerWeapon
         //orginalGravitY = player.gravitY;
         player.gravitY *= gravityMultiplyer;
 
-        chargeDirection = transform.forward;
+        chargeDirection = new Vector3(transform.forward.x, 0, transform.forward.z).normalized;
         chargeTime = 0;
 
         player.CmdSpawnObject(2, transform.position, transform.eulerAngles, true, true);

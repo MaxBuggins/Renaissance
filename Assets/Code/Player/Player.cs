@@ -121,11 +121,15 @@ public class Player : NetworkBehaviour
             //prevents infiti special stacking
             if (health > 0)
             {
+                if (health > maxHealth)
+                    health = maxHealth;
+
+                specialChargeTime += Time.fixedDeltaTime;
+
                 if (special > maxSpecial)
                     special = maxSpecial;
 
-                specialChargeTime += Time.fixedDeltaTime;
-                if (specialChargeTime > specialChargeRate)
+                else if (specialChargeTime > specialChargeRate)
                 {
                     special += 1;
                     specialChargeTime = 0;
@@ -277,6 +281,7 @@ public class Player : NetworkBehaviour
             PlayerAlive(true);
         }
     }
+
     void OnSpecialChanged(int _Old, int _New)
     {
         if (isLocalPlayer)
