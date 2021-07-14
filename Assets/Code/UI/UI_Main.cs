@@ -8,6 +8,7 @@ public class UI_Main : MonoBehaviour
 
     public UI_Base[] uiBases;
     public GameObject deathUI;
+    public GameObject pauseUI;
 
     public LevelManager levelManager;
     public List<Player> players = new List<Player>();
@@ -20,7 +21,7 @@ public class UI_Main : MonoBehaviour
     public void UIUpdate()
     {
         players.Clear();
-        foreach (Player player in FindObjectsOfType<Player>())
+        foreach (Player player in FindObjectsOfType<Player>()) //sort players by score
         {
             for(int i = 0; i < players.Count; i ++)
             {
@@ -39,5 +40,10 @@ public class UI_Main : MonoBehaviour
 
 
         deathUI.SetActive(player.health <= 0); //bit of a coder
+    }
+
+    public void Pause(bool pause)
+    {
+        pauseUI.SetActive(pause);
     }
 }

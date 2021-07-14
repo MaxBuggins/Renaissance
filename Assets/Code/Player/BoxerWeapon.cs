@@ -48,6 +48,9 @@ public class BoxerWeapon : PlayerWeapon
 
     protected override void Update()
     {
+        if (player.paused)
+            return;
+
         throwTime += Time.deltaTime;
         timeSincePunch += Time.deltaTime;
 
@@ -65,6 +68,9 @@ public class BoxerWeapon : PlayerWeapon
     [Client]
     public override void UsePrimary()
     {
+        if (player.paused)
+            return;
+
         if (timeSincePunch < punchCooldown)
             return;
 
@@ -84,6 +90,9 @@ public class BoxerWeapon : PlayerWeapon
     [Client]
     public override void UseSeconday()
     {
+        if (player.paused)
+            return;
+
         if (throwTime < throwDelay)
             return;
 
@@ -97,6 +106,9 @@ public class BoxerWeapon : PlayerWeapon
     [Client]
     public override void UseSpecial()
     {
+        if (player.paused)
+            return;
+
         if (player.special - specialCost < 0)
             return;
 
@@ -114,6 +126,8 @@ public class BoxerWeapon : PlayerWeapon
         chargeTime = 0;
 
         player.CmdSpawnObject(2, transform.position, transform.eulerAngles, true, true);
+
+        base.UseSpecial();
     }
 
     public override void EndSpecial()
@@ -122,5 +136,7 @@ public class BoxerWeapon : PlayerWeapon
         player.gravitY = orginalGravitY;
 
         chargeTime = chargeDuration; //make sure if called outside of script
+
+        base.EndSpecial();
     }
 }

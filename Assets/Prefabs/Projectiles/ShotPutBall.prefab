@@ -170,7 +170,7 @@ Transform:
   m_GameObject: {fileID: 2809265603616378744}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.35, y: 0.35, z: 0.35}
+  m_LocalScale: {x: 0.4, y: 0.4, z: 0.4}
   m_Children:
   - {fileID: 7464506819704524385}
   m_Father: {fileID: 0}
@@ -316,4 +316,5 @@ MonoBehaviour:
   maxVelocity: 75
   collisionDelay: 0.05
   destoryOnHits: 1
+  shooter: {fileID: 0}
   hitPartical: {fileID: 6704984473634513958, guid: cc74bbebfeacfd24c9fcf0ead0de6311, type: 3}

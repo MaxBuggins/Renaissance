@@ -19,7 +19,7 @@ public class PlayerWeapon : NetworkBehaviour
 
     protected virtual void Start()
     {
-        if (isServer)
+        if (isServer || player.paused)
             return;
 
         player = GetComponentInParent<Player>();
@@ -38,27 +38,36 @@ public class PlayerWeapon : NetworkBehaviour
 
     protected virtual void Update()
     {
+        if (player.paused)
+            return;
+
         if (canHoldPrimay == true && primaryHeld == true)
             UsePrimary();
     }
 
     public virtual void UsePrimary()
     {
+        if (player.paused)
+            return;
+
         primaryHeld = true;
     }
 
     public virtual void UseSeconday()
     {
-
+        if (player.paused)
+            return;
     }
 
     public virtual void UseSpecial()
     {
-
+        if (player.paused)
+            return;
     }
 
     public virtual void EndSpecial()
     {
-
+        if (player.paused)
+            return;
     }
 }

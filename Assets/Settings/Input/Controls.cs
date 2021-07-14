@@ -65,6 +65,14 @@ public class @Controls : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Pause"",
+                    ""type"": ""Button"",
+                    ""id"": ""68b19e54-7a96-4f17-8a41-9f3febe35be1"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -210,6 +218,28 @@ public class @Controls : IInputActionCollection, IDisposable
                     ""action"": ""Special"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f7feb8dc-57ca-4ff1-8d4a-9d3710b1ca5d"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Pause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a21b4d59-e254-4278-8261-da28c270f03b"",
+                    ""path"": ""<Keyboard>/p"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Pause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -224,6 +254,7 @@ public class @Controls : IInputActionCollection, IDisposable
         m_Game_Primary = m_Game.FindAction("Primary", throwIfNotFound: true);
         m_Game_Seconday = m_Game.FindAction("Seconday", throwIfNotFound: true);
         m_Game_Special = m_Game.FindAction("Special", throwIfNotFound: true);
+        m_Game_Pause = m_Game.FindAction("Pause", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -279,6 +310,7 @@ public class @Controls : IInputActionCollection, IDisposable
     private readonly InputAction m_Game_Primary;
     private readonly InputAction m_Game_Seconday;
     private readonly InputAction m_Game_Special;
+    private readonly InputAction m_Game_Pause;
     public struct GameActions
     {
         private @Controls m_Wrapper;
@@ -289,6 +321,7 @@ public class @Controls : IInputActionCollection, IDisposable
         public InputAction @Primary => m_Wrapper.m_Game_Primary;
         public InputAction @Seconday => m_Wrapper.m_Game_Seconday;
         public InputAction @Special => m_Wrapper.m_Game_Special;
+        public InputAction @Pause => m_Wrapper.m_Game_Pause;
         public InputActionMap Get() { return m_Wrapper.m_Game; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -316,6 +349,9 @@ public class @Controls : IInputActionCollection, IDisposable
                 @Special.started -= m_Wrapper.m_GameActionsCallbackInterface.OnSpecial;
                 @Special.performed -= m_Wrapper.m_GameActionsCallbackInterface.OnSpecial;
                 @Special.canceled -= m_Wrapper.m_GameActionsCallbackInterface.OnSpecial;
+                @Pause.started -= m_Wrapper.m_GameActionsCallbackInterface.OnPause;
+                @Pause.performed -= m_Wrapper.m_GameActionsCallbackInterface.OnPause;
+                @Pause.canceled -= m_Wrapper.m_GameActionsCallbackInterface.OnPause;
             }
             m_Wrapper.m_GameActionsCallbackInterface = instance;
             if (instance != null)
@@ -338,6 +374,9 @@ public class @Controls : IInputActionCollection, IDisposable
                 @Special.started += instance.OnSpecial;
                 @Special.performed += instance.OnSpecial;
                 @Special.canceled += instance.OnSpecial;
+                @Pause.started += instance.OnPause;
+                @Pause.performed += instance.OnPause;
+                @Pause.canceled += instance.OnPause;
             }
         }
     }
@@ -350,5 +389,6 @@ public class @Controls : IInputActionCollection, IDisposable
         void OnPrimary(InputAction.CallbackContext context);
         void OnSeconday(InputAction.CallbackContext context);
         void OnSpecial(InputAction.CallbackContext context);
+        void OnPause(InputAction.CallbackContext context);
     }
 }

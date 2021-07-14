@@ -205,7 +205,7 @@ GameObject:
   - component: {fileID: 166122105936474955}
   - component: {fileID: 5131718964063277963}
   m_Layer: 0
-  m_Name: ThrowHand
+  m_Name: BoxerPOV
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -261,11 +261,11 @@ MonoBehaviour:
   canHoldPrimay: 0
   specialCost: 3
   player: {fileID: 0}
-  punchDelay: 0.25
-  punchCooldown: 0.5
-  throwDelay: 0.5
+  punchDelay: 0.15
+  punchCooldown: 0.4
+  throwDelay: 0.75
   chargeDuration: 0.4
-  chargeSpeed: 30
+  chargeSpeed: 35
   pushForceMultipyer: 15
   gravityMultiplyer: 0.4
   punchHand: {fileID: 5744086905316796481}

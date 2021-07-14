@@ -55,6 +55,8 @@ public class Player : NetworkBehaviour
     public AnimationCurve hurtCurve;
 
     [Header("Player Internals")]
+    public bool paused;
+
     private Vector2 move;
     private Vector3 lastPos;
 
@@ -95,6 +97,8 @@ public class Player : NetworkBehaviour
 
         controls.Game.Move.performed += ctx => move = ctx.ReadValue<Vector2>();
         controls.Game.Move.canceled += ctx => move = Vector2.zero;
+
+        controls.Game.Pause.performed += funnyer => Pause(!paused);
 
         controls.Enable();
 
@@ -138,7 +142,7 @@ public class Player : NetworkBehaviour
         }
 
 
-        if (!isLocalPlayer) //only the player runs this
+        if (!isLocalPlayer) //only the player runs whats next
             return;
 
         if (health <= 0)
@@ -184,6 +188,9 @@ public class Player : NetworkBehaviour
         if (Mathf.Abs(velocity.x) < maxMoveVelocity && Mathf.Abs(velocity.z) < maxMoveVelocity)
             movement *= speed;
 
+        if (paused)
+            movement = Vector3.zero;
+
         character.Move((movement + velocity) * Time.fixedDeltaTime); //apply movement to charhcter contoler
 
         velocity += transform.right * x + transform.forward * z;
@@ -192,11 +199,25 @@ public class Player : NetworkBehaviour
     [ClientCallback]
     void Jump()
     {
+        if (paused)
+            return;
+
         if (fallTime < coyotTime)
         {
             fallTime = coyotTime;
             velocity.y = Mathf.Sqrt(jumpHeight * -2.0f * gravitY * 2); //physics reasons 
         }
+    }
+
+    void Pause(bool pause)
+    {
+        paused = pause;
+        uIMain.Pause(pause);
+
+        if(pause == true)
+            Cursor.lockState = CursorLockMode.None;
+        else
+            Cursor.lockState = CursorLockMode.Locked;
     }
 
     [ClientCallback]
