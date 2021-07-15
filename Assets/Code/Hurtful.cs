@@ -10,6 +10,7 @@ public class Hurtful : NetworkBehaviour
     public int damage = 1;
     public bool destoryOnHurt = false;
 
+    public float damagePerSeconds;
     private float timeSinceDamage = 0;
 
     public float collisionForce = 0;

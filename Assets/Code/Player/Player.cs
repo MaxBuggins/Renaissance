@@ -72,6 +72,7 @@ public class Player : NetworkBehaviour
     [HideInInspector] public PlayerCamera playerCam;
     [HideInInspector] public CharacterController character;
     private AudioSource audioSource;
+    private Animator animator;
 
     public GameObject body;
     public Transform bodyTrans;
@@ -121,6 +122,8 @@ public class Player : NetworkBehaviour
         audioSource = GetComponent<AudioSource>();
         netTrans = GetComponent<NetworkTransform>();
 
+        animator = GetComponentInChildren<Animator>();
+
         levelManager = FindObjectOfType<LevelManager>();
     }
 
@@ -161,6 +164,12 @@ public class Player : NetworkBehaviour
 
     private void LateUpdate()
     {
+        float speedMultiplyer = 600;
+        if (isServer)
+            speedMultiplyer = 3000;
+
+        animator.speed = Vector3.Distance(transform.position, lastPos) * Time.deltaTime * speedMultiplyer;
+
         lastPos = transform.position; //must be done after movement and stuff
     }
 
@@ -317,11 +326,9 @@ public class Player : NetworkBehaviour
             uIMain.UIUpdate();
     }
 
+    [Client]
     void PlayerAlive(bool alive)
     {
-        if (isServer)
-            return;
-
         character.enabled = alive;
         floatingInfo.SetActive(alive);
         body.SetActive(alive);
@@ -378,8 +385,8 @@ public class Player : NetworkBehaviour
     [Client]
     public void OwnerSpawnPlayer()
     {
-        playerCam.transform.position = transform.position + cameraOffset;
-        playerCam.transform.rotation = transform.rotation;
+        playerCam.transform.localPosition = cameraOffset;
+
         //reset according to the players class
         speed = playerClass.speed;
         backSpeedMultiplyer = playerClass.backSpeedMultiplyer;
@@ -443,6 +450,9 @@ public class Player : NetworkBehaviour
     [Server]
     public void Hurt(int damage, string killer = "", Sprite hurtIcon = null) //can be used to heal just do -damage
     {
+        if (health <= 0)
+            return;
+
         //prevents infiti health stacking
         if (health - damage > maxHealth)
             health = maxHealth;

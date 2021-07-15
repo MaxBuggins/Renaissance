@@ -44,28 +44,29 @@ public class Projectile : NetworkBehaviour
         transform.position = transform.position + ((transform.up * velocity.y)
             + (transform.forward * forwardSpeed)) * Time.deltaTime;
 
-        if (!isServer)
-            return;
-
-        //Ray ray = new Ray(transform.position, player.position - transform.position)
-        RaycastHit hit;
-        if (Physics.SphereCast(transform.position, projectileWidth, transform.position - lastPos,
-            out hit, maxDistance: Mathf.Abs(Vector3.Distance(transform.position, lastPos)) * 1.25f))
+        if (isServer)
         {
-            Player player = hit.collider.gameObject.GetComponent<Player>();
-            if (player != null)
+            //Ray ray = new Ray(transform.position, player.position - transform.position)
+            RaycastHit hit;
+            if (Physics.SphereCast(transform.position, projectileWidth, transform.position - lastPos,
+                out hit, maxDistance: Mathf.Abs(Vector3.Distance(transform.position, lastPos)) * 1.25f, 
+                -1, QueryTriggerInteraction.Ignore))
             {
-                hurtful.HurtPlayer(player, damage);
+                Player player = hit.collider.gameObject.GetComponent<Player>();
+                if (player != null)
+                {
+                    hurtful.HurtPlayer(player, damage);
 
-                destoryOnHits -= 1;
+                    destoryOnHits -= 1;
 
-                if (destoryOnHits < 0)
-                    NetworkServer.Destroy(gameObject);
-            }
-            else
-            {
-                print(hit.collider.gameObject.name);
-                DestroySelf();
+                    if (destoryOnHits < 0)
+                        NetworkServer.Destroy(gameObject);
+                }
+                else
+                {
+                    print(hit.collider.gameObject.name);
+                    DestroySelf();
+                }
             }
         }
         lastPos = transform.position;
