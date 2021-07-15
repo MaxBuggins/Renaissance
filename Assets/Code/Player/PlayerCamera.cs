@@ -29,13 +29,11 @@ public class PlayerCamera : MonoBehaviour
     private Controls controls;
     private Camera cam;
 
-    private AudioSource audioSource;
 
 
     void Start()
     {
         cam = GetComponent<Camera>();
-        audioSource = GetComponent<AudioSource>();
         player = GetComponentInParent<Player>();
 
         controls = new Controls();

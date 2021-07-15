@@ -8,61 +8,89 @@ public class Projectile : NetworkBehaviour
     public int damage;
 
     public float destroyDelay = 5;
-    public float initalForce = 5;
-    public float constForce = 5;
-    public float maxVelocity = 10;
+    //public float initalForce = 5;
+    public float forwardSpeed = 5;
+    public float gravitY = -9;
 
-    public float collisionDelay = 0.15f;
+
+    public float projectileWidth = 0.3f;
     public int destoryOnHits = 0;
 
-    [Header("Projectile Refrences")]
-    private Rigidbody rb;
-    private NetworkTransform netTrans;
+    [Header("Internals")]
+    private Vector3 lastPos;
+    private Vector3 velocity;
 
-    public Player shooter;
+    [Header("Projectile Refrences")]
+    private NetworkTransform netTrans;
+    private Hurtful hurtful;
 
     public GameObject hitPartical;
-
 
     // Server and Clients must run
     void Awake()
     {
-        rb = GetComponent<Rigidbody>();
         netTrans = GetComponent<NetworkTransform>();
+        hurtful = GetComponent<Hurtful>();
 
-        rb.detectCollisions = false;
-        Invoke(nameof(ActivateCollision), collisionDelay);
+        lastPos = transform.position;
 
-        rb.AddForce(transform.up * initalForce, ForceMode.VelocityChange);
-    }
-
-    public override void OnStartServer()
-    {
         Invoke(nameof(DestroySelf), destroyDelay);
     }
 
     void Update()
     {
-        if(rb.velocity.magnitude < maxVelocity)
-            rb.AddForce(transform.up * constForce * Time.deltaTime, ForceMode.Acceleration);
+        velocity.y += gravitY * Time.deltaTime;
+        //ADD PLAYER VELOCITY TO IT
+        transform.position = transform.position + ((transform.up * velocity.y)
+            + (transform.forward * forwardSpeed)) * Time.deltaTime;
 
+        if (!isServer)
+            return;
+
+        //Ray ray = new Ray(transform.position, player.position - transform.position)
+        RaycastHit hit;
+        if (Physics.SphereCast(transform.position, projectileWidth, transform.position - lastPos,
+            out hit, maxDistance: Mathf.Abs(Vector3.Distance(transform.position, lastPos)) * 1.25f))
+        {
+            Player player = hit.collider.gameObject.GetComponent<Player>();
+            if (player != null)
+            {
+                hurtful.HurtPlayer(player, damage);
+
+                destoryOnHits -= 1;
+
+                if (destoryOnHits < 0)
+                    NetworkServer.Destroy(gameObject);
+            }
+            else
+            {
+                print(hit.collider.gameObject.name);
+                DestroySelf();
+            }
+        }
+        lastPos = transform.position;
     }
 
-    // destroy for everyone on the server
-    [Server]
+    // everyoneDestroys
     void DestroySelf()
     {
-        NetworkServer.Destroy(gameObject);
+        Destroy(gameObject);
     }
 
-    void ActivateCollision()
+    private void OnDestroy()
     {
-        rb.detectCollisions = true;
+        Instantiate(hitPartical, lastPos, transform.rotation);
     }
 
-    [ServerCallback]
+    //void ActivateCollision()
+    //{
+    //    rb.detectCollisions = true;
+    //}
+
+    //[ServerCallback]
     // ServerCallback because we don't want a warning if OnTriggerEnter is
     // called on the client
+    /*
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.tag == "Player")
@@ -70,10 +98,7 @@ public class Projectile : NetworkBehaviour
             var player = collision.gameObject.GetComponent<Player>();
             if (player != null)
             {
-                player.health -= damage;
-                if (player.health <= 0)
-                    if (shooter != null)
-                        shooter.score += 1;
+                hurtful.HurtPlayer(player, damage);
             }
         }
 
@@ -83,11 +108,7 @@ public class Projectile : NetworkBehaviour
         if (destoryOnHits < 0)
             Invoke(nameof(DestroySelf), 0.1f);
     }
-
-    [ClientRpc] //server tells all clients it has hit
-    void RpcHit()
-    {
-        Instantiate(hitPartical, transform.position, transform.rotation);
-    }
+    */
 }
+
 

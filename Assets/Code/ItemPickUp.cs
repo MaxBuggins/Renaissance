@@ -63,9 +63,7 @@ public class ItemPickUp : NetworkBehaviour
         Player player = other.GetComponent<Player>();
         if (player != null)
         {
-            player.health += health;
-            if (player.health > player.maxHealth)
-                player.health = player.maxHealth;
+            player.Hurt(-health);
 
             player.special += special;
 

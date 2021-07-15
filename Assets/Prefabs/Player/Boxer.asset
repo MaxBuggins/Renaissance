@@ -22,3 +22,9 @@ MonoBehaviour:
   jumpHeight: 1
   coyotTime: 0.3
   pushForce: 5
+  hurtSound:
+  - {fileID: 8300000, guid: 9d780eba4074daa42af6b3183c4b1313, type: 3}
+  - {fileID: 8300000, guid: 4b16930e429d58142b0ef6f547d3fa83, type: 3}
+  - {fileID: 8300000, guid: 06c6c222f9802584e890d6896202fdea, type: 3}
+  deathSound:
+  - {fileID: 8300000, guid: d78a7fe29da806b45826103aefca3131, type: 3}

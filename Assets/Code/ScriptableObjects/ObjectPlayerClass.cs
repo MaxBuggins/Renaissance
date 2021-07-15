@@ -19,4 +19,8 @@ public class ObjectPlayerClass : ScriptableObject
     public float coyotTime = 0.3f; //lol mesh has good idears NO WAY
 
     public float pushForce = 5f;
+
+    [Header("SoundEffects")]
+    public AudioClip[] hurtSound;
+    public AudioClip[] deathSound;
 }

@@ -149,11 +149,10 @@ GameObject:
   - component: {fileID: 2809265603616378748}
   - component: {fileID: 2809265603616378751}
   - component: {fileID: 2809265603616378750}
-  - component: {fileID: 6215295307402498700}
-  - component: {fileID: 2809265603616378738}
   - component: {fileID: 2809265603616378739}
   - component: {fileID: -5797084931668608411}
   - component: {fileID: 2809265603616378749}
+  - component: {fileID: 8522565217626811971}
   m_Layer: 6
   m_Name: ShotPutBall
   m_TagString: Untagged
@@ -225,36 +224,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!136 &6215295307402498700
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2809265603616378744}
-  m_Material: {fileID: 13400000, guid: cf44887655e1fea488e30de6d0126c39, type: 2}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.8
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0, y: 0.5, z: 0}
---- !u!54 &2809265603616378738
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2809265603616378744}
-  serializedVersion: 2
-  m_Mass: 0.5
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 2
 --- !u!114 &2809265603616378739
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -311,10 +280,30 @@ MonoBehaviour:
   syncInterval: 0.1
   damage: 35
   destroyDelay: 5
-  initalForce: 20
-  constForce: 0
-  maxVelocity: 75
-  collisionDelay: 0.05
+  forwardSpeed: 14
+  gravitY: -20
+  collisionDelay: 0.1
   destoryOnHits: 1
-  shooter: {fileID: 0}
   hitPartical: {fileID: 6704984473634513958, guid: cc74bbebfeacfd24c9fcf0ead0de6311, type: 3}
+--- !u!114 &8522565217626811971
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2809265603616378744}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d45a8781d9eedf4a99747a8e6cbc6fe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
+  damage: 1
+  destoryOnHurt: 1
+  collisionForce: 1.5
+  upwardsForce: 0
+  ignorePlayer: {fileID: 0}
+  destoryRigidbodys: 0
+  destroyDelay: 0
+  hurtSprite: {fileID: 0}

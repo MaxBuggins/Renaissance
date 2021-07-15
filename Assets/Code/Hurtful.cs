@@ -25,6 +25,7 @@ public class Hurtful : NetworkBehaviour
 
     private Vector3 lastPos;
 
+    public Sprite hurtSprite;
 
     void Awake()
     {
@@ -65,9 +66,6 @@ public class Hurtful : NetworkBehaviour
             {
                 HurtPlayer(player, damage);
 
-                if (destoryOnHurt == true)
-                    NetworkServer.Destroy(gameObject);
-
                 inTrigger.Add(player);
             }
             return;
@@ -105,10 +103,17 @@ public class Hurtful : NetworkBehaviour
     }
 
     [Server]
-    void HurtPlayer(Player player, int Damage)
+    public void HurtPlayer(Player player, int damage)
     {
-        player.health -= damage;
-        if(player.health <= 0)
+        if (player == ignorePlayer)
+            return;
+
+        if(ignorePlayer != null)
+            player.Hurt(damage, ignorePlayer.name, hurtSprite);
+        else
+            player.Hurt(damage, "", hurtSprite);
+
+        if (player.health <= 0)
         {
             inTrigger.Remove(player);
             if (ignorePlayer != null)
@@ -120,5 +125,9 @@ public class Hurtful : NetworkBehaviour
             Vector3 vel = transform.position - lastPos;
             player.RpcAddVelocity((vel * collisionForce) + (vel.magnitude * Vector3.up * upwardsForce));
         }
+
+
+        if (destoryOnHurt == true)
+            Destroy(gameObject);
     }
 }

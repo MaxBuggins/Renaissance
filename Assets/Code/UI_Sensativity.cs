@@ -9,12 +9,12 @@ public class UI_Sensativity : UI_Base
 
     private void Start()
     {
-        slider.value = ui_Main.player.cameraObj.GetComponent<PlayerCamera>().mouseLookSensitivty;
+        slider.value = ui_Main.player.playerCam.mouseLookSensitivty;
     }
 
     public void UpdateValue(float value)
     {
-        PlayerCamera pCam = ui_Main.player.GetComponentInChildren<PlayerCamera>();
+        PlayerCamera pCam = ui_Main.player.playerCam;
 
         if (pCam != null)
            pCam.mouseLookSensitivty = value;

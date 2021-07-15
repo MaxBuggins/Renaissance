@@ -68,8 +68,11 @@ public class Player : NetworkBehaviour
     private Controls controls;
 
     [Header("Unity Stuff Internals")]
-    public GameObject cameraObj;
-    public CharacterController character;
+    public GameObject cameraPrefab;
+    [HideInInspector] public PlayerCamera playerCam;
+    [HideInInspector] public CharacterController character;
+    private AudioSource audioSource;
+
     public GameObject body;
     public Transform bodyTrans;
 
@@ -83,6 +86,7 @@ public class Player : NetworkBehaviour
 
     private ClientManager clientManager;
     public UI_Main uIMain;
+
 
     public override void OnStartLocalPlayer() //just for the local client
     {
@@ -102,7 +106,8 @@ public class Player : NetworkBehaviour
 
         controls.Enable();
 
-        Instantiate(cameraObj, transform.position + cameraOffset, transform.rotation, transform);
+        playerCam = Instantiate(cameraPrefab, transform.position + cameraOffset,
+            transform.rotation, transform).GetComponent<PlayerCamera>();
 
         CmdSetupPlayer(clientManager.playerName, clientManager.playerColour);
         OwnerSpawnPlayer();
@@ -113,6 +118,7 @@ public class Player : NetworkBehaviour
     private void Start() //for all to run
     {
         character = GetComponent<CharacterController>();
+        audioSource = GetComponent<AudioSource>();
         netTrans = GetComponent<NetworkTransform>();
 
         levelManager = FindObjectOfType<LevelManager>();
@@ -125,9 +131,6 @@ public class Player : NetworkBehaviour
             //prevents infiti special stacking
             if (health > 0)
             {
-                if (health > maxHealth)
-                    health = maxHealth;
-
                 specialChargeTime += Time.fixedDeltaTime;
 
                 if (special > maxSpecial)
@@ -214,7 +217,7 @@ public class Player : NetworkBehaviour
         paused = pause;
         uIMain.Pause(pause);
 
-        if(pause == true)
+        if (pause == true)
             Cursor.lockState = CursorLockMode.None;
         else
             Cursor.lockState = CursorLockMode.Locked;
@@ -225,7 +228,7 @@ public class Player : NetworkBehaviour
     {
         if (character.isGrounded == true)
         {
-            if(velocity.y < 0) //if falling
+            if (velocity.y < 0) //if falling
                 velocity.y = 0; //if grounded then no need to fall
 
             if (fallTime > 0)
@@ -291,9 +294,14 @@ public class Player : NetworkBehaviour
             Tween.LocalScale(body.transform, Vector3.one * hurtScale, hurtDuration,
                 0, hurtCurve);
 
+            audioSource.PlayOneShot(playerClass.hurtSound[Random.Range(0,
+                playerClass.hurtSound.Length)]);
+
             if (_Old > 0 && _New <= 0) //on death
             {
                 PlayerAlive(false);
+                audioSource.PlayOneShot(playerClass.deathSound[Random.Range(0,
+                    playerClass.deathSound.Length)]);
             }
         }
 
@@ -311,9 +319,13 @@ public class Player : NetworkBehaviour
 
     void PlayerAlive(bool alive)
     {
+        if (isServer)
+            return;
+
         character.enabled = alive;
         floatingInfo.SetActive(alive);
         body.SetActive(alive);
+        body.transform.position = transform.position + -Vector3.up; //bug fix
 
         if (alive == true)
         {
@@ -325,10 +337,9 @@ public class Player : NetworkBehaviour
         else
         {
             corpseObject = Instantiate(corpsePrefab, bodyTrans);
-            //corpseRB.transform.parent = null;
-            //corpseRB.GetComponent<Collider>().enabled = true;
-            if (isServer)
-                score -= 1;
+
+            uIMain.UIAddKillFeed("GamerJoe", playerName, null);
+
         }
 
         if (isLocalPlayer)
@@ -364,8 +375,11 @@ public class Player : NetworkBehaviour
         health = maxHealth;
     }
 
+    [Client]
     public void OwnerSpawnPlayer()
     {
+        playerCam.transform.position = transform.position + cameraOffset;
+        playerCam.transform.rotation = transform.rotation;
         //reset according to the players class
         speed = playerClass.speed;
         backSpeedMultiplyer = playerClass.backSpeedMultiplyer;
@@ -387,7 +401,7 @@ public class Player : NetworkBehaviour
     {
         deadTime += Time.deltaTime;
 
-        if(deadTime > levelManager.respawnDelay)
+        if (deadTime > levelManager.respawnDelay)
         {
             deadTime = 0;
             velocity = Vector3.zero;
@@ -407,11 +421,8 @@ public class Player : NetworkBehaviour
 
         GameObject spawned = Instantiate(spawnableObjects[objID], pos, Quaternion.Euler(rot), parent);
 
-        if(spawned.GetComponent<Hurtful>() != null)
+        if (spawned.GetComponent<Hurtful>() != null)
             spawned.GetComponent<Hurtful>().ignorePlayer = this;
-
-        if (spawned.GetComponent<Projectile>() != null)
-            spawned.GetComponent<Projectile>().shooter = this;
 
         if (serverOnly == false)
             NetworkServer.Spawn(spawned);
@@ -429,13 +440,18 @@ public class Player : NetworkBehaviour
         special -= used;
     }
 
-    //[Command]
-    //public void hurt(int damage)
-    //{
-    //    health -= damage;
+    [Server]
+    public void Hurt(int damage, string killer = "", Sprite hurtIcon = null) //can be used to heal just do -damage
+    {
+        //prevents infiti health stacking
+        if (health - damage > maxHealth)
+            health = maxHealth;
+        else
+            health -= damage;
 
-    //    //prevents infiti health stacking
-    //    if (health > maxHealth)
-     //       health = maxHealth;
-    //}
+        if(health <= 0)
+        {
+            score -= 1;
+        }
+    }
 }

@@ -13,6 +13,9 @@ public class UI_Main : MonoBehaviour
     public LevelManager levelManager;
     public List<Player> players = new List<Player>();
 
+    public Transform killFeed;
+    public GameObject killLine;
+
     private void Start()
     {
         levelManager = FindObjectOfType<LevelManager>();
@@ -40,6 +43,16 @@ public class UI_Main : MonoBehaviour
 
 
         deathUI.SetActive(player.health <= 0); //bit of a coder
+    }
+
+    public void UIAddKillFeed(string killer, string dier, Sprite killIcon)
+    {
+        UI_KillLine kL = Instantiate(killLine, killFeed).GetComponent<UI_KillLine>();
+
+        kL.killer = killer;
+        kL.dier = dier;
+        kL.killSprite = killIcon;
+        kL.UpdateInfo();
     }
 
     public void Pause(bool pause)
