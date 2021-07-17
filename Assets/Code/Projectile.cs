@@ -24,7 +24,7 @@ public class Projectile : NetworkBehaviour
     private NetworkTransform netTrans;
     private Hurtful hurtful;
 
-    public GameObject hitPartical;
+    public GameObject hitObject;
     
 
     // Server and Clients must run
@@ -65,7 +65,6 @@ public class Projectile : NetworkBehaviour
                 }
                 else
                 {
-                    print(hit.collider.gameObject.name);
                     DestroySelf();
                 }
             }
@@ -81,7 +80,7 @@ public class Projectile : NetworkBehaviour
 
     private void OnDestroy()
     {
-        Instantiate(hitPartical, lastPos, transform.rotation);
+        Instantiate(hitObject, lastPos, transform.rotation);
     }
 
     //void ActivateCollision()

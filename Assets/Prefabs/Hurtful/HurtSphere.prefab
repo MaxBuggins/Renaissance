@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &5938456748870400621
+--- !u!1 &3590441000614493495
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,24 +8,24 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 5938456748870400619}
-  - component: {fileID: 5938456748870400622}
-  - component: {fileID: 5938456748870400623}
-  - component: {fileID: 5938456748870400620}
+  - component: {fileID: 3590441000614493489}
+  - component: {fileID: 3363379038461372473}
+  - component: {fileID: 3590441000614493493}
+  - component: {fileID: 3590441000614493494}
   m_Layer: 0
-  m_Name: HurtCube Base
+  m_Name: HurtSphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &5938456748870400619
+--- !u!4 &3590441000614493489
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5938456748870400621}
+  m_GameObject: {fileID: 3590441000614493495}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -33,26 +33,26 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &5938456748870400622
-BoxCollider:
+--- !u!135 &3363379038461372473
+SphereCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5938456748870400621}
+  m_GameObject: {fileID: 3590441000614493495}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
+  m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &5938456748870400623
+--- !u!114 &3590441000614493493
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5938456748870400621}
+  m_GameObject: {fileID: 3590441000614493495}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
@@ -63,13 +63,13 @@ MonoBehaviour:
   visible: 0
   m_AssetId: 
   hasSpawned: 0
---- !u!114 &5938456748870400620
+--- !u!114 &3590441000614493494
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5938456748870400621}
+  m_GameObject: {fileID: 3590441000614493495}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9d45a8781d9eedf4a99747a8e6cbc6fe, type: 3}
@@ -77,11 +77,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
-  damage: 1
+  damage: 15
   destoryOnHurt: 0
   damagePerSeconds: 1.25
-  collisionForce: 1
-  upwardsForce: 0
+  moveForce: 0
+  collisionForce: 10
+  upwardsForce: 1.5
   ignorePlayer: {fileID: 0}
   destoryRigidbodys: 0
   destroyDelay: 0

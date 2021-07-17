@@ -14,16 +14,23 @@ public class NetworkMoveingObject : NetworkBehaviour
     private int currentStop = 0;
     private int moveDirection = 1;
 
-    private Vector3 orignalPos;
+    public Vector3 orignalPos;
     public Transform[] path;
     private Vector3[] pathPos;
 
     private float TimeToReachDesternation;
 
+    private NetworkIdentity identity;
+
+
+    private void OnDrawGizmos()
+    {
+        orignalPos = transform.position;
+    } //temp fix proberly
 
     public override void OnStartServer()
     {
-        orignalPos = transform.position;
+        identity = GetComponent<NetworkIdentity>();
 
         pathPos = new Vector3[path.Length];
         for(int i = 0; i < path.Length; i++)
@@ -36,11 +43,13 @@ public class NetworkMoveingObject : NetworkBehaviour
         {
             ReachedDesternation();
         }
+
+       // identity.AssignClientAuthority();
     }
 
     public override void OnStartClient()
     {
-        orignalPos = transform.position;
+        identity = GetComponent<NetworkIdentity>();
 
         pathPos = new Vector3[path.Length];
         for (int i = 0; i < path.Length; i++)
@@ -48,23 +57,25 @@ public class NetworkMoveingObject : NetworkBehaviour
             pathPos[i] = path[i].localPosition;
         }
 
-        getServerObject();
+        CmdgetServerObject();
     }
 
-    [Command]
-    void getServerObject()
+
+
+    [Command] //doesnt work as client doesnt have authority HELP
+    void CmdgetServerObject()
     {
-        sendClientObject(currentStop, moveDirection, TimeToReachDesternation);
+        RpcsendClientObject(currentStop, moveDirection, TimeToReachDesternation);
     }
 
     [ClientRpc]
-    void sendClientObject(int _currentStop, int _moveDirection, float timeTillStart)
+    void RpcsendClientObject(int _currentStop, int _moveDirection, double timeTillStart)
     {
         currentStop = _currentStop;
         moveDirection = _moveDirection;
 
         //makes sure it is started at same time as server
-        Invoke(nameof(ReachedDesternation), timeTillStart - Time.time);
+        Invoke(nameof(ReachedDesternation), (float)(timeTillStart - NetworkTime.time));
     }
 
     //for all clients and server
@@ -87,6 +98,9 @@ public class NetworkMoveingObject : NetworkBehaviour
         currentStop += moveDirection;
 
         Tween.Position(transform, orignalPos + pathPos[currentStop], moveSpeed, 0, completeCallback: ReachedDesternation);
-        TimeToReachDesternation = Time.time + moveSpeed;
+        TimeToReachDesternation = (float)NetworkTime.time + moveSpeed;
+
+        if(identity.isServer) //Fix to CALL WHEN A CLIENT JOINS
+            RpcsendClientObject(currentStop, moveDirection, TimeToReachDesternation);
     }
 }

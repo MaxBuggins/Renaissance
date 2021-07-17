@@ -10,9 +10,10 @@ public class Hurtful : NetworkBehaviour
     public int damage = 1;
     public bool destoryOnHurt = false;
 
-    public float damagePerSeconds;
+    public float damagePerSeconds = 1.25f;
     private float timeSinceDamage = 0;
 
+    public bool moveForce = true; //if false then force is caculated via distance from collider center
     public float collisionForce = 0;
     public float upwardsForce = 0;
 
@@ -28,8 +29,13 @@ public class Hurtful : NetworkBehaviour
 
     public Sprite hurtSprite;
 
+    [Header("Unity Stuff")]
+    private Collider collider;
+
     void Awake()
     {
+        collider = GetComponent<Collider>();
+
         if (isClient) //only for the server to run
             enabled = false;
 
@@ -43,7 +49,7 @@ public class Hurtful : NetworkBehaviour
 
             timeSinceDamage += Time.deltaTime;
 
-        if(timeSinceDamage > 1)
+        if(timeSinceDamage > damagePerSeconds && damagePerSeconds > 0)
         {
             //foreach throws errors not sure why
             for(int i = 0; i < inTrigger.Count; i++)
@@ -123,7 +129,12 @@ public class Hurtful : NetworkBehaviour
 
         if(collisionForce != 0)
         {
-            Vector3 vel = transform.position - lastPos;
+            Vector3 vel;
+            if (moveForce)
+                vel = transform.position - lastPos;
+            else
+                vel = player.transform.position - collider.bounds.center;
+
             player.RpcAddVelocity((vel * collisionForce) + (vel.magnitude * Vector3.up * upwardsForce));
         }
 

@@ -167,6 +167,7 @@ ParticleSystemRenderer:
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
@@ -228,19 +229,19 @@ ParticleSystem:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 133892757}
-  serializedVersion: 7
+  serializedVersion: 8
   lengthInSec: 1
   simulationSpeed: 1
   stopAction: 0
   cullingMode: 0
   ringBufferMode: 0
   ringBufferLoopRange: {x: 0, y: 1}
+  emitterVelocityMode: 1
   looping: 1
   prewarm: 1
   playOnAwake: 1
   useUnscaledTime: 0
   autoRandomSeed: 1
-  useRigidbodyForVelocity: 1
   startDelay:
     serializedVersion: 2
     minMaxState: 0
@@ -790,6 +791,7 @@ ParticleSystem:
         m_RotationOrder: 4
     randomizeRotationDirection: 0
     maxNumParticles: 1000
+    customEmitterVelocity: {x: 0, y: 0, z: 0}
     size3D: 0
     rotation3D: 0
     gravityModifier:
@@ -5656,7 +5658,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2103515042085982036, guid: 75cfda492625a354d8674db4c14206f8, type: 3}
       propertyPath: deepColor.g
-      value: 0.28544185
+      value: 0.28528458
       objectReference: {fileID: 0}
     - target: {fileID: 2103515042085982036, guid: 75cfda492625a354d8674db4c14206f8, type: 3}
       propertyPath: waveColor.b
@@ -5668,7 +5670,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2103515042085982036, guid: 75cfda492625a354d8674db4c14206f8, type: 3}
       propertyPath: waveColor.r
-      value: 0.30050883
+      value: 0.30035156
       objectReference: {fileID: 0}
     - target: {fileID: 2103515042085982036, guid: 75cfda492625a354d8674db4c14206f8, type: 3}
       propertyPath: shoreColor.b
@@ -5676,7 +5678,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2103515042085982036, guid: 75cfda492625a354d8674db4c14206f8, type: 3}
       propertyPath: shoreColor.g
-      value: 0.21966931
+      value: 0.21951205
       objectReference: {fileID: 0}
     - target: {fileID: 2103515042085982036, guid: 75cfda492625a354d8674db4c14206f8, type: 3}
       propertyPath: shoreColor.r
@@ -5700,7 +5702,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2103515042085982036, guid: 75cfda492625a354d8674db4c14206f8, type: 3}
       propertyPath: horizonColor.g
-      value: 0.22661415
+      value: 0.22645688
       objectReference: {fileID: 0}
     - target: {fileID: 2103515042085982036, guid: 75cfda492625a354d8674db4c14206f8, type: 3}
       propertyPath: shallowColor.a
@@ -5764,7 +5766,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2103515042085982036, guid: 75cfda492625a354d8674db4c14206f8, type: 3}
       propertyPath: underwaterColor.r
-      value: 0.3838246
+      value: 0.38366732
       objectReference: {fileID: 0}
     - target: {fileID: 2103515042085982036, guid: 75cfda492625a354d8674db4c14206f8, type: 3}
       propertyPath: surfaceFoamTexture
@@ -6100,6 +6102,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1

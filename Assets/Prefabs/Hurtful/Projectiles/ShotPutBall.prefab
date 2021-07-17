@@ -286,7 +286,7 @@ MonoBehaviour:
   gravitY: -20
   projectileWidth: 0.3
   destoryOnHits: 1
-  hitPartical: {fileID: 6704984473634513958, guid: cc74bbebfeacfd24c9fcf0ead0de6311, type: 3}
+  hitObject: {fileID: 6906018285293153184, guid: 2b1f33066f196634cbb4661d4a46f5aa, type: 3}
 --- !u!114 &8522565217626811971
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -303,7 +303,8 @@ MonoBehaviour:
   syncInterval: 0.1
   damage: 1
   destoryOnHurt: 1
-  damagePerSeconds: 0
+  damagePerSeconds: 1.25
+  moveForce: 1
   collisionForce: 1.5
   upwardsForce: 0
   ignorePlayer: {fileID: 0}
