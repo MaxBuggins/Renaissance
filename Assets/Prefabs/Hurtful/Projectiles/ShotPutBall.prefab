@@ -43,6 +43,7 @@ TrailRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 0
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
@@ -194,6 +195,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -280,9 +282,9 @@ MonoBehaviour:
   syncInterval: 0.1
   damage: 35
   destroyDelay: 5
-  forwardSpeed: 14
+  forwardSpeed: 18
   gravitY: -20
-  collisionDelay: 0.1
+  projectileWidth: 0.3
   destoryOnHits: 1
   hitPartical: {fileID: 6704984473634513958, guid: cc74bbebfeacfd24c9fcf0ead0de6311, type: 3}
 --- !u!114 &8522565217626811971
@@ -301,6 +303,7 @@ MonoBehaviour:
   syncInterval: 0.1
   damage: 1
   destoryOnHurt: 1
+  damagePerSeconds: 0
   collisionForce: 1.5
   upwardsForce: 0
   ignorePlayer: {fileID: 0}

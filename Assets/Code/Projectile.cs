@@ -25,6 +25,7 @@ public class Projectile : NetworkBehaviour
     private Hurtful hurtful;
 
     public GameObject hitPartical;
+    
 
     // Server and Clients must run
     void Awake()
@@ -44,7 +45,7 @@ public class Projectile : NetworkBehaviour
         transform.position = transform.position + ((transform.up * velocity.y)
             + (transform.forward * forwardSpeed)) * Time.deltaTime;
 
-        if (isServer)
+        if (isServer)//Adian Smells of car fuel
         {
             //Ray ray = new Ray(transform.position, player.position - transform.position)
             RaycastHit hit;

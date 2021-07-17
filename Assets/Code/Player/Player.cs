@@ -308,9 +308,9 @@ public class Player : NetworkBehaviour
 
             if (_Old > 0 && _New <= 0) //on death
             {
-                PlayerAlive(false);
                 audioSource.PlayOneShot(playerClass.deathSound[Random.Range(0,
                     playerClass.deathSound.Length)]);
+                PlayerAlive(false);
             }
         }
 
