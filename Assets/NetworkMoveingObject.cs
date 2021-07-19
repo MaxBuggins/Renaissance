@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
 using Pixelplacement;
+using Pixelplacement.TweenSystem;
 
 public class NetworkMoveingObject : NetworkBehaviour
 {
@@ -19,6 +20,7 @@ public class NetworkMoveingObject : NetworkBehaviour
     private Vector3[] pathPos;
 
     private float TimeToReachDesternation;
+    private TweenBase moveTween;
 
     private NetworkIdentity identity;
 
@@ -71,6 +73,9 @@ public class NetworkMoveingObject : NetworkBehaviour
     [ClientRpc]
     void RpcsendClientObject(int _currentStop, int _moveDirection, double timeTillStart)
     {
+        if (moveTween != null) //TEMP FIX
+            return;
+
         currentStop = _currentStop;
         moveDirection = _moveDirection;
 
@@ -97,7 +102,7 @@ public class NetworkMoveingObject : NetworkBehaviour
         }
         currentStop += moveDirection;
 
-        Tween.Position(transform, orignalPos + pathPos[currentStop], moveSpeed, 0, completeCallback: ReachedDesternation);
+        moveTween = Tween.Position(transform, orignalPos + pathPos[currentStop], moveSpeed, 0, completeCallback: ReachedDesternation);
         TimeToReachDesternation = (float)NetworkTime.time + moveSpeed;
 
         if(identity.isServer) //Fix to CALL WHEN A CLIENT JOINS

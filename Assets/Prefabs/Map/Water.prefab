@@ -181,7 +181,7 @@ MonoBehaviour:
   surfaceFoamSampling: {x: 0.5, y: 2}
   surfaceFoamCutoff: 0.5
   surfaceFoamDistortion: 2
-  surfaceFoamBlend: 1
+  surfaceFoamBlend: 0.5
   surfaceFoamColor1: {r: 1, g: 1, b: 1, a: 0.3215686}
   surfaceFoamColor2: {r: 1, g: 1, b: 1, a: 0.7294118}
   surfaceFoamMovement: {x: 0.7, y: 0.1, z: 0.47, w: 0.2}
@@ -192,7 +192,7 @@ MonoBehaviour:
   surfaceFoamTilingAndOffset: {x: -1, y: -1, z: 0.57, w: 0.22}
   surfaceFoamOffsetX: -1
   surfaceFoamOffsetY: -1
-  surfaceFoamScale1: 0.57
+  surfaceFoamScale1: 0.5
   surfaceFoamScale2: 0.22
   enableSurfaceFoam: 0
   surfaceFoamHeightMask: 0
@@ -295,6 +295,7 @@ MonoBehaviour:
   damage: 9999
   destoryOnHurt: 0
   damagePerSeconds: 0.2
+  moveForce: 1
   collisionForce: 0
   upwardsForce: 0
   ignorePlayer: {fileID: 0}

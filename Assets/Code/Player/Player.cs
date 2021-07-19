@@ -72,10 +72,10 @@ public class Player : NetworkBehaviour
     [HideInInspector] public PlayerCamera playerCam;
     [HideInInspector] public CharacterController character;
     private AudioSource audioSource;
-    private Animator animator;
 
-    public GameObject body;
-    public Transform bodyTrans;
+    public DirectionalSprite body;
+    //private Animator animator;
+    //public Transform bodyTrans;
 
     public GameObject corpsePrefab;
     private GameObject corpseObject;
@@ -91,6 +91,8 @@ public class Player : NetworkBehaviour
 
     public override void OnStartLocalPlayer() //just for the local client
     {
+        body.gameObject.SetActive(false);
+
         clientManager = FindObjectOfType<ClientManager>();
         uIMain = FindObjectOfType<UI_Main>();
         uIMain.player = this;
@@ -122,7 +124,7 @@ public class Player : NetworkBehaviour
         audioSource = GetComponent<AudioSource>();
         netTrans = GetComponent<NetworkTransform>();
 
-        animator = GetComponentInChildren<Animator>();
+        //animator = GetComponentInChildren<Animator>();
 
         levelManager = FindObjectOfType<LevelManager>();
     }
@@ -151,6 +153,8 @@ public class Player : NetworkBehaviour
         if (!isLocalPlayer) //only the player runs whats next
             return;
 
+        //velocity += transform.position - lastPos;
+
         if (health <= 0)
         {
             IsDead();
@@ -168,7 +172,8 @@ public class Player : NetworkBehaviour
         if (isServer)
             speedMultiplyer = 3000;
 
-        animator.speed = Vector3.Distance(transform.position, lastPos) * Time.deltaTime * speedMultiplyer;
+        //body.directionalSprites = playerClass.runSprites[1].sprites;
+        //animator.speed = Vector3.Distance(transform.position, lastPos) * Time.deltaTime * speedMultiplyer;
 
         lastPos = transform.position; //must be done after movement and stuff
     }
@@ -331,7 +336,7 @@ public class Player : NetworkBehaviour
     {
         character.enabled = alive;
         floatingInfo.SetActive(alive);
-        body.SetActive(alive);
+        //body.SetActive(alive);
         body.transform.position = transform.position + -Vector3.up; //bug fix
 
         if (alive == true)
@@ -343,7 +348,7 @@ public class Player : NetworkBehaviour
         }
         else
         {
-            corpseObject = Instantiate(corpsePrefab, bodyTrans);
+            corpseObject = Instantiate(corpsePrefab, body.transform);
 
             uIMain.UIAddKillFeed("GamerJoe", playerName, null);
 
