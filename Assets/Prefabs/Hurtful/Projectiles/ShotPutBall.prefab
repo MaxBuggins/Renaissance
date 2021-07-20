@@ -27,6 +27,7 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 5, y: 5, z: 5}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2809265603616378748}
   m_RootOrder: 0
@@ -171,6 +172,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.4, y: 0.4, z: 0.4}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7464506819704524385}
   m_Father: {fileID: 0}
@@ -287,6 +289,7 @@ MonoBehaviour:
   projectileWidth: 0.3
   destoryOnHits: 1
   hitObject: {fileID: 6906018285293153184, guid: 2b1f33066f196634cbb4661d4a46f5aa, type: 3}
+  hitSplat: {fileID: 1962934737780374256, guid: 934bc753144cc81438f538ab799b160a, type: 3}
 --- !u!114 &8522565217626811971
 MonoBehaviour:
   m_ObjectHideFlags: 0

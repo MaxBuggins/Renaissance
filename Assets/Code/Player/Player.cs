@@ -74,11 +74,10 @@ public class Player : NetworkBehaviour
     private AudioSource audioSource;
 
     public DirectionalSprite body;
-    //private Animator animator;
-    //public Transform bodyTrans;
 
     public GameObject corpsePrefab;
     private GameObject corpseObject;
+    public GameObject bloodObj;
 
     private NetworkTransform netTrans;
 
@@ -305,11 +304,15 @@ public class Player : NetworkBehaviour
 
         if (_Old > _New) //if damage taken
         {
-            Tween.LocalScale(body.transform, Vector3.one * hurtScale, hurtDuration,
+            Tween.LocalScale(body.transform, body.transform.localScale * hurtScale, hurtDuration,
                 0, hurtCurve);
 
             audioSource.PlayOneShot(playerClass.hurtSound[Random.Range(0,
                 playerClass.hurtSound.Length)]);
+
+            GameObject blood = Instantiate(bloodObj, transform.position, transform.rotation, null);
+            blood.GetComponent<SpriteRenderer>().color = playerColour;
+            blood.GetComponent<Rigidbody>().AddForce(Random.insideUnitSphere * Random.Range(3,7), ForceMode.Impulse);
 
             if (_Old > 0 && _New <= 0) //on death
             {
@@ -350,7 +353,7 @@ public class Player : NetworkBehaviour
         {
             corpseObject = Instantiate(corpsePrefab, body.transform);
 
-            uIMain.UIAddKillFeed("GamerJoe", playerName, null);
+            //uIMain.UIAddKillFeed("GamerJoe", playerName, null);
 
         }
 

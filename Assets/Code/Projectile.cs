@@ -25,7 +25,8 @@ public class Projectile : NetworkBehaviour
     private Hurtful hurtful;
 
     public GameObject hitObject;
-    
+    public GameObject hitSplat;
+
 
     // Server and Clients must run
     void Awake()
@@ -81,6 +82,7 @@ public class Projectile : NetworkBehaviour
     private void OnDestroy()
     {
         Instantiate(hitObject, lastPos, transform.rotation);
+        Instantiate(hitSplat, lastPos, transform.rotation);
     }
 
     //void ActivateCollision()
