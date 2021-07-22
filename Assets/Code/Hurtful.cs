@@ -3,11 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
 
+public enum HurtType { Death, Water, Train, Punch, ShotPut }
+
 //Server only script
 public class Hurtful : NetworkBehaviour
 {
-    [Header("Players")]
+    [Header("Hurt")]
     public int damage = 1;
+    public HurtType hurtType = HurtType.Death;
     public bool destoryOnHurt = false;
 
     public float damagePerSeconds = 1.25f;
@@ -54,7 +57,7 @@ public class Hurtful : NetworkBehaviour
             //foreach throws errors not sure why
             for(int i = 0; i < inTrigger.Count; i++)
             {
-                HurtPlayer(inTrigger[i], damage);
+                HurtPlayer(inTrigger[i], damage, hurtType);
             }
 
             timeSinceDamage = 0;
@@ -71,7 +74,15 @@ public class Hurtful : NetworkBehaviour
             var player = other.GetComponent<Player>();
             if (player != null && player != ignorePlayer)
             {
-                HurtPlayer(player, damage);
+                if (ignorePlayer != false)
+                {
+                    if(isClient)
+                        ignorePlayer.ConfirmedHit(ignorePlayer.connectionToServer);
+                    else
+                        ignorePlayer.ConfirmedHit(ignorePlayer.connectionToClient);
+                }
+
+                HurtPlayer(player, damage, hurtType);
 
                 inTrigger.Add(player);
             }
@@ -110,15 +121,15 @@ public class Hurtful : NetworkBehaviour
     }
 
     [Server]
-    public void HurtPlayer(Player player, int damage)
+    public void HurtPlayer(Player player, int damage, HurtType type)
     {
         if (player == ignorePlayer)
             return;
 
         if(ignorePlayer != null)
-            player.Hurt(damage, ignorePlayer.name, hurtSprite);
+            player.Hurt(damage, type, ignorePlayer.playerName);
         else
-            player.Hurt(damage, "", hurtSprite);
+            player.Hurt(damage, type, "");
 
         if (player.health <= 0)
         {

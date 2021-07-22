@@ -50,10 +50,6 @@ public class Player : NetworkBehaviour
 
     [HideInInspector] public float pushForce = 5f;
 
-    public float hurtScale = 1.1f;
-    public float hurtDuration = 0.5f;
-    public AnimationCurve hurtCurve;
-
     [Header("Player Internals")]
     public bool paused;
 
@@ -70,13 +66,16 @@ public class Player : NetworkBehaviour
     [Header("Unity Stuff Internals")]
     public GameObject cameraPrefab;
     [HideInInspector] public PlayerCamera playerCam;
+    private PlayerWeapon playerWeapon;
+
     [HideInInspector] public CharacterController character;
     private AudioSource audioSource;
 
     public DirectionalSprite body;
 
     public GameObject corpsePrefab;
-    private GameObject corpseObject;
+
+    public int bloodPerDamage = 15;
     public GameObject bloodObj;
 
     private NetworkTransform netTrans;
@@ -90,7 +89,8 @@ public class Player : NetworkBehaviour
 
     public override void OnStartLocalPlayer() //just for the local client
     {
-        body.gameObject.SetActive(false);
+        //so the player doesnt see own body but still can see its shadow
+        body.GetComponent<MeshRenderer>().shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.ShadowsOnly;
 
         clientManager = FindObjectOfType<ClientManager>();
         uIMain = FindObjectOfType<UI_Main>();
@@ -110,6 +110,8 @@ public class Player : NetworkBehaviour
 
         playerCam = Instantiate(cameraPrefab, transform.position + cameraOffset,
             transform.rotation, transform).GetComponent<PlayerCamera>();
+
+        playerWeapon = playerCam.GetComponentInChildren<PlayerWeapon>(); //this is a solution
 
         CmdSetupPlayer(clientManager.playerName, clientManager.playerColour);
         OwnerSpawnPlayer();
@@ -304,15 +306,18 @@ public class Player : NetworkBehaviour
 
         if (_Old > _New) //if damage taken
         {
-            Tween.LocalScale(body.transform, body.transform.localScale * hurtScale, hurtDuration,
-                0, hurtCurve);
+            //Tween.LocalScale(body.transform, body.transform.localScale * hurtScale, hurtDuration,
+                //0, hurtCurve);
 
             audioSource.PlayOneShot(playerClass.hurtSound[Random.Range(0,
                 playerClass.hurtSound.Length)]);
 
-            GameObject blood = Instantiate(bloodObj, transform.position, transform.rotation, null);
-            blood.GetComponent<SpriteRenderer>().color = playerColour;
-            blood.GetComponent<Rigidbody>().AddForce(Random.insideUnitSphere * Random.Range(3,7), ForceMode.Impulse);
+            for (int i = 0; i < _Old - _New && i < maxHealth; i += 5)
+            {
+                GameObject blood = Instantiate(bloodObj, transform.position, transform.rotation, null);
+                blood.GetComponentInChildren<Renderer>().material.color = Color.red;
+                blood.GetComponent<Rigidbody>().AddForce(Random.insideUnitSphere * Random.Range(3, 9) + Vector3.up * 2, ForceMode.VelocityChange);
+            }
 
             if (_Old > 0 && _New <= 0) //on death
             {
@@ -339,19 +344,17 @@ public class Player : NetworkBehaviour
     {
         character.enabled = alive;
         floatingInfo.SetActive(alive);
-        //body.SetActive(alive);
+        body.gameObject.SetActive(alive);
         body.transform.position = transform.position + -Vector3.up; //bug fix
 
         if (alive == true)
         {
-            if (corpseObject != null)
-                Destroy(corpseObject);
 
             //corpseRB.GetComponent<Collider>().enabled = false;
         }
         else
         {
-            corpseObject = Instantiate(corpsePrefab, body.transform);
+            Instantiate(corpsePrefab, body.transform.position, transform.rotation);
 
             //uIMain.UIAddKillFeed("GamerJoe", playerName, null);
 
@@ -369,8 +372,8 @@ public class Player : NetworkBehaviour
             return;
 
         //need to sync rigidbody between clients wont work AHHHHHH  
-        if (corpseObject != null)
-            corpseObject.GetComponentInChildren<Rigidbody>().velocity = (transform.position - lastPos) * 10;
+        //if (corpseObject != null)
+            //corpseObject.GetComponentInChildren<Rigidbody>().velocity = (transform.position - lastPos) * 10;
         //corpseRB.GetComponent<Mirror.Experimental.NetworkRigidbody>().SyncToClients();
     }
 
@@ -385,7 +388,9 @@ public class Player : NetworkBehaviour
     [Command]
     public void CmdSpawnPlayer()
     {
-        netTrans.ServerTeleport(levelManager.GetSpawnPoint());
+        Transform sPoint = levelManager.GetSpawnPoint();
+        netTrans.ServerTeleport(sPoint.position, sPoint.rotation); //spawns player across the server at point
+
         special = 4;
         health = maxHealth;
     }
@@ -456,7 +461,7 @@ public class Player : NetworkBehaviour
     }
 
     [Server]
-    public void Hurt(int damage, string killer = "", Sprite hurtIcon = null) //can be used to heal just do -damage
+    public void Hurt(int damage, HurtType hurtType = HurtType.Death, string killer = "") //can be used to heal just do -damage
     {
         if (health <= 0)
             return;
@@ -467,9 +472,21 @@ public class Player : NetworkBehaviour
         else
             health -= damage;
 
+
         if(health <= 0)
         {
+            levelManager.sendKillMsg(killer, playerName, hurtType);
             score -= 1;
+        }
+    }
+
+    [TargetRpc]
+    public void ConfirmedHit(NetworkConnection target) //when the players succesfully hurts something
+    {
+        if (playerWeapon.specialIsActive)
+        {
+            playerWeapon.EndSpecial();
+            velocity = Vector3.zero;
         }
     }
 }

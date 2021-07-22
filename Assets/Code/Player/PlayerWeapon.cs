@@ -13,6 +13,8 @@ public class PlayerWeapon : NetworkBehaviour
     private Controls controls;
     private bool primaryHeld = false;
 
+    public bool specialIsActive = false;
+
     [Header("Unity Things")]
     public Player player;
 
@@ -63,11 +65,15 @@ public class PlayerWeapon : NetworkBehaviour
     {
         if (player.paused)
             return;
+
+        specialIsActive = true;
     }
 
     public virtual void EndSpecial()
     {
         if (player.paused)
             return;
+
+        specialIsActive = false;
     }
 }

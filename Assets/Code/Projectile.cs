@@ -6,6 +6,7 @@ public class Projectile : NetworkBehaviour
 {
     [Header("Projectile Propertys")]
     public int damage;
+    public HurtType hurtType;
 
     public float destroyDelay = 5;
     //public float initalForce = 5;
@@ -57,7 +58,7 @@ public class Projectile : NetworkBehaviour
                 Player player = hit.collider.gameObject.GetComponent<Player>();
                 if (player != null)
                 {
-                    hurtful.HurtPlayer(player, damage);
+                    hurtful.HurtPlayer(player, damage, hurtType);
 
                     destoryOnHits -= 1;
 
@@ -82,7 +83,8 @@ public class Projectile : NetworkBehaviour
     private void OnDestroy()
     {
         Instantiate(hitObject, lastPos, transform.rotation);
-        Instantiate(hitSplat, lastPos, transform.rotation);
+        if(hitSplat != null)
+            Instantiate(hitSplat, lastPos, transform.rotation);
     }
 
     //void ActivateCollision()

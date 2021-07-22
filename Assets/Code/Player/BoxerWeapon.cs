@@ -54,11 +54,13 @@ public class BoxerWeapon : PlayerWeapon
         throwTime += Time.deltaTime;
         timeSincePunch += Time.deltaTime;
 
-        if (chargeTime < chargeDuration)
+        if (specialIsActive)
         {
             chargeTime += Time.deltaTime;
             player.velocity += chargeDirection * chargeSpeed * Time.deltaTime;
             //player.character.Move(chargeDirection * chargeSpeed * Time.deltaTime);
+
+
             if (chargeTime >= chargeDuration)
                 EndSpecial();
         }

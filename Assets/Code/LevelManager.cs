@@ -10,8 +10,17 @@ public class LevelManager : NetworkBehaviour
     private List<Transform> spawnPoints = new List<Transform>();
     public List<Player> players = new List<Player>();
 
+    private UI_Main playerUI;
+    private NetworkManagerHUD hud;
+
     void Start()
     {
+        playerUI = FindObjectOfType<UI_Main>();
+        hud = FindObjectOfType<NetworkManagerHUD>();
+
+        if (hud != null) //TEMPARAY
+            hud.showGUI = false;
+
         foreach(Transform child in transform)
         {
             if (child.tag == "SpawnPoint")
@@ -19,16 +28,17 @@ public class LevelManager : NetworkBehaviour
         }
     }
 
-    private void Update()
+    [ClientRpc]
+    public void sendKillMsg(string killer, string dier, HurtType hurtType)
     {
-
+        playerUI.UIAddKillFeed(killer, dier, (int)hurtType);
     }
 
-    public Vector3 GetSpawnPoint()
+    public Transform GetSpawnPoint()
     {
         if (spawnPoints.Count <= 0)
-            return (Vector3.zero);
+            return (null);
 
-        return (spawnPoints[Random.Range(0, spawnPoints.Count)].position);
+        return (spawnPoints[Random.Range(0, spawnPoints.Count)]);
     }
 }
