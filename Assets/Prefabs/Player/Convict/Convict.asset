@@ -60,9 +60,19 @@ MonoBehaviour:
     - {fileID: -6016983691727615726, guid: 23738a1366f4d304dae09b673209d745, type: 3}
     - {fileID: -5365574036531687053, guid: 23738a1366f4d304dae09b673209d745, type: 3}
     - {fileID: 4341794467128116274, guid: 23738a1366f4d304dae09b673209d745, type: 3}
+  walkCycle: {fileID: 8300000, guid: bb56bbe6717d1d646b149259276c6e4e, type: 3}
   hurtSound:
   - {fileID: 8300000, guid: 9d780eba4074daa42af6b3183c4b1313, type: 3}
   - {fileID: 8300000, guid: 4b16930e429d58142b0ef6f547d3fa83, type: 3}
   - {fileID: 8300000, guid: 06c6c222f9802584e890d6896202fdea, type: 3}
+  - {fileID: 8300000, guid: 7045085da16be8544871defcaeceaebe, type: 3}
   deathSound:
-  - {fileID: 8300000, guid: d78a7fe29da806b45826103aefca3131, type: 3}
+  - {fileID: 8300000, guid: 952acd20996cdd24bb98310a44c167e6, type: 3}
+  - {fileID: 8300000, guid: 5cebf2952ad0f3444a3f6d11fc59901d, type: 3}
+  jumpSound:
+  - {fileID: 8300000, guid: 30e26f617c113c4408f99ccfcb834b91, type: 3}
+  - {fileID: 8300000, guid: 6115ab27d4963aa469e51d07fd6755f0, type: 3}
+  hurtPlayerSound:
+  - {fileID: 8300000, guid: 4066ca2a249e0514bb7d71c0318926d4, type: 3}
+  spawnSound:
+  - {fileID: 8300000, guid: c79f2acae80be3144992928fbea11a5e, type: 3}

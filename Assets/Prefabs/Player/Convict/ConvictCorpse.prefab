@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2420838849054550175}
   - component: {fileID: 4848331674187004187}
   - component: {fileID: 7105578768586478338}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: PlayerCropse
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -102,6 +102,7 @@ MonoBehaviour:
   lookOffset: {x: 0, y: 180, z: 0}
   orginalRot: {x: 0, y: 0, z: 0}
   randomSpirte: 0
+  scale: 1
   directionalSprites:
   - {fileID: -3085564977884456440, guid: 23738a1366f4d304dae09b673209d745, type: 3}
   sortAngle: 0
@@ -141,7 +142,7 @@ GameObject:
   - component: {fileID: 32765323268639500}
   - component: {fileID: 7326607808413907166}
   - component: {fileID: 6938541909620801865}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: ConvictCorpse
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -26,6 +26,12 @@ public class ObjectPlayerClass : ScriptableObject
 
 
     [Header("SoundEffects")]
+    public AudioClip walkCycle;
     public AudioClip[] hurtSound;
     public AudioClip[] deathSound;
+    public AudioClip[] jumpSound;
+
+    public AudioClip[] hurtPlayerSound;
+
+    public AudioClip[] spawnSound;
 }

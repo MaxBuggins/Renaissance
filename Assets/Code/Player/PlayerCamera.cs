@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Pixelplacement;
 
 public class PlayerCamera : MonoBehaviour
 {
@@ -11,10 +12,9 @@ public class PlayerCamera : MonoBehaviour
     private float xRotation = 0f;
 
     [Header("HeadBob")]
-    public float headBobHeight;
-    public float headBobDuration;
-    public AnimationCurve headBobCurve;
-    private bool bobbing = true;
+    public float bobSpeed;
+    public float bobAmount;
+    private float bobTime = 0;
 
     [Header("Shake")]
     public float shakeDuration = 0.5f;
@@ -57,9 +57,34 @@ public class PlayerCamera : MonoBehaviour
 
         transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
 
-        if(player.health > 0)
+        if (player.health > 0)
             player.transform.Rotate(Vector3.up * mouseX);
 
         lastPos = transform.position;
+
+
+        if (Mathf.Abs(player.move.x) > 0.1f || Mathf.Abs(player.move.y) > 0.1f)
+        {
+            //Player is moving
+            bobTime += Time.deltaTime * bobSpeed;
+            transform.localPosition = new Vector3(transform.localPosition.x, player.cameraOffset.y + Mathf.Sin(bobTime) * bobAmount, transform.localPosition.z);
+        }
+        else
+        {
+            //Idle
+            bobTime = 0;
+            transform.localPosition = new Vector3(transform.localPosition.x, Mathf.Lerp(transform.localPosition.y, player.cameraOffset.y, Time.deltaTime * bobSpeed), transform.localPosition.z);
+        }
+    }
+
+
+    public void Shake(float amount = 1)
+    {
+        if (amount > 1.8f) //stop BIG SHAKEs (only at hungry hacks)
+            amount = 1.8f;
+
+        Vector3 orignalPosition = player.cameraOffset;
+
+        Tween.Shake(transform, orignalPosition, Vector3.one * magnatude * amount, shakeDuration, 0);
     }
 }

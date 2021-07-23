@@ -53,7 +53,7 @@ public class Player : NetworkBehaviour
     [Header("Player Internals")]
     public bool paused;
 
-    private Vector2 move;
+    [HideInInspector] public Vector2 move;
     private Vector3 lastPos;
 
     public Vector3 velocity;
@@ -169,12 +169,23 @@ public class Player : NetworkBehaviour
 
     private void LateUpdate()
     {
-        float speedMultiplyer = 600;
-        if (isServer)
-            speedMultiplyer = 3000;
+        //if (Mathf.Abs(Vector3.Distance(transform.position, lastPos)) > 0.1f)
+        //{
+         //   if (audioSource.isPlaying)
+         //       return;
 
-        //body.directionalSprites = playerClass.runSprites[1].sprites;
-        //animator.speed = Vector3.Distance(transform.position, lastPos) * Time.deltaTime * speedMultiplyer;
+         //   audioSource.clip = playerClass.walkCycle;
+        //    audioSource.Play();
+        //}
+
+        if(transform.position.y - lastPos.y > 0.26f)
+        {
+            if (audioSource.isPlaying)
+                return;
+
+            audioSource.PlayOneShot(playerClass.jumpSound[Random.Range
+                (0,playerClass.jumpSound.Length)]);
+        }
 
         lastPos = transform.position; //must be done after movement and stuff
     }
@@ -306,13 +317,18 @@ public class Player : NetworkBehaviour
 
         if (_Old > _New) //if damage taken
         {
+            int damage = _Old - _New;
+
+            if (isLocalPlayer)
+                playerCam.Shake((float)damage / maxHealth);
             //Tween.LocalScale(body.transform, body.transform.localScale * hurtScale, hurtDuration,
                 //0, hurtCurve);
 
+            //hurtSoud
             audioSource.PlayOneShot(playerClass.hurtSound[Random.Range(0,
                 playerClass.hurtSound.Length)]);
 
-            for (int i = 0; i < _Old - _New && i < maxHealth; i += 5)
+            for (int i = 0; i < damage && i < maxHealth; i += 5) //creats multiple blood pieces
             {
                 GameObject blood = Instantiate(bloodObj, transform.position, transform.rotation, null);
                 blood.GetComponentInChildren<Renderer>().material.color = Color.red;
@@ -321,8 +337,6 @@ public class Player : NetworkBehaviour
 
             if (_Old > 0 && _New <= 0) //on death
             {
-                audioSource.PlayOneShot(playerClass.deathSound[Random.Range(0,
-                    playerClass.deathSound.Length)]);
                 PlayerAlive(false);
             }
         }
@@ -349,15 +363,15 @@ public class Player : NetworkBehaviour
 
         if (alive == true)
         {
-
-            //corpseRB.GetComponent<Collider>().enabled = false;
+            audioSource.PlayOneShot(playerClass.spawnSound[Random.Range(0,
+        playerClass.spawnSound.Length)]);
         }
         else
         {
+            audioSource.PlayOneShot(playerClass.deathSound[Random.Range(0,
+        playerClass.deathSound.Length)]);
+
             Instantiate(corpsePrefab, body.transform.position, transform.rotation);
-
-            //uIMain.UIAddKillFeed("GamerJoe", playerName, null);
-
         }
 
         if (isLocalPlayer)
@@ -442,7 +456,7 @@ public class Player : NetworkBehaviour
         GameObject spawned = Instantiate(spawnableObjects[objID], pos, Quaternion.Euler(rot), parent);
 
         if (spawned.GetComponent<Hurtful>() != null)
-            spawned.GetComponent<Hurtful>().ignorePlayer = this;
+            spawned.GetComponent<Hurtful>().owner = this;
 
         if (serverOnly == false)
             NetworkServer.Spawn(spawned);
@@ -480,9 +494,15 @@ public class Player : NetworkBehaviour
         }
     }
 
-    [TargetRpc]
-    public void ConfirmedHit(NetworkConnection target) //when the players succesfully hurts something
+    [ClientRpc]
+    public void ConfirmedHit() //when the players succesfully hurts something
     {
+
+        audioSource.PlayOneShot(playerClass.hurtPlayerSound[Random.Range(0, playerClass.hurtPlayerSound.Length)]);
+
+        if (!isLocalPlayer)
+            return;
+
         if (playerWeapon.specialIsActive)
         {
             playerWeapon.EndSpecial();

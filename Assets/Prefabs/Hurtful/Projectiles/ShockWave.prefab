@@ -9713,12 +9713,14 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0.1
   damage: 15
+  hurtType: 4
   destoryOnHurt: 0
   damagePerSeconds: 0
   moveForce: 0
   collisionForce: 10
   upwardsForce: 1
-  ignorePlayer: {fileID: 0}
+  owner: {fileID: 0}
+  ignorOwner: 0
   destoryRigidbodys: 0
   destroyDelay: 0
   hurtSprite: {fileID: 0}

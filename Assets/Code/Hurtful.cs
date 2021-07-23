@@ -22,7 +22,8 @@ public class Hurtful : NetworkBehaviour
 
     private List<Player> inTrigger = new List<Player>();
 
-    public Player ignorePlayer;
+    public Player owner; //who takes the credit for a hit
+    public bool ignorOwner = true;
 
     [Header("RigidBodys")]
     public bool destoryRigidbodys = false;
@@ -72,19 +73,17 @@ public class Hurtful : NetworkBehaviour
         if (other.tag == "Player")
         {
             var player = other.GetComponent<Player>();
-            if (player != null && player != ignorePlayer)
+            if (player != null)
             {
-                if (ignorePlayer != false)
+                if (ignorOwner == false || player != owner)
                 {
-                    if(isClient)
-                        ignorePlayer.ConfirmedHit(ignorePlayer.connectionToServer);
-                    else
-                        ignorePlayer.ConfirmedHit(ignorePlayer.connectionToClient);
+                    if (owner != null)
+                        owner.ConfirmedHit();
+
+                    HurtPlayer(player, damage, hurtType);
+
+                    inTrigger.Add(player);
                 }
-
-                HurtPlayer(player, damage, hurtType);
-
-                inTrigger.Add(player);
             }
             return;
         }
@@ -123,19 +122,19 @@ public class Hurtful : NetworkBehaviour
     [Server]
     public void HurtPlayer(Player player, int damage, HurtType type)
     {
-        if (player == ignorePlayer)
+        if (player == owner && ignorOwner)
             return;
 
-        if(ignorePlayer != null)
-            player.Hurt(damage, type, ignorePlayer.playerName);
+        if(owner != null)
+            player.Hurt(damage, type, owner.playerName);
         else
             player.Hurt(damage, type, "");
 
         if (player.health <= 0)
         {
             inTrigger.Remove(player);
-            if (ignorePlayer != null)
-                ignorePlayer.score += 1;
+            if (owner != null)
+                owner.score += 1;
         }
 
         if(collisionForce != 0)

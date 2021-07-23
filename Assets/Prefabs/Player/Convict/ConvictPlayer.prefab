@@ -229,6 +229,7 @@ MonoBehaviour:
   coyotTime: 0.3
   pushForce: 5
   paused: 0
+  move: {x: 0, y: 0}
   velocity: {x: 0, y: 0, z: 0}
   cameraPrefab: {fileID: 8395054064927053673, guid: cf666aa8ac64cb9488d0a1a513b02fc2, type: 3}
   playerCam: {fileID: 0}
@@ -427,7 +428,7 @@ GameObject:
   - component: {fileID: 5267931836309207278}
   - component: {fileID: 3357997336564841528}
   - component: {fileID: 4466835560443636596}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: PlayerRender
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -516,6 +517,7 @@ MonoBehaviour:
   lookOffset: {x: 0, y: 180, z: 0}
   orginalRot: {x: 0, y: 0, z: 0}
   randomSpirte: 0
+  scale: 1
   directionalSprites:
   - {fileID: -3249214463345771897, guid: 23738a1366f4d304dae09b673209d745, type: 3}
   - {fileID: -1291543204221815371, guid: 23738a1366f4d304dae09b673209d745, type: 3}
