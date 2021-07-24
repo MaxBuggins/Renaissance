@@ -75,13 +75,13 @@ Material:
     - Vector1_ADE8E717: 0.2
     - Vector1_C219379E: 0.74
     - Vector1_CB22CE31: 0.636
-    - _FoamAmount: 0.5
+    - _FoamAmount: 0.6
     - _FoamCutoff: 0.1
-    - _NormalStrength: 1
+    - _NormalStrength: 1.25
     - _QueueControl: 0
     - _QueueOffset: 0
     - _TextureTileing: 0
-    - _WaterDepth: 4
+    - _WaterDepth: 3
     - _WaveHeight: 0.4
     - _WaveScale: 30
     - _WaveSpeed: 0.1
@@ -93,11 +93,12 @@ Material:
     - Vector2_8D4E1481: {r: -0.5, g: -0.3, b: 0, a: 0}
     - _BaseColour: {r: 0.23018861, g: 0.4297193, b: 1, a: 0.6509804}
     - _BottomColour: {r: 0, g: 0.6021943, b: 1, a: 1}
-    - _FoamColour: {r: 1, g: 1, b: 1, a: 0.8}
+    - _FoamColour: {r: 0.7735849, g: 0.6064208, b: 0.5794589, a: 0.8}
+    - _FoamMovement: {r: 0.05, g: 0.025, b: 0, a: 0}
     - _NormalMovement: {r: 0.15, g: 0.1, b: 0, a: 0}
     - _NormalTileing: {r: 2, g: 2, b: 0, a: 0}
     - _ShallowColour: {r: 0.5, g: 0.14999998, b: 0.14999998, a: 0.5019608}
-    - _TextureMovement: {r: 0.25, g: 0.15, b: 0, a: 0}
+    - _TextureMovement: {r: 0.2, g: 0.125, b: 0, a: 0}
     - _Tileing: {r: 2, g: 2, b: 0, a: 0}
     - _TopColour: {r: 0.12977926, g: 0.13207021, b: 0.21698111, a: 1}
     - _WaveMovement: {r: 0.01, g: 0.005, b: 0, a: 0}

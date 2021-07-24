@@ -1,15 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Mirror;
 
 public class ClientManager : MonoBehaviour
 {
     public string playerName = "NoNameNed";
     public Color playerColour = Color.white;
 
+    public string selectedMap = "MainMenu";
+
+    private NetworkManager netManager;
+
     void Awake()
     {
         DontDestroyOnLoad(gameObject);
+        netManager = FindObjectOfType<NetworkManager>();
 
         playerName = "NoNameNed" + Random.Range(0, 99);
         playerColour = new Color(Random.Range(0f, 1f), Random.Range(0f, 1f), Random.Range(0f, 1f));
@@ -27,5 +33,11 @@ public class ClientManager : MonoBehaviour
 
         //if (playerColour != default)
             //playerColour = newColour;
+    }
+
+    public void UpdateMap(string mapName)
+    {
+        selectedMap = mapName;
+        netManager.onlineScene = selectedMap; 
     }
 }

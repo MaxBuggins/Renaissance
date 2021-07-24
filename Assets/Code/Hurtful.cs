@@ -31,8 +31,6 @@ public class Hurtful : NetworkBehaviour
 
     private Vector3 lastPos;
 
-    public Sprite hurtSprite;
-
     [Header("Unity Stuff")]
     private Collider collider;
 
@@ -77,12 +75,11 @@ public class Hurtful : NetworkBehaviour
             {
                 if (ignorOwner == false || player != owner)
                 {
-                    if (owner != null)
-                        owner.ConfirmedHit();
-
                     HurtPlayer(player, damage, hurtType);
-
                     inTrigger.Add(player);
+
+                    if (owner != null)
+                        owner.ConfirmedHit(player.health <= 0);
                 }
             }
             return;
@@ -133,8 +130,8 @@ public class Hurtful : NetworkBehaviour
         if (player.health <= 0)
         {
             inTrigger.Remove(player);
-            if (owner != null)
-                owner.score += 1;
+            if (owner != null && owner != player)
+                owner.score += 2;
         }
 
         if(collisionForce != 0)

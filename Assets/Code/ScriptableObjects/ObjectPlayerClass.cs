@@ -32,6 +32,7 @@ public class ObjectPlayerClass : ScriptableObject
     public AudioClip[] jumpSound;
 
     public AudioClip[] hurtPlayerSound;
+    public AudioClip[] killPlayerSound;
 
     public AudioClip[] spawnSound;
 }

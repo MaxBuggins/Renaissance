@@ -128,7 +128,7 @@ public class BoxerWeapon : PlayerWeapon
         chargeDirection = new Vector3(transform.forward.x, 0, transform.forward.z).normalized;
         chargeTime = 0;
 
-        player.CmdSpawnObject(2, transform.position, transform.eulerAngles, true, true);
+        player.CmdSpawnObject(2, transform.position, transform.eulerAngles, false, true);
 
         base.UseSpecial();
     }

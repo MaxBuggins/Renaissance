@@ -34,7 +34,7 @@ public class DirectionalSprite : MonoBehaviour
             ApplySprite(directionalSprites[currentSprite]);
         }
 
-        else
+        else if(directionalSprites.Count > 0)
             SetUp();
     }
 
@@ -46,10 +46,11 @@ public class DirectionalSprite : MonoBehaviour
 
     void Update()
     {
-        cam = Camera.main;
-
         if (cam == null)
+        {
+            cam = Camera.main;
             return;
+        }
 
         if(randomSpirte || constantFollow)
         {

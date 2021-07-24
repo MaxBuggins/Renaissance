@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
 using TMPro;
-using Pixelplacement;
 
 public class Player : NetworkBehaviour
 {
@@ -72,7 +71,6 @@ public class Player : NetworkBehaviour
     private AudioSource audioSource;
 
     public DirectionalSprite body;
-
     public GameObject corpsePrefab;
 
     public int bloodPerDamage = 15;
@@ -82,9 +80,11 @@ public class Player : NetworkBehaviour
 
     private LevelManager levelManager;
     public GameObject[] spawnableObjects;
-
     private ClientManager clientManager;
     public UI_Main uIMain;
+
+    public Light topLight;
+
 
 
     public override void OnStartLocalPlayer() //just for the local client
@@ -357,6 +357,7 @@ public class Player : NetworkBehaviour
     void PlayerAlive(bool alive)
     {
         character.enabled = alive;
+        topLight.intensity = 0;
         floatingInfo.SetActive(alive);
         body.gameObject.SetActive(alive);
         body.transform.position = transform.position + -Vector3.up; //bug fix
@@ -455,8 +456,9 @@ public class Player : NetworkBehaviour
 
         GameObject spawned = Instantiate(spawnableObjects[objID], pos, Quaternion.Euler(rot), parent);
 
-        if (spawned.GetComponent<Hurtful>() != null)
-            spawned.GetComponent<Hurtful>().owner = this;
+        Hurtful hurt = spawned.GetComponentInChildren<Hurtful>();
+        if (hurt != null)
+            hurt.owner = this;
 
         if (serverOnly == false)
             NetworkServer.Spawn(spawned);
@@ -495,10 +497,18 @@ public class Player : NetworkBehaviour
     }
 
     [ClientRpc]
-    public void ConfirmedHit() //when the players succesfully hurts something
+    public void ConfirmedHit(bool kill) //when the players succesfully hurts something
     {
-
-        audioSource.PlayOneShot(playerClass.hurtPlayerSound[Random.Range(0, playerClass.hurtPlayerSound.Length)]);
+        if (kill)
+        {
+            topLight.intensity += 1f;
+            topLight.intensity = topLight.intensity * 1.5f;
+            audioSource.PlayOneShot(playerClass.killPlayerSound[Random.Range(0, playerClass.killPlayerSound.Length)]);
+        }
+        else
+        {
+            audioSource.PlayOneShot(playerClass.hurtPlayerSound[Random.Range(0, playerClass.hurtPlayerSound.Length)]);
+        }
 
         if (!isLocalPlayer)
             return;
