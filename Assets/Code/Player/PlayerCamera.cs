@@ -73,6 +73,7 @@ public class PlayerCamera : MonoBehaviour
         {
             //Idle
             bobTime = 0;
+            int jimBobTime;
             transform.localPosition = new Vector3(transform.localPosition.x, Mathf.Lerp(transform.localPosition.y, player.cameraOffset.y, Time.deltaTime * bobSpeed), transform.localPosition.z);
         }
     }
@@ -81,9 +82,10 @@ public class PlayerCamera : MonoBehaviour
     public void Shake(float amount = 1)
     {
         if (amount > 1.8f) //stop BIG SHAKEs (only at hungry hacks)
+                            //I am Michael Rosen (hello) and i agree with the above statement
             amount = 1.8f;
 
-        Vector3 orignalPosition = player.cameraOffset;
+        Vector3 orignalPosition = player.cameraOffset;//This is a rookie error
 
         Tween.Shake(transform, orignalPosition, Vector3.one * magnatude * amount, shakeDuration, 0);
     }
