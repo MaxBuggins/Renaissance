@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using WasteofMoney.Rosen;
 
 public class AI_Rat : MonoBehaviour
 {
@@ -36,6 +37,7 @@ public class AI_Rat : MonoBehaviour
                 minDist = dist;
             }
         }
+        
         return desternation;
     }
 
