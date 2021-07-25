@@ -177,7 +177,7 @@ public class Player : NetworkBehaviour
          //   audioSource.clip = playerClass.walkCycle;
         //    audioSource.Play();
         //}
-
+        //For all clients to run so they can hear really great sounds like RUN,RUN run from the sanvwich
         if(transform.position.y - lastPos.y > 0.26f)
         {
             if (audioSource.isPlaying)
@@ -348,7 +348,7 @@ public class Player : NetworkBehaviour
     }
 
     [Client]
-    void PlayerAlive(bool alive)
+    void PlayerAlive(bool alive) //I will run Mesh.PlayerAlive(false)
     {
         character.enabled = alive;
         floatingInfo.SetActive(alive);

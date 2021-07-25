@@ -31,7 +31,7 @@ public class Hurtful : NetworkBehaviour
 
     private Vector3 lastPos;
 
-    [Header("Unity Stuff")]
+    [Header("Unity Stuff")] //this isn't how I would do it but ummm okay sweaty :n) <-- Usopp from the famous film One Peace
     private Collider collider;
 
     void Awake()
