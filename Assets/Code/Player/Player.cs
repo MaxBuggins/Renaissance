@@ -52,6 +52,7 @@ public class Player : NetworkBehaviour
     private Vector3 lastPos;
 
     public Vector3 velocity;
+    public Vector3 exsternalForce; //direct movement added every update
     private float fallTime; //for counting seconds of falling
 
     private float deadTime;
@@ -207,22 +208,21 @@ public class Player : NetworkBehaviour
         if (fallTime > coyotTime)
             movement = movement * airMovementMultiplyer;
 
-
-        //velocity.x = Mathf.Clamp(velocity.x, -maxMoveVelocity, maxMoveVelocity);
-        //velocity.z = Mathf.Clamp(velocity.z, -maxMoveVelocity, maxMoveVelocity);
-
-        velocity.x = Mathf.Lerp(velocity.x, 0, fricktion * Time.fixedDeltaTime);
-        velocity.z = Mathf.Lerp(velocity.z, 0, fricktion * Time.fixedDeltaTime);
-
         if (Mathf.Abs(velocity.x) < maxMoveVelocity && Mathf.Abs(velocity.z) < maxMoveVelocity)
             movement *= speed;
 
         if (paused)
             movement = Vector3.zero;
 
-        character.Move((movement + velocity) * Time.fixedDeltaTime); //apply movement to charhcter contoler
+        character.Move((movement + velocity) * Time.fixedDeltaTime + exsternalForce); //apply movement to charhcter contoler
 
         velocity += transform.right * x + transform.forward * z;
+
+        exsternalForce = Vector3.zero;
+
+        velocity.x = Mathf.Lerp(velocity.x, 0, fricktion * Time.fixedDeltaTime);
+        velocity.z = Mathf.Lerp(velocity.z, 0, fricktion * Time.fixedDeltaTime);
+
     }
 
     [ClientCallback]
@@ -475,10 +475,14 @@ public class Player : NetworkBehaviour
     [Server]
     public void ServerAddSpecial(int amount) //Same as CmdAddSpecial except if called from server
     {
-        if (special + amount > maxSpecial) //TOOO SPECIAL am i right ladeys
+        if (special > maxSpecial) //TOOO SPECIAL am i right ladeys
             return;
 
         special += amount;
+
+        if (special > maxSpecial)
+            special = maxSpecial;
+
         TargetUpdateSpecial(netIdentity.connectionToClient, special);
     }
 

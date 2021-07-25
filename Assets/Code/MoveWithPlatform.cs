@@ -5,23 +5,31 @@ using UnityEngine;
 public class MoveWithPlatform : MonoBehaviour
 {
 
+    private float velocityMultiplyer = 0.078f;
     private Vector3 lastPos;
 
     private Player playerInTrigger;
+
+    int i = 0;
 
     void Start()
     {
 
     }
 
-    void Update()
+    void FixedUpdate()
     {
-        if (playerInTrigger != null)
-        {
-            playerInTrigger.velocity += (transform.position - lastPos) * 3; //times 3 to really feel the force
-        }
+        //i++;
+        //if (playerInTrigger != null)
+        //{
+          //  print("triggerd " + i);
 
-        lastPos = transform.position;   
+            //Vector3 magatitude = (transform.position - lastPos);
+
+            //playerInTrigger.exsternalForce += magatitude * 1f;
+        //}
+
+        lastPos = transform.position;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -34,7 +42,7 @@ public class MoveWithPlatform : MonoBehaviour
                 if (player.isLocalPlayer)
                 {
                     playerInTrigger = player;
-                    //player.transform.parent = transform;
+                    player.transform.parent = transform;
                 }
             }
         }
@@ -50,7 +58,8 @@ public class MoveWithPlatform : MonoBehaviour
                 if (player.isLocalPlayer)
                 {
                     playerInTrigger = null;
-                    //player.transform.parent = null;
+                    player.transform.parent = null;
+                    player.velocity += (transform.position - lastPos) / Time.fixedDeltaTime;
                 }
             }
         }
