@@ -130,8 +130,11 @@ public class Hurtful : NetworkBehaviour
         if (player.health <= 0)
         {
             inTrigger.Remove(player);
-            if (owner != null && owner != player)
+            if (owner != null && owner != player) //on owner acturlly killing something (Like a Boss Baby)
+            {
+                owner.killStreak += 1;
                 owner.score += 2;
+            }
         }
 
         if(collisionForce != 0)

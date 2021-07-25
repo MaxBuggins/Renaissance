@@ -63,9 +63,8 @@ public class ItemPickUp : NetworkBehaviour
         Player player = other.GetComponent<Player>();
         if (player != null)
         {
-            player.Hurt(-health);
-
-            player.special += special;
+            player.Hurt(-health); //makes player gain health (WACKY)
+            player.CmdAddSpecial(special);
 
             if (powerUp != PowerUp.None)
             {

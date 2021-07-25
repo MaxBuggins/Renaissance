@@ -6,19 +6,15 @@ using TMPro;
 
 public class Player : NetworkBehaviour
 {
-    [Header("Player Info")]
-    public TextMeshPro playerNameText;
-    public GameObject floatingInfo;
-
     [Header("Player Stats")]
-    [SyncVar] public int score;
+    [SyncVar] public int score = 0;
+    [SyncVar] public int killStreak = 0;
 
     public int maxHealth = 100;
     [SyncVar(hook = nameof(OnHealthChanged))]
     public int health;
 
     public int maxSpecial = 10;
-    [SyncVar(hook = nameof(OnSpecialChanged))]
     public int special;
 
     public float specialChargeRate = 4;
@@ -28,7 +24,7 @@ public class Player : NetworkBehaviour
     [SyncVar(hook = nameof(OnNameChanged))]
     public string playerName = "NoNameNed";
     [SyncVar(hook = nameof(OnColorChanged))]
-    public Color playerColour = Color.white;
+    public Color32 playerColour = Color.white;
 
     public ObjectPlayerClass playerClass;
 
@@ -84,6 +80,8 @@ public class Player : NetworkBehaviour
     public UI_Main uIMain;
 
     public Light topLight;
+    public TextMeshPro playerNameText;
+    public GameObject floatingInfo;
 
 
 
@@ -128,24 +126,26 @@ public class Player : NetworkBehaviour
         //animator = GetComponentInChildren<Animator>();
 
         levelManager = FindObjectOfType<LevelManager>();
+
+        //clients need to run to sync up with gamers allready gameing
+        topLight.intensity = killStreak * 1.5f;
     }
 
     void FixedUpdate()
     {
         if (isServer)
         {
-            //prevents infiti special stacking
-            if (health > 0)
+            if (health > 0) //only gain special when alive / gameing
             {
-                specialChargeTime += Time.fixedDeltaTime;
-
-                if (special > maxSpecial)
-                    special = maxSpecial;
-
-                else if (specialChargeTime > specialChargeRate)
+                if (special < maxSpecial) //only gain special when not at max
                 {
-                    special += 1;
-                    specialChargeTime = 0;
+                    specialChargeTime += Time.fixedDeltaTime;
+
+                    if (specialChargeTime > specialChargeRate)
+                    {
+                        CmdAddSpecial(1);
+                        specialChargeTime = 0;
+                    }
                 }
             }
         }
@@ -301,7 +301,7 @@ public class Player : NetworkBehaviour
         playerNameText.text = playerName;
     }
 
-    void OnColorChanged(Color _Old, Color _New)
+    void OnColorChanged(Color32 _Old, Color32 _New) //fixed colours to 32 bits 0-255 int, while listening to Miitopia soundtrack 
     {
         playerNameText.color = _New;
         //playerMaterialClone = new Material(GetComponent<Renderer>().material);
@@ -347,17 +347,10 @@ public class Player : NetworkBehaviour
         }
     }
 
-    void OnSpecialChanged(int _Old, int _New)
-    {
-        if (isLocalPlayer)
-            uIMain.UIUpdate();
-    }
-
     [Client]
     void PlayerAlive(bool alive)
     {
         character.enabled = alive;
-        topLight.intensity = 0;
         floatingInfo.SetActive(alive);
         body.gameObject.SetActive(alive);
         body.transform.position = transform.position + -Vector3.up; //bug fix
@@ -471,9 +464,22 @@ public class Player : NetworkBehaviour
     }
 
     [Command]
-    public void CmdUseSpecial(int used)
+    public void CmdAddSpecial(int amount) //can take away special as well Server will update owner special ONLY
     {
-        special -= used;
+        if (special + amount > maxSpecial) //TOOO SPECIAL am i right ladeys
+            return;
+
+        special += amount;
+
+        TargetUpdateSpecial(netIdentity.connectionToClient, special);
+    }
+
+    [TargetRpc] //should only be called on owner
+    public void TargetUpdateSpecial(NetworkConnection target, int newSpecial)
+    {
+        // This will appear on the opponent's client, not other players
+        special = newSpecial;
+        uIMain.UIUpdate();
     }
 
     [Server]
@@ -492,6 +498,7 @@ public class Player : NetworkBehaviour
         if(health <= 0)
         {
             levelManager.sendKillMsg(killer, playerName, hurtType);
+            topLight.intensity = 0;
             score -= 1;
         }
     }
@@ -501,8 +508,7 @@ public class Player : NetworkBehaviour
     {
         if (kill)
         {
-            topLight.intensity += 1f;
-            topLight.intensity = topLight.intensity * 1.5f;
+            topLight.intensity = killStreak * 1.5f;
             audioSource.PlayOneShot(playerClass.killPlayerSound[Random.Range(0, playerClass.killPlayerSound.Length)]);
         }
         else

@@ -66,6 +66,8 @@ public class PlayerWeapon : NetworkBehaviour
         if (player.paused)
             return;
 
+        player.CmdAddSpecial(-specialCost);
+
         specialIsActive = true;
     }
 

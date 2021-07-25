@@ -112,10 +112,11 @@ public class BoxerWeapon : PlayerWeapon
         if (player.paused)
             return;
 
-        if (player.special - specialCost < 0)
+        //whould like base.useSpecial to run this but havent figured that out yet give me 7 years
+        if (player.special - specialCost < 0) //not special enough falount 7 refrence (ADIAN HOLDSWORTH)
             return;
 
-        player.CmdUseSpecial(specialCost);
+        base.UseSpecial();
 
         player.velocity = Vector3.zero;
 
@@ -129,16 +130,16 @@ public class BoxerWeapon : PlayerWeapon
         chargeTime = 0;
 
         player.CmdSpawnObject(2, transform.position, transform.eulerAngles, false, true);
-
-        base.UseSpecial();
     }
 
     public override void EndSpecial()
     {
+        //gotta reset the player
         player.pushForce = orginalPushForce;
         player.gravitY = orginalGravitY;
+        player.velocity = player.velocity / 2;
 
-        chargeTime = chargeDuration; //make sure if called outside of script
+        chargeTime = chargeDuration; //make sure if called outside of base
 
         base.EndSpecial();
     }
