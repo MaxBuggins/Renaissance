@@ -4,7 +4,10 @@ using UnityEngine;
 
 public class MoveWithPlatform : MonoBehaviour
 {
-    //private List<Player> inTrigger = new List<Player>();
+
+    private Vector3 lastPos;
+
+    private Player playerInTrigger;
 
     void Start()
     {
@@ -13,7 +16,12 @@ public class MoveWithPlatform : MonoBehaviour
 
     void Update()
     {
+        if (playerInTrigger != null)
+        {
+            playerInTrigger.velocity += (transform.position - lastPos) * 5; //times 5 to really feel the force
+        }
 
+        lastPos = transform.position;   
     }
 
     private void OnTriggerEnter(Collider other)
@@ -25,7 +33,8 @@ public class MoveWithPlatform : MonoBehaviour
             {
                 if (player.isLocalPlayer)
                 {
-                    player.transform.parent = transform;
+                    playerInTrigger = player;
+                    //player.transform.parent = transform;
                 }
             }
         }
@@ -40,7 +49,8 @@ public class MoveWithPlatform : MonoBehaviour
             {
                 if (player.isLocalPlayer)
                 {
-                    player.transform.parent = null;
+                    playerInTrigger = null;
+                    //player.transform.parent = null;
                 }
             }
         }

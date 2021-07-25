@@ -5,21 +5,43 @@ using Mirror;
 
 public class NetworkMoveingObject : NetworkBehaviour
 {
-    public enum MoveMode { constantDirection, backAndForth }
+    public enum MoveMode { constantDirection, backAndForth, loop}
     public MoveMode moveMode = MoveMode.constantDirection;
 
     public float moveSpeed = 5;
 
-    public Vector3 originPos;
+    [SyncVar] private Vector3 orginPos; //I trust mirror is efficent
     public Transform[] path;
-    private Vector3[] pathPos;
 
     private NetworkIdentity identity;
 
 
-    private void OnDrawGizmos() //temp fix proberly
+    private void OnDrawGizmos() //Looks cool in scene view
     {
-        originPos = transform.position;
+        Gizmos.color = Color.green;
+
+        //Gizmos.DrawLine(transform.position, endPosTransform[0].position);
+
+        if (path.Length > 1)
+        {
+            int n = 0;
+            foreach (Transform trans in path)
+            {
+                n++;
+                if (n < path.Length)
+                {
+                    Gizmos.DrawLine(path[n - 1].position, path[n].position);
+                }
+            }
+        }
+    }
+
+    public override void OnStartServer()
+    {
+        base.OnStartServer();
+
+
+        orginPos = transform.position;
     }
 
     //for all clients and server
@@ -29,17 +51,29 @@ public class NetworkMoveingObject : NetworkBehaviour
         {
             case (MoveMode.constantDirection):
                 {
-                    transform.position += transform.right * moveSpeed * (float)NetworkTime.time;
+                    transform.position = transform.right * moveSpeed * (float)NetworkTime.time;
                     break;
                 }
 
-            case (MoveMode.backAndForth):
+            case (MoveMode.loop):
                 {
-                    //float yPos = originPos.y + Mathf.Sin((float)NetworkTime.time * moveSpeed) * sinHeight;
+                    float relativePos = ((float)NetworkTime.time * moveSpeed) / path.Length;
 
-                    //transform.position = new Vector3(originPos.x, yPos, originPos.z);
+
+                    int posL = (int)Mathf.Repeat(Mathf.Floor(relativePos), path.Length);
+                    int posH = (int)Mathf.Repeat(Mathf.Ceil(relativePos), path.Length);
+
+                    transform.position = orginPos + LerpByDistance(path[posL].localPosition, path[posH].localPosition,
+                        relativePos - Mathf.Floor(relativePos));
+
                     break;
                 }
         }
+    }
+
+    public Vector3 LerpByDistance(Vector3 A, Vector3 B, float x)
+    {
+        Vector3 pos = x * (B - A) + A;
+        return pos;
     }
 }
