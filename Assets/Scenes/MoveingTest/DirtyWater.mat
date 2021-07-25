@@ -1,0 +1,105 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-2845399139474863629
+MonoBehaviour:
+  m_ObjectHideFlags: 11
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0353a89b1f911e48b9e16bdc9f2e058, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 5
+--- !u!21 &2100000
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: DirtyWater
+  m_Shader: {fileID: -6465566751694194690, guid: 780be0353fcc8624ca7c42833c7ed3ef, type: 3}
+  m_ShaderKeywords: 
+  m_LightmapFlags: 2
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - Texture2D_428FC095:
+        m_Texture: {fileID: 2800000, guid: 07410c509e148a7459abf6c25c7be708, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - Texture2D_FE7F5D30:
+        m_Texture: {fileID: 2800000, guid: 07410c509e148a7459abf6c25c7be708, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _FoamTexture:
+        m_Texture: {fileID: 2800000, guid: a7e0789b8810413458a7702ccf9fb7c2, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _NormalMap:
+        m_Texture: {fileID: 2800000, guid: 967dd0a75d7ccf74b82b35f86760ce4f, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _TopTexture:
+        m_Texture: {fileID: 2800000, guid: 07410c509e148a7459abf6c25c7be708, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_Lightmaps:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_LightmapsInd:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_ShadowMasks:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - Vector1_1CA57F27: 1
+    - Vector1_392B4E95: 0.28
+    - Vector1_4065B2D8: 0.125
+    - Vector1_406D2FC3: 0.291
+    - Vector1_725956EC: 4
+    - Vector1_9C8E1C2E: 0.4
+    - Vector1_ADE8E717: 0.2
+    - Vector1_C219379E: 0.74
+    - Vector1_CB22CE31: 0.636
+    - _FoamAmount: 0.6
+    - _FoamCutoff: 0.1
+    - _NormalStrength: 1.25
+    - _QueueControl: 0
+    - _QueueOffset: 0
+    - _TextureTileing: 0
+    - _WaterDepth: 3
+    - _WaveHeight: 0.4
+    - _WaveScale: 30
+    - _WaveSpeed: 0.1
+    m_Colors:
+    - Color_377617A2: {r: 1, g: 1, b: 1, a: 1}
+    - Color_3D915178: {r: 0, g: 1, b: 0.96, a: 0.69411767}
+    - Color_DAE30297: {r: 0.2830189, g: 0.19330724, b: 0.19330724, a: 0.21176471}
+    - Color_FF701174: {r: 0.3109291, g: 0.39552385, b: 0.41509426, a: 0.6509804}
+    - Vector2_8D4E1481: {r: -0.5, g: -0.3, b: 0, a: 0}
+    - _BaseColour: {r: 0.23018861, g: 0.4297193, b: 1, a: 0.6509804}
+    - _BottomColour: {r: 0, g: 0.6021943, b: 1, a: 1}
+    - _FoamColour: {r: 0.7735849, g: 0.6064208, b: 0.5794589, a: 0.8}
+    - _FoamMovement: {r: 0.05, g: 0.025, b: 0, a: 0}
+    - _NormalMovement: {r: 0.15, g: 0.1, b: 0, a: 0}
+    - _NormalTileing: {r: 2, g: 2, b: 0, a: 0}
+    - _ShallowColour: {r: 0.5, g: 0.14999998, b: 0.14999998, a: 0.5019608}
+    - _TextureMovement: {r: 0.2, g: 0.125, b: 0, a: 0}
+    - _Tileing: {r: 2, g: 2, b: 0, a: 0}
+    - _TopColour: {r: 0.12977926, g: 0.13207021, b: 0.21698111, a: 1}
+    - _WaveMovement: {r: 0.01, g: 0.005, b: 0, a: 0}
+  m_BuildTextureStacks: []

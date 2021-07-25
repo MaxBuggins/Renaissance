@@ -5,7 +5,7 @@ using Mirror;
 
 public class NetworkMoveingObject : NetworkBehaviour
 {
-    public enum MoveMode { constantDirection, backAndForth, loop}
+    public enum MoveMode { constantDirection, loop}
     public MoveMode moveMode = MoveMode.constantDirection;
 
     public float moveSpeed = 5;

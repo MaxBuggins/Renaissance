@@ -18,7 +18,7 @@ public class MoveWithPlatform : MonoBehaviour
     {
         if (playerInTrigger != null)
         {
-            playerInTrigger.velocity += (transform.position - lastPos) * 5; //times 5 to really feel the force
+            playerInTrigger.velocity += (transform.position - lastPos) * 3; //times 3 to really feel the force
         }
 
         lastPos = transform.position;   
