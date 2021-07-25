@@ -463,14 +463,22 @@ public class Player : NetworkBehaviour
         velocity += vel;
     }
 
-    [Command]
+    [Command(requiresAuthority = false)] //oh no hackers are gonna hack it ahhhHHHHhhhHHHHhH
     public void CmdAddSpecial(int amount) //can take away special as well Server will update owner special ONLY
     {
         if (special + amount > maxSpecial) //TOOO SPECIAL am i right ladeys
             return;
 
         special += amount;
+        TargetUpdateSpecial(netIdentity.connectionToClient, special);
+    }
+    [Server]
+    public void ServerAddSpecial(int amount) //Same as CmdAddSpecial except if called from server
+    {
+        if (special + amount > maxSpecial) //TOOO SPECIAL am i right ladeys
+            return;
 
+        special += amount;
         TargetUpdateSpecial(netIdentity.connectionToClient, special);
     }
 

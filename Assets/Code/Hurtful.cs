@@ -38,7 +38,7 @@ public class Hurtful : NetworkBehaviour
     {
         collider = GetComponent<Collider>();
 
-        if (isClient) //only for the server to run
+        if (!isServer) //only for the server to run
             enabled = false;
 
         lastPos = transform.position;

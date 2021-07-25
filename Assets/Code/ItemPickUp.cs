@@ -64,7 +64,7 @@ public class ItemPickUp : NetworkBehaviour
         if (player != null)
         {
             player.Hurt(-health); //makes player gain health (WACKY)
-            player.CmdAddSpecial(special);
+            player.ServerAddSpecial(special);
 
             if (powerUp != PowerUp.None)
             {
