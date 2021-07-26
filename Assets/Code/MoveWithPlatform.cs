@@ -5,7 +5,7 @@ using UnityEngine;
 public class MoveWithPlatform : MonoBehaviour
 {
 
-    private float velocityMultiplyer = 0.078f;
+    private Vector3 velocity;
     private Vector3 lastPos;
 
     private Player playerInTrigger;
@@ -19,15 +19,24 @@ public class MoveWithPlatform : MonoBehaviour
 
     void FixedUpdate()
     {
-        //i++;
-        //if (playerInTrigger != null)
-        //{
-          //  print("triggerd " + i);
+    
+        Vector3 newVelocity = transform.position - lastPos;
+/*
+        Vector3 velDiffrence = (velocity - newVelocity);
 
-            //Vector3 magatitude = (transform.position - lastPos);
+        print(velDiffrence);
 
-            //playerInTrigger.exsternalForce += magatitude * 1f;
-        //}
+        if (playerInTrigger != null)
+        {
+            if (Mathf.Abs(velocity.x - newVelocity.x) > 0.1f ||
+                Mathf.Abs(velocity.y - newVelocity.y) > 0.1f ||
+                Mathf.Abs(velocity.z - newVelocity.z) > 0.1f)
+            {
+                playerInTrigger.velocity += (velDiffrence) / Time.fixedDeltaTime;
+            }
+        }
+*/
+        velocity = newVelocity;
 
         lastPos = transform.position;
     }
@@ -59,7 +68,8 @@ public class MoveWithPlatform : MonoBehaviour
                 {
                     playerInTrigger = null;
                     player.transform.parent = null;
-                    player.velocity += (transform.position - lastPos) / Time.fixedDeltaTime;
+                    //manually add velocity after leveing trigger
+                    player.velocity += velocity / Time.fixedDeltaTime;
                 }
             }
         }

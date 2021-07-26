@@ -350,6 +350,7 @@ public class Player : NetworkBehaviour
     [Client]
     void PlayerAlive(bool alive) //I will run Mesh.PlayerAlive(false)
     {
+        transform.parent = null; //incase on moveing platform   
         character.enabled = alive;
         floatingInfo.SetActive(alive);
         body.gameObject.SetActive(alive);

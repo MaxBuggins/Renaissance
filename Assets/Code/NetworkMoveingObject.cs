@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
 
-public class NetworkMoveingObject : NetworkBehaviour
+public class NetworkMoveingObject : MonoBehaviour
 {
     public enum MoveMode { constantDirection, loop}
     public MoveMode moveMode = MoveMode.constantDirection;
 
     public float moveSpeed = 5;
 
-    [SyncVar] private Vector3 orginPos; //I trust mirror is efficent
+    private Vector3 orginPos; //I trust mirror is efficent
     public Transform[] path;
 
     private NetworkIdentity identity;
@@ -36,11 +36,8 @@ public class NetworkMoveingObject : NetworkBehaviour
         }
     }
 
-    public override void OnStartServer()
+    void Start()
     {
-        base.OnStartServer();
-
-
         orginPos = transform.position;
     }
 
