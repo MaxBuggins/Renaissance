@@ -270,8 +270,10 @@ MonoBehaviour:
   player: {fileID: 0}
   punchDelay: 0.1
   punchCooldown: 0.4
+  punchVelocity: 14
   throwDelay: 0.2
   throwCoolDown: 0.7
+  throwVelocity: 14
   chargeDuration: 0.4
   chargeSpeed: 325
   pushForceMultipyer: 15
@@ -450,7 +452,7 @@ Camera:
     height: 1
   near clip plane: 0.1
   far clip plane: 1000
-  field of view: 75
+  field of view: 95
   orthographic: 0
   orthographic size: 5
   m_Depth: 0

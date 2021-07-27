@@ -10,10 +10,14 @@ public class BoxerWeapon : PlayerWeapon
     public float punchCooldown;
     private float timeSincePunch;
 
+    public float punchVelocity = 6;
+
     [Header("Throw Propertys")]
     public float throwDelay = 0.125f;
     public float throwCoolDown = 0.4f;
     private float throwTime = 0;
+
+    public float throwVelocity = 21;
 
     [Header("Charge Propertys")]
     public float chargeDuration = 2.75f;
@@ -85,6 +89,7 @@ public class BoxerWeapon : PlayerWeapon
     void Punch()
     {
         player.CmdSpawnObject(0, player.transform.position, transform.eulerAngles, true, true);
+        player.velocity += transform.forward * punchVelocity;
         base.UsePrimary();
         punchHand.transform.position -= transform.forward * 0.75f;
     }
@@ -106,6 +111,7 @@ public class BoxerWeapon : PlayerWeapon
     void Throw()
     {
         player.CmdSpawnObject(1, shootPos.position, shootPos.eulerAngles, false, false);
+        player.velocity += shootPos.forward * throwVelocity;
         base.UseSeconday();
     }
 

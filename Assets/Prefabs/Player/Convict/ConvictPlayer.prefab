@@ -52,7 +52,7 @@ CharacterController:
   m_Height: 2.3
   m_Radius: 0.7
   m_SlopeLimit: 45
-  m_StepOffset: 0.475
+  m_StepOffset: 0.45
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0.2, z: 0}
@@ -206,16 +206,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
-  playerNameText: {fileID: 2054813025422833269}
-  floatingInfo: {fileID: 5582000977965621725}
   score: 0
+  killStreak: 0
   maxHealth: 100
   health: 100
   maxSpecial: 10
   special: 4
   specialChargeRate: 6
   playerName: 
-  playerColour: {r: 1, g: 1, b: 1, a: 1}
+  playerColour:
+    serializedVersion: 2
+    rgba: 4294967295
   playerClass: {fileID: 11400000, guid: 111dcb192fc61f74cbb00309b9cc4f68, type: 2}
   cameraOffset: {x: 0, y: 1, z: 0}
   speed: 5
@@ -244,6 +245,8 @@ MonoBehaviour:
   - {fileID: 8049305972401676689, guid: c46c2276205e7844f8816c9238605bc3, type: 3}
   uIMain: {fileID: 0}
   topLight: {fileID: 5203242096459892372}
+  playerNameText: {fileID: 2054813025422833269}
+  floatingInfo: {fileID: 5582000977965621725}
 --- !u!1 &4005357273238095801
 GameObject:
   m_ObjectHideFlags: 0

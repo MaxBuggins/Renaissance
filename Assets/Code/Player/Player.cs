@@ -223,7 +223,6 @@ public class Player : NetworkBehaviour
 
         velocity.x = Mathf.Lerp(velocity.x, 0, fricktion * Time.fixedDeltaTime);
         velocity.z = Mathf.Lerp(velocity.z, 0, fricktion * Time.fixedDeltaTime);
-
     }
 
     [ClientCallback]
@@ -471,8 +470,8 @@ public class Player : NetworkBehaviour
             NetworkServer.Spawn(spawned);
     }
 
-    [ClientRpc]
-    public void RpcAddVelocity(Vector3 vel) //TEMP apply to local player only
+    [TargetRpc]
+    public void TargetAddVelocity(NetworkConnection target, Vector3 vel) //TEMP apply to local player only
     {
         velocity += vel;
     }

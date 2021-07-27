@@ -144,7 +144,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4993e96988f80b643a6c4b82696ab68f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  segmentDistance: 2.5
+  segmentDistance: 1.5
   endPos: {fileID: 0}
 --- !u!1 &2306937412457157175
 GameObject:
@@ -292,6 +292,7 @@ GameObject:
   - component: {fileID: -5797084931668608411}
   - component: {fileID: 2809265603616378749}
   - component: {fileID: 8522565217626811971}
+  - component: {fileID: 1476269009965310601}
   m_Layer: 6
   m_Name: ShotPutBall
   m_TagString: Untagged
@@ -422,12 +423,13 @@ MonoBehaviour:
   syncInterval: 0.1
   damage: 30
   destroyDelay: 5
-  forwardSpeed: 16
-  gravitY: -19
+  forwardSpeed: 18
+  gravitY: -20
   projectileWidth: 0.45
   destoryOnHits: 1
   hitObject: {fileID: 6906018285293153184, guid: 2b1f33066f196634cbb4661d4a46f5aa, type: 3}
   hitSplat: {fileID: 354691278180113158, guid: ec1ce332d44e5aa4687631fbb4af931f, type: 3}
+  destoyCall: {fileID: 1476269009965310601}
 --- !u!114 &8522565217626811971
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -454,3 +456,16 @@ MonoBehaviour:
   ignorOwner: 1
   destoryRigidbodys: 0
   destroyDelay: 0
+--- !u!114 &1476269009965310601
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2809265603616378744}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81cc0ad566f1b54438419e1a1c5500e2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pullForce: 3.5

@@ -158,7 +158,7 @@ public class Hurtful : NetworkBehaviour
             else
                 vel = player.transform.position - collider.bounds.center;
 
-            player.RpcAddVelocity((vel * collisionForce) + (vel.magnitude * Vector3.up * upwardsForce));
+            player.TargetAddVelocity(player.connectionToClient,(vel * collisionForce) + (vel.magnitude * Vector3.up * upwardsForce));
         }
 
 

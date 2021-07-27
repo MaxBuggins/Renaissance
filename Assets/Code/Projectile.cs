@@ -27,6 +27,8 @@ public class Projectile : NetworkBehaviour
     public GameObject hitObject;
     public GameObject hitSplat;
 
+    public OnCall destoyCall;
+
 
     // Server and Clients must run
     void Awake()
@@ -85,6 +87,9 @@ public class Projectile : NetworkBehaviour
 
         if (isServer)
         {
+            if (destoyCall != null)
+                destoyCall.Call(hurtful.owner);
+
             Hurtful hurt = obj.GetComponentInChildren<Hurtful>();
             if (hurt != null)
                 hurt.owner = hurtful.owner;
@@ -93,34 +98,6 @@ public class Projectile : NetworkBehaviour
         if(hitSplat != null)
             Instantiate(hitSplat, lastPos, transform.rotation);
     }
-
-    //void ActivateCollision()
-    //{
-    //    rb.detectCollisions = true;
-    //}
-
-    //[ServerCallback]
-    // ServerCallback because we don't want a warning if OnTriggerEnter is
-    // called on the client
-    /*
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.tag == "Player")
-        {
-            var player = collision.gameObject.GetComponent<Player>();
-            if (player != null)
-            {
-                hurtful.HurtPlayer(player, damage);
-            }
-        }
-
-        RpcHit();
-
-        destoryOnHits -= 1;
-        if (destoryOnHits < 0)
-            Invoke(nameof(DestroySelf), 0.1f);
-    }
-    */
 }
 
 
