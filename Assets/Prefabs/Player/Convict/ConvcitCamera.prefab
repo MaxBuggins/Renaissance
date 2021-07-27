@@ -24,7 +24,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2868509264352706497}
   m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 1, z: 0}
+  m_LocalPosition: {x: 0, y: 0.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -270,7 +270,8 @@ MonoBehaviour:
   player: {fileID: 0}
   punchDelay: 0.1
   punchCooldown: 0.4
-  throwDelay: 0.75
+  throwDelay: 0.2
+  throwCoolDown: 0.7
   chargeDuration: 0.4
   chargeSpeed: 325
   pushForceMultipyer: 15
@@ -278,7 +279,6 @@ MonoBehaviour:
   punchHand: {fileID: 5744086905316796481}
   shootPos: {fileID: 1793813062749898694}
   projectile: {fileID: 2809265603616378744, guid: 48120d00173fdf94ea015c5ef7850de3, type: 3}
-  hurtCube: {fileID: 0}
 --- !u!1 &7680830089345768628
 GameObject:
   m_ObjectHideFlags: 0

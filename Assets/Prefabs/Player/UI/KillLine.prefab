@@ -211,7 +211,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
   m_AnchoredPosition: {x: 6, y: 0}
-  m_SizeDelta: {x: 95, y: 25}
+  m_SizeDelta: {x: 110, y: 15}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!222 &6671015617371991632
 CanvasRenderer:
@@ -243,8 +243,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: I Rekt some loser
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 1d4f301d8bdd9464e9224f8b732e5794, type: 2}
+  m_sharedMaterial: {fileID: 351095659383211434, guid: 1d4f301d8bdd9464e9224f8b732e5794, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -346,7 +346,7 @@ RectTransform:
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
   m_AnchoredPosition: {x: -5, y: 0}
-  m_SizeDelta: {x: 95, y: 25}
+  m_SizeDelta: {x: 110, y: 15}
   m_Pivot: {x: 1, y: 0.5}
 --- !u!222 &3887799333365588888
 CanvasRenderer:
@@ -378,8 +378,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: SomeLoser13
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 1d4f301d8bdd9464e9224f8b732e5794, type: 2}
+  m_sharedMaterial: {fileID: 351095659383211434, guid: 1d4f301d8bdd9464e9224f8b732e5794, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -403,7 +403,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 15.15
+  m_fontSize: 16.6
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1

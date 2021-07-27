@@ -42,7 +42,7 @@ public class NetworkMoveingObject : MonoBehaviour
     }
 
     //for all clients and server
-    void Update()
+    void FixedUpdate()
     {
         switch (moveMode)
         {

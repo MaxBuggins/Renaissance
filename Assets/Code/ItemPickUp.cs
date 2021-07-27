@@ -26,10 +26,12 @@ public class ItemPickUp : NetworkBehaviour
 
     [Header("Internals")]
     private Renderer render;
+    private Collider trigger;
 
     private void Start()
     {
         render = GetComponent<Renderer>();
+        trigger = GetComponent<Collider>();
 
         orginPos = transform.position;
     }
@@ -72,7 +74,6 @@ public class ItemPickUp : NetworkBehaviour
                 ApplyPowerUp(target.connectionToClient);
             }
 
-            isActive = false;
             respawnTime = 0;
             RpcSetItem(false);
         }
@@ -82,6 +83,9 @@ public class ItemPickUp : NetworkBehaviour
     void RpcSetItem(bool active)
     {
         render.enabled = active;
+        trigger.enabled = active;
+
+        isActive = active;
     }
 
     [TargetRpc]

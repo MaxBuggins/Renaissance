@@ -12,6 +12,7 @@ public class BoxerWeapon : PlayerWeapon
 
     [Header("Throw Propertys")]
     public float throwDelay = 0.125f;
+    public float throwCoolDown = 0.4f;
     private float throwTime = 0;
 
     [Header("Charge Propertys")]
@@ -33,7 +34,6 @@ public class BoxerWeapon : PlayerWeapon
 
     public Transform shootPos;
     public GameObject projectile;
-    public GameObject hurtCube;
 
     protected override void Start()
     {
@@ -96,13 +96,16 @@ public class BoxerWeapon : PlayerWeapon
         if (player.paused)
             return;
 
-        if (throwTime < throwDelay)
+        if (throwTime < throwCoolDown)
             return;
 
+        Invoke(nameof(Throw), throwDelay);
         throwTime = 0;
+    }
 
+    void Throw()
+    {
         player.CmdSpawnObject(1, shootPos.position, shootPos.eulerAngles, false, false);
-
         base.UseSeconday();
     }
 

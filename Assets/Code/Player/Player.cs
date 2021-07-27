@@ -10,11 +10,11 @@ public class Player : NetworkBehaviour
     [SyncVar] public int score = 0;
     [SyncVar] public int killStreak = 0;
 
-    public int maxHealth = 100;
+    [HideInInspector] public int maxHealth = 100;
     [SyncVar(hook = nameof(OnHealthChanged))]
     public int health;
 
-    public int maxSpecial = 10;
+    [HideInInspector] public int maxSpecial = 10;
     public int special;
 
     public float specialChargeRate = 4;
@@ -52,7 +52,7 @@ public class Player : NetworkBehaviour
     private Vector3 lastPos;
 
     public Vector3 velocity;
-    public Vector3 exsternalForce; //direct movement added every update
+
     private float fallTime; //for counting seconds of falling
 
     private float deadTime;
@@ -84,8 +84,6 @@ public class Player : NetworkBehaviour
     public TextMeshPro playerNameText;
     public GameObject floatingInfo;
 
-
-
     public override void OnStartLocalPlayer() //just for the local client
     {
         //so the player doesnt see own body but still can see its shadow
@@ -94,7 +92,6 @@ public class Player : NetworkBehaviour
         clientManager = FindObjectOfType<ClientManager>();
         uIMain = FindObjectOfType<UI_Main>();
         uIMain.player = this;
-        uIMain.UIUpdate();
 
         controls = new Controls();
 
@@ -113,9 +110,14 @@ public class Player : NetworkBehaviour
         playerWeapon = playerCam.GetComponentInChildren<PlayerWeapon>(); //this is a solution
 
         CmdSetupPlayer(clientManager.playerName, clientManager.playerColour);
+
         OwnerSpawnPlayer();
+        //get the server to spawn player aswell
+        CmdSpawnPlayer();
 
         lastPos = transform.position;
+
+        uIMain.UIUpdate(); //update the ui now that everything is set
     }
 
     private void Start() //for all to run
@@ -123,8 +125,6 @@ public class Player : NetworkBehaviour
         character = GetComponent<CharacterController>();
         audioSource = GetComponent<AudioSource>();
         netTrans = GetComponent<NetworkTransform>();
-
-        //animator = GetComponentInChildren<Animator>();
 
         levelManager = FindObjectOfType<LevelManager>();
 
@@ -209,16 +209,17 @@ public class Player : NetworkBehaviour
             movement = movement * airMovementMultiplyer;
 
         if (Mathf.Abs(velocity.x) < maxMoveVelocity && Mathf.Abs(velocity.z) < maxMoveVelocity)
+        {
+            print(velocity.x + velocity.z);
             movement *= speed;
+        }
 
-        if (paused)
+        if (paused) //Temp
             movement = Vector3.zero;
 
-        character.Move((movement + velocity) * Time.fixedDeltaTime + exsternalForce); //apply movement to charhcter contoler
+        character.Move((movement + velocity) * Time.fixedDeltaTime); //apply movement to charhcter contoler
 
         velocity += transform.right * x + transform.forward * z;
-
-        exsternalForce = Vector3.zero;
 
         velocity.x = Mathf.Lerp(velocity.x, 0, fricktion * Time.fixedDeltaTime);
         velocity.z = Mathf.Lerp(velocity.z, 0, fricktion * Time.fixedDeltaTime);
@@ -397,8 +398,14 @@ public class Player : NetworkBehaviour
     [Command]
     public void CmdSpawnPlayer()
     {
-        Transform sPoint = levelManager.GetSpawnPoint();
-        netTrans.ServerTeleport(sPoint.position, sPoint.rotation); //spawns player across the server at point
+        if (netTrans != null)
+        {
+            Transform sPoint = levelManager.GetSpawnPoint();
+            netTrans.ServerTeleport(sPoint.position, sPoint.rotation); //spawns player across the server at point
+        }
+
+        maxHealth = playerClass.maxHealth;
+        maxSpecial = playerClass.maxSpecial;
 
         special = 4;
         health = maxHealth;
@@ -409,7 +416,10 @@ public class Player : NetworkBehaviour
     {
         playerCam.transform.localPosition = cameraOffset;
 
-        //reset according to the players class
+        //reset client values according to the players class
+        maxHealth = playerClass.maxHealth;
+        maxSpecial = playerClass.maxSpecial;
+
         speed = playerClass.speed;
         backSpeedMultiplyer = playerClass.backSpeedMultiplyer;
         sideSpeedMultiplyer = playerClass.sideSpeedMultiplyer;

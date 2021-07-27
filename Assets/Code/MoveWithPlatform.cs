@@ -19,24 +19,22 @@ public class MoveWithPlatform : MonoBehaviour
 
     void FixedUpdate()
     {
-    
-        Vector3 newVelocity = transform.position - lastPos;
-/*
-        Vector3 velDiffrence = (velocity - newVelocity);
-
-        print(velDiffrence);
+        velocity = transform.position - lastPos;
 
         if (playerInTrigger != null)
         {
-            if (Mathf.Abs(velocity.x - newVelocity.x) > 0.1f ||
-                Mathf.Abs(velocity.y - newVelocity.y) > 0.1f ||
-                Mathf.Abs(velocity.z - newVelocity.z) > 0.1f)
+            if (playerInTrigger.health <= 0)
             {
-                playerInTrigger.velocity += (velDiffrence) / Time.fixedDeltaTime;
+                playerInTrigger = null;
+                return;
             }
+
+            Vector3 relativeVelocity = (velocity / Time.fixedDeltaTime) * 0.09f; //not sure why 0.09
+
+            print(relativeVelocity);
+            playerInTrigger.velocity += relativeVelocity;
+
         }
-*/
-        velocity = newVelocity;
 
         lastPos = transform.position;
     }
@@ -51,7 +49,7 @@ public class MoveWithPlatform : MonoBehaviour
                 if (player.isLocalPlayer)
                 {
                     playerInTrigger = player;
-                    player.transform.parent = transform;
+                    //player.transform.parent = transform;
                 }
             }
         }
@@ -67,9 +65,9 @@ public class MoveWithPlatform : MonoBehaviour
                 if (player.isLocalPlayer)
                 {
                     playerInTrigger = null;
-                    player.transform.parent = null;
+                    //player.transform.parent = null;
                     //manually add velocity after leveing trigger
-                    player.velocity += velocity / Time.fixedDeltaTime;
+                    //player.velocity += velocity / Time.fixedDeltaTime;
                 }
             }
         }

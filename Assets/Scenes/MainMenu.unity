@@ -756,6 +756,10 @@ PrefabInstance:
       propertyPath: m_text
       value: Moveing Test
       objectReference: {fileID: 0}
+    - target: {fileID: 9111549208443233969, guid: 7f069062559327e4c9e78d013267c268, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 351095659383211434, guid: 1d4f301d8bdd9464e9224f8b732e5794, type: 2}
     - target: {fileID: 9111549208636477684, guid: 7f069062559327e4c9e78d013267c268, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -2520,6 +2524,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2136078811}
     m_Modifications:
+    - target: {fileID: 9111549208443233969, guid: 7f069062559327e4c9e78d013267c268, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 351095659383211434, guid: 1d4f301d8bdd9464e9224f8b732e5794, type: 2}
     - target: {fileID: 9111549208636477684, guid: 7f069062559327e4c9e78d013267c268, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 

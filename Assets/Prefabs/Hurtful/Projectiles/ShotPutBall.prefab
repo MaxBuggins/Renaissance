@@ -162,7 +162,7 @@ Transform:
   m_GameObject: {fileID: 2809265603616378744}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.4, y: 0.4, z: 0.4}
+  m_LocalScale: {x: 0.45, y: 0.45, z: 0.45}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7464506819704524385}
@@ -273,12 +273,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
-  damage: 35
-  hurtType: 4
+  damage: 30
   destroyDelay: 5
   forwardSpeed: 18
   gravitY: -20
-  projectileWidth: 0.3
+  projectileWidth: 0.45
   destoryOnHits: 1
   hitObject: {fileID: 6906018285293153184, guid: 2b1f33066f196634cbb4661d4a46f5aa, type: 3}
   hitSplat: {fileID: 354691278180113158, guid: ec1ce332d44e5aa4687631fbb4af931f, type: 3}
@@ -303,7 +302,7 @@ MonoBehaviour:
   moveForce: 1
   collisionForce: 1.5
   upwardsForce: 0
-  ignorePlayer: {fileID: 0}
+  owner: {fileID: 0}
+  ignorOwner: 1
   destoryRigidbodys: 0
   destroyDelay: 0
-  hurtSprite: {fileID: 0}

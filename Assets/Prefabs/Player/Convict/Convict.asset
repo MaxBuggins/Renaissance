@@ -12,13 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 335a9229772eeda46a38c93c625ed126, type: 3}
   m_Name: Convict
   m_EditorClassIdentifier: 
-  speed: 5
+  maxHealth: 130
+  maxSpecial: 10
+  speed: 4
   backSpeedMultiplyer: 0.65
   sideSpeedMultiplyer: 0.8
   airMovementMultiplyer: 0.6
   gravitY: -50
   fricktion: 4.5
-  maxMoveVelocity: 8
+  maxMoveVelocity: 10
   jumpHeight: 1
   coyotTime: 0.3
   pushForce: 5

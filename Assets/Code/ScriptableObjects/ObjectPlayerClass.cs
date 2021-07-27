@@ -5,6 +5,10 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Player Class", menuName = "PlayerClass", order = 1)]
 public class ObjectPlayerClass : ScriptableObject
 {
+    [Header("Player Stats")]
+    public int maxHealth = 100;
+    public int maxSpecial = 10;
+
     [Header("Player Movement")]
     public float speed = 5;
     public float backSpeedMultiplyer = 0.65f;
