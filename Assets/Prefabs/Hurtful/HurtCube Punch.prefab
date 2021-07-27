@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f9b95049727ac14fa31e1ec10be91fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveMode: 0
-  moveSpeed: 5
+  moveMode: 1
+  moveSpeed: 10
   path: []
 --- !u!114 &4971274179170382205
 MonoBehaviour:
@@ -27,7 +27,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03b00ce9a51350a4394266b8e44c1429, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  destroyDelay: 0.25
+  destroyDelay: 0.2
   destoryOnServer: 0
 --- !u!1001 &3220047257303096215
 PrefabInstance:
@@ -61,12 +61,16 @@ PrefabInstance:
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 5938456748870400620, guid: 38ea8a53ce5786448b74a77c00b66c67, type: 3}
+      propertyPath: upwardsForce
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5938456748870400620, guid: 38ea8a53ce5786448b74a77c00b66c67, type: 3}
       propertyPath: destoryOnHurt
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5938456748870400620, guid: 38ea8a53ce5786448b74a77c00b66c67, type: 3}
       propertyPath: collisionForce
-      value: 2
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 5938456748870400621, guid: 38ea8a53ce5786448b74a77c00b66c67, type: 3}
       propertyPath: m_Name
@@ -74,11 +78,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5938456748870400622, guid: 38ea8a53ce5786448b74a77c00b66c67, type: 3}
       propertyPath: m_Size.x
-      value: 0.75
+      value: 1.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 5938456748870400622, guid: 38ea8a53ce5786448b74a77c00b66c67, type: 3}
+      propertyPath: m_Size.y
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 5938456748870400622, guid: 38ea8a53ce5786448b74a77c00b66c67, type: 3}
       propertyPath: m_Size.z
-      value: 1.25
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 5938456748870400622, guid: 38ea8a53ce5786448b74a77c00b66c67, type: 3}
       propertyPath: m_Center.x
@@ -86,11 +94,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5938456748870400622, guid: 38ea8a53ce5786448b74a77c00b66c67, type: 3}
       propertyPath: m_Center.y
-      value: 0.25
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 5938456748870400622, guid: 38ea8a53ce5786448b74a77c00b66c67, type: 3}
       propertyPath: m_Center.z
-      value: 0.75
+      value: 0.25
       objectReference: {fileID: 0}
     - target: {fileID: 5938456748870400623, guid: 38ea8a53ce5786448b74a77c00b66c67, type: 3}
       propertyPath: m_AssetId

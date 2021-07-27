@@ -5,8 +5,8 @@ using Pixelplacement;
 
 public class MoveingObject : MonoBehaviour
 {
-    public enum MoveMode { constantDirection, backAndForth }
-    public MoveMode moveMode = MoveMode.constantDirection;
+    public enum MoveMode { constantDirectionRight, constantDirectionForward }
+    public MoveMode moveMode = MoveMode.constantDirectionRight;
     
     public float moveSpeed = 5;
 
@@ -21,7 +21,19 @@ public class MoveingObject : MonoBehaviour
     //for all clients and server
     void Update()
     {
-        if(moveMode == MoveMode.constantDirection)
-            transform.position += transform.right * moveSpeed * Time.deltaTime; 
-    }
+
+        switch (moveMode)
+        {
+            case (MoveMode.constantDirectionRight):
+                {
+                    transform.position += transform.right * moveSpeed * Time.deltaTime;
+                    break;
+                }
+            case (MoveMode.constantDirectionForward):
+                {
+                    transform.position += transform.forward * moveSpeed * Time.deltaTime;
+                    break;
+                }
+        }
+        }
 }

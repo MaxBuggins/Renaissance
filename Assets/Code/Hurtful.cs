@@ -23,6 +23,8 @@ public class Hurtful : NetworkBehaviour
     private List<Player> inTrigger = new List<Player>();
 
     public Player owner; //who takes the credit for a hit
+    [SyncVar] public uint ownerID;
+
     public bool ignorOwner = true;
 
     [Header("RigidBodys")]
@@ -34,9 +36,20 @@ public class Hurtful : NetworkBehaviour
     [Header("Unity Stuff")] //this isn't how I would do it but ummm okay sweaty :n) <-- Usopp from the famous film One Peace
     private Collider collider;
 
-    void Awake()
+    void Start()
     {
         collider = GetComponent<Collider>();
+
+        NetworkIdentity ownerIdenity;
+
+        if (owner == null) //works
+        {
+            NetworkIdentity.spawned.TryGetValue(ownerID, out ownerIdenity);
+            if(ownerIdenity != null)
+                owner = ownerIdenity.gameObject.GetComponent<Player>();
+        }
+        
+
 
         if (!isServer) //only for the server to run
             enabled = false;

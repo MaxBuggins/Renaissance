@@ -43,7 +43,7 @@ public class Projectile : NetworkBehaviour
     {
         velocity.y += gravitY * Time.deltaTime;
         //ADD PLAYER VELOCITY TO IT
-        transform.position = transform.position + ((transform.up * velocity.y)
+        transform.position = transform.position + ((Vector3.up * velocity.y)
             + (transform.forward * forwardSpeed)) * Time.deltaTime;
 
         if (isServer)//Adian Smells of car fuel

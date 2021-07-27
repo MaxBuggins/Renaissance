@@ -462,7 +462,10 @@ public class Player : NetworkBehaviour
 
         Hurtful hurt = spawned.GetComponentInChildren<Hurtful>();
         if (hurt != null)
+        {
             hurt.owner = this;
+            hurt.ownerID = netIdentity.netId;
+        }
 
         if (serverOnly == false)
             NetworkServer.Spawn(spawned);

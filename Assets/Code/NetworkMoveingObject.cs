@@ -5,8 +5,10 @@ using Mirror;
 
 public class NetworkMoveingObject : MonoBehaviour
 {
-    public enum MoveMode { constantDirection, loop}
-    public MoveMode moveMode = MoveMode.constantDirection;
+    public enum MoveMode { constantDirectionRight, constantDirectionForward, loop}
+    public MoveMode moveMode = MoveMode.constantDirectionRight;
+
+    
 
     public float moveSpeed = 5;
 
@@ -46,9 +48,15 @@ public class NetworkMoveingObject : MonoBehaviour
     {
         switch (moveMode)
         {
-            case (MoveMode.constantDirection):
+            case (MoveMode.constantDirectionRight):
                 {
                     transform.position = transform.right * moveSpeed * (float)NetworkTime.time;
+                    break;
+                }
+
+            case (MoveMode.constantDirectionForward):
+                {
+                    transform.position = transform.forward * moveSpeed * (float)NetworkTime.time;
                     break;
                 }
 
