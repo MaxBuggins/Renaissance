@@ -10,11 +10,17 @@ public class LevelManager : NetworkBehaviour
     private List<Transform> spawnPoints = new List<Transform>();
     public List<Player> players = new List<Player>();
 
+    private AudioSource audioSource;
+    private AudioDistortionFilter audioDistortion;
+
     private UI_Main playerUI;
     private NetworkManagerHUD hud;
 
     void Start()
     {
+        audioSource = GetComponent<AudioSource>();
+        audioDistortion = GetComponent<AudioDistortionFilter>();
+
         playerUI = FindObjectOfType<UI_Main>();
         hud = FindObjectOfType<NetworkManagerHUD>();
 
@@ -25,6 +31,23 @@ public class LevelManager : NetworkBehaviour
         {
             if (child.tag == "SpawnPoint")
                 spawnPoints.Add(child);
+        }
+    }
+
+    private void Update()
+    {
+        if (audioDistortion != null)
+        {
+            if (playerUI.player.health <= 0)
+            {
+                audioDistortion.distortionLevel = 0.975f;
+                audioSource.volume = 0.05f;
+            }
+            else
+            {
+                audioDistortion.distortionLevel = 0.1f;
+                audioSource.volume = 0.5f;
+            }
         }
     }
 

@@ -210,7 +210,6 @@ public class Player : NetworkBehaviour
 
         if (Mathf.Abs(velocity.x) < maxMoveVelocity && Mathf.Abs(velocity.z) < maxMoveVelocity)
         {
-            print(velocity.x + velocity.z);
             movement *= speed;
         }
 

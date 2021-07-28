@@ -17,6 +17,6 @@ public class UI_Sensativity : UI_Base
         PlayerCamera pCam = ui_Main.player.playerCam;
 
         if (pCam != null)
-           pCam.mouseLookSensitivty = value;
+            pCam.mouseLookSensitivty = value;
     }
 }
