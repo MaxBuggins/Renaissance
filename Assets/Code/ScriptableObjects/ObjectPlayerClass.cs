@@ -2,10 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum PlayerClass { Banker, Convict }
+
 [CreateAssetMenu(fileName = "Player Class", menuName = "PlayerClass", order = 1)]
 public class ObjectPlayerClass : ScriptableObject
 {
     [Header("Player Stats")]
+    public PlayerClass playerClass = PlayerClass.Convict;
     public int maxHealth = 100;
     public int maxSpecial = 10;
 

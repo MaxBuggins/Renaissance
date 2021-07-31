@@ -63,4 +63,9 @@ public class UI_Main : MonoBehaviour
     {
         pauseUI.SetActive(pause);
     }
+
+    public void ChangeClass(int classNum)
+    {
+
+    }
 }
