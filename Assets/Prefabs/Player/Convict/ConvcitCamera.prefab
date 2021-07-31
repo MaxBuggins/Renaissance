@@ -23,14 +23,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2868509264352706497}
-  m_LocalRotation: {x: -0.79332316, y: 0.005312391, z: 0.0069232434, w: 0.60873824}
+  m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: -1.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2621561823872443076}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: -105, y: 1, z: 0}
+  m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
 --- !u!1 &5744086905316796481
 GameObject:
   m_ObjectHideFlags: 0
@@ -265,7 +265,7 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0.1
   canHoldPrimay: 0
-  specialCost: 3
+  specialCost: 7
   specialIsActive: 0
   player: {fileID: 0}
   punchDelay: 0.1
@@ -274,8 +274,8 @@ MonoBehaviour:
   throwDelay: 0.2
   throwCoolDown: 0.7
   throwVelocity: 14
-  chargeDuration: 0.4
-  chargeSpeed: 325
+  chargeDuration: 0.5
+  chargeSpeed: 300
   pushForceMultipyer: 15
   gravityMultiplyer: 0.4
   punchHand: {fileID: 5744086905316796481}

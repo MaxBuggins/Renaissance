@@ -66,7 +66,10 @@ public class BoxerWeapon : PlayerWeapon
 
 
             if (chargeTime >= chargeDuration)
+            {
+                player.CmdSpawnObject(3, transform.position - Vector3.up, Vector3.zero, false, false);
                 EndSpecial();
+            }
         }
 
         base.Update();
@@ -88,7 +91,7 @@ public class BoxerWeapon : PlayerWeapon
 
     void Punch()
     {
-        player.CmdSpawnObject(0, player.transform.position, transform.eulerAngles, true, true);
+        player.CmdSpawnObject(0, Vector3.zero, transform.eulerAngles, true, true);
         player.velocity += transform.forward * punchVelocity;
         base.UsePrimary();
         punchHand.transform.position -= transform.forward * 0.75f;
@@ -135,10 +138,10 @@ public class BoxerWeapon : PlayerWeapon
         //orginalGravitY = player.gravitY;
         player.gravitY *= gravityMultiplyer;
 
-        chargeDirection = new Vector3(transform.forward.x, 0, transform.forward.z).normalized;
+        chargeDirection = -Vector3.up;  //new Vector3(transform.forward.x, 0, transform.forward.z).normalized;
         chargeTime = 0;
 
-        player.CmdSpawnObject(2, transform.position, transform.eulerAngles, false, true);
+        player.CmdSpawnObject(2, -Vector3.up, Vector3.zero, false, true);
     }
 
     public override void EndSpecial()

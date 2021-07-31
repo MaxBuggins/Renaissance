@@ -451,6 +451,7 @@ MonoBehaviour:
   moveForce: 1
   collisionForce: 1.5
   upwardsForce: 0
+  maxVelocity: 0
   owner: {fileID: 0}
   ownerID: 0
   ignorOwner: 1
@@ -468,4 +469,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81cc0ad566f1b54438419e1a1c5500e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pullForce: 3.5
+  pullForce: 5

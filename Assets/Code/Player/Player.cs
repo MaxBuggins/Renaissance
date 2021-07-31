@@ -66,6 +66,7 @@ public class Player : NetworkBehaviour
 
     [HideInInspector] public CharacterController character;
     private AudioSource audioSource;
+    private Hurtful hurtful;
 
     public DirectionalSprite body;
     public GameObject corpsePrefab;
@@ -125,6 +126,7 @@ public class Player : NetworkBehaviour
         character = GetComponent<CharacterController>();
         audioSource = GetComponent<AudioSource>();
         netTrans = GetComponent<NetworkTransform>();
+        hurtful = GetComponent<Hurtful>();
 
         levelManager = FindObjectOfType<LevelManager>();
 
@@ -271,11 +273,10 @@ public class Player : NetworkBehaviour
         }
     }
 
-    [ClientCallback]
+
+    [Server]
     private void OnControllerColliderHit(ControllerColliderHit hit)
     {
-        //hitNormal = hit.normal;
-
         Rigidbody body = hit.collider.attachedRigidbody;
         Vector3 pushDir;
 
@@ -454,7 +455,10 @@ public class Player : NetworkBehaviour
 
         Transform parent = null;
         if (playerParent)
+        {
             parent = transform;
+            pos += transform.position;
+        }
 
         GameObject spawned = Instantiate(spawnableObjects[objID], pos, Quaternion.Euler(rot), parent);
 
@@ -465,7 +469,7 @@ public class Player : NetworkBehaviour
             hurt.ownerID = netIdentity.netId;
         }
 
-        if (serverOnly == false)
+        if (serverOnly == false) //spawns on clients as well
             NetworkServer.Spawn(spawned);
     }
 

@@ -9719,6 +9719,7 @@ MonoBehaviour:
   moveForce: 0
   collisionForce: 10
   upwardsForce: 1
+  maxVelocity: 4
   owner: {fileID: 0}
   ownerID: 0
   ignorOwner: 0
@@ -9736,6 +9737,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03b00ce9a51350a4394266b8e44c1429, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  unParentOnStart: 0
   destroyDelay: 0.2
   destoryOnServer: 0
 --- !u!1 &6906018285293153184

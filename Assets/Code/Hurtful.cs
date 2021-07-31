@@ -19,6 +19,7 @@ public class Hurtful : NetworkBehaviour
     public bool moveForce = true; //if false then force is caculated via distance from collider center
     public float collisionForce = 0;
     public float upwardsForce = 0;
+    public float maxVelocity = -1;
 
     private List<Player> inTrigger = new List<Player>();
 
@@ -34,11 +35,11 @@ public class Hurtful : NetworkBehaviour
     private Vector3 lastPos;
 
     [Header("Unity Stuff")] //this isn't how I would do it but ummm okay sweaty :n) <-- Usopp from the famous film One Peace
-    private Collider collider;
+    private Collider myCollider;
 
     void Start()
     {
-        collider = GetComponent<Collider>();
+        myCollider = GetComponent<Collider>();
 
         NetworkIdentity ownerIdenity;
 
@@ -57,6 +58,7 @@ public class Hurtful : NetworkBehaviour
         lastPos = transform.position;
     }
 
+    [Server]
     private void Update()
     {
         if (inTrigger.Count == 0)
@@ -135,8 +137,10 @@ public class Hurtful : NetworkBehaviour
         if (player == owner && ignorOwner)
             return;
 
-        if(owner != null)
+        if (owner != null)
+        {
             player.Hurt(damage, type, owner.playerName);
+        }
         else
             player.Hurt(damage, type, "");
 
@@ -153,14 +157,16 @@ public class Hurtful : NetworkBehaviour
         if(collisionForce != 0)
         {
             Vector3 vel;
-            if (moveForce)
+            if (moveForce || myCollider == null) //its a fix i guess
                 vel = transform.position - lastPos;
             else
-                vel = player.transform.position - collider.bounds.center;
+                vel = player.transform.position - myCollider.bounds.center;
+
+            if (maxVelocity > 0)
+                vel = Vector3.ClampMagnitude(vel, maxVelocity);
 
             player.TargetAddVelocity(player.connectionToClient,(vel * collisionForce) + (vel.magnitude * Vector3.up * upwardsForce));
         }
-
 
         if (destoryOnHurt == true)
             Destroy(gameObject);

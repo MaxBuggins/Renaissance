@@ -53,7 +53,7 @@ public class Projectile : NetworkBehaviour
             //Ray ray = new Ray(transform.position, player.position - transform.position)
             RaycastHit hit;
             if (Physics.SphereCast(transform.position, projectileWidth, transform.position - lastPos,
-                out hit, maxDistance: Mathf.Abs(Vector3.Distance(transform.position, lastPos)) * 1.25f, 
+                out hit, maxDistance: Mathf.Abs(Vector3.Distance(transform.position, lastPos)) * 1.25f,
                 -1, QueryTriggerInteraction.Ignore))
             {
                 Player player = hit.collider.gameObject.GetComponent<Player>();
@@ -68,7 +68,7 @@ public class Projectile : NetworkBehaviour
                 }
                 else
                 {
-                    DestroySelf();
+                    DestroySelfHit();
                 }
             }
         }
@@ -76,12 +76,7 @@ public class Projectile : NetworkBehaviour
     }
 
     // everyoneDestroys
-    void DestroySelf()
-    {
-        Destroy(gameObject);
-    }
-
-    private void OnDestroy()
+    void DestroySelfHit()
     {
         var obj = Instantiate(hitObject, lastPos, transform.rotation);
 
@@ -95,8 +90,15 @@ public class Projectile : NetworkBehaviour
                 hurt.owner = hurtful.owner;
         }
 
-        if(hitSplat != null)
+        if (hitSplat != null)
             Instantiate(hitSplat, lastPos, transform.rotation);
+
+        Destroy(gameObject);
+    }
+
+    void DestroySelf()
+    {
+        Destroy(gameObject);
     }
 }
 
