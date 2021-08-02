@@ -17,7 +17,6 @@ public class Player : NetworkBehaviour
     [HideInInspector] public int maxSpecial = 10;
     public int special;
 
-    public float specialChargeRate = 4;
     private float specialChargeTime = 0;
 
     [Header("Player Info")]
@@ -62,7 +61,7 @@ public class Player : NetworkBehaviour
     [Header("Unity Stuff Internals")]
     public GameObject cameraPrefab;
     [HideInInspector] public PlayerCamera playerCam;
-    private PlayerWeapon playerWeapon;
+    [HideInInspector] public PlayerWeapon playerWeapon;
 
     [HideInInspector] public CharacterController character;
     private AudioSource audioSource;
@@ -76,9 +75,13 @@ public class Player : NetworkBehaviour
 
     private NetworkTransform netTrans;
 
-    private LevelManager levelManager;
-    public GameObject[] spawnableObjects;
+    private MyNetworkManager myNetworkManager;
     private ClientManager clientManager;
+    private LevelManager levelManager;
+
+
+    public GameObject[] spawnableObjects;
+
     public UI_Main uIMain;
 
     public Light topLight;
@@ -102,6 +105,8 @@ public class Player : NetworkBehaviour
         controls.Game.Move.canceled += ctx => move = Vector2.zero;
 
         controls.Game.Pause.performed += funnyer => Pause(!paused);
+
+        controls.Game.ChangeClass.performed += funnyiest => ChangeClass(Random.Range(0,2));
 
         controls.Enable();
 
@@ -128,6 +133,7 @@ public class Player : NetworkBehaviour
         netTrans = GetComponent<NetworkTransform>();
         hurtful = GetComponent<Hurtful>();
 
+        myNetworkManager = FindObjectOfType<MyNetworkManager>();
         levelManager = FindObjectOfType<LevelManager>();
 
         //clients need to run to sync up with gamers allready gameing
@@ -144,7 +150,7 @@ public class Player : NetworkBehaviour
                 {
                     specialChargeTime += Time.fixedDeltaTime;
 
-                    if (specialChargeTime > specialChargeRate)
+                    if (specialChargeTime > playerClass.specialChargeRate)
                     {
                         CmdAddSpecial(1);
                         specialChargeTime = 0;
@@ -241,6 +247,7 @@ public class Player : NetworkBehaviour
 
     void Pause(bool pause)
     {
+        //Disable controls somehow without disabling pause control
         paused = pause;
         uIMain.Pause(pause);
 
@@ -552,5 +559,19 @@ public class Player : NetworkBehaviour
             playerWeapon.EndSpecial();
             velocity = Vector3.zero;
         }
+    }
+
+    [Client]
+    void ChangeClass(int classObjIndex)
+    {
+        playerWeapon.controls.Dispose();
+
+        CmdChangeClass(classObjIndex);
+    }
+
+    [Command]
+    void CmdChangeClass(int classObjIndex)
+    {
+        myNetworkManager.ChangePlayer(connectionToClient, myNetworkManager.spawnPrefabs[classObjIndex]);
     }
 }

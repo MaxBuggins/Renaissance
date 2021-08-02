@@ -12,6 +12,8 @@ public class ObjectPlayerClass : ScriptableObject
     public int maxHealth = 100;
     public int maxSpecial = 10;
 
+    public float specialChargeRate = 6;
+
     [Header("Player Movement")]
     public float speed = 5;
     public float backSpeedMultiplyer = 0.65f;
@@ -33,7 +35,7 @@ public class ObjectPlayerClass : ScriptableObject
 
 
     [Header("SoundEffects")]
-    public AudioClip walkCycle;
+    //public AudioClip walkCycle;
     public AudioClip[] hurtSound;
     public AudioClip[] deathSound;
     public AudioClip[] jumpSound;

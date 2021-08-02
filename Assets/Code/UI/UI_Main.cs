@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UI_Main : MonoBehaviour
 {
@@ -12,6 +13,7 @@ public class UI_Main : MonoBehaviour
     public UI_Base[] uiBases;
     public GameObject deathUI;
     public GameObject pauseUI;
+    public Image reloadRing;
 
     [HideInInspector] public LevelManager levelManager;
     [HideInInspector] public List<Player> players = new List<Player>();
@@ -23,6 +25,12 @@ public class UI_Main : MonoBehaviour
     private void Start()
     {
         levelManager = FindObjectOfType<LevelManager>();
+    }
+
+    private void Update()
+    {
+        if(player != null)
+            reloadRing.fillAmount = player.playerWeapon.reloadPerstenage;
     }
 
     public void UIUpdate()
@@ -62,10 +70,5 @@ public class UI_Main : MonoBehaviour
     public void Pause(bool pause)
     {
         pauseUI.SetActive(pause);
-    }
-
-    public void ChangeClass(int classNum)
-    {
-
     }
 }

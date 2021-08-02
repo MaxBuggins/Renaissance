@@ -8,6 +8,8 @@ public class ClientManager : MonoBehaviour
     public string playerName = "NoNameNed";
     public Color playerColour = Color.white;
 
+    public PlayerClass playerClass = PlayerClass.Convict;
+
     public string selectedMap = "MainMenu";
 
     private NetworkManager netManager;

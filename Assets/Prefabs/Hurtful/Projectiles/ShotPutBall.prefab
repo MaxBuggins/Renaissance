@@ -421,12 +421,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
-  damage: 30
+  damage: 40
   destroyDelay: 5
   forwardSpeed: 18
   gravitY: -20
   projectileWidth: 0.45
-  destoryOnHits: 1
+  destoryOnHits: 0
   hitObject: {fileID: 6906018285293153184, guid: 2b1f33066f196634cbb4661d4a46f5aa, type: 3}
   hitSplat: {fileID: 354691278180113158, guid: ec1ce332d44e5aa4687631fbb4af931f, type: 3}
   destoyCall: {fileID: 1476269009965310601}

@@ -10,10 +10,12 @@ public class PlayerWeapon : NetworkBehaviour
 
     public int specialCost;
 
-    private Controls controls;
+    [HideInInspector] public Controls controls;
     private bool primaryHeld = false;
 
     public bool specialIsActive = false;
+
+    public float reloadPerstenage = 0; //for UI
 
     [Header("Unity Things")]
     public Player player;

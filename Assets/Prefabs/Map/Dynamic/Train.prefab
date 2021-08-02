@@ -5222,6 +5222,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03b00ce9a51350a4394266b8e44c1429, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  unParentOnStart: 0
   destroyDelay: 15
   destoryOnServer: 1
 --- !u!114 &618060192539651874
@@ -5258,10 +5259,11 @@ MonoBehaviour:
   damage: 40
   hurtType: 2
   destoryOnHurt: 0
-  damagePerSeconds: 1
+  damagePerSeconds: 0
   moveForce: 1
-  collisionForce: 1.5
-  upwardsForce: 0.2
+  collisionForce: 5
+  upwardsForce: 0.6
+  maxVelocity: -1
   owner: {fileID: 0}
   ownerID: 0
   ignorOwner: 1

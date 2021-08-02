@@ -31,7 +31,6 @@ public class MoveWithPlatform : MonoBehaviour
 
             Vector3 relativeVelocity = (velocity / Time.fixedDeltaTime) * 0.09f; //not sure why 0.09
 
-            print(relativeVelocity);
             playerInTrigger.velocity += relativeVelocity;
 
         }

@@ -82,6 +82,14 @@ public partial class @Controls : IInputActionCollection2, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""ChangeClass"",
+                    ""type"": ""Button"",
+                    ""id"": ""674189a9-1a0f-48ef-9af7-cf1cee37eece"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -249,6 +257,17 @@ public partial class @Controls : IInputActionCollection2, IDisposable
                     ""action"": ""Pause"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d0611347-64cf-4b0b-ad4b-527ec23d28e1"",
+                    ""path"": ""<Keyboard>/comma"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ChangeClass"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -264,6 +283,7 @@ public partial class @Controls : IInputActionCollection2, IDisposable
         m_Game_Seconday = m_Game.FindAction("Seconday", throwIfNotFound: true);
         m_Game_Special = m_Game.FindAction("Special", throwIfNotFound: true);
         m_Game_Pause = m_Game.FindAction("Pause", throwIfNotFound: true);
+        m_Game_ChangeClass = m_Game.FindAction("ChangeClass", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -330,6 +350,7 @@ public partial class @Controls : IInputActionCollection2, IDisposable
     private readonly InputAction m_Game_Seconday;
     private readonly InputAction m_Game_Special;
     private readonly InputAction m_Game_Pause;
+    private readonly InputAction m_Game_ChangeClass;
     public struct GameActions
     {
         private @Controls m_Wrapper;
@@ -341,6 +362,7 @@ public partial class @Controls : IInputActionCollection2, IDisposable
         public InputAction @Seconday => m_Wrapper.m_Game_Seconday;
         public InputAction @Special => m_Wrapper.m_Game_Special;
         public InputAction @Pause => m_Wrapper.m_Game_Pause;
+        public InputAction @ChangeClass => m_Wrapper.m_Game_ChangeClass;
         public InputActionMap Get() { return m_Wrapper.m_Game; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -371,6 +393,9 @@ public partial class @Controls : IInputActionCollection2, IDisposable
                 @Pause.started -= m_Wrapper.m_GameActionsCallbackInterface.OnPause;
                 @Pause.performed -= m_Wrapper.m_GameActionsCallbackInterface.OnPause;
                 @Pause.canceled -= m_Wrapper.m_GameActionsCallbackInterface.OnPause;
+                @ChangeClass.started -= m_Wrapper.m_GameActionsCallbackInterface.OnChangeClass;
+                @ChangeClass.performed -= m_Wrapper.m_GameActionsCallbackInterface.OnChangeClass;
+                @ChangeClass.canceled -= m_Wrapper.m_GameActionsCallbackInterface.OnChangeClass;
             }
             m_Wrapper.m_GameActionsCallbackInterface = instance;
             if (instance != null)
@@ -396,6 +421,9 @@ public partial class @Controls : IInputActionCollection2, IDisposable
                 @Pause.started += instance.OnPause;
                 @Pause.performed += instance.OnPause;
                 @Pause.canceled += instance.OnPause;
+                @ChangeClass.started += instance.OnChangeClass;
+                @ChangeClass.performed += instance.OnChangeClass;
+                @ChangeClass.canceled += instance.OnChangeClass;
             }
         }
     }
@@ -409,5 +437,6 @@ public partial class @Controls : IInputActionCollection2, IDisposable
         void OnSeconday(InputAction.CallbackContext context);
         void OnSpecial(InputAction.CallbackContext context);
         void OnPause(InputAction.CallbackContext context);
+        void OnChangeClass(InputAction.CallbackContext context);
     }
 }

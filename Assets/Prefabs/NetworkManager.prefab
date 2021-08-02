@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &3768105541131893928
+--- !u!1 &8227039606038242251
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,10 +8,10 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 3768105541131893932}
-  - component: {fileID: 3768105541131893933}
-  - component: {fileID: 3768105541131893930}
-  - component: {fileID: 3768105541131893931}
+  - component: {fileID: 8227039606038242255}
+  - component: {fileID: 616083636628663721}
+  - component: {fileID: 8227039606038242249}
+  - component: {fileID: 5944231156468147703}
   m_Layer: 0
   m_Name: NetworkManager
   m_TagString: Untagged
@@ -19,13 +19,13 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &3768105541131893932
+--- !u!4 &8227039606038242255
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3768105541131893928}
+  m_GameObject: {fileID: 8227039606038242251}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 4, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -34,16 +34,16 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3768105541131893933
+--- !u!114 &616083636628663721
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3768105541131893928}
+  m_GameObject: {fileID: 8227039606038242251}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8aab4c8111b7c411b9b92cf3dbc5bd4e, type: 3}
+  m_Script: {fileID: 11500000, guid: 4f499a44a9c835641933fc570963b56f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   dontDestroyOnLoad: 1
@@ -53,18 +53,20 @@ MonoBehaviour:
   serverTickRate: 30
   serverBatching: 1
   serverBatchInterval: 0
-  offlineScene: 
-  onlineScene: 
-  transport: {fileID: 3768105541131893930}
+  offlineScene: Assets/Scenes/MainMenu.unity
+  onlineScene: Assets/Scenes/WaterBowl.unity
+  transport: {fileID: 8227039606038242249}
   networkAddress: localhost
   maxConnections: 100
   disconnectInactiveConnections: 0
   disconnectInactiveTimeout: 60
   authenticator: {fileID: 0}
-  playerPrefab: {fileID: 103855353412878195, guid: 83228cefa628a6b46bcf46fc94816d37, type: 3}
+  playerPrefab: {fileID: 1389204367115464027, guid: f68871c6723bacb409bf28b876088920, type: 3}
   autoCreatePlayer: 1
   playerSpawnMethod: 1
   spawnPrefabs:
+  - {fileID: 7734295212963660210, guid: 3f740045f05dc0f41ad1449366836f91, type: 3}
+  - {fileID: 103855353412878195, guid: 83228cefa628a6b46bcf46fc94816d37, type: 3}
   - {fileID: 2809265603616378744, guid: 48120d00173fdf94ea015c5ef7850de3, type: 3}
   - {fileID: 4826583526128469810, guid: 5e72e46fac5ae634b8db3a7ca8a1557a, type: 3}
   - {fileID: 9135064866333483514, guid: e5d4d549e335e3e4dad3c3d49731c6fc, type: 3}
@@ -72,13 +74,13 @@ MonoBehaviour:
   - {fileID: 8049305972401676689, guid: c46c2276205e7844f8816c9238605bc3, type: 3}
   - {fileID: 8654127821600653479, guid: 8a320f3a023063741a32ae1781436924, type: 3}
   - {fileID: 5992463858369092232, guid: 924991733bc480f4ea9f9751f10ac2ce, type: 3}
---- !u!114 &3768105541131893930
+--- !u!114 &8227039606038242249
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3768105541131893928}
+  m_GameObject: {fileID: 8227039606038242251}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6b0fecffa3f624585964b0d0eb21b18e, type: 3}
@@ -95,13 +97,13 @@ MonoBehaviour:
   debugLog: 1
   statisticsGUI: 0
   statisticsLog: 0
---- !u!114 &3768105541131893931
+--- !u!114 &5944231156468147703
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3768105541131893928}
+  m_GameObject: {fileID: 8227039606038242251}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6442dc8070ceb41f094e44de0bf87274, type: 3}

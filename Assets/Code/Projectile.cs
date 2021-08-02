@@ -61,14 +61,25 @@ public class Projectile : NetworkBehaviour
                 {
                     hurtful.HurtPlayer(player, damage, hurtful.hurtType);
 
-                    destoryOnHits -= 1;
 
-                    if (destoryOnHits < 0)
-                        NetworkServer.Destroy(gameObject);
+                    NetworkServer.Destroy(gameObject);
+
                 }
                 else
                 {
-                    DestroySelfHit();
+                    destoryOnHits -= 1;
+
+                    if (destoryOnHits < 0)
+                        DestroySelfHit();
+
+                    else
+                    {
+                        Vector3 forw = transform.forward;
+                        Vector3 mirrored = Vector3.Reflect(forw, hit.normal);
+                        transform.rotation = Quaternion.LookRotation(mirrored, transform.up);
+
+                        RpcSyncProjectile(transform.position, transform.eulerAngles);
+                    }
                 }
             }
         }
@@ -76,19 +87,32 @@ public class Projectile : NetworkBehaviour
     }
 
     // everyoneDestroys
+    [Server]
     void DestroySelfHit()
     {
         var obj = Instantiate(hitObject, lastPos, transform.rotation);
 
-        if (isServer)
-        {
-            if (destoyCall != null)
-                destoyCall.Call(hurtful.owner);
 
-            Hurtful hurt = obj.GetComponentInChildren<Hurtful>();
-            if (hurt != null)
-                hurt.owner = hurtful.owner;
-        }
+        if (destoyCall != null)
+            destoyCall.Call(hurtful.owner);
+
+        Hurtful hurt = obj.GetComponentInChildren<Hurtful>();
+        if (hurt != null)
+            hurt.owner = hurtful.owner;
+
+
+        if (hitSplat != null)
+            Instantiate(hitSplat, lastPos, transform.rotation);
+
+        RpcDestroySelfHit();
+
+        Destroy(gameObject);
+    }
+
+    [ClientRpc]
+    void RpcDestroySelfHit()
+    {
+        var obj = Instantiate(hitObject, lastPos, transform.rotation);
 
         if (hitSplat != null)
             Instantiate(hitSplat, lastPos, transform.rotation);
@@ -99,6 +123,13 @@ public class Projectile : NetworkBehaviour
     void DestroySelf()
     {
         Destroy(gameObject);
+    }
+
+    [ClientRpc]
+    void RpcSyncProjectile(Vector3 pos, Vector3 rot)
+    {
+        transform.position = pos;
+        transform.eulerAngles = rot;
     }
 }
 

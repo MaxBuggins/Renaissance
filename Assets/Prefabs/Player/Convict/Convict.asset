@@ -12,11 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 335a9229772eeda46a38c93c625ed126, type: 3}
   m_Name: Convict
   m_EditorClassIdentifier: 
+  playerClass: 1
   maxHealth: 130
   maxSpecial: 10
+  specialChargeRate: 6
   speed: 2.5
-  backSpeedMultiplyer: 0.65
-  sideSpeedMultiplyer: 0.8
+  backSpeedMultiplyer: 0.8
+  sideSpeedMultiplyer: 0.9
   airMovementMultiplyer: 0.6
   gravitY: -50
   fricktion: 5
@@ -62,7 +64,6 @@ MonoBehaviour:
     - {fileID: -6016983691727615726, guid: 23738a1366f4d304dae09b673209d745, type: 3}
     - {fileID: -5365574036531687053, guid: 23738a1366f4d304dae09b673209d745, type: 3}
     - {fileID: 4341794467128116274, guid: 23738a1366f4d304dae09b673209d745, type: 3}
-  walkCycle: {fileID: 8300000, guid: bb56bbe6717d1d646b149259276c6e4e, type: 3}
   hurtSound:
   - {fileID: 8300000, guid: 9d780eba4074daa42af6b3183c4b1313, type: 3}
   - {fileID: 8300000, guid: 4b16930e429d58142b0ef6f547d3fa83, type: 3}

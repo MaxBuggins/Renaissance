@@ -39,6 +39,12 @@ public class Hurtful : NetworkBehaviour
 
     void Start()
     {
+        if (moveForce)
+        {
+            collisionForce /= 100;
+            upwardsForce /= 100;
+        }
+
         myCollider = GetComponent<Collider>();
 
         NetworkIdentity ownerIdenity;
@@ -50,10 +56,8 @@ public class Hurtful : NetworkBehaviour
                 owner = ownerIdenity.gameObject.GetComponent<Player>();
         }
         
-
-
-        if (!isServer) //only for the server to run
-            enabled = false;
+        //if (!isServer) //only for the server to run
+            //enabled = false;
 
         lastPos = transform.position;
     }
@@ -61,17 +65,18 @@ public class Hurtful : NetworkBehaviour
     [Server]
     private void Update()
     {
+        //print(inTrigger.Count);
         if (inTrigger.Count == 0)
             return;
 
-            timeSinceDamage += Time.deltaTime;
+        timeSinceDamage += Time.deltaTime;
 
         if(timeSinceDamage > damagePerSeconds && damagePerSeconds > 0)
         {
             //foreach throws errors not sure why
             for(int i = 0; i < inTrigger.Count; i++)
             {
-                HurtPlayer(inTrigger[i], damage, hurtType);
+            HurtPlayer(inTrigger[i], damage, hurtType);
             }
 
             timeSinceDamage = 0;
@@ -81,7 +86,7 @@ public class Hurtful : NetworkBehaviour
     }
 
     [Server]
-    private void OnTriggerEnter(Collider other)
+    void OnTriggerEnter(Collider other)
     {
         if (other.tag == "Player")
         {
@@ -90,7 +95,8 @@ public class Hurtful : NetworkBehaviour
             {
                 if (ignorOwner == false || player != owner)
                 {
-                    HurtPlayer(player, damage, hurtType);
+                    //if(damagePerSeconds <= 0)
+                        HurtPlayer(player, damage, hurtType);
                     inTrigger.Add(player);
 
                     if (owner != null)
@@ -109,7 +115,7 @@ public class Hurtful : NetworkBehaviour
     }
 
     [Server]
-    private void OnTriggerExit(Collider other)
+    void OnTriggerExit(Collider other)
     {
         if (other.tag == "Player")
         {
@@ -158,9 +164,9 @@ public class Hurtful : NetworkBehaviour
         {
             Vector3 vel;
             if (moveForce || myCollider == null) //its a fix i guess
-                vel = transform.position - lastPos;
+                vel = (transform.position - lastPos) / Time.deltaTime;
             else
-                vel = player.transform.position - myCollider.bounds.center;
+                vel = player.transform.position - transform.position;
 
             if (maxVelocity > 0)
                 vel = Vector3.ClampMagnitude(vel, maxVelocity);

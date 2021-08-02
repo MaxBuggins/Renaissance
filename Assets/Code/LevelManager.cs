@@ -8,12 +8,14 @@ public class LevelManager : NetworkBehaviour
     public float respawnDelay = 1;
 
     private List<Transform> spawnPoints = new List<Transform>();
+
     public List<Player> players = new List<Player>();
 
     private AudioSource audioSource;
     private AudioDistortionFilter audioDistortion;
 
     private UI_Main playerUI;
+
     private NetworkManagerHUD hud;
 
     void Start()
@@ -22,6 +24,7 @@ public class LevelManager : NetworkBehaviour
         audioDistortion = GetComponent<AudioDistortionFilter>();
 
         playerUI = FindObjectOfType<UI_Main>();
+
         hud = FindObjectOfType<NetworkManagerHUD>();
 
         if (hud != null) //TEMPARAY
@@ -36,6 +39,9 @@ public class LevelManager : NetworkBehaviour
 
     private void Update()
     {
+        if (playerUI.player == null)
+            return;
+
         if (audioDistortion != null)
         {
             if (playerUI.player.health <= 0)
@@ -64,4 +70,5 @@ public class LevelManager : NetworkBehaviour
 
         return (spawnPoints[Random.Range(0, spawnPoints.Count)]);
     }
+
 }
