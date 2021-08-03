@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class UI_Main : MonoBehaviour
 {
     public Sprite[] deathSprites;
+    public Sprite[] classSprites;
 
 
     [HideInInspector] public Player player;
@@ -14,6 +15,7 @@ public class UI_Main : MonoBehaviour
     public GameObject deathUI;
     public GameObject pauseUI;
     public Image reloadRing;
+    public Image classPreview;
 
     [HideInInspector] public LevelManager levelManager;
     [HideInInspector] public List<Player> players = new List<Player>();
@@ -53,7 +55,7 @@ public class UI_Main : MonoBehaviour
         foreach (UI_Base ui in uiBases)
             ui.UpdateInfo();
 
-
+        classPreview.sprite = classSprites[(int)player.playerClass.playerClass];
         deathUI.SetActive(player.health <= 0); //bit of a coder
     }
 

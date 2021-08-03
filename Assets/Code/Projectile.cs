@@ -60,10 +60,7 @@ public class Projectile : NetworkBehaviour
                 if (player != null)
                 {
                     hurtful.HurtPlayer(player, damage, hurtful.hurtType);
-
-
-                    NetworkServer.Destroy(gameObject);
-
+                    DestroySelfHit();
                 }
                 else
                 {
