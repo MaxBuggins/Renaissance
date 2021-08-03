@@ -166,7 +166,7 @@ public class Hurtful : NetworkBehaviour
             if (moveForce || myCollider == null) //its a fix i guess
                 vel = (transform.position - lastPos) / Time.deltaTime;
             else
-                vel = player.transform.position - transform.position;
+                vel = (player.transform.position - transform.position).normalized * 3;
 
             if (maxVelocity > 0)
                 vel = Vector3.ClampMagnitude(vel, maxVelocity);
