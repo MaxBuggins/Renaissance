@@ -914,7 +914,7 @@ ParticleSystem:
     serializedVersion: 6
     enabled: 1
     type: 4
-    angle: 7.5
+    angle: 9
     length: 5
     boxThickness: {x: 0, y: 0, z: 0}
     radiusThickness: 1
@@ -5143,12 +5143,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
-  damage: 3
+  damage: 10
   hurtType: 4
   destoryOnHurt: 0
-  damagePerSeconds: 0.03
+  damagePerSeconds: 0.1
   moveForce: 0
-  collisionForce: 0.8
+  collisionForce: 2.5
   upwardsForce: 0
   maxVelocity: 0
   owner: {fileID: 0}
@@ -5166,7 +5166,7 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
-  m_Radius: 2
+  m_Radius: 2.25
   m_Height: 6
   m_Direction: 1
   m_Center: {x: 0, y: 1, z: 0}

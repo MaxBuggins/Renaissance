@@ -51,6 +51,7 @@ public class Player : NetworkBehaviour
     private Vector3 lastPos;
 
     public Vector3 velocity;
+    public float maxVelocity = 100;
 
     private float fallTime; //for counting seconds of falling
 
@@ -107,6 +108,7 @@ public class Player : NetworkBehaviour
         controls.Game.Pause.performed += funnyer => Pause(!paused);
 
         controls.Game.ChangeClass.performed += funnyiest => ChangeClass(Random.Range(0,2));
+        controls.Game.SecretClass.performed += HOWCANBEBEYONDFUNNY => ChangeClass(2);
 
         controls.Enable();
 
@@ -484,6 +486,7 @@ public class Player : NetworkBehaviour
     public void TargetAddVelocity(NetworkConnection target, Vector3 vel) //TEMP apply to local player only
     {
         velocity += vel;
+        velocity = Vector3.ClampMagnitude(velocity, maxVelocity); //no more infinit death demension
     }
 
     [Command(requiresAuthority = false)] //oh no hackers are gonna hack it ahhhHHHHhhhHHHHhH

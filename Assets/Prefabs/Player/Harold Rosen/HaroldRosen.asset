@@ -10,20 +10,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 335a9229772eeda46a38c93c625ed126, type: 3}
-  m_Name: Banker
+  m_Name: HaroldRosen
   m_EditorClassIdentifier: 
-  playerClass: 0
-  maxHealth: 100
+  playerClass: 1
+  maxHealth: 700
   maxSpecial: 10
   specialChargeRate: 6
-  speed: 2.25
-  backSpeedMultiplyer: 0.75
-  sideSpeedMultiplyer: 0.85
-  airMovementMultiplyer: 0.8
-  gravitY: -45
-  fricktion: 5
-  maxMoveVelocity: 9.5
-  jumpHeight: 1.25
+  speed: 1
+  backSpeedMultiplyer: 0.5
+  sideSpeedMultiplyer: 0.65
+  airMovementMultiplyer: 0.6
+  gravitY: -100
+  fricktion: 7
+  maxMoveVelocity: 4
+  jumpHeight: 3
   coyotTime: 0.3
   pushForce: 5
   idleSprites:

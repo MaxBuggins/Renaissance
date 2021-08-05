@@ -90,6 +90,14 @@ public partial class @Controls : IInputActionCollection2, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""SecretClass"",
+                    ""type"": ""Button"",
+                    ""id"": ""2b7241a5-5153-479c-8d97-60a0cc0e736c"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -268,6 +276,17 @@ public partial class @Controls : IInputActionCollection2, IDisposable
                     ""action"": ""ChangeClass"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""6cdeeec8-332b-48d0-89ad-2ca5851c8b59"",
+                    ""path"": ""<Keyboard>/p"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SecretClass"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -284,6 +303,7 @@ public partial class @Controls : IInputActionCollection2, IDisposable
         m_Game_Special = m_Game.FindAction("Special", throwIfNotFound: true);
         m_Game_Pause = m_Game.FindAction("Pause", throwIfNotFound: true);
         m_Game_ChangeClass = m_Game.FindAction("ChangeClass", throwIfNotFound: true);
+        m_Game_SecretClass = m_Game.FindAction("SecretClass", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -351,6 +371,7 @@ public partial class @Controls : IInputActionCollection2, IDisposable
     private readonly InputAction m_Game_Special;
     private readonly InputAction m_Game_Pause;
     private readonly InputAction m_Game_ChangeClass;
+    private readonly InputAction m_Game_SecretClass;
     public struct GameActions
     {
         private @Controls m_Wrapper;
@@ -363,6 +384,7 @@ public partial class @Controls : IInputActionCollection2, IDisposable
         public InputAction @Special => m_Wrapper.m_Game_Special;
         public InputAction @Pause => m_Wrapper.m_Game_Pause;
         public InputAction @ChangeClass => m_Wrapper.m_Game_ChangeClass;
+        public InputAction @SecretClass => m_Wrapper.m_Game_SecretClass;
         public InputActionMap Get() { return m_Wrapper.m_Game; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -396,6 +418,9 @@ public partial class @Controls : IInputActionCollection2, IDisposable
                 @ChangeClass.started -= m_Wrapper.m_GameActionsCallbackInterface.OnChangeClass;
                 @ChangeClass.performed -= m_Wrapper.m_GameActionsCallbackInterface.OnChangeClass;
                 @ChangeClass.canceled -= m_Wrapper.m_GameActionsCallbackInterface.OnChangeClass;
+                @SecretClass.started -= m_Wrapper.m_GameActionsCallbackInterface.OnSecretClass;
+                @SecretClass.performed -= m_Wrapper.m_GameActionsCallbackInterface.OnSecretClass;
+                @SecretClass.canceled -= m_Wrapper.m_GameActionsCallbackInterface.OnSecretClass;
             }
             m_Wrapper.m_GameActionsCallbackInterface = instance;
             if (instance != null)
@@ -424,6 +449,9 @@ public partial class @Controls : IInputActionCollection2, IDisposable
                 @ChangeClass.started += instance.OnChangeClass;
                 @ChangeClass.performed += instance.OnChangeClass;
                 @ChangeClass.canceled += instance.OnChangeClass;
+                @SecretClass.started += instance.OnSecretClass;
+                @SecretClass.performed += instance.OnSecretClass;
+                @SecretClass.canceled += instance.OnSecretClass;
             }
         }
     }
@@ -438,5 +466,6 @@ public partial class @Controls : IInputActionCollection2, IDisposable
         void OnSpecial(InputAction.CallbackContext context);
         void OnPause(InputAction.CallbackContext context);
         void OnChangeClass(InputAction.CallbackContext context);
+        void OnSecretClass(InputAction.CallbackContext context);
     }
 }

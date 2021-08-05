@@ -68,6 +68,14 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
+                },
+                {
+                    "name": "SecretClass",
+                    "type": "Button",
+                    "id": "2b7241a5-5153-479c-8d97-60a0cc0e736c",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -244,6 +252,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "ChangeClass",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "6cdeeec8-332b-48d0-89ad-2ca5851c8b59",
+                    "path": "<Keyboard>/p",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "SecretClass",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
