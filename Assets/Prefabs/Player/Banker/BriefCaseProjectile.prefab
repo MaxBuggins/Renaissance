@@ -508,6 +508,9 @@ MonoBehaviour:
   gravitY: -12
   projectileWidth: 0.3
   destoryOnHits: 0
+  mask:
+    serializedVersion: 2
+    m_Bits: 507
   hitObject: {fileID: 5894738968245351933, guid: b0600715c643637428d6b2772162bae2, type: 3}
   hitSplat: {fileID: 0}
   destoyCall: {fileID: 0}

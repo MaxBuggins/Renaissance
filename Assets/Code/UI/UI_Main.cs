@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class UI_Main : MonoBehaviour
 {
@@ -23,10 +24,21 @@ public class UI_Main : MonoBehaviour
     public Transform killFeed;
     public GameObject killLine;
 
+    public TMP_InputField msgBox;
+
+    private Controls controls;
+
 
     private void Start()
     {
         levelManager = FindObjectOfType<LevelManager>();
+
+
+        controls = new Controls();
+
+        controls.Game.Message.performed += HOWCANBEBEYONDFUNNY => MsgBox();
+
+        controls.Enable();
     }
 
     private void Update()
@@ -72,5 +84,28 @@ public class UI_Main : MonoBehaviour
     public void Pause(bool pause)
     {
         pauseUI.SetActive(pause);
+    }
+
+    public void MsgBox()
+    {
+        bool active = msgBox.IsActive();
+
+        msgBox.gameObject.SetActive(!active);
+        if (!active)
+        {
+            msgBox.Select();
+            msgBox.text = "";
+            player.controls.Disable();
+        }
+        else
+        {
+            msgBox.OnDeselect(null);
+            player.controls.Enable();
+        }
+    }
+
+    public void SendMsg(string msg)
+    {
+        print(msg);
     }
 }

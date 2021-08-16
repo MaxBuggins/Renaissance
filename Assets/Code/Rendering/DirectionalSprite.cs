@@ -94,7 +94,7 @@ public class DirectionalSprite : MonoBehaviour
         transform.eulerAngles += lookOffset;
 
         if (yOnly)
-            transform.eulerAngles = new Vector3(0, transform.eulerAngles.y, 0);
+            transform.eulerAngles = new Vector3(lookOffset.x, transform.eulerAngles.y, lookOffset.z);
     }
 
     void ApplySprite(Sprite sprite)

@@ -72,7 +72,7 @@ MeshRenderer:
   m_StaticBatchRoot: {fileID: 0}
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
+  m_ScaleInLightmap: 2
   m_ReceiveGI: 1
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
@@ -138,10 +138,12 @@ MonoBehaviour:
   moveForce: 1
   collisionForce: 0
   upwardsForce: 0
-  ignorePlayer: {fileID: 0}
+  maxVelocity: 0
+  owner: {fileID: 0}
+  ownerID: 0
+  ignorOwner: 1
   destoryRigidbodys: 1
   destroyDelay: 1
-  hurtSprite: {fileID: 0}
 --- !u!114 &2739968579468558904
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -30,7 +30,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3582257142625139782}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 118.01299, y: 0, z: 80.69463}
+  m_LocalPosition: {x: 118, y: 0, z: 80.69463}
   m_LocalScale: {x: 0.2, y: 0.2, z: 0.2}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -144,10 +144,13 @@ MonoBehaviour:
   syncInterval: 0.1
   damage: 30
   destroyDelay: 5
-  forwardSpeed: 30
+  forwardSpeed: 32
   gravitY: 0
   projectileWidth: 0.2
   destoryOnHits: 3
+  mask:
+    serializedVersion: 2
+    m_Bits: 507
   hitObject: {fileID: 6704984473634513958, guid: cc74bbebfeacfd24c9fcf0ead0de6311, type: 3}
   hitSplat: {fileID: 354691278180113158, guid: ec1ce332d44e5aa4687631fbb4af931f, type: 3}
   destoyCall: {fileID: 0}
@@ -203,7 +206,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3983957858358173961}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.064964294, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 5, y: 5, z: 5}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -273,8 +276,8 @@ TrailRenderer:
       m_RotationOrder: 4
     colorGradient:
       serializedVersion: 2
-      key0: {r: 1, g: 1, b: 1, a: 1}
-      key1: {r: 1, g: 1, b: 1, a: 1}
+      key0: {r: 1, g: 0.6069398, b: 0, a: 1}
+      key1: {r: 1, g: 0.63933516, b: 0, a: 1}
       key2: {r: 0, g: 0, b: 0, a: 0}
       key3: {r: 0, g: 0, b: 0, a: 0}
       key4: {r: 0, g: 0, b: 0, a: 0}
@@ -290,7 +293,7 @@ TrailRenderer:
       ctime6: 0
       ctime7: 0
       atime0: 0
-      atime1: 65535
+      atime1: 39321
       atime2: 65535
       atime3: 65535
       atime4: 0
@@ -299,7 +302,7 @@ TrailRenderer:
       atime7: 0
       m_Mode: 0
       m_NumColorKeys: 2
-      m_NumAlphaKeys: 2
+      m_NumAlphaKeys: 3
     numCornerVertices: 1
     numCapVertices: 0
     alignment: 0

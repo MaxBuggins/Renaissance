@@ -57,7 +57,7 @@ public class Player : NetworkBehaviour
 
     private float deadTime;
 
-    private Controls controls;
+    [HideInInspector]public Controls controls;
 
     [Header("Unity Stuff Internals")]
     public GameObject cameraPrefab;
@@ -107,8 +107,7 @@ public class Player : NetworkBehaviour
 
         controls.Game.Pause.performed += funnyer => Pause(!paused);
 
-        controls.Game.ChangeClass.performed += funnyiest => ChangeClass(Random.Range(0,2));
-        controls.Game.SecretClass.performed += HOWCANBEBEYONDFUNNY => ChangeClass(2);
+        controls.Game.ChangeClass.performed += funnyiest => ChangeClass(Random.Range(0,3));
 
         controls.Enable();
 

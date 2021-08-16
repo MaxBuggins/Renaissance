@@ -9,7 +9,7 @@ public class Projectile : NetworkBehaviour
 
     public float destroyDelay = 5;
     //public float initalForce = 5;
-    public float forwardSpeed = 5;
+    public float forwardSpeed = 5; //if less than 0 then its a instant raycast
     public float gravitY = -9;
 
 
@@ -17,6 +17,7 @@ public class Projectile : NetworkBehaviour
     public int destoryOnHits = 0;
 
     [Header("Internals")]
+    public LayerMask mask;
     private Vector3 lastPos;
     private Vector3 velocity;
 
@@ -39,6 +40,26 @@ public class Projectile : NetworkBehaviour
         lastPos = transform.position;
 
         Invoke(nameof(DestroySelf), destroyDelay);
+
+        if (forwardSpeed < 0)
+        {
+            enabled = false; //stops updates
+
+            if (!isServer)
+            {
+                RaycastHit hit;
+                if (Physics.SphereCast(transform.position, projectileWidth, transform.position - lastPos,
+                    out hit, maxDistance: Mathf.Infinity, mask, QueryTriggerInteraction.Ignore))
+                {
+                    Player player = hit.collider.gameObject.GetComponent<Player>();
+                    if (player != null) //5 indents lets goooooooo eat fish
+                    {
+                        hurtful.HurtPlayer(player, damage, hurtful.hurtType);
+                        DestroySelfHit();
+                    }
+                }
+            }
+        }
     }
 
     void Update()
@@ -54,7 +75,7 @@ public class Projectile : NetworkBehaviour
             RaycastHit hit;
             if (Physics.SphereCast(transform.position, projectileWidth, transform.position - lastPos,
                 out hit, maxDistance: Mathf.Abs(Vector3.Distance(transform.position, lastPos)) * 1.25f,
-                -1, QueryTriggerInteraction.Ignore))
+                mask, QueryTriggerInteraction.Ignore))
             {
                 Player player = hit.collider.gameObject.GetComponent<Player>();
                 if (player != null)
@@ -129,5 +150,3 @@ public class Projectile : NetworkBehaviour
         transform.eulerAngles = rot;
     }
 }
-
-

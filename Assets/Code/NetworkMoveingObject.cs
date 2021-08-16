@@ -11,6 +11,7 @@ public class NetworkMoveingObject : MonoBehaviour
     
 
     public float moveSpeed = 5;
+    public float stopDelay = 0;
 
     private Vector3 orginPos; //I trust mirror is efficent
     public Transform[] path;
@@ -65,8 +66,8 @@ public class NetworkMoveingObject : MonoBehaviour
                     float relativePos = ((float)NetworkTime.time * moveSpeed) / path.Length;
 
 
-                    int posL = (int)Mathf.Repeat(Mathf.Floor(relativePos), path.Length);
-                    int posH = (int)Mathf.Repeat(Mathf.Ceil(relativePos), path.Length);
+                    int posL = (int)Mathf.Repeat(Mathf.Floor(relativePos), path.Length); //from this pos
+                    int posH = (int)Mathf.Repeat(Mathf.Ceil(relativePos), path.Length); //to this pos
 
                     transform.position = orginPos + LerpByDistance(path[posL].localPosition, path[posH].localPosition,
                         relativePos - Mathf.Floor(relativePos));

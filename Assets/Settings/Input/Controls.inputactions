@@ -70,7 +70,7 @@
                     "interactions": ""
                 },
                 {
-                    "name": "SecretClass",
+                    "name": "Message",
                     "type": "Button",
                     "id": "2b7241a5-5153-479c-8d97-60a0cc0e736c",
                     "expectedControlType": "Button",
@@ -258,11 +258,11 @@
                 {
                     "name": "",
                     "id": "6cdeeec8-332b-48d0-89ad-2ca5851c8b59",
-                    "path": "<Keyboard>/p",
+                    "path": "<Keyboard>/t",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "SecretClass",
+                    "action": "Message",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
