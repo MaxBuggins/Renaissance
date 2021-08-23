@@ -8,6 +8,8 @@ public class DestoryOnTrigger : MonoBehaviour
 {
     public float destroyDelay = 0.5f;
 
+    public GameObject triggerPrefab;
+
     void Start()
     {
         
@@ -16,6 +18,11 @@ public class DestoryOnTrigger : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        if(triggerPrefab != null)
+        {
+            Instantiate(triggerPrefab, other.transform.position + Vector3.up * 0.75f, triggerPrefab.transform.rotation, null);
+        }
+
         Rigidbody rb = other.GetComponent<Rigidbody>();
         if (rb != null)
         {

@@ -16,13 +16,13 @@ MonoBehaviour:
   maxHealth: 130
   maxSpecial: 10
   specialChargeRate: 6
-  speed: 2
-  backSpeedMultiplyer: 0.8
+  speed: 1.5
+  backSpeedMultiplyer: 0.75
   sideSpeedMultiplyer: 0.9
   airMovementMultiplyer: 0.6
   gravitY: -50
-  fricktion: 3.75
-  maxMoveVelocity: 3
+  fricktion: 4.375
+  maxMoveVelocity: 5
   jumpHeight: 1
   coyotTime: 0.3
   pushForce: 5

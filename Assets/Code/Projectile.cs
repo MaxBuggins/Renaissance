@@ -96,7 +96,7 @@ public class Projectile : NetworkBehaviour
                         Vector3 mirrored = Vector3.Reflect(forw, hit.normal);
                         transform.rotation = Quaternion.LookRotation(mirrored, transform.up);
 
-                        RpcSyncProjectile(transform.position, transform.eulerAngles);
+                        RpcSyncProjectile(transform.position, transform.eulerAngles, true);
                     }
                 }
             }
@@ -130,7 +130,7 @@ public class Projectile : NetworkBehaviour
     [ClientRpc]
     void RpcDestroySelfHit()
     {
-        var obj = Instantiate(hitObject, lastPos, transform.rotation);
+        Instantiate(hitObject, lastPos, transform.rotation);
 
         if (hitSplat != null)
             Instantiate(hitSplat, lastPos, transform.rotation);
@@ -144,8 +144,11 @@ public class Projectile : NetworkBehaviour
     }
 
     [ClientRpc]
-    void RpcSyncProjectile(Vector3 pos, Vector3 rot)
+    void RpcSyncProjectile(Vector3 pos, Vector3 rot, bool hit)
     {
+        if(hit)
+            Instantiate(hitObject, lastPos, transform.rotation);
+
         transform.position = pos;
         transform.eulerAngles = rot;
     }

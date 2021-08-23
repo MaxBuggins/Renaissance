@@ -20,9 +20,12 @@ public class PlayerCamera : MonoBehaviour
     public float shakeDuration = 0.5f;
     public float magnatude = 0.3f;
 
+    public float rotResetSpeed = 1;
+
     [Header("Internal Variables")]
     public Vector2 look;
     private Vector3 lastPos;
+    [HideInInspector]public Vector3 currentOffset = Vector3.zero;
 
     [Header("Unity Things")]
     public Player player;
@@ -55,7 +58,7 @@ public class PlayerCamera : MonoBehaviour
         xRotation -= mouseY;
         xRotation = Mathf.Clamp(xRotation, -85f, 85f);
 
-        transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
+        transform.localRotation = Quaternion.Euler(xRotation + currentOffset.x, currentOffset.y, currentOffset.z);
 
         if (player.health > 0)
             player.transform.Rotate(Vector3.up * mouseX);
@@ -75,6 +78,12 @@ public class PlayerCamera : MonoBehaviour
             bobTime = 0;
             transform.localPosition = new Vector3(transform.localPosition.x, Mathf.Lerp(transform.localPosition.y, player.cameraOffset.y, Time.deltaTime * bobSpeed), transform.localPosition.z);
         }
+    }
+
+    private void Update()
+    {
+        if(Vector3.Distance(Vector3.zero, currentOffset) > 0.15f)
+            currentOffset += (Vector3.zero - currentOffset).normalized * rotResetSpeed * Time.deltaTime;
     }
 
 

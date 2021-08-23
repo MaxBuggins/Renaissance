@@ -7,6 +7,7 @@ public class LinePhysics : MonoBehaviour
     public float segmentDistance = 1.5f;
     private float lineLength = 2;
 
+    private Hurtful hurtful;
     public Transform endPos;
 
     private LineRenderer lineRender;
@@ -15,10 +16,9 @@ public class LinePhysics : MonoBehaviour
     {
         lineRender = GetComponent<LineRenderer>();
 
-        //very temp
-        
-        
-        endPos = GetComponentInParent<Hurtful>().owner.transform;
+        //very hard coded and bad but no idear how to do any other way
+        hurtful = GetComponentInParent<Hurtful>();
+        endPos = hurtful.owner.transform;
 
         //Invoke(nameof(AddSegment), segmentDelay);
     }

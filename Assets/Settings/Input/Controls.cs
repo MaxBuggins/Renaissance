@@ -98,6 +98,22 @@ public partial class @Controls : IInputActionCollection2, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""React"",
+                    ""type"": ""Value"",
+                    ""id"": ""07426cf9-8fd7-4b9c-b382-7d9923ed386d"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""Reload"",
+                    ""type"": ""Button"",
+                    ""id"": ""2dc5acf4-2b0c-4e91-8d71-72aaf486a863"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -191,17 +207,6 @@ public partial class @Controls : IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""ce6213b6-0769-478d-a68e-f67c4bf83714"",
-                    ""path"": ""<Keyboard>/1"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Primary"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""871ecf90-001e-472c-8c2c-f09369986650"",
                     ""path"": ""<Mouse>/rightButton"",
                     ""interactions"": """",
@@ -213,30 +218,8 @@ public partial class @Controls : IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""126f0ea8-cea7-4bd4-9708-1f89ba57be2a"",
-                    ""path"": ""<Keyboard>/2"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Seconday"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""99137b07-4f74-4244-9b71-1e227c129992"",
                     ""path"": ""<Keyboard>/e"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Special"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""b4424dab-5c25-4de7-b59d-58178d04e5a4"",
-                    ""path"": ""<Keyboard>/3"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -287,6 +270,127 @@ public partial class @Controls : IInputActionCollection2, IDisposable
                     ""action"": ""Message"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""4b7740d8-ac4a-4dd1-8c26-a604f0f3c7b0"",
+                    ""path"": ""<Keyboard>/1"",
+                    ""interactions"": """",
+                    ""processors"": ""Scale(factor=0)"",
+                    ""groups"": """",
+                    ""action"": ""React"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""98083fba-9955-4b3f-80dc-a5afe7325e54"",
+                    ""path"": ""<Keyboard>/2"",
+                    ""interactions"": """",
+                    ""processors"": ""Scale"",
+                    ""groups"": """",
+                    ""action"": ""React"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""af0c829a-e259-4648-8df1-ebbc9cd45e17"",
+                    ""path"": ""<Keyboard>/3"",
+                    ""interactions"": """",
+                    ""processors"": ""Scale(factor=2)"",
+                    ""groups"": """",
+                    ""action"": ""React"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""dbb30066-5da7-49b6-b139-03d6ccfe379d"",
+                    ""path"": ""<Keyboard>/4"",
+                    ""interactions"": """",
+                    ""processors"": ""Scale(factor=3)"",
+                    ""groups"": """",
+                    ""action"": ""React"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ad1045e3-1098-4b52-b018-272803462906"",
+                    ""path"": ""<Keyboard>/5"",
+                    ""interactions"": """",
+                    ""processors"": ""Scale(factor=4)"",
+                    ""groups"": """",
+                    ""action"": ""React"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""fa01db3b-48f9-49ee-a8db-fd0f6182e31e"",
+                    ""path"": ""<Keyboard>/6"",
+                    ""interactions"": """",
+                    ""processors"": ""Scale(factor=5)"",
+                    ""groups"": """",
+                    ""action"": ""React"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""71cc3838-fc11-44a2-b465-5b072abe1dac"",
+                    ""path"": ""<Keyboard>/7"",
+                    ""interactions"": """",
+                    ""processors"": ""Scale(factor=6)"",
+                    ""groups"": """",
+                    ""action"": ""React"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""fc5ce218-533c-443d-bf3e-8f381fa140be"",
+                    ""path"": ""<Keyboard>/8"",
+                    ""interactions"": """",
+                    ""processors"": ""Scale(factor=7)"",
+                    ""groups"": """",
+                    ""action"": ""React"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""2841e3b4-d251-4fe1-86e6-8c90818e2d63"",
+                    ""path"": ""<Keyboard>/9"",
+                    ""interactions"": """",
+                    ""processors"": ""Scale(factor=8)"",
+                    ""groups"": """",
+                    ""action"": ""React"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""98832e95-f477-4453-82d2-75becee54df8"",
+                    ""path"": ""<Keyboard>/0"",
+                    ""interactions"": """",
+                    ""processors"": ""Scale(factor=9)"",
+                    ""groups"": """",
+                    ""action"": ""React"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""8b404c56-a58e-4dd6-914f-d6c09740d228"",
+                    ""path"": ""<Keyboard>/r"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Reload"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -304,6 +408,8 @@ public partial class @Controls : IInputActionCollection2, IDisposable
         m_Game_Pause = m_Game.FindAction("Pause", throwIfNotFound: true);
         m_Game_ChangeClass = m_Game.FindAction("ChangeClass", throwIfNotFound: true);
         m_Game_Message = m_Game.FindAction("Message", throwIfNotFound: true);
+        m_Game_React = m_Game.FindAction("React", throwIfNotFound: true);
+        m_Game_Reload = m_Game.FindAction("Reload", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -372,6 +478,8 @@ public partial class @Controls : IInputActionCollection2, IDisposable
     private readonly InputAction m_Game_Pause;
     private readonly InputAction m_Game_ChangeClass;
     private readonly InputAction m_Game_Message;
+    private readonly InputAction m_Game_React;
+    private readonly InputAction m_Game_Reload;
     public struct GameActions
     {
         private @Controls m_Wrapper;
@@ -385,6 +493,8 @@ public partial class @Controls : IInputActionCollection2, IDisposable
         public InputAction @Pause => m_Wrapper.m_Game_Pause;
         public InputAction @ChangeClass => m_Wrapper.m_Game_ChangeClass;
         public InputAction @Message => m_Wrapper.m_Game_Message;
+        public InputAction @React => m_Wrapper.m_Game_React;
+        public InputAction @Reload => m_Wrapper.m_Game_Reload;
         public InputActionMap Get() { return m_Wrapper.m_Game; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -421,6 +531,12 @@ public partial class @Controls : IInputActionCollection2, IDisposable
                 @Message.started -= m_Wrapper.m_GameActionsCallbackInterface.OnMessage;
                 @Message.performed -= m_Wrapper.m_GameActionsCallbackInterface.OnMessage;
                 @Message.canceled -= m_Wrapper.m_GameActionsCallbackInterface.OnMessage;
+                @React.started -= m_Wrapper.m_GameActionsCallbackInterface.OnReact;
+                @React.performed -= m_Wrapper.m_GameActionsCallbackInterface.OnReact;
+                @React.canceled -= m_Wrapper.m_GameActionsCallbackInterface.OnReact;
+                @Reload.started -= m_Wrapper.m_GameActionsCallbackInterface.OnReload;
+                @Reload.performed -= m_Wrapper.m_GameActionsCallbackInterface.OnReload;
+                @Reload.canceled -= m_Wrapper.m_GameActionsCallbackInterface.OnReload;
             }
             m_Wrapper.m_GameActionsCallbackInterface = instance;
             if (instance != null)
@@ -452,6 +568,12 @@ public partial class @Controls : IInputActionCollection2, IDisposable
                 @Message.started += instance.OnMessage;
                 @Message.performed += instance.OnMessage;
                 @Message.canceled += instance.OnMessage;
+                @React.started += instance.OnReact;
+                @React.performed += instance.OnReact;
+                @React.canceled += instance.OnReact;
+                @Reload.started += instance.OnReload;
+                @Reload.performed += instance.OnReload;
+                @Reload.canceled += instance.OnReload;
             }
         }
     }
@@ -467,5 +589,7 @@ public partial class @Controls : IInputActionCollection2, IDisposable
         void OnPause(InputAction.CallbackContext context);
         void OnChangeClass(InputAction.CallbackContext context);
         void OnMessage(InputAction.CallbackContext context);
+        void OnReact(InputAction.CallbackContext context);
+        void OnReload(InputAction.CallbackContext context);
     }
 }

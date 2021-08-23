@@ -21,6 +21,8 @@ public class DirectionalSprite : MonoBehaviour
     public float sortAngle;
     private float lookAngle;
 
+    //public float inFrontAmount = 0;
+
     private Renderer render;
     private Camera cam;
 
@@ -51,6 +53,11 @@ public class DirectionalSprite : MonoBehaviour
             cam = Camera.main;
             return;
         }
+
+        //Vector3 frontPos = transform.forward * inFrontAmount;
+
+        //transform.localPosition = new Vector3(frontPos.x, transform.localPosition.y, frontPos.z);
+
 
         if(randomSpirte || constantFollow)
         {

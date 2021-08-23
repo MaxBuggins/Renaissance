@@ -12,6 +12,8 @@ public class BoxerWeapon : PlayerWeapon
 
     public float punchVelocity = 6;
 
+    public Vector3 punchRot;
+
     [Header("Throw Propertys")]
     public float throwDelay = 0.125f;
     public float throwCoolDown = 0.4f;
@@ -64,10 +66,15 @@ public class BoxerWeapon : PlayerWeapon
             player.velocity += chargeDirection * chargeSpeed * Time.deltaTime;
             //player.character.Move(chargeDirection * chargeSpeed * Time.deltaTime);
 
-
             if (chargeTime >= chargeDuration)
             {
-                player.CmdSpawnObject(3, transform.position - Vector3.up, Vector3.zero, false, false);
+                player.CmdSpawnObject(3, player.transform.position - Vector3.up, Vector3.zero, false, false);
+                EndSpecial();
+            }
+
+            else if (player.character.isGrounded)
+            {
+                player.CmdSpawnObject(3, player.transform.position - Vector3.up, Vector3.zero, false, false);
                 EndSpecial();
             }
         }
@@ -93,6 +100,11 @@ public class BoxerWeapon : PlayerWeapon
     {
         player.CmdSpawnObject(0, Vector3.zero, transform.eulerAngles, true, true);
         player.velocity += transform.forward * punchVelocity;
+
+
+
+        player.playerCam.currentOffset += punchRot;
+
         base.UsePrimary();
         punchHand.transform.position -= transform.forward * 0.75f;
     }
@@ -113,6 +125,8 @@ public class BoxerWeapon : PlayerWeapon
 
     void Throw()
     {
+        player.playerCam.currentOffset -= punchRot * 1.3f;
+
         player.CmdSpawnObject(1, shootPos.position, shootPos.eulerAngles, false, false);
         player.velocity += shootPos.forward * throwVelocity;
         base.UseSeconday();
@@ -138,7 +152,12 @@ public class BoxerWeapon : PlayerWeapon
         //orginalGravitY = player.gravitY;
         player.gravitY *= gravityMultiplyer;
 
-        chargeDirection = -Vector3.up;  //new Vector3(transform.forward.x, 0, transform.forward.z).normalized;
+        float maxXZ = 0.6f;
+
+        chargeDirection = new Vector3(Mathf.Clamp(transform.forward.x, -maxXZ, maxXZ),
+            -1,
+            Mathf.Clamp(transform.forward.z, -maxXZ, maxXZ)).normalized;
+
         chargeTime = 0;
 
         player.CmdSpawnObject(2, -Vector3.up, Vector3.zero, false, true);

@@ -16,6 +16,9 @@ public class Hurtful : NetworkBehaviour
     public float damagePerSeconds = 1.25f;
     private float timeSinceDamage = 0;
 
+    public bool ignorOwner = true;
+
+    [Header("Force")]
     public bool moveForce = true; //if false then force is caculated via distance from collider center
     public float collisionForce = 0;
     public float upwardsForce = 0;
@@ -23,14 +26,12 @@ public class Hurtful : NetworkBehaviour
 
     private List<Player> inTrigger = new List<Player>();
 
-    public Player owner; //who takes the credit for a hit
-    [SyncVar] public uint ownerID;
+    [HideInInspector] public Player owner; //who takes the credit for a hit
+    [HideInInspector][SyncVar] public uint ownerID;
 
-    public bool ignorOwner = true;
-
-    [Header("RigidBodys")]
-    public bool destoryRigidbodys = false;
-    public float destroyDelay;
+    //[Header("RigidBodys")]
+    //public bool destoryRigidbodys = false;
+    //public float destroyDelay;
 
     private Vector3 lastPos;
 
@@ -39,6 +40,10 @@ public class Hurtful : NetworkBehaviour
 
     void Start()
     {
+        //this for some reason breaks hurt over time areas?
+        //if (!isServer) //only for the server to run
+            //enabled = false;
+
         if (moveForce)
         {
             collisionForce /= 100;
@@ -55,9 +60,6 @@ public class Hurtful : NetworkBehaviour
             if(ownerIdenity != null)
                 owner = ownerIdenity.gameObject.GetComponent<Player>();
         }
-        
-        //if (!isServer) //only for the server to run
-            //enabled = false;
 
         lastPos = transform.position;
     }
@@ -105,13 +107,6 @@ public class Hurtful : NetworkBehaviour
             }
             return;
         }
-
-        if (!destoryRigidbodys)
-            return;
-
-        Rigidbody rb = other.GetComponent<Rigidbody>();
-        if (rb != null)
-            StartCoroutine(WaitThenDestory(rb.gameObject));
     }
 
     [Server]
@@ -125,16 +120,6 @@ public class Hurtful : NetworkBehaviour
                 inTrigger.Remove(player);
             }
         }
-    }
-
-    [Server]
-    IEnumerator WaitThenDestory(GameObject obj)
-    {
-        yield return new WaitForSeconds(destroyDelay);
-
-        if(obj != null)
-            if (obj.GetComponent<NetworkIdentity>() != null)
-                NetworkServer.Destroy(obj);
     }
 
     [Server]

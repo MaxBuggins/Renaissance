@@ -84,10 +84,7 @@ public class Player : NetworkBehaviour
     public GameObject[] spawnableObjects;
 
     public UI_Main uIMain;
-
-    public Light topLight;
-    public TextMeshPro playerNameText;
-    public GameObject floatingInfo;
+    private PlayerAbove playerAbove;
 
     public override void OnStartLocalPlayer() //just for the local client
     {
@@ -108,6 +105,8 @@ public class Player : NetworkBehaviour
         controls.Game.Pause.performed += funnyer => Pause(!paused);
 
         controls.Game.ChangeClass.performed += funnyiest => ChangeClass(Random.Range(0,3));
+
+        controls.Game.React.performed += moreFUNNY => CmdReact((int)moreFUNNY.ReadValue<float>());
 
         controls.Enable();
 
@@ -133,12 +132,13 @@ public class Player : NetworkBehaviour
         audioSource = GetComponent<AudioSource>();
         netTrans = GetComponent<NetworkTransform>();
         hurtful = GetComponent<Hurtful>();
+        playerAbove = GetComponentInChildren<PlayerAbove>();
 
         myNetworkManager = FindObjectOfType<MyNetworkManager>();
         levelManager = FindObjectOfType<LevelManager>();
 
         //clients need to run to sync up with gamers allready gameing
-        topLight.intensity = killStreak * 1.5f;
+        playerAbove.topLight.intensity = killStreak * 1.5f;
     }
 
     void FixedUpdate()
@@ -218,9 +218,7 @@ public class Player : NetworkBehaviour
             movement = movement * airMovementMultiplyer;
 
         if (Mathf.Abs(velocity.x) < maxMoveVelocity && Mathf.Abs(velocity.z) < maxMoveVelocity)
-        {
             movement *= speed;
-        }
 
         if (paused) //Temp
             movement = Vector3.zero;
@@ -282,7 +280,7 @@ public class Player : NetworkBehaviour
     }
 
 
-    [Server]
+    [ServerCallback]
     private void OnControllerColliderHit(ControllerColliderHit hit)
     {
         Rigidbody body = hit.collider.attachedRigidbody;
@@ -306,12 +304,16 @@ public class Player : NetworkBehaviour
 
     void OnNameChanged(string _Old, string _New)
     {
-        playerNameText.text = playerName;
+        //playerAbove.playerNameText.text = playerName;
+        if(isLocalPlayer)
+            uIMain.UIUpdate();
     }
 
     void OnColorChanged(Color32 _Old, Color32 _New) //fixed colours to 32 bits 0-255 int, while listening to Miitopia soundtrack 
     {
-        playerNameText.color = _New;
+        //playerAbove.playerNameText.color = _New;
+        if (isLocalPlayer)
+            uIMain.UIUpdate();
         //playerMaterialClone = new Material(GetComponent<Renderer>().material);
         //playerMaterialClone.color = _New;
         //GetComponent<Renderer>().material = playerMaterialClone;
@@ -360,7 +362,7 @@ public class Player : NetworkBehaviour
     {
         transform.parent = null; //incase on moveing platform   
         character.enabled = alive;
-        floatingInfo.SetActive(alive);
+        playerAbove.gameObject.SetActive(alive);
         body.gameObject.SetActive(alive);
         body.transform.position = transform.position + -Vector3.up; //bug fix
 
@@ -535,7 +537,7 @@ public class Player : NetworkBehaviour
         if(health <= 0)
         {
             levelManager.sendKillMsg(killer, playerName, hurtType);
-            topLight.intensity = 0;
+            playerAbove.topLight.intensity = 0;
             score -= 1;
         }
     }
@@ -545,7 +547,7 @@ public class Player : NetworkBehaviour
     {
         if (kill)
         {
-            topLight.intensity = killStreak * 1.5f;
+            playerAbove.topLight.intensity = killStreak * 1.5f;
             audioSource.PlayOneShot(playerClass.killPlayerSound[Random.Range(0, playerClass.killPlayerSound.Length)]);
         }
         else
@@ -575,5 +577,18 @@ public class Player : NetworkBehaviour
     void CmdChangeClass(int classObjIndex)
     {
         myNetworkManager.ChangePlayer(connectionToClient, myNetworkManager.spawnPrefabs[classObjIndex]);
+    }
+
+    [Command]
+    void CmdReact(int index)
+    {
+        RPCReact(index);
+    }
+
+    [ClientRpc]
+    void RPCReact(int index)
+    {
+        print(index);
+        playerAbove.StartReaction(index);
     }
 }

@@ -13,15 +13,15 @@ MonoBehaviour:
   m_Name: Redcoat
   m_EditorClassIdentifier: 
   playerClass: 1
-  maxHealth: 130
+  maxHealth: 100
   maxSpecial: 10
   specialChargeRate: 6
-  speed: 2
+  speed: 1.5
   backSpeedMultiplyer: 0.3
   sideSpeedMultiplyer: 0.6
   airMovementMultiplyer: 0.6
   gravitY: -50
-  fricktion: 3.25
+  fricktion: 5
   maxMoveVelocity: 3
   jumpHeight: 1
   coyotTime: 0.3

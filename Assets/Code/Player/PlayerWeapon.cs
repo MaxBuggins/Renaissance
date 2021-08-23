@@ -37,6 +37,8 @@ public class PlayerWeapon : NetworkBehaviour
 
         controls.Game.Special.performed += funnyiest => UseSpecial();
 
+        controls.Game.Reload.performed += kindaEpic => Reload();
+
         controls.Enable();
     }
 
@@ -79,5 +81,10 @@ public class PlayerWeapon : NetworkBehaviour
             return;
 
         specialIsActive = false;
+    }
+
+    public virtual void Reload()
+    {
+
     }
 }

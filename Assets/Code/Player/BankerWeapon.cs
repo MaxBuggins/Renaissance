@@ -12,6 +12,8 @@ public class BankerWeapon : PlayerWeapon
 
     public float punchVelocity = 6;
 
+    public Vector3 swingRot;
+
     [Header("Shoot Propertys")]
     public float fireRate = 0.4f;
     private float fireTime = 0;
@@ -54,7 +56,7 @@ public class BankerWeapon : PlayerWeapon
 
         reloadPerstenage = reloadTime / reloadRate;
 
-        if(reloading)
+        if (reloading)
         {
             reloadTime += Time.deltaTime;
 
@@ -64,7 +66,7 @@ public class BankerWeapon : PlayerWeapon
                 reloading = false;
                 reloadTime = 0;
             }
-        }    
+        }
 
         timeSincePunch += Time.deltaTime;
 
@@ -88,6 +90,8 @@ public class BankerWeapon : PlayerWeapon
 
     void Punch()
     {
+        player.playerCam.currentOffset -= swingRot;
+
         player.CmdSpawnObject(0, Vector3.zero, transform.eulerAngles, true, true);
         player.velocity += transform.forward * punchVelocity;
         base.UsePrimary();
@@ -98,7 +102,7 @@ public class BankerWeapon : PlayerWeapon
     [Client]
     public override void UseSeconday()
     {
-        if (player.paused)
+        if (player.paused || reloading)
             return;
 
         if (fireTime < fireRate)
@@ -132,6 +136,8 @@ public class BankerWeapon : PlayerWeapon
 
         base.UseSpecial();
 
+        player.playerCam.currentOffset -= swingRot * 1.3f;
+
         timeSinceThrow = 0;
         briefCase.SetActive(false);
         punchHand.transform.position += transform.forward * 0.75f;
@@ -145,5 +151,11 @@ public class BankerWeapon : PlayerWeapon
     {
         punchHand.transform.position -= transform.forward * 0.75f;
         briefCase.SetActive(true);
+    }
+
+    public override void Reload()
+    {
+        if(clipAmount < clipSize)
+            reloading = true;
     }
 }
