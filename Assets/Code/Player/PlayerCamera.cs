@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Pixelplacement;
+using UnityEngine.Rendering;
 
 public class PlayerCamera : MonoBehaviour
 {
@@ -31,6 +32,7 @@ public class PlayerCamera : MonoBehaviour
     public Player player;
     private Controls controls;
     private Camera cam;
+    private SkyCam skyCam;
 
 
 
@@ -46,6 +48,12 @@ public class PlayerCamera : MonoBehaviour
 
         controls.Enable();
         Cursor.lockState = CursorLockMode.Locked;
+
+
+        skyCam = FindObjectOfType<SkyCam>();
+
+        if (skyCam != null)
+            cam.clearFlags = CameraClearFlags.Nothing;
 
         //audioSource.Play();
     }

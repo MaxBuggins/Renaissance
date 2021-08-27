@@ -11,6 +11,7 @@ public class Projectile : NetworkBehaviour
     //public float initalForce = 5;
     public float forwardSpeed = 5; //if less than 0 then its a instant raycast
     public float gravitY = -9;
+    public float airRistance = 0.1f;
 
 
     public float projectileWidth = 0.3f;
@@ -68,6 +69,8 @@ public class Projectile : NetworkBehaviour
         //ADD PLAYER VELOCITY TO IT
         transform.position = transform.position + ((Vector3.up * velocity.y)
             + (transform.forward * forwardSpeed)) * Time.deltaTime;
+
+        forwardSpeed -= airRistance * Time.deltaTime;
 
         if (isServer)//Adian Smells of car fuel
         {

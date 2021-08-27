@@ -38,6 +38,10 @@ public class DirectionalSprite : MonoBehaviour
 
         else if(directionalSprites.Count > 0)
             SetUp();
+
+        if (constantFollow == false && directionalSprites.Count < 2 || randomSpirte)
+            enabled = false; //optermisation
+
     }
 
     public void SetUp()
@@ -57,7 +61,6 @@ public class DirectionalSprite : MonoBehaviour
         //Vector3 frontPos = transform.forward * inFrontAmount;
 
         //transform.localPosition = new Vector3(frontPos.x, transform.localPosition.y, frontPos.z);
-
 
         if(randomSpirte || constantFollow)
         {

@@ -49,9 +49,12 @@ public class Player : NetworkBehaviour
 
     [HideInInspector] public Vector2 move;
     private Vector3 lastPos;
+    private Vector3 floorNormal;
 
     public Vector3 velocity;
     public float maxVelocity = 100;
+
+    public float slideFriction = 0.3f;
 
     private float fallTime; //for counting seconds of falling
 
@@ -172,8 +175,8 @@ public class Player : NetworkBehaviour
             return;
         }
 
-        IsGrounded();
         Movement();
+        IsGrounded();
 
     }
 
@@ -229,6 +232,16 @@ public class Player : NetworkBehaviour
 
         velocity.x = Mathf.Lerp(velocity.x, 0, fricktion * Time.fixedDeltaTime);
         velocity.z = Mathf.Lerp(velocity.z, 0, fricktion * Time.fixedDeltaTime);
+
+        
+        //isGrounded = (Vector3.Angle(Vector3.up, floorNormal) <= slopeLimit);
+
+        //Character sliding of surfaces
+        if (character.isGrounded)
+        {
+            velocity.x += (1f - floorNormal.y) * floorNormal.x * (1f - slideFriction);
+            velocity.z += (1f - floorNormal.y) * floorNormal.z * (1f - slideFriction);
+        }
     }
 
     [ClientCallback]
@@ -280,9 +293,13 @@ public class Player : NetworkBehaviour
     }
 
 
-    [ServerCallback]
     private void OnControllerColliderHit(ControllerColliderHit hit)
     {
+        floorNormal = hit.normal;
+
+        if (!isServer)
+            return;
+
         Rigidbody body = hit.collider.attachedRigidbody;
         Vector3 pushDir;
 

@@ -423,8 +423,9 @@ MonoBehaviour:
   syncInterval: 0.1
   damage: 35
   destroyDelay: 5
-  forwardSpeed: 18
+  forwardSpeed: 20
   gravitY: -20
+  airRistance: 8
   projectileWidth: 0.45
   destoryOnHits: 0
   mask:
@@ -451,15 +452,13 @@ MonoBehaviour:
   hurtType: 4
   destoryOnHurt: 1
   damagePerSeconds: 1.25
+  ignorOwner: 1
   moveForce: 1
   collisionForce: 1.5
   upwardsForce: 0
   maxVelocity: 0
   owner: {fileID: 0}
   ownerID: 0
-  ignorOwner: 1
-  destoryRigidbodys: 0
-  destroyDelay: 0
 --- !u!114 &1476269009965310601
 MonoBehaviour:
   m_ObjectHideFlags: 0
