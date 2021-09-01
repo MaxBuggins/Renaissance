@@ -159,9 +159,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 64
-        width: 64
-        height: 32
+        y: 320
+        width: 128
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -179,10 +179,10 @@ TextureImporter:
       name: KillIcons_1
       rect:
         serializedVersion: 2
-        x: 64
-        y: 64
-        width: 64
-        height: 32
+        x: 128
+        y: 320
+        width: 128
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -200,10 +200,10 @@ TextureImporter:
       name: KillIcons_2
       rect:
         serializedVersion: 2
-        x: 128
-        y: 64
-        width: 64
-        height: 32
+        x: 256
+        y: 320
+        width: 128
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -222,9 +222,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 32
-        width: 64
-        height: 32
+        y: 256
+        width: 128
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -232,8 +232,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: bff8f2c236b23774e8422ffc6b1f0406
-      internalID: 2100150284
+      spriteID: 81d6537b6dc5ddb4ebae420870c7e684
+      internalID: 338976143
       vertices: []
       indices: 
       edges: []
@@ -242,10 +242,10 @@ TextureImporter:
       name: KillIcons_4
       rect:
         serializedVersion: 2
-        x: 64
-        y: 32
-        width: 64
-        height: 32
+        x: 128
+        y: 256
+        width: 128
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -253,8 +253,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8375aab8fa26ba34897925d9625338f7
-      internalID: -440905647
+      spriteID: 6a31f3c6ea7d95946a473e84b6786865
+      internalID: 1759949125
       vertices: []
       indices: 
       edges: []
@@ -263,10 +263,10 @@ TextureImporter:
       name: KillIcons_5
       rect:
         serializedVersion: 2
-        x: 128
-        y: 32
-        width: 64
-        height: 32
+        x: 256
+        y: 256
+        width: 128
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -274,8 +274,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: eabc6bc73e3119b4c8929b5d48ba7614
-      internalID: -2133402979
+      spriteID: 3d1e5c5a8cde0aa4eb21a18944ba2024
+      internalID: 139852973
       vertices: []
       indices: 
       edges: []
@@ -284,10 +284,10 @@ TextureImporter:
       name: KillIcons_6
       rect:
         serializedVersion: 2
-        x: 64
-        y: 0
-        width: 64
-        height: 32
+        x: 0
+        y: 192
+        width: 128
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -295,8 +295,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: dca7e8dbb3721f348a6746210a56c3b5
-      internalID: -1812133958
+      spriteID: 08bfed8c4b06fea419e189653c484c66
+      internalID: 301298162
       vertices: []
       indices: 
       edges: []
@@ -306,9 +306,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 128
-        y: 0
-        width: 64
-        height: 32
+        y: 192
+        width: 128
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -316,8 +316,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7bb92f6827dfc714d8ae79f25ad884e7
-      internalID: -1839327763
+      spriteID: e34cb4d4378ab734e9f865a5fb659a17
+      internalID: -216372164
       vertices: []
       indices: 
       edges: []
@@ -334,11 +334,11 @@ TextureImporter:
     secondaryTextures: []
     nameFileIdTable:
       KillIcons_1: -1805045705
-      KillIcons_3: 2100150284
-      KillIcons_6: -1812133958
-      KillIcons_7: -1839327763
-      KillIcons_4: -440905647
-      KillIcons_5: -2133402979
+      KillIcons_3: 338976143
+      KillIcons_6: 301298162
+      KillIcons_7: -216372164
+      KillIcons_4: 1759949125
+      KillIcons_5: 139852973
       KillIcons_2: 1039216535
       KillIcons_0: 5211420431643085832
   spritePackingTag: 

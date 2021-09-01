@@ -8,7 +8,7 @@ public class Player : NetworkBehaviour
 {
     [Header("Player Stats")]
     [SyncVar] public int score = 0;
-    [SyncVar] public int killStreak = 0;
+    [HideInInspector] [SyncVar] public int killStreak = 0;
 
     [HideInInspector] public int maxHealth = 100;
     [SyncVar(hook = nameof(OnHealthChanged))]
@@ -21,13 +21,13 @@ public class Player : NetworkBehaviour
 
     [Header("Player Info")]
     [SyncVar(hook = nameof(OnNameChanged))]
-    public string playerName = "NoNameNed";
+    [HideInInspector] public string playerName = "NoNameNed";
     [SyncVar(hook = nameof(OnColorChanged))]
-    public Color32 playerColour = Color.white;
+    [HideInInspector] public Color32 playerColour = Color.white;
 
     public ObjectPlayerClass playerClass;
 
-    public Vector3 cameraOffset;
+    public Vector3 cameraOffset = Vector3.up;
 
     [Header("Player Atrabuits")] //internal use only on spawn resets varibles accoring to playerclass
     [HideInInspector] public float speed = 5;
@@ -43,36 +43,40 @@ public class Player : NetworkBehaviour
     [HideInInspector] public float coyotTime = 0.3f; //lol mesh has good idears NO WAY
 
     [HideInInspector] public float pushForce = 5f;
+    [HideInInspector] public float slideFriction = 0.3f;
 
     [Header("Player Internals")]
     public bool paused;
 
     [HideInInspector] public Vector2 move;
-    private Vector3 lastPos;
+    [HideInInspector] public Vector3 lastPos;
     private Vector3 floorNormal;
 
     public Vector3 velocity;
-    public float maxVelocity = 100;
-
-    public float slideFriction = 0.3f;
+    private float maxVelocity = 40;
 
     private float fallTime; //for counting seconds of falling
-
     private float deadTime;
+
+    public GameObject dropOnDeath;
 
     [HideInInspector]public Controls controls;
 
-    [Header("Unity Stuff Internals")]
+    [Header("Refrences")]
     public GameObject cameraPrefab;
+    public GameObject corpsePrefab;
+    public GameObject[] spawnableObjects;
+
+
+    [Header("Unity Stuff Internals")]
+    public DirectionalSprite body;
+
     [HideInInspector] public PlayerCamera playerCam;
     [HideInInspector] public PlayerWeapon playerWeapon;
-
     [HideInInspector] public CharacterController character;
+
     private AudioSource audioSource;
     private Hurtful hurtful;
-
-    public DirectionalSprite body;
-    public GameObject corpsePrefab;
 
     public int bloodPerDamage = 15;
     public GameObject bloodObj;
@@ -83,11 +87,10 @@ public class Player : NetworkBehaviour
     private ClientManager clientManager;
     private LevelManager levelManager;
 
-
-    public GameObject[] spawnableObjects;
-
     public UI_Main uIMain;
     private PlayerAbove playerAbove;
+
+
 
     public override void OnStartLocalPlayer() //just for the local client
     {
@@ -184,14 +187,18 @@ public class Player : NetworkBehaviour
     {
         //if (Mathf.Abs(Vector3.Distance(transform.position, lastPos)) > 0.1f)
         //{
-         //   if (audioSource.isPlaying)
-         //       return;
+        //   if (audioSource.isPlaying)
+        //       return;
 
-         //   audioSource.clip = playerClass.walkCycle;
+        //   audioSource.clip = playerClass.walkCycle;
         //    audioSource.Play();
         //}
         //For all clients to run so they can hear really great sounds like RUN,RUN run from the sanvwich
-        if(transform.position.y - lastPos.y > 0.26f)
+
+        float fallSpeed = (transform.position.y - lastPos.y);
+
+
+        if (fallSpeed > 0.26f)
         {
             if (audioSource.isPlaying)
                 return;
@@ -222,6 +229,11 @@ public class Player : NetworkBehaviour
 
         if (Mathf.Abs(velocity.x) < maxMoveVelocity && Mathf.Abs(velocity.z) < maxMoveVelocity)
             movement *= speed;
+        else
+        {
+            x = 0;
+            z = 0;
+        }
 
         if (paused) //Temp
             movement = Vector3.zero;
@@ -272,7 +284,9 @@ public class Player : NetworkBehaviour
     [ClientCallback]
     void IsGrounded()
     {
-        if (character.isGrounded == true)
+        bool canStand = (Vector3.Angle(Vector3.up, floorNormal) <= character.slopeLimit);
+
+        if (character.isGrounded == true && canStand)
         {
             if (velocity.y < 0) //if falling
                 velocity.y = 0; //if grounded then no need to fall
@@ -393,24 +407,18 @@ public class Player : NetworkBehaviour
             audioSource.PlayOneShot(playerClass.deathSound[Random.Range(0,
         playerClass.deathSound.Length)]);
 
-            Instantiate(corpsePrefab, body.transform.position, transform.rotation);
+            GameObject corpse = Instantiate(corpsePrefab, body.transform.position, transform.rotation);
+            corpse.GetComponent<Rigidbody>().velocity = (transform.position - lastPos) * 2;
         }
 
         if (isLocalPlayer)
         {
+            playerCam.onDeath();
             GetComponentInChildren<PlayerWeapon>().EndSpecial();
 
             if (alive == true)
                 OwnerSpawnPlayer();
         }
-
-        if (!isServer) //only the server runs this
-            return;
-
-        //need to sync rigidbody between clients wont work AHHHHHH  
-        //if (corpseObject != null)
-            //corpseObject.GetComponentInChildren<Rigidbody>().velocity = (transform.position - lastPos) * 10;
-        //corpseRB.GetComponent<Mirror.Experimental.NetworkRigidbody>().SyncToClients();
     }
 
     [Command]
@@ -459,6 +467,7 @@ public class Player : NetworkBehaviour
         coyotTime = playerClass.coyotTime;
 
         pushForce = playerClass.pushForce;
+        slideFriction = playerClass.slideFriction;
     }
 
     [ClientCallback]
@@ -556,6 +565,13 @@ public class Player : NetworkBehaviour
             levelManager.sendKillMsg(killer, playerName, hurtType);
             playerAbove.topLight.intensity = 0;
             score -= 1;
+
+            //if (dropOnDeath == null)
+                //return;
+
+            //GameObject spawned = Instantiate(dropOnDeath, transform.position, transform.rotation, null);
+
+            //NetworkServer.Spawn(spawned);
         }
     }
 
@@ -566,6 +582,7 @@ public class Player : NetworkBehaviour
         {
             playerAbove.topLight.intensity = killStreak * 1.5f;
             audioSource.PlayOneShot(playerClass.killPlayerSound[Random.Range(0, playerClass.killPlayerSound.Length)]);
+            //playerCam.focus = 
         }
         else
         {
@@ -594,6 +611,7 @@ public class Player : NetworkBehaviour
     void CmdChangeClass(int classObjIndex)
     {
         myNetworkManager.ChangePlayer(connectionToClient, myNetworkManager.spawnPrefabs[classObjIndex]);
+        //Hurt(9999);
     }
 
     [Command]
@@ -605,7 +623,6 @@ public class Player : NetworkBehaviour
     [ClientRpc]
     void RPCReact(int index)
     {
-        print(index);
         playerAbove.StartReaction(index);
     }
 }

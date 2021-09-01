@@ -94,7 +94,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &7021378643791180036
 RectTransform:
   m_ObjectHideFlags: 0
@@ -682,8 +682,12 @@ MonoBehaviour:
   - {fileID: 5211420431643085832, guid: 525ea94dc92e6e142a69dd587daaf547, type: 3}
   - {fileID: -1805045705, guid: 525ea94dc92e6e142a69dd587daaf547, type: 3}
   - {fileID: 1039216535, guid: 525ea94dc92e6e142a69dd587daaf547, type: 3}
-  - {fileID: 2100150284, guid: 525ea94dc92e6e142a69dd587daaf547, type: 3}
-  - {fileID: -440905647, guid: 525ea94dc92e6e142a69dd587daaf547, type: 3}
+  - {fileID: 338976143, guid: 525ea94dc92e6e142a69dd587daaf547, type: 3}
+  - {fileID: 1759949125, guid: 525ea94dc92e6e142a69dd587daaf547, type: 3}
+  - {fileID: 139852973, guid: 525ea94dc92e6e142a69dd587daaf547, type: 3}
+  - {fileID: 301298162, guid: 525ea94dc92e6e142a69dd587daaf547, type: 3}
+  - {fileID: -216372164, guid: 525ea94dc92e6e142a69dd587daaf547, type: 3}
+  - {fileID: -216372164, guid: 525ea94dc92e6e142a69dd587daaf547, type: 3}
   classSprites:
   - {fileID: 21300000, guid: 887fb1cde2f539244906b3e1e4160aed, type: 3}
   - {fileID: 413156840755760695, guid: 23738a1366f4d304dae09b673209d745, type: 3}
@@ -3115,7 +3119,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &7288634096841322695
 RectTransform:
   m_ObjectHideFlags: 0

@@ -198,7 +198,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 64
-        y: 64
+        y: 96
         width: 32
         height: 32
       alignment: 0
@@ -218,8 +218,8 @@ TextureImporter:
       name: Emotes_3
       rect:
         serializedVersion: 2
-        x: 32
-        y: 32
+        x: 64
+        y: 64
         width: 32
         height: 32
       alignment: 0
@@ -239,6 +239,27 @@ TextureImporter:
       name: Emotes_4
       rect:
         serializedVersion: 2
+        x: 32
+        y: 32
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1bb12a136a0f9cd4e802175f0dd30c03
+      internalID: -1790282863
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Emotes_5
+      rect:
+        serializedVersion: 2
         x: 64
         y: 32
         width: 32
@@ -250,14 +271,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4cf992ce94541b040937bd284e8d3223
-      internalID: -1790282863
+      spriteID: 3a2bd215da9159145af47fe11458854f
+      internalID: 1212036087
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Emotes_5
+      name: Emotes_6
       rect:
         serializedVersion: 2
         x: 32
@@ -271,14 +292,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1a21be8cc826cb3498518bb03acfd830
-      internalID: 1212036087
+      spriteID: 6ae23f75dbf155746b305e56000ee044
+      internalID: -755433212
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Emotes_6
+      name: Emotes_7
       rect:
         serializedVersion: 2
         x: 64
@@ -292,14 +313,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 78dcdf9c0c02d1e4cb58928030a7e975
-      internalID: -755433212
+      spriteID: ce668361eeacbe3499772415e624a4da
+      internalID: 76098367
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Emotes_7
+      name: Emotes_8
       rect:
         serializedVersion: 2
         x: 96
@@ -313,8 +334,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6ac9bc57bf659d64cb46889e67d8df73
-      internalID: 76098367
+      spriteID: c0d318d120bce1d4bb22cb79c8158c80
+      internalID: 708469141
       vertices: []
       indices: 
       edges: []
@@ -336,6 +357,7 @@ TextureImporter:
       Emotes_7: 76098367
       Emotes_0: 100949819
       Emotes_4: -1790282863
+      Emotes_8: 708469141
       Emotes_6: -755433212
       Emotes_2: 300211834
   spritePackingTag: 

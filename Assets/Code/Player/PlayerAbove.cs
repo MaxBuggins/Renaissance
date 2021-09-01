@@ -5,7 +5,7 @@ using TMPro;
 
 public class PlayerAbove : MonoBehaviour
 {
-    public int reactDuration = 3;
+    public float reactDuration = 3;
 
     public Light topLight;
     public TextMeshPro playerNameText;
@@ -13,10 +13,13 @@ public class PlayerAbove : MonoBehaviour
     public GameObject currentReaction;
     public GameObject[] reactions;
 
+    private Player player;
+
     void Awake()
     {
         topLight = GetComponentInChildren<Light>();
         playerNameText = GetComponentInChildren<TextMeshPro>();
+        player = GetComponentInParent<Player>();
     }
 
     public void StartReaction(int index)
@@ -26,12 +29,17 @@ public class PlayerAbove : MonoBehaviour
 
         currentReaction = Instantiate(reactions[index], transform);
 
+        ParticleSystem.MainModule settings = currentReaction.GetComponent<ParticleSystem>().main;
+
+        if (settings.startColor.color != Color.white)
+        settings.startColor = new ParticleSystem.MinMaxGradient(player.playerColour);
+
         Invoke(nameof(EndReaction), reactDuration);
     }
 
     public void EndReaction()
     {
-        Destroy(currentReaction);
+        //Destroy(currentReaction);
         currentReaction = null;
     }
 }

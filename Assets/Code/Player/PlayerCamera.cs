@@ -27,6 +27,7 @@ public class PlayerCamera : MonoBehaviour
     public Vector2 look;
     private Vector3 lastPos;
     [HideInInspector]public Vector3 currentOffset = Vector3.zero;
+    [HideInInspector] public Transform focus;
 
     [Header("Unity Things")]
     public Player player;
@@ -69,7 +70,16 @@ public class PlayerCamera : MonoBehaviour
         transform.localRotation = Quaternion.Euler(xRotation + currentOffset.x, currentOffset.y, currentOffset.z);
 
         if (player.health > 0)
+        {
+
             player.transform.Rotate(Vector3.up * mouseX);
+
+        }
+        else if (focus != null)
+        {
+            transform.LookAt(focus);
+        }
+        
 
         lastPos = transform.position;
 
@@ -103,5 +113,39 @@ public class PlayerCamera : MonoBehaviour
         Vector3 orignalPosition = player.cameraOffset;
 
         Tween.Shake(transform, orignalPosition, Vector3.one * magnatude * amount, shakeDuration, 0);
+    }
+
+    public void onDeath()
+    {
+        Player[] players = FindObjectsOfType<Player>();
+        List<Transform> trans = new List<Transform>(); //rights
+
+        foreach (Player _player in players)
+        {
+            if(_player != player)
+            trans.Add(_player.transform);
+        }
+
+        focus = GetClosestPlayer(trans.ToArray());
+    }
+
+
+    Transform GetClosestPlayer(Transform[] players)
+    {
+        Transform bestTarget = null;
+        float closestDistanceSqr = Mathf.Infinity;
+        Vector3 currentPosition = transform.position;
+        foreach (Transform potentialTarget in players)
+        {
+            Vector3 directionToTarget = potentialTarget.position - currentPosition;
+            float dSqrToTarget = directionToTarget.sqrMagnitude;
+            if (dSqrToTarget < closestDistanceSqr)
+            {
+                closestDistanceSqr = dSqrToTarget;
+                bestTarget = potentialTarget;
+            }
+        }
+
+        return bestTarget;
     }
 }

@@ -15,6 +15,7 @@ public class ItemPickUp : NetworkBehaviour
 
     [Header("Item Propertys")]
     public bool isActive = true;
+    public bool respawn = true;
     public float respawnDelay;
     private float respawnTime;
 
@@ -33,7 +34,8 @@ public class ItemPickUp : NetworkBehaviour
         render = GetComponent<Renderer>();
         trigger = GetComponent<Collider>();
 
-        orginPos = transform.position;
+        orginPos = transform.localPosition;
+        orginPos += Vector3.up * sinHeight * 1.5f;
     }
 
     void Update()
@@ -50,9 +52,9 @@ public class ItemPickUp : NetworkBehaviour
 
         float yPos = orginPos.y + Mathf.Sin(Time.time * sinSpeed) * sinHeight;
 
-        transform.position = new Vector3(orginPos.x, yPos, orginPos.z);
+        transform.localPosition = new Vector3(orginPos.x, yPos, orginPos.z);
 
-        transform.eulerAngles = new Vector3(0, Time.time * rotSpeed, 0);
+        transform.localEulerAngles = new Vector3(0, Time.time * rotSpeed, 0);
     }
 
 
@@ -65,6 +67,9 @@ public class ItemPickUp : NetworkBehaviour
         Player player = other.GetComponent<Player>();
         if (player != null)
         {
+            if (player.health <= 0)
+                return;
+
             player.Hurt(-health); //makes player gain health (WACKY)
             player.ServerAddSpecial(special);
 
@@ -74,8 +79,16 @@ public class ItemPickUp : NetworkBehaviour
                 ApplyPowerUp(target.connectionToClient);
             }
 
-            respawnTime = 0;
-            RpcSetItem(false);
+            if (respawn)
+            {
+                respawnTime = 0;
+                RpcSetItem(false);
+            }
+
+            else
+            {
+                NetworkServer.Destroy(gameObject);
+            }
         }
     }
 
@@ -109,5 +122,10 @@ public class ItemPickUp : NetworkBehaviour
                     break;
                 }
         }
+    }
+
+    void OnDestroy()
+    {
+        Destroy(transform.parent.gameObject);
     }
 }

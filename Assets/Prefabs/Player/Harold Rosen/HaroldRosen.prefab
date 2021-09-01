@@ -197,7 +197,7 @@ CharacterController:
   serializedVersion: 2
   m_Height: 7
   m_Radius: 2
-  m_SlopeLimit: 45
+  m_SlopeLimit: 55
   m_StepOffset: 0.45
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
@@ -376,8 +376,11 @@ MonoBehaviour:
   pushForce: 5
   paused: 0
   move: {x: 0, y: 0}
+  lastPos: {x: 0, y: 0, z: 0}
   velocity: {x: 0, y: 0, z: 0}
   maxVelocity: 100
+  slideFriction: 0.3
+  dropOnDeath: {fileID: 1090678147105552, guid: bac6010fd61d72b419fb265a96000090, type: 3}
   cameraPrefab: {fileID: 406140057219326677, guid: 43afc1d920651c841b74b3f8c65e9ead, type: 3}
   playerCam: {fileID: 0}
   playerWeapon: {fileID: 0}
@@ -391,9 +394,6 @@ MonoBehaviour:
   - {fileID: 3582257142625139782, guid: d1344903dd598914bbf700f0d753d70d, type: 3}
   - {fileID: 5469052047408052845, guid: afa9caca1715364408895e7be92e03d9, type: 3}
   uIMain: {fileID: 0}
-  topLight: {fileID: 0}
-  playerNameText: {fileID: 0}
-  floatingInfo: {fileID: 0}
 --- !u!1001 &378451037175313058
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -4,14 +4,24 @@ using UnityEngine;
 
 public class SkyCam : MonoBehaviour
 {
+    private Camera pCam;
+
     void Start()
     {
-        Invoke(nameof(SetParent), 0.1f);
+
+        Invoke(nameof(SetCam), 0.1f);
     }
 
-    void SetParent()
+    private void Update()
     {
-        transform.parent = Camera.main.transform;
-        transform.localEulerAngles = Vector3.zero;
+        if(pCam == null)
+            Invoke(nameof(SetCam), 0.1f);
+
+        transform.localRotation = pCam.transform.rotation; 
+    }
+
+    void SetCam()
+    {
+        pCam = Camera.main;
     }
 }

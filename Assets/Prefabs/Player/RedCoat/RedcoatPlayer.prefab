@@ -51,7 +51,7 @@ CharacterController:
   serializedVersion: 2
   m_Height: 2.3
   m_Radius: 0.7
-  m_SlopeLimit: 45
+  m_SlopeLimit: 55
   m_StepOffset: 0.45
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
@@ -230,8 +230,11 @@ MonoBehaviour:
   pushForce: 5
   paused: 0
   move: {x: 0, y: 0}
+  lastPos: {x: 0, y: 0, z: 0}
   velocity: {x: 0, y: 0, z: 0}
   maxVelocity: 100
+  slideFriction: 0.3
+  dropOnDeath: {fileID: 1090678147105552, guid: bac6010fd61d72b419fb265a96000090, type: 3}
   cameraPrefab: {fileID: 2950268650202797178, guid: e67dbcb291c6e8c46a10dabe4c444a31, type: 3}
   playerCam: {fileID: 0}
   playerWeapon: {fileID: 0}
@@ -245,9 +248,6 @@ MonoBehaviour:
   - {fileID: 8268401582529525767, guid: 589c2ffb67cc1a5498c41974037f8215, type: 3}
   - {fileID: 5469052047408052845, guid: afa9caca1715364408895e7be92e03d9, type: 3}
   uIMain: {fileID: 0}
-  topLight: {fileID: 0}
-  playerNameText: {fileID: 0}
-  playerAbove: {fileID: 8285543469518298813}
 --- !u!1 &3334359792042095400
 GameObject:
   m_ObjectHideFlags: 0
@@ -420,14 +420,3 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7626334180467133610, guid: 7d6c0547d6293f54a8e9227c5763e08b, type: 3}
   m_PrefabInstance: {fileID: 3159946226310460498}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &8285543469518298813 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6423905184201583343, guid: 7d6c0547d6293f54a8e9227c5763e08b, type: 3}
-  m_PrefabInstance: {fileID: 3159946226310460498}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c1b8ab0121d80c24982f8a4136e1966a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

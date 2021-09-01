@@ -28,6 +28,7 @@ public class InstaDecal : MonoBehaviour
             if (col.tag != "Player")
             {
                 transform.parent = col.transform;
+                
                 break;
             }
         }

@@ -193,7 +193,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4430221715969323122}
   m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: -0.9, y: 1.4, z: 0}
+  m_LocalPosition: {x: -3.9, y: 1.4, z: 0.1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -685,7 +685,7 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0.1
   canHoldPrimay: 0
-  specialCost: 7
+  specialCost: 4
   specialIsActive: 0
   reloadPerstenage: 0
   player: {fileID: 0}

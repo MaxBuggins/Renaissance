@@ -265,21 +265,19 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0.1
   canHoldPrimay: 0
-  specialCost: 7
+  specialCost: 6
   specialIsActive: 0
   reloadPerstenage: 0
   player: {fileID: 0}
   punchDelay: 0.1
-  punchCooldown: 0.4
+  punchCooldown: 0.6
   punchVelocity: 14
   punchRot: {x: 0, y: 6, z: 0}
   throwDelay: 0.2
-  throwCoolDown: 0.7
+  throwCoolDown: 1
   throwVelocity: 14
-  chargeDuration: 0.5
-  chargeSpeed: 250
-  pushForceMultipyer: 15
-  gravityMultiplyer: 0.4
+  chargeDuration: 0.6
+  chargeSpeed: 300
   punchHand: {fileID: 7790930438919165224}
   shootPos: {fileID: 3443185902300044381}
   projectile: {fileID: 2809265603616378744, guid: 48120d00173fdf94ea015c5ef7850de3, type: 3}

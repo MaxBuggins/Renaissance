@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
 
-public enum HurtType { Death, Water, Train, Punch, ShotPut }
+public enum HurtType { Death, Water, Train, Punch, ShotPut, DeflectingBullet, BriefCase, GroudPound, Squash}
 
 //Server only script
 public class Hurtful : NetworkBehaviour
@@ -26,7 +26,7 @@ public class Hurtful : NetworkBehaviour
 
     private List<Player> inTrigger = new List<Player>();
 
-    [HideInInspector] public Player owner; //who takes the credit for a hit
+    public Player owner; //who takes the credit for a hit
     [HideInInspector][SyncVar] public uint ownerID;
 
     //[Header("RigidBodys")]
@@ -125,8 +125,25 @@ public class Hurtful : NetworkBehaviour
     [Server]
     public void HurtPlayer(Player player, int damage, HurtType type)
     {
+        if (damage == 0)
+            return;
+
         if (player == owner && ignorOwner)
             return;
+
+        if (collisionForce != 0)
+        {
+            Vector3 vel;
+            if (moveForce || myCollider == null) //its a fix i guess
+                vel = (transform.position - lastPos) / Time.deltaTime;
+            else
+                vel = (player.transform.position - transform.position).normalized * 3;
+
+            if (maxVelocity > 0)
+                vel = Vector3.ClampMagnitude(vel, maxVelocity);
+
+            player.TargetAddVelocity(player.connectionToClient, (vel * collisionForce) + (vel.magnitude * Vector3.up * upwardsForce));
+        }
 
         if (owner != null)
         {
@@ -143,20 +160,6 @@ public class Hurtful : NetworkBehaviour
                 owner.killStreak += 1;
                 owner.score += 2;
             }
-        }
-
-        if(collisionForce != 0)
-        {
-            Vector3 vel;
-            if (moveForce || myCollider == null) //its a fix i guess
-                vel = (transform.position - lastPos) / Time.deltaTime;
-            else
-                vel = (player.transform.position - transform.position).normalized * 3;
-
-            if (maxVelocity > 0)
-                vel = Vector3.ClampMagnitude(vel, maxVelocity);
-
-            player.TargetAddVelocity(player.connectionToClient,(vel * collisionForce) + (vel.magnitude * Vector3.up * upwardsForce));
         }
 
         if (destoryOnHurt == true)

@@ -5150,9 +5150,9 @@ MonoBehaviour:
   damagePerSeconds: 0.1
   ignorOwner: 0
   moveForce: 0
-  collisionForce: 2.5
-  upwardsForce: 0
-  maxVelocity: 0
+  collisionForce: 2
+  upwardsForce: 0.25
+  maxVelocity: 1
   owner: {fileID: 0}
   ownerID: 0
 --- !u!136 &6381942550653060388

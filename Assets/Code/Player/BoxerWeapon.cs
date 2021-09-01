@@ -26,12 +26,12 @@ public class BoxerWeapon : PlayerWeapon
     private float chargeTime;
     public float chargeSpeed = 5;
 
-    public float pushForceMultipyer = 5;
-    public float gravityMultiplyer = 0.5f;
+    //public float pushForceMultipyer = 5;
+    //public float gravityMultiplyer = 0.5f;
 
     //to store default values
-    private float orginalPushForce;
-    private float orginalGravitY;
+    //private float orginalPushForce;
+    //private float orginalGravitY;
 
     private Vector3 chargeDirection;
 
@@ -46,8 +46,8 @@ public class BoxerWeapon : PlayerWeapon
         player = GetComponentInParent<Player>();
         chargeTime = chargeDuration;
 
-        orginalPushForce = player.pushForce;
-        orginalGravitY = player.gravitY;
+        //orginalPushForce = player.pushForce;
+        //orginalGravitY = player.gravitY;
 
         base.Start();
     }
@@ -147,10 +147,10 @@ public class BoxerWeapon : PlayerWeapon
         player.velocity = Vector3.zero;
 
         //orginalPushForce = player.pushForce;
-        player.pushForce *= pushForceMultipyer;
+        //player.pushForce *= pushForceMultipyer;
 
         //orginalGravitY = player.gravitY;
-        player.gravitY *= gravityMultiplyer;
+        //player.gravitY *= gravityMultiplyer;
 
         float maxXZ = 0.6f;
 
@@ -160,14 +160,14 @@ public class BoxerWeapon : PlayerWeapon
 
         chargeTime = 0;
 
-        player.CmdSpawnObject(2, -Vector3.up, Vector3.zero, false, true);
+        //player.CmdSpawnObject(2, -Vector3.up, Vector3.zero, false, true);
     }
 
     public override void EndSpecial()
     {
         //gotta reset the player
-        player.pushForce = orginalPushForce;
-        player.gravitY = orginalGravitY;
+        //player.pushForce = orginalPushForce;
+        //player.gravitY = orginalGravitY;
         player.velocity = player.velocity / 2;
 
         chargeTime = chargeDuration; //make sure if called outside of base

@@ -1,0 +1,44 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 335a9229772eeda46a38c93c625ed126, type: 3}
+  m_Name: Maid
+  m_EditorClassIdentifier: 
+  playerClass: 0
+  maxHealth: 100
+  maxSpecial: 10
+  specialChargeRate: 6
+  speed: 1
+  backSpeedMultiplyer: 0.8
+  sideSpeedMultiplyer: 1.3
+  airMovementMultiplyer: 0.6
+  gravitY: -35
+  fricktion: 1.25
+  maxMoveVelocity: 8.5
+  jumpHeight: 1
+  coyotTime: 0.3
+  pushForce: 5
+  slideFriction: 0.175
+  idleSprites: []
+  runSprites: []
+  hurtSound:
+  - {fileID: 8300000, guid: 9d780eba4074daa42af6b3183c4b1313, type: 3}
+  deathSound:
+  - {fileID: 8300000, guid: 952acd20996cdd24bb98310a44c167e6, type: 3}
+  jumpSound:
+  - {fileID: 8300000, guid: 30e26f617c113c4408f99ccfcb834b91, type: 3}
+  - {fileID: 8300000, guid: 6115ab27d4963aa469e51d07fd6755f0, type: 3}
+  hurtPlayerSound:
+  - {fileID: 8300000, guid: d78a7fe29da806b45826103aefca3131, type: 3}
+  killPlayerSound:
+  - {fileID: 8300000, guid: d78a7fe29da806b45826103aefca3131, type: 3}
+  spawnSound:
+  - {fileID: 8300000, guid: d78a7fe29da806b45826103aefca3131, type: 3}

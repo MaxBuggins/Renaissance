@@ -13,7 +13,6 @@ public class Projectile : NetworkBehaviour
     public float gravitY = -9;
     public float airRistance = 0.1f;
 
-
     public float projectileWidth = 0.3f;
     public int destoryOnHits = 0;
 
@@ -42,6 +41,7 @@ public class Projectile : NetworkBehaviour
 
         Invoke(nameof(DestroySelf), destroyDelay);
 
+        /*
         if (forwardSpeed < 0)
         {
             enabled = false; //stops updates
@@ -61,6 +61,7 @@ public class Projectile : NetworkBehaviour
                 }
             }
         }
+        */
     }
 
     void Update()
@@ -88,6 +89,9 @@ public class Projectile : NetworkBehaviour
                 }
                 else
                 {
+                    if (hitSplat != null)
+                        Instantiate(hitSplat, hit.point, Quaternion.LookRotation(hit.normal));
+
                     destoryOnHits -= 1;
 
                     if (destoryOnHits < 0)
@@ -122,8 +126,8 @@ public class Projectile : NetworkBehaviour
             hurt.owner = hurtful.owner;
 
 
-        if (hitSplat != null)
-            Instantiate(hitSplat, lastPos, transform.rotation);
+        //if (hitSplat != null)
+            //Instantiate(hitSplat, lastPos, transform.rotation);
 
         RpcDestroySelfHit();
 
@@ -135,8 +139,8 @@ public class Projectile : NetworkBehaviour
     {
         Instantiate(hitObject, lastPos, transform.rotation);
 
-        if (hitSplat != null)
-            Instantiate(hitSplat, lastPos, transform.rotation);
+        //if (hitSplat != null)
+            //Instantiate(hitSplat, lastPos, transform.rotation);
 
         Destroy(gameObject);
     }

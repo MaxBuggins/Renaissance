@@ -197,7 +197,7 @@ CharacterController:
   serializedVersion: 2
   m_Height: 2.3
   m_Radius: 0.7
-  m_SlopeLimit: 45
+  m_SlopeLimit: 55
   m_StepOffset: 0.45
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
@@ -376,8 +376,11 @@ MonoBehaviour:
   pushForce: 5
   paused: 0
   move: {x: 0, y: 0}
+  lastPos: {x: 0, y: 0, z: 0}
   velocity: {x: 0, y: 0, z: 0}
   maxVelocity: 100
+  slideFriction: 0.3
+  dropOnDeath: {fileID: 7464815889903810956, guid: a41cd5f952b263c43b8fbb10dfbe3a2c, type: 3}
   cameraPrefab: {fileID: 9007433884827842136, guid: 6c8aaff8b5eb674418a7f9f35c1a16e5, type: 3}
   playerCam: {fileID: 0}
   playerWeapon: {fileID: 0}

@@ -6,12 +6,9 @@ using Mirror;
 public class NetworkMoveingObject : MonoBehaviour
 {
     public enum MoveMode { constantDirectionRight, constantDirectionForward, loop}
-    public MoveMode moveMode = MoveMode.constantDirectionRight;
-
-    
+    public MoveMode moveMode = MoveMode.constantDirectionRight; 
 
     public float moveSpeed = 5;
-    public float stopDelay = 0;
 
     private Vector3 orginPos; //I trust mirror is efficent
     public Transform[] path;

@@ -6,7 +6,7 @@ using Mirror;
 //this script is for the local client to run only
 public class PlayerWeapon : NetworkBehaviour
 {
-    public bool canHoldPrimay;
+    public bool canHoldPrimay = false;
 
     public int specialCost;
 
