@@ -30,6 +30,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 7935343524830523206}
+  - {fileID: 4354686659312455489}
   - {fileID: 5624049179950405140}
   - {fileID: 8479220974113682902}
   m_Father: {fileID: 5393368813326551951}
@@ -61,28 +63,29 @@ MonoBehaviour:
   m_GameObject: {fileID: 1824036754721084568}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8b52bf71ca9c59d4bb358f4c7b3abaf3, type: 3}
+  m_Script: {fileID: 11500000, guid: 5aa92190c73db84409a24206d20be612, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
   canHoldPrimay: 1
-  specialCost: 2
+  specialCost: 5
   specialIsActive: 0
   reloadPerstenage: 0
   player: {fileID: 0}
   punchDelay: 0
-  punchCooldown: 1.5
+  punchCooldown: 0
   punchVelocity: 6
-  fireRate: 0.3
-  clipSize: 2
-  reloadRate: 0.6
-  throwRot: {x: 0, y: 15, z: 0}
-  summonRot: {x: 15, y: 0, z: 0}
+  fireRate: 0.4
+  throwRot: {x: 0, y: 0, z: 0}
+  summonMask:
+    serializedVersion: 2
+    m_Bits: 1
+  summonRot: {x: 0, y: 0, z: 0}
   punchHand: {fileID: 4846895922063691242}
-  iceBlock: {fileID: 0}
-  shootPos: {fileID: 758935285768527074}
---- !u!1 &2876393166357942590
+  shootPosL: {fileID: 7935343524830523206}
+  shootPosR: {fileID: 4354686659312455489}
+--- !u!1 &4812618580071507097
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -90,29 +93,29 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 758935285768527074}
+  - component: {fileID: 4354686659312455489}
   m_Layer: 3
-  m_Name: ShootPos
+  m_Name: ShootPosR
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &758935285768527074
+--- !u!4 &4354686659312455489
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2876393166357942590}
-  m_LocalRotation: {x: 0.70105743, y: 0.09229571, z: 0.09229573, w: 0.70105743}
-  m_LocalPosition: {x: 1.9318516, y: 0.5176377, z: 0}
-  m_LocalScale: {x: -1, y: 1, z: 1}
+  m_GameObject: {fileID: 4812618580071507097}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.5, y: -0.3, z: 0}
+  m_LocalScale: {x: 0.2, y: 0.25, z: 0.25}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 8479220974113682902}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 75, y: 90, z: 90}
+  m_Father: {fileID: 7694451540138146118}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4846895922063691242
 GameObject:
   m_ObjectHideFlags: 0
@@ -125,7 +128,7 @@ GameObject:
   - component: {fileID: 6650126286723773153}
   - component: {fileID: 2060587217717673305}
   m_Layer: 3
-  m_Name: Hand
+  m_Name: RightHand
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -139,12 +142,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4846895922063691242}
   m_LocalRotation: {x: -0.70105743, y: -0.09229579, z: -0.09229579, w: 0.70105743}
-  m_LocalPosition: {x: 0.25, y: -0.55, z: -0.3}
-  m_LocalScale: {x: 0.25, y: 0.25, z: 0.25}
+  m_LocalPosition: {x: 0.15, y: -0.55, z: -0.3}
+  m_LocalScale: {x: 0.2, y: 0.25, z: 0.25}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7694451540138146118}
-  m_RootOrder: 0
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: -15}
 --- !u!33 &6650126286723773153
 MeshFilter:
@@ -196,6 +199,37 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!1 &6302182334321612684
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7935343524830523206}
+  m_Layer: 3
+  m_Name: ShootPosL
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7935343524830523206
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6302182334321612684}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.5, y: -0.3, z: 0}
+  m_LocalScale: {x: 0.2, y: 0.25, z: 0.25}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7694451540138146118}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7829568484333855239
 GameObject:
   m_ObjectHideFlags: 0
@@ -208,7 +242,7 @@ GameObject:
   - component: {fileID: 4299592144833180974}
   - component: {fileID: 1376811826314351743}
   m_Layer: 3
-  m_Name: PuncHand
+  m_Name: LeftHand
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -222,13 +256,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7829568484333855239}
   m_LocalRotation: {x: -0.7010574, y: 0.09229593, z: 0.09229593, w: 0.7010574}
-  m_LocalPosition: {x: -0.25, y: -0.55, z: -0.3}
-  m_LocalScale: {x: -0.25, y: 0.25, z: 0.25}
+  m_LocalPosition: {x: -0.15, y: -0.55, z: -0.3}
+  m_LocalScale: {x: -0.2, y: 0.25, z: 0.25}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 758935285768527074}
+  m_Children: []
   m_Father: {fileID: 7694451540138146118}
-  m_RootOrder: 1
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 15}
 --- !u!33 &4299592144833180974
 MeshFilter:
@@ -333,6 +366,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5446442341758186126, guid: 093da1b15d0b7af448d7c8246743643e, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5599911025221520305, guid: 093da1b15d0b7af448d7c8246743643e, type: 3}
+      propertyPath: m_BackGroundColor.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5599911025221520305, guid: 093da1b15d0b7af448d7c8246743643e, type: 3}
+      propertyPath: m_BackGroundColor.g
+      value: 0.6290183
+      objectReference: {fileID: 0}
+    - target: {fileID: 5599911025221520305, guid: 093da1b15d0b7af448d7c8246743643e, type: 3}
+      propertyPath: m_BackGroundColor.r
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

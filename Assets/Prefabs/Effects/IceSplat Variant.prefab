@@ -1,0 +1,87 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &6001454328141458143
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1962934737780374256, guid: 934bc753144cc81438f538ab799b160a, type: 3}
+      propertyPath: m_Name
+      value: IceSplat Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: 6698924297040120418, guid: 934bc753144cc81438f538ab799b160a, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6698924297040120418, guid: 934bc753144cc81438f538ab799b160a, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6698924297040120418, guid: 934bc753144cc81438f538ab799b160a, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6698924297040120418, guid: 934bc753144cc81438f538ab799b160a, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6698924297040120418, guid: 934bc753144cc81438f538ab799b160a, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6698924297040120418, guid: 934bc753144cc81438f538ab799b160a, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6698924297040120418, guid: 934bc753144cc81438f538ab799b160a, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6698924297040120418, guid: 934bc753144cc81438f538ab799b160a, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6698924297040120418, guid: 934bc753144cc81438f538ab799b160a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6698924297040120418, guid: 934bc753144cc81438f538ab799b160a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6698924297040120418, guid: 934bc753144cc81438f538ab799b160a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6875631312360926186, guid: 934bc753144cc81438f538ab799b160a, type: 3}
+      propertyPath: colour.b
+      value: 0.9019608
+      objectReference: {fileID: 0}
+    - target: {fileID: 6875631312360926186, guid: 934bc753144cc81438f538ab799b160a, type: 3}
+      propertyPath: colour.g
+      value: 0.81176466
+      objectReference: {fileID: 0}
+    - target: {fileID: 6875631312360926186, guid: 934bc753144cc81438f538ab799b160a, type: 3}
+      propertyPath: colour.r
+      value: 0.6313726
+      objectReference: {fileID: 0}
+    - target: {fileID: 6875631312360926186, guid: 934bc753144cc81438f538ab799b160a, type: 3}
+      propertyPath: randomMats.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 008b448ed99542140a79634ff64f022f, type: 2}
+    - target: {fileID: 6875631312360926186, guid: 934bc753144cc81438f538ab799b160a, type: 3}
+      propertyPath: randomMats.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: 3a1431d9f773c9b4ebb2c6e2db900743, type: 2}
+    - target: {fileID: 6875631312360926186, guid: 934bc753144cc81438f538ab799b160a, type: 3}
+      propertyPath: randomMats.Array.data[2]
+      value: 
+      objectReference: {fileID: 2100000, guid: fd3442585ba8d6a41bf9fc46210c586d, type: 2}
+    - target: {fileID: 6875631312360926186, guid: 934bc753144cc81438f538ab799b160a, type: 3}
+      propertyPath: randomMats.Array.data[3]
+      value: 
+      objectReference: {fileID: 2100000, guid: 04b83a8a9219b1a4ebe870ad233b1095, type: 2}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 934bc753144cc81438f538ab799b160a, type: 3}

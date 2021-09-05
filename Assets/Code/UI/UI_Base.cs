@@ -6,7 +6,7 @@ public class UI_Base : MonoBehaviour
 {
     public UI_Main ui_Main;
 
-    void Start()
+    void Awake()
     {
         ui_Main = GetComponentInParent<UI_Main>(); 
     }

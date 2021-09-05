@@ -26,6 +26,9 @@ MonoBehaviour:
   jumpHeight: 1.25
   coyotTime: 0.3
   pushForce: 5
+  slideFriction: 0.3
+  bloodPerDamage: 6
+  bloodObj: {fileID: 4042699645445107381, guid: 7fb82f213c9f852439196b1d1949b407, type: 3}
   idleSprites:
   - sprites:
     - {fileID: 413156840755760695, guid: 23738a1366f4d304dae09b673209d745, type: 3}

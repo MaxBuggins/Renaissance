@@ -61,7 +61,6 @@ public class UI_Main : MonoBehaviour
                 }
             }
             players.Add(player);
-
         }
 
         foreach (UI_Base ui in uiBases)

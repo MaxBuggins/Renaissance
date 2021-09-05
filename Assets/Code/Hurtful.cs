@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
 
-public enum HurtType { Death, Water, Train, Punch, ShotPut, DeflectingBullet, BriefCase, GroudPound, Squash}
+public enum HurtType { Death, Water, Train, Punch, ShotPut, DeflectingBullet, BriefCase, ShockWave, Squash, Freeze}
 
 //Server only script
 public class Hurtful : NetworkBehaviour

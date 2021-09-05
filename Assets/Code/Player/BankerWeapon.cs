@@ -118,7 +118,7 @@ public class BankerWeapon : PlayerWeapon
 
         player.CmdSpawnObject(1, shootPos.position, shootPos.eulerAngles, false, false);
         base.UseSeconday();
-        fireRate = 0;
+        fireTime = 0;
 
         if (clipAmount <= 0)
             reloading = true;

@@ -97,6 +97,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveMode: 1
   moveSpeed: 8
+  stopDistance: 0
   path: []
 --- !u!114 &4971274179170382205
 MonoBehaviour:
@@ -134,7 +135,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5938456748870400619, guid: 38ea8a53ce5786448b74a77c00b66c67, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.5
+      value: 0.75
       objectReference: {fileID: 0}
     - target: {fileID: 5938456748870400619, guid: 38ea8a53ce5786448b74a77c00b66c67, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x

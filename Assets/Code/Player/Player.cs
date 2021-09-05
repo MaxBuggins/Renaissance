@@ -29,6 +29,7 @@ public class Player : NetworkBehaviour
 
     public Vector3 cameraOffset = Vector3.up;
 
+
     [Header("Player Atrabuits")] //internal use only on spawn resets varibles accoring to playerclass
     [HideInInspector] public float speed = 5;
     [HideInInspector] public float backSpeedMultiplyer = 0.65f;
@@ -45,20 +46,22 @@ public class Player : NetworkBehaviour
     [HideInInspector] public float pushForce = 5f;
     [HideInInspector] public float slideFriction = 0.3f;
 
-    [Header("Player Internals")]
-    public bool paused;
+    [HideInInspector] public int bloodPerDamage = 6;
+    [HideInInspector] public GameObject bloodObj;
 
-    [HideInInspector] public Vector2 move;
-    [HideInInspector] public Vector3 lastPos;
-    private Vector3 floorNormal;
+    [Header("Player Internals")]
 
     public Vector3 velocity;
-    private float maxVelocity = 40;
+    private float maxVelocity = 200;
 
     private float fallTime; //for counting seconds of falling
     private float deadTime;
 
-    public GameObject dropOnDeath;
+    [HideInInspector] public bool paused;
+
+    [HideInInspector] public Vector2 move;
+    [HideInInspector] public Vector3 lastPos;
+    private Vector3 floorNormal;
 
     [HideInInspector]public Controls controls;
 
@@ -66,7 +69,6 @@ public class Player : NetworkBehaviour
     public GameObject cameraPrefab;
     public GameObject corpsePrefab;
     public GameObject[] spawnableObjects;
-
 
     [Header("Unity Stuff Internals")]
     public DirectionalSprite body;
@@ -78,19 +80,14 @@ public class Player : NetworkBehaviour
     private AudioSource audioSource;
     private Hurtful hurtful;
 
-    public int bloodPerDamage = 15;
-    public GameObject bloodObj;
-
     private NetworkTransform netTrans;
 
     private MyNetworkManager myNetworkManager;
     private ClientManager clientManager;
     private LevelManager levelManager;
 
-    public UI_Main uIMain;
+    [HideInInspector] public UI_Main uIMain;
     private PlayerAbove playerAbove;
-
-
 
     public override void OnStartLocalPlayer() //just for the local client
     {
@@ -183,6 +180,7 @@ public class Player : NetworkBehaviour
 
     }
 
+    //all run
     private void LateUpdate()
     {
         //if (Mathf.Abs(Vector3.Distance(transform.position, lastPos)) > 0.1f)
@@ -242,11 +240,10 @@ public class Player : NetworkBehaviour
 
         velocity += transform.right * x + transform.forward * z;
 
+        //isGrounded = (Vector3.Angle(Vector3.up, floorNormal) <= slopeLimit);
+
         velocity.x = Mathf.Lerp(velocity.x, 0, fricktion * Time.fixedDeltaTime);
         velocity.z = Mathf.Lerp(velocity.z, 0, fricktion * Time.fixedDeltaTime);
-
-        
-        //isGrounded = (Vector3.Angle(Vector3.up, floorNormal) <= slopeLimit);
 
         //Character sliding of surfaces
         if (character.isGrounded)
@@ -254,6 +251,7 @@ public class Player : NetworkBehaviour
             velocity.x += (1f - floorNormal.y) * floorNormal.x * (1f - slideFriction);
             velocity.z += (1f - floorNormal.y) * floorNormal.z * (1f - slideFriction);
         }
+
     }
 
     [ClientCallback]
@@ -441,8 +439,8 @@ public class Player : NetworkBehaviour
         maxHealth = playerClass.maxHealth;
         maxSpecial = playerClass.maxSpecial;
 
-        special = 4;
-        health = maxHealth;
+        special = playerClass.spawnSpecial;
+        health = playerClass.maxHealth;
     }
 
     [Client]
@@ -468,6 +466,9 @@ public class Player : NetworkBehaviour
 
         pushForce = playerClass.pushForce;
         slideFriction = playerClass.slideFriction;
+
+        bloodPerDamage = playerClass.bloodPerDamage;
+        bloodObj = playerClass.bloodObj;
     }
 
     [ClientCallback]
@@ -516,13 +517,18 @@ public class Player : NetworkBehaviour
         velocity = Vector3.ClampMagnitude(velocity, maxVelocity); //no more infinit death demension
     }
 
+
     [Command(requiresAuthority = false)] //oh no hackers are gonna hack it ahhhHHHHhhhHHHHhH
     public void CmdAddSpecial(int amount) //can take away special as well Server will update owner special ONLY
     {
-        if (special + amount > maxSpecial) //TOOO SPECIAL am i right ladeys
-            return;
+        AddSpecial(amount);
+    }
 
+    [Server]
+    public void AddSpecial(int amount) //negative works too
+    {
         special += amount;
+        special = Mathf.Clamp(special, 0, maxSpecial); //TOOO SPECIAL am i right ladeys
         TargetUpdateSpecial(netIdentity.connectionToClient, special);
     }
     [Server]

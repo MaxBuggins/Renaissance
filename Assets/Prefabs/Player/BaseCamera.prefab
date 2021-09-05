@@ -67,7 +67,7 @@ Camera:
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 503
+    m_Bits: 1527
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -141,6 +141,7 @@ MonoBehaviour:
   rotResetSpeed: 15
   look: {x: 0, y: 0}
   currentOffset: {x: 0, y: 0, z: 0}
+  focus: {fileID: 0}
   player: {fileID: 0}
 --- !u!1 &6161862173722130775
 GameObject:

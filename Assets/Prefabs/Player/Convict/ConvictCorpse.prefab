@@ -105,6 +105,7 @@ MonoBehaviour:
   scale: 1
   directionalSprites:
   - {fileID: -3085564977884456440, guid: 23738a1366f4d304dae09b673209d745, type: 3}
+  colour: {r: 1, g: 1, b: 1, a: 1}
   sortAngle: 0
 --- !u!114 &7105578768586478338
 MonoBehaviour:
@@ -142,6 +143,7 @@ GameObject:
   - component: {fileID: 32765323268639500}
   - component: {fileID: 7326607808413907166}
   - component: {fileID: 6938541909620801865}
+  - component: {fileID: 1932623396695554376}
   m_Layer: 0
   m_Name: ConvictCorpse
   m_TagString: Untagged
@@ -208,3 +210,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   deActiveDelay: 0.8
   minVelocity: 0
+--- !u!114 &1932623396695554376
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4591324641192208067}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 03b00ce9a51350a4394266b8e44c1429, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  unParentOnStart: 0
+  destroyDelay: 300
+  destoryOnServer: 0

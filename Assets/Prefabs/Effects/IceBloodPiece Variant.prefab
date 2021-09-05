@@ -1,0 +1,47 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &2943249125267099679
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 704527935917061344, guid: 7fb82f213c9f852439196b1d1949b407, type: 3}
+      propertyPath: colour.b
+      value: 0.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 704527935917061344, guid: 7fb82f213c9f852439196b1d1949b407, type: 3}
+      propertyPath: colour.g
+      value: 0.77871513
+      objectReference: {fileID: 0}
+    - target: {fileID: 704527935917061344, guid: 7fb82f213c9f852439196b1d1949b407, type: 3}
+      propertyPath: colour.r
+      value: 0.63
+      objectReference: {fileID: 0}
+    - target: {fileID: 2624573813315466702, guid: 7fb82f213c9f852439196b1d1949b407, type: 3}
+      propertyPath: hitObject
+      value: 
+      objectReference: {fileID: 5221022530893402159, guid: a23d41607da056d4886d49b035102a8d, type: 3}
+    - target: {fileID: 4042699645445107377, guid: 7fb82f213c9f852439196b1d1949b407, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4042699645445107377, guid: 7fb82f213c9f852439196b1d1949b407, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4042699645445107377, guid: 7fb82f213c9f852439196b1d1949b407, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4042699645445107377, guid: 7fb82f213c9f852439196b1d1949b407, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4042699645445107381, guid: 7fb82f213c9f852439196b1d1949b407, type: 3}
+      propertyPath: m_Name
+      value: IceBloodPiece Variant
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 7fb82f213c9f852439196b1d1949b407, type: 3}

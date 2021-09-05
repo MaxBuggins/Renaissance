@@ -15,6 +15,7 @@ public class DirectionalSprite : MonoBehaviour
     public bool randomSpirte = false;
     public float scale = 1;
     public List<Sprite> directionalSprites;
+    public Color colour = Color.white;
 
     private int currentSprite;
 
@@ -123,5 +124,6 @@ public class DirectionalSprite : MonoBehaviour
 
         croppedTexture.Apply();
         render.material.mainTexture = croppedTexture;
+        render.material.color = colour;
     }
 }

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum PlayerClass { Banker, Convict }
+public enum PlayerClass { Banker, Convict, Maid }
 
 [CreateAssetMenu(fileName = "Player Class", menuName = "PlayerClass", order = 1)]
 public class ObjectPlayerClass : ScriptableObject
@@ -12,6 +12,7 @@ public class ObjectPlayerClass : ScriptableObject
     public int maxHealth = 100;
     public int maxSpecial = 10;
 
+    public int spawnSpecial = 4;
     public float specialChargeRate = 6;
 
     [Header("Player Movement")]
@@ -29,6 +30,11 @@ public class ObjectPlayerClass : ScriptableObject
 
     public float pushForce = 5f;
     public float slideFriction = 0.3f;
+
+    [Header("Player Other")]
+
+    public int bloodPerDamage = 6;
+    public GameObject bloodObj;
 
     [Header("Sprites")]
     public SpriteDirections[] idleSprites;

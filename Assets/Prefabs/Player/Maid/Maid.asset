@@ -12,10 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 335a9229772eeda46a38c93c625ed126, type: 3}
   m_Name: Maid
   m_EditorClassIdentifier: 
-  playerClass: 0
+  playerClass: 2
   maxHealth: 100
-  maxSpecial: 10
-  specialChargeRate: 6
+  maxSpecial: 50
+  spawnSpecial: 25
+  specialChargeRate: 10000000
   speed: 1
   backSpeedMultiplyer: 0.8
   sideSpeedMultiplyer: 1.3
@@ -27,6 +28,8 @@ MonoBehaviour:
   coyotTime: 0.3
   pushForce: 5
   slideFriction: 0.175
+  bloodPerDamage: 6
+  bloodObj: {fileID: 1207537085215162026, guid: 2f1d1a06d7338834693ab8f9e900b6ea, type: 3}
   idleSprites: []
   runSprites: []
   hurtSound:
@@ -37,8 +40,8 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 30e26f617c113c4408f99ccfcb834b91, type: 3}
   - {fileID: 8300000, guid: 6115ab27d4963aa469e51d07fd6755f0, type: 3}
   hurtPlayerSound:
-  - {fileID: 8300000, guid: d78a7fe29da806b45826103aefca3131, type: 3}
+  - {fileID: 8300000, guid: 681407cb61df873499eb8fb918c3401d, type: 3}
   killPlayerSound:
-  - {fileID: 8300000, guid: d78a7fe29da806b45826103aefca3131, type: 3}
+  - {fileID: 8300000, guid: e512c6de885c2484caf8220eb8905c36, type: 3}
   spawnSound:
-  - {fileID: 8300000, guid: d78a7fe29da806b45826103aefca3131, type: 3}
+  - {fileID: 8300000, guid: a3349fa5a5ff2894a84d7b8b9816de90, type: 3}

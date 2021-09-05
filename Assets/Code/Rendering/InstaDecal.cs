@@ -7,6 +7,7 @@ public class InstaDecal : MonoBehaviour
 {
     public float despawnDelay = 60;
     public Material[] randomMats;
+    //public Color colour;
 
     private DecalProjector projector;
 
@@ -17,6 +18,8 @@ public class InstaDecal : MonoBehaviour
 
         if(randomMats.Length > 0)
             projector.material = randomMats[Random.Range(0, randomMats.Length)];
+
+        //projector.material.color = colour; effects all for some reason
 
         int mask = ~LayerMask.GetMask("Hurt");
        

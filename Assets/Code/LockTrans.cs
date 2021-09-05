@@ -9,7 +9,8 @@ public class LockTrans : MonoBehaviour
     public bool lockY = true;
     public bool lockZ = true;
 
-    public float fallToFloorSpeed = 1; //if 0 then dont fall
+    public float fallToFloorSpeed = 1; //if 0 then dont fall (obvious why did i write this)
+    public float radius = 0.2f;
     private Vector3 lastPos;
 
     void Start()
@@ -27,18 +28,12 @@ public class LockTrans : MonoBehaviour
         transform.position += -transform.up * fallToFloorSpeed * Time.deltaTime;
 
         RaycastHit hit;
-        if (Physics.SphereCast(transform.position, 0.2f, transform.position - lastPos,
+        if (Physics.SphereCast(transform.position, radius, transform.position - lastPos,
             out hit, maxDistance: Mathf.Abs(Vector3.Distance(transform.position, lastPos)) * 1.25f,
             3, QueryTriggerInteraction.Ignore))
 
-            fallToFloorSpeed = 0;
-
-
-        if (fallToFloorSpeed <= 0)
-            enabled = false; //stop running so more efficentcy
-
+            enabled = false;
 
         lastPos = transform.position;
     }
-
 }

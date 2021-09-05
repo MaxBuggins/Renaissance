@@ -15,6 +15,7 @@ public class Projectile : NetworkBehaviour
 
     public float projectileWidth = 0.3f;
     public int destoryOnHits = 0;
+    public bool disableOnHit = false;
 
     [Header("Internals")]
     public LayerMask mask;
@@ -67,7 +68,6 @@ public class Projectile : NetworkBehaviour
     void Update()
     {
         velocity.y += gravitY * Time.deltaTime;
-        //ADD PLAYER VELOCITY TO IT
         transform.position = transform.position + ((Vector3.up * velocity.y)
             + (transform.forward * forwardSpeed)) * Time.deltaTime;
 
@@ -102,6 +102,7 @@ public class Projectile : NetworkBehaviour
                         Vector3 forw = transform.forward;
                         Vector3 mirrored = Vector3.Reflect(forw, hit.normal);
                         transform.rotation = Quaternion.LookRotation(mirrored, transform.up);
+                        transform.position = hit.point;
 
                         RpcSyncProjectile(transform.position, transform.eulerAngles, true);
                     }
@@ -115,45 +116,64 @@ public class Projectile : NetworkBehaviour
     [Server]
     void DestroySelfHit()
     {
-        var obj = Instantiate(hitObject, lastPos, transform.rotation);
+        if (hitObject != null)
+        {
+            GameObject obj = Instantiate(hitObject, lastPos, transform.rotation);
 
+            Hurtful hurt = obj.GetComponentInChildren<Hurtful>();
+            if (hurt != null)
+                hurt.owner = hurtful.owner;
+        }
 
-        if (destoyCall != null)
+            if (destoyCall != null)
             destoyCall.Call(hurtful.owner);
-
-        Hurtful hurt = obj.GetComponentInChildren<Hurtful>();
-        if (hurt != null)
-            hurt.owner = hurtful.owner;
-
 
         //if (hitSplat != null)
             //Instantiate(hitSplat, lastPos, transform.rotation);
 
         RpcDestroySelfHit();
 
-        Destroy(gameObject);
+        DestroySelf();
     }
 
     [ClientRpc]
     void RpcDestroySelfHit()
     {
-        Instantiate(hitObject, lastPos, transform.rotation);
+        if(hitObject != null)
+            Instantiate(hitObject, lastPos, transform.rotation);
 
         //if (hitSplat != null)
-            //Instantiate(hitSplat, lastPos, transform.rotation);
+        //Instantiate(hitSplat, lastPos, transform.rotation);
 
-        Destroy(gameObject);
+        DestroySelf();
     }
 
     void DestroySelf()
     {
-        Destroy(gameObject);
+        if (!disableOnHit)
+            Destroy(gameObject);
+        else
+        {
+            enabled = false;
+            hurtful.enabled = false;
+
+            if(GetComponent<AudioSource>() != null)
+                GetComponent<AudioSource>().enabled = false;
+
+            RaycastHit hit;
+            if (Physics.SphereCast(transform.position, 0.2f, transform.forward * 0.4f, out hit))
+            {
+
+                transform.parent = hit.transform;
+            }
+        }
+
     }
 
     [ClientRpc]
     void RpcSyncProjectile(Vector3 pos, Vector3 rot, bool hit)
     {
-        if(hit)
+        if (hit && hitObject != null)
             Instantiate(hitObject, lastPos, transform.rotation);
 
         transform.position = pos;

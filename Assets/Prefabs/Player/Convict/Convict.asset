@@ -15,6 +15,7 @@ MonoBehaviour:
   playerClass: 1
   maxHealth: 130
   maxSpecial: 10
+  spawnSpecial: 4
   specialChargeRate: 6
   speed: 1.3
   backSpeedMultiplyer: 0.75
@@ -22,10 +23,13 @@ MonoBehaviour:
   airMovementMultiplyer: 0.6
   gravitY: -50
   fricktion: 3.25
-  maxMoveVelocity: 9.75
+  maxMoveVelocity: 10
   jumpHeight: 0.8
   coyotTime: 0.3
   pushForce: 5
+  slideFriction: 0.3
+  bloodPerDamage: 6
+  bloodObj: {fileID: 4042699645445107381, guid: 7fb82f213c9f852439196b1d1949b407, type: 3}
   idleSprites:
   - sprites:
     - {fileID: 413156840755760695, guid: 23738a1366f4d304dae09b673209d745, type: 3}

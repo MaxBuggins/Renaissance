@@ -112,6 +112,7 @@ MonoBehaviour:
   - {fileID: 8985399047891230677, guid: 23738a1366f4d304dae09b673209d745, type: 3}
   - {fileID: -5720904569308390162, guid: 23738a1366f4d304dae09b673209d745, type: 3}
   - {fileID: 2297411782406639750, guid: 23738a1366f4d304dae09b673209d745, type: 3}
+  colour: {r: 1, g: 1, b: 1, a: 1}
   sortAngle: 0
 --- !u!114 &6329853423413171637
 MonoBehaviour:
@@ -374,25 +375,23 @@ MonoBehaviour:
   jumpHeight: 1
   coyotTime: 0.3
   pushForce: 5
+  slideFriction: 0.3
+  bloodPerDamage: 5
+  bloodObj: {fileID: 4042699645445107381, guid: 7fb82f213c9f852439196b1d1949b407, type: 3}
+  velocity: {x: 0, y: 0, z: 0}
   paused: 0
   move: {x: 0, y: 0}
   lastPos: {x: 0, y: 0, z: 0}
-  velocity: {x: 0, y: 0, z: 0}
-  maxVelocity: 100
-  slideFriction: 0.3
-  dropOnDeath: {fileID: 7464815889903810956, guid: a41cd5f952b263c43b8fbb10dfbe3a2c, type: 3}
   cameraPrefab: {fileID: 9007433884827842136, guid: 6c8aaff8b5eb674418a7f9f35c1a16e5, type: 3}
-  playerCam: {fileID: 0}
-  playerWeapon: {fileID: 0}
-  character: {fileID: 0}
-  body: {fileID: 4953761305126355705}
   corpsePrefab: {fileID: 4591324641192208067, guid: 0b1550e55a3b1834a90401ea51d3e4fd, type: 3}
-  bloodPerDamage: 5
-  bloodObj: {fileID: 4042699645445107381, guid: 7fb82f213c9f852439196b1d1949b407, type: 3}
   spawnableObjects:
   - {fileID: 9135064866333483514, guid: e5d4d549e335e3e4dad3c3d49731c6fc, type: 3}
   - {fileID: 3582257142625139782, guid: d1344903dd598914bbf700f0d753d70d, type: 3}
   - {fileID: 5469052047408052845, guid: afa9caca1715364408895e7be92e03d9, type: 3}
+  body: {fileID: 4953761305126355705}
+  playerCam: {fileID: 0}
+  playerWeapon: {fileID: 0}
+  character: {fileID: 0}
   uIMain: {fileID: 0}
 --- !u!1001 &3434877669109977079
 PrefabInstance:
