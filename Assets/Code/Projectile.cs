@@ -6,6 +6,10 @@ public class Projectile : NetworkBehaviour
 {
     [Header("Projectile Propertys")]
     public int damage;
+    private Vector3 orginPos;
+
+    public float startDmgFallOff = 12;
+    public float minDmgMultiplyer = 0.25f;
 
     public float destroyDelay = 5;
     //public float initalForce = 5;
@@ -39,6 +43,7 @@ public class Projectile : NetworkBehaviour
         hurtful = GetComponent<Hurtful>();
 
         lastPos = transform.position;
+        orginPos = transform.position;
 
         Invoke(nameof(DestroySelf), destroyDelay);
 
@@ -84,7 +89,19 @@ public class Projectile : NetworkBehaviour
                 Player player = hit.collider.gameObject.GetComponent<Player>();
                 if (player != null)
                 {
-                    hurtful.HurtPlayer(player, damage, hurtful.hurtType);
+                    float dist = Vector3.Distance(orginPos, transform.position);
+                    int dmg = damage;
+
+                    if (dist > startDmgFallOff) 
+                    {
+                        dist -= startDmgFallOff;
+                        dmg = (int)(-0.0005f * (Mathf.Pow(dist, 4)) + dmg); //math moment with aidan
+                        if (dmg < damage * minDmgMultiplyer)
+                            dmg = (int)(damage * minDmgMultiplyer);
+                    }
+                        
+                    hurtful.HurtPlayer(player, dmg, hurtful.hurtType);
+                    print(dmg);
                     DestroySelfHit();
                 }
                 else

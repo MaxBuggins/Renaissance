@@ -36,7 +36,5 @@ public class PlayerSquash : MonoBehaviour
 
         if (hurtful.damage <= 10)
             hurtful.damage = 0;
-
-        print(hurtful.damage);
     }
 }

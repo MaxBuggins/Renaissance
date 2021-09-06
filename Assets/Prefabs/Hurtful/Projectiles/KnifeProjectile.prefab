@@ -94,6 +94,8 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0.1
   damage: 40
+  startDmgFallOff: 12
+  minDmgMultiplyer: 0.25
   destroyDelay: 4
   forwardSpeed: 40
   gravitY: -10

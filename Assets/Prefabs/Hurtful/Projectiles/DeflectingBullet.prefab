@@ -146,12 +146,15 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0.1
   damage: 30
+  startDmgFallOff: 12
+  minDmgMultiplyer: 0.25
   destroyDelay: 5
   forwardSpeed: 80
   gravitY: 0
-  airRistance: 0
+  airRistance: 1
   projectileWidth: 0.25
   destoryOnHits: 3
+  disableOnHit: 0
   mask:
     serializedVersion: 2
     m_Bits: 507
