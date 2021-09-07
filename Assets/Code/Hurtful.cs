@@ -157,7 +157,7 @@ public class Hurtful : NetworkBehaviour
             player.Hurt(damage, type, "");
 
         if (statusMagnitude > 0)
-            player.applyEffect(statusEffect, statusDuration, statusMagnitude);
+            player.ServerApplyEffect(statusEffect, statusDuration, statusMagnitude);
 
         if (player.health <= 0)
         {

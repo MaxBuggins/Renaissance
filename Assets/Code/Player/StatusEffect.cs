@@ -5,7 +5,7 @@ using Mirror;
 
 public class StatusEffect : MonoBehaviour
 {
-    public enum EffectType {immunity, sneeze }
+    public enum EffectType {immunity, sneeze, }
     public EffectType effectType;
 
     public float duration = Mathf.Infinity;
@@ -32,6 +32,8 @@ public class StatusEffect : MonoBehaviour
                 ClientEndEffect();
             if(player.netIdentity.isServer)
                 StartCoroutine(ServerEndEffect()); //case for host
+
+            enabled = false;
         }
     }
 

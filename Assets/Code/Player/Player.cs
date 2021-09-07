@@ -584,20 +584,20 @@ public class Player : NetworkBehaviour
     }
 
     [Server]
-    public void applyEffect(StatusEffect.EffectType effect, float duration = Mathf.Infinity, float magnitude = 1)
+    public void ServerApplyEffect(StatusEffect.EffectType effect, float duration = Mathf.Infinity, float magnitude = 1)
     {
-        RPCapplyEffect(effect, duration, magnitude);
-
-        StatusEffect sEffect = (gameObject.AddComponent(typeof(StatusEffect)) as StatusEffect);
-        sEffect.effectType = effect;
-        sEffect.duration = duration; //applys the stats and stuff
-        sEffect.magnitude = magnitude;
-
-        statusEffects.Add(sEffect);
+        ClientApplyEffect(effect, duration, magnitude);
+        ApplyEffect(effect, duration, magnitude);
     }
 
     [ClientRpc]
-    public void RPCapplyEffect(StatusEffect.EffectType effect, float duration, float magnitude)
+    public void ClientApplyEffect(StatusEffect.EffectType effect, float duration, float magnitude)
+    {
+        if(!isServer)
+            ApplyEffect(effect, duration, magnitude);
+    }
+
+    public void ApplyEffect(StatusEffect.EffectType effect, float duration = Mathf.Infinity, float magnitude = 1)
     {
         StatusEffect sEffect = (gameObject.AddComponent(typeof(StatusEffect)) as StatusEffect);
         sEffect.effectType = effect;
