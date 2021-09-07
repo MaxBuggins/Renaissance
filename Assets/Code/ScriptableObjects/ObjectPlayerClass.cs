@@ -51,4 +51,6 @@ public class ObjectPlayerClass : ScriptableObject
     public AudioClip[] killPlayerSound;
 
     public AudioClip[] spawnSound;
+
+    public AudioClip[] sneeze;
 }

@@ -14,6 +14,8 @@ public class Player : NetworkBehaviour
     [SyncVar(hook = nameof(OnHealthChanged))]
     public int health;
 
+    public List<StatusEffect> statusEffects = new List<StatusEffect>();
+
     [HideInInspector] public int maxSpecial = 10;
     public int special;
 
@@ -28,7 +30,6 @@ public class Player : NetworkBehaviour
     public ObjectPlayerClass playerClass;
 
     public Vector3 cameraOffset = Vector3.up;
-
 
     [Header("Player Atrabuits")] //internal use only on spawn resets varibles accoring to playerclass
     [HideInInspector] public float speed = 5;
@@ -45,9 +46,6 @@ public class Player : NetworkBehaviour
 
     [HideInInspector] public float pushForce = 5f;
     [HideInInspector] public float slideFriction = 0.3f;
-
-    [HideInInspector] public int bloodPerDamage = 6;
-    [HideInInspector] public GameObject bloodObj;
 
     [Header("Player Internals")]
 
@@ -369,7 +367,7 @@ public class Player : NetworkBehaviour
 
             for (int i = 0; i < damage && i < maxHealth; i += 5) //creats multiple blood pieces
             {
-                GameObject blood = Instantiate(bloodObj, transform.position, transform.rotation, null);
+                GameObject blood = Instantiate(playerClass.bloodObj, transform.position, transform.rotation, null);
                 blood.GetComponentInChildren<Renderer>().material.color = Color.red;
                 blood.GetComponent<Rigidbody>().AddForce(Random.insideUnitSphere * Random.Range(3, 9) + Vector3.up * 2, ForceMode.VelocityChange);
             }
@@ -466,9 +464,6 @@ public class Player : NetworkBehaviour
 
         pushForce = playerClass.pushForce;
         slideFriction = playerClass.slideFriction;
-
-        bloodPerDamage = playerClass.bloodPerDamage;
-        bloodObj = playerClass.bloodObj;
     }
 
     [ClientCallback]
@@ -514,6 +509,13 @@ public class Player : NetworkBehaviour
     public void TargetAddVelocity(NetworkConnection target, Vector3 vel) //TEMP apply to local player only
     {
         velocity += vel;
+        velocity = Vector3.ClampMagnitude(velocity, maxVelocity); //no more infinit death demension
+    }
+
+    [TargetRpc]
+    public void TargetSetVelocity(NetworkConnection target, Vector3 vel) //TEMP apply to local player only
+    {
+        velocity = vel;
         velocity = Vector3.ClampMagnitude(velocity, maxVelocity); //no more infinit death demension
     }
 
@@ -581,6 +583,30 @@ public class Player : NetworkBehaviour
         }
     }
 
+    [Server]
+    public void applyEffect(StatusEffect.EffectType effect, float duration = Mathf.Infinity, float magnitude = 1)
+    {
+        RPCapplyEffect(effect, duration, magnitude);
+
+        StatusEffect sEffect = (gameObject.AddComponent(typeof(StatusEffect)) as StatusEffect);
+        sEffect.effectType = effect;
+        sEffect.duration = duration; //applys the stats and stuff
+        sEffect.magnitude = magnitude;
+
+        statusEffects.Add(sEffect);
+    }
+
+    [ClientRpc]
+    public void RPCapplyEffect(StatusEffect.EffectType effect, float duration, float magnitude)
+    {
+        StatusEffect sEffect = (gameObject.AddComponent(typeof(StatusEffect)) as StatusEffect);
+        sEffect.effectType = effect;
+        sEffect.duration = duration; //applys the stats and stuff
+        sEffect.magnitude = magnitude;
+
+        statusEffects.Add(sEffect);
+    }
+
     [ClientRpc]
     public void ConfirmedHit(bool kill) //when the players succesfully hurts something
     {
@@ -592,7 +618,8 @@ public class Player : NetworkBehaviour
         }
         else
         {
-            audioSource.PlayOneShot(playerClass.hurtPlayerSound[Random.Range(0, playerClass.hurtPlayerSound.Length)]);
+            if(Random.Range(0, 15) == 2)
+                audioSource.PlayOneShot(playerClass.hurtPlayerSound[Random.Range(0, playerClass.hurtPlayerSound.Length)]);
         }
 
         if (!isLocalPlayer)

@@ -92,11 +92,11 @@ public class Projectile : NetworkBehaviour
                     float dist = Vector3.Distance(orginPos, transform.position);
                     int dmg = damage;
 
-                    if (dist > startDmgFallOff) 
+                    if (dist > startDmgFallOff) //Dmg roll off math
                     {
                         dist -= startDmgFallOff;
                         dmg = (int)(-0.0005f * (Mathf.Pow(dist, 4)) + dmg); //math moment with aidan
-                        if (dmg < damage * minDmgMultiplyer)
+                        if (dmg < damage * minDmgMultiplyer) //min of 25% at about the distance of fog
                             dmg = (int)(damage * minDmgMultiplyer);
                     }
                         

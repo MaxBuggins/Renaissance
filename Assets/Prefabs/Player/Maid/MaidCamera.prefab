@@ -73,15 +73,16 @@ MonoBehaviour:
   specialIsActive: 0
   reloadPerstenage: 0
   player: {fileID: 0}
-  punchDelay: 0
-  punchCooldown: 0
-  punchVelocity: 6
+  punchDelay: 0.1
+  punchCooldown: 0.75
+  punchVelocity: 0
   fireRate: 0.4
   throwRot: {x: 0, y: 0, z: 0}
   summonMask:
     serializedVersion: 2
     m_Bits: 1
   summonRot: {x: 0, y: 0, z: 0}
+  currentShape: 0
   punchHand: {fileID: 4846895922063691242}
   shootPosL: {fileID: 7935343524830523206}
   shootPosR: {fileID: 4354686659312455489}

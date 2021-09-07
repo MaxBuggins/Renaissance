@@ -15,6 +15,7 @@ MonoBehaviour:
   playerClass: 0
   maxHealth: 100
   maxSpecial: 10
+  spawnSpecial: 4
   specialChargeRate: 6
   speed: 3.4
   backSpeedMultiplyer: 0.75
@@ -85,3 +86,5 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 4066ca2a249e0514bb7d71c0318926d4, type: 3}
   spawnSound:
   - {fileID: 8300000, guid: 1def2e0eca4297447879bd440328ad96, type: 3}
+  sneeze:
+  - {fileID: 8300000, guid: 430414b5252c6f2498f880282f85c38f, type: 3}

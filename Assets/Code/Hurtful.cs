@@ -5,12 +5,16 @@ using Mirror;
 
 public enum HurtType { Death, Water, Train, Punch, ShotPut, DeflectingBullet, BriefCase, ShockWave, Squash, Freeze}
 
+
 //Server only script
 public class Hurtful : NetworkBehaviour
 {
     [Header("Hurt")]
     public int damage = 1;
     public HurtType hurtType = HurtType.Death;
+    public StatusEffect.EffectType statusEffect;
+    public float statusMagnitude;
+    public float statusDuration;
     public bool destoryOnHurt = false;
 
     public float damagePerSeconds = 1.25f;
@@ -151,6 +155,9 @@ public class Hurtful : NetworkBehaviour
         }
         else
             player.Hurt(damage, type, "");
+
+        if (statusMagnitude > 0)
+            player.applyEffect(statusEffect, statusDuration, statusMagnitude);
 
         if (player.health <= 0)
         {

@@ -88,7 +88,7 @@ public class MaidWeapon : PlayerWeapon
     [Client]
     public override void UseSeconday()
     {
-        //if (player.paused)
+        if (player.paused)
             return;
 
         if (timeSincePunch < punchCooldown)
