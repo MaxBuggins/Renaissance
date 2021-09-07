@@ -143,7 +143,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1b8ab0121d80c24982f8a4136e1966a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  reactDuration: 3
+  reactDuration: 2
   topLight: {fileID: 0}
   playerNameText: {fileID: 0}
   currentReaction: {fileID: 0}
@@ -152,6 +152,7 @@ MonoBehaviour:
   - {fileID: 167988024878444285, guid: 244df95dd67933f4092e504a2d76de90, type: 3}
   - {fileID: 1701040344386090346, guid: db3c5ae6163353b4587eb2ac98dfb92a, type: 3}
   - {fileID: 7118570430186289536, guid: 659d4e0c48e1889448dc6d5185cd17ba, type: 3}
+  - {fileID: 5156915678207995947, guid: b7aa2814ae47d95448773e02c16a930a, type: 3}
 --- !u!1 &4271454322929870241
 GameObject:
   m_ObjectHideFlags: 0
@@ -375,4 +376,5 @@ MonoBehaviour:
   randomSpirte: 0
   scale: 1
   directionalSprites: []
+  colour: {r: 1, g: 1, b: 1, a: 1}
   sortAngle: 0

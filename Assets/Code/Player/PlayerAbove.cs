@@ -32,7 +32,7 @@ public class PlayerAbove : MonoBehaviour
         ParticleSystem.MainModule settings = currentReaction.GetComponent<ParticleSystem>().main;
 
         if (settings.startColor.color != Color.white)
-        settings.startColor = new ParticleSystem.MinMaxGradient(player.playerColour);
+            settings.startColor = new ParticleSystem.MinMaxGradient(player.playerColour);
 
         Invoke(nameof(EndReaction), reactDuration);
     }
