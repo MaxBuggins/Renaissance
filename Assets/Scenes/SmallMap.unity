@@ -14,12 +14,12 @@ OcclusionCullingSettings:
 RenderSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 9
-  m_Fog: 0
-  m_FogColor: {r: 0.5, g: 0.43846154, b: 0.3, a: 1}
-  m_FogMode: 3
-  m_FogDensity: 0.02
-  m_LinearFogStart: 0.2
-  m_LinearFogEnd: 58.3
+  m_Fog: 1
+  m_FogColor: {r: 0.68287647, g: 0.8679245, b: 0.76109225, a: 1}
+  m_FogMode: 1
+  m_FogDensity: 0.035
+  m_LinearFogStart: 20
+  m_LinearFogEnd: 65
   m_AmbientSkyColor: {r: 0.70987976, g: 0.70987976, b: 0.70987976, a: 1}
   m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
@@ -16486,6 +16486,9 @@ MonoBehaviour:
   syncInterval: 0.1
   damage: 99999
   hurtType: 0
+  statusEffect: 0
+  statusMagnitude: 0
+  statusDuration: 0
   destoryOnHurt: 0
   damagePerSeconds: 1
   ignorOwner: 1

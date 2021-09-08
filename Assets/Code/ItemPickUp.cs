@@ -25,6 +25,9 @@ public class ItemPickUp : NetworkBehaviour
     public int special;
     public PowerUp powerUp = PowerUp.None;
 
+    public Mesh[] models;
+    public Material[] materials;
+
     [Header("Internals")]
     private Renderer render;
     private Collider trigger;
