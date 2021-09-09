@@ -11,6 +11,8 @@ public class StatusEffect : MonoBehaviour
     public float duration = Mathf.Infinity;
     public float magnitude;
 
+    private float flashTime;
+
     public GameObject[] particalEffects; //how to use
 
     private Player player;
@@ -20,13 +22,17 @@ public class StatusEffect : MonoBehaviour
     {
         player = GetComponent<Player>();
         audioSource = GetComponent<AudioSource>();
+
+        if (effectType == EffectType.immunity)
+            player.body.GetComponent<MeshRenderer>().material = player.playerAnimator.immunityBlank;
     }
 
     public void Update()
     {
+
         duration -= Time.deltaTime;
 
-        if (duration < 0)
+        if (duration < 0) //end of duration do client and server end effects
         {
             if (player.netIdentity.isClient)
                 ClientEndEffect();
@@ -60,11 +66,18 @@ public class StatusEffect : MonoBehaviour
     {
         switch (effectType)
         {
+            case (EffectType.immunity):
+                {
+                    player.body.GetComponent<MeshRenderer>().material = player.playerAnimator.blank;
+                    break;
+                }
+
             case (EffectType.sneeze):
                 {
                     audioSource.PlayOneShot(player.playerClass.sneeze[Random.Range(0, player.playerClass.sneeze.Length)]);
                     break;
                 }
+
         }
 
         if (!player.netIdentity.isServer) //in case this is a host, wait for server stuff

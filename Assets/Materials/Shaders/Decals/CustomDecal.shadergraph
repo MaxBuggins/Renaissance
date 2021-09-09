@@ -14,6 +14,12 @@
         },
         {
             "m_Id": "555d8ed36cb6434780dde5ff0a8827ce"
+        },
+        {
+            "m_Id": "6e034f5e92374e6289a09436fc7f394c"
+        },
+        {
+            "m_Id": "15220a75f28f44f9879df42560cd275f"
         }
     ],
     "m_Keywords": [],
@@ -341,6 +347,33 @@
         "m_SerializableColors": []
     },
     "m_SerializedDescriptor": "VertexDescription.Position"
+}
+
+{
+    "m_SGVersion": 1,
+    "m_Type": "UnityEditor.ShaderGraph.Internal.Vector2ShaderProperty",
+    "m_ObjectId": "15220a75f28f44f9879df42560cd275f",
+    "m_Guid": {
+        "m_GuidSerialized": "f4b935db-63b7-40b8-a032-260f97c58af9"
+    },
+    "m_Name": "Offset",
+    "m_DefaultRefNameVersion": 1,
+    "m_RefNameGeneratedByDisplayName": "Offset",
+    "m_DefaultReferenceName": "_Offset",
+    "m_OverrideReferenceName": "",
+    "m_GeneratePropertyBlock": true,
+    "m_UseCustomSlotLabel": false,
+    "m_CustomSlotLabel": "",
+    "m_Precision": 0,
+    "overrideHLSLDeclaration": false,
+    "hlslDeclarationOverride": 0,
+    "m_Hidden": false,
+    "m_Value": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "w": 0.0
+    }
 }
 
 {
@@ -903,6 +936,33 @@
 }
 
 {
+    "m_SGVersion": 1,
+    "m_Type": "UnityEditor.ShaderGraph.Internal.Vector2ShaderProperty",
+    "m_ObjectId": "6e034f5e92374e6289a09436fc7f394c",
+    "m_Guid": {
+        "m_GuidSerialized": "695a6720-2a8a-450e-a68b-5cdba8a7b5f6"
+    },
+    "m_Name": "Tileing",
+    "m_DefaultRefNameVersion": 1,
+    "m_RefNameGeneratedByDisplayName": "Tileing",
+    "m_DefaultReferenceName": "_Tileing",
+    "m_OverrideReferenceName": "",
+    "m_GeneratePropertyBlock": true,
+    "m_UseCustomSlotLabel": false,
+    "m_CustomSlotLabel": "",
+    "m_Precision": 0,
+    "overrideHLSLDeclaration": false,
+    "hlslDeclarationOverride": 0,
+    "m_Hidden": false,
+    "m_Value": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 0.0,
+        "w": 0.0
+    }
+}
+
+{
     "m_SGVersion": 0,
     "m_Type": "UnityEditor.ShaderGraph.SamplerStateMaterialSlot",
     "m_ObjectId": "7489816b7ae64cbd80ebc4e6125ec78b",
@@ -957,6 +1017,12 @@
         },
         {
             "m_Id": "555d8ed36cb6434780dde5ff0a8827ce"
+        },
+        {
+            "m_Id": "6e034f5e92374e6289a09436fc7f394c"
+        },
+        {
+            "m_Id": "15220a75f28f44f9879df42560cd275f"
         }
     ]
 }

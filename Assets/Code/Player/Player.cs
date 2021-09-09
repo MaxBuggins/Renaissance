@@ -70,6 +70,7 @@ public class Player : NetworkBehaviour
 
     [Header("Unity Stuff Internals")]
     public DirectionalSprite body;
+    [HideInInspector] public PlayerAnimator playerAnimator;
 
     [HideInInspector] public PlayerCamera playerCam;
     [HideInInspector] public PlayerWeapon playerWeapon;
@@ -89,6 +90,8 @@ public class Player : NetworkBehaviour
 
     public override void OnStartLocalPlayer() //just for the local client
     {
+        playerAnimator = GetComponentInChildren<PlayerAnimator>();
+        body = playerAnimator.GetComponent<DirectionalSprite>();
         //so the player doesnt see own body but still can see its shadow
         body.GetComponent<MeshRenderer>().shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.ShadowsOnly;
 
@@ -134,6 +137,8 @@ public class Player : NetworkBehaviour
         netTrans = GetComponent<NetworkTransform>();
         hurtful = GetComponent<Hurtful>();
         playerAbove = GetComponentInChildren<PlayerAbove>();
+        playerAnimator = GetComponentInChildren<PlayerAnimator>();
+        body = playerAnimator.GetComponent<DirectionalSprite>();
 
         myNetworkManager = FindObjectOfType<MyNetworkManager>();
         levelManager = FindObjectOfType<LevelManager>();
@@ -380,6 +385,7 @@ public class Player : NetworkBehaviour
 
         if (_Old <= 0 && _New > 0) //on death
         {
+            ApplyEffect(StatusEffect.EffectType.immunity, 3);
             PlayerAlive(true);
         }
     }
@@ -558,7 +564,7 @@ public class Player : NetworkBehaviour
     [Server]
     public void Hurt(int damage, HurtType hurtType = HurtType.Death, string killer = "") //can be used to heal just do -damage
     {
-        if (health <= 0)
+        if (health <= 0 || hasEffect(StatusEffect.EffectType.immunity))
             return;
 
         //prevents infiti health stacking
@@ -657,5 +663,17 @@ public class Player : NetworkBehaviour
     void RPCReact(int index)
     {
         playerAbove.StartReaction(index);
+    }
+
+    bool hasEffect(StatusEffect.EffectType effectType)
+    {
+
+        foreach(StatusEffect stats in statusEffects)
+        {
+            if (stats.effectType == effectType)
+                return (true);
+        }
+
+        return (false);
     }
 }

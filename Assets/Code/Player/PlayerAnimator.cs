@@ -27,6 +27,10 @@ public class PlayerAnimator : MonoBehaviour
     public SpriteDirections[] idleSprites;
     public SpriteDirections[] runSprites;
 
+    [Header("Materials")]
+    public Material blank;
+    public Material immunityBlank;
+
     private DirectionalSprite directionalSprite;
     private Player player;
 
