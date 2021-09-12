@@ -2046,12 +2046,15 @@ MonoBehaviour:
   syncInterval: 0.1
   damage: 99999
   hurtType: 0
+  statusEffect: 0
+  statusMagnitude: 0
+  statusDuration: 0
   destoryOnHurt: 0
   damagePerSeconds: 1
   ignorOwner: 1
   moveForce: 0
-  collisionForce: 0
-  upwardsForce: 0
+  collisionForce: 0.1
+  upwardsForce: 12
   maxVelocity: -1
   owner: {fileID: 0}
   ownerID: 0

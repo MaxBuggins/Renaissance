@@ -14,10 +14,10 @@ public class OnIdle : NetworkBehaviour
 
     public float effectDelay = 0.3f;
     public HurtType hurtType = HurtType.Death;
-    public int damagePer = 3;
+    public float minSpecial = 0.2f;
 
-    public int idleSpecial = 2;
-    public int moveSpecial = -1;
+    //public int idleSpecial = 2;
+    //public int moveSpecial = -1;
 
     private float timeSinceMovement = 0;
     private float timeSinceIdle = 0;
@@ -46,12 +46,23 @@ public class OnIdle : NetworkBehaviour
         }
 
 
+        timeSinceMovement += Time.deltaTime;
+
         Vector3 velocity = (transform.position - player.lastPos);
         velocity.y = 0; //falling and jumping dont count
-        idle = velocity.magnitude < idleVelocity;
+        idle = velocity.magnitude < idleVelocity; //magnitude is allways posative thanks aids
 
-        if (idle)
-            timeSinceMovement += Time.deltaTime;
+
+        if (timeSinceMovement > effectDelay)
+        {
+            float special = velocity.magnitude * player.playerClass.specialChargeRate;
+            special += minSpecial;
+            player.specialChargeRate = special;
+
+            timeSinceMovement = 0;
+        }
+        /*
+
         else
             ResetTimer();
 
@@ -69,9 +80,10 @@ public class OnIdle : NetworkBehaviour
             }
             ResetTimer();
         }
+        */
 
-        //else if (timeSinceIdle > effectDelay)
-        //{
+            //else if (timeSinceIdle > effectDelay)
+            //{
             //player.AddSpecial(moveSpecial);
 
             //if(player.special == 0)
@@ -79,7 +91,7 @@ public class OnIdle : NetworkBehaviour
             //    player.Hurt(damagePer);
             //}
             //ResetTimer();
-        //}
+            //}
     }
 
     void ResetTimer()

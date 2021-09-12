@@ -5,10 +5,11 @@ using Mirror;
 
 public class NetworkMoveingObject : MonoBehaviour
 {
-    public enum MoveMode { constantDirectionRight, constantDirectionForward, loop}
+    public enum MoveMode { constantDirectionRight, constantDirectionForward, loop, resetLoop}
     public MoveMode moveMode = MoveMode.constantDirectionRight; 
 
     public float moveSpeed = 5;
+    public float startTime = 0;
 
     private Vector3 orginPos; //I trust mirror is efficent
     public Transform[] path;
@@ -20,7 +21,19 @@ public class NetworkMoveingObject : MonoBehaviour
     {
         Gizmos.color = Color.green;
 
-        //Gizmos.DrawLine(transform.position, endPosTransform[0].position);
+        if (path.Length > 1)
+        {
+            int n = 0;
+            foreach (Transform trans in path)
+            {
+                n++;
+                if (n < path.Length)
+                {
+                    Gizmos.DrawLine(path[n - 1].position, path[n].position);
+                }
+            }
+
+        }
 
         if (path.Length > 1)
         {
@@ -44,27 +57,43 @@ public class NetworkMoveingObject : MonoBehaviour
     //for all clients and server
     void FixedUpdate()
     {
+
+        float relativePos = (((float)NetworkTime.time + startTime) * moveSpeed) / path.Length;
+
         switch (moveMode)
         {
             case (MoveMode.constantDirectionRight):
                 {
-                    transform.position = transform.right * moveSpeed * (float)NetworkTime.time;
+                    transform.position = orginPos + transform.right * moveSpeed * (float)NetworkTime.time;
                     break;
                 }
 
             case (MoveMode.constantDirectionForward):
                 {
-                    transform.position = transform.forward * moveSpeed * (float)NetworkTime.time;
+                    transform.position = orginPos + transform.forward * moveSpeed * (float)NetworkTime.time;
                     break;
                 }
 
             case (MoveMode.loop):
                 {
-                    float relativePos = ((float)NetworkTime.time * moveSpeed) / path.Length;
-
-
                     int posL = (int)Mathf.Repeat(Mathf.Floor(relativePos), path.Length); //from this pos
                     int posH = (int)Mathf.Repeat(Mathf.Ceil(relativePos), path.Length); //to this pos
+
+                    transform.position = orginPos + LerpByDistance(path[posL].localPosition, path[posH].localPosition,
+                        relativePos - Mathf.Floor(relativePos));
+
+                    break;
+                }
+
+            case (MoveMode.resetLoop):
+                {
+                    relativePos = Mathf.Repeat(relativePos, path.Length - 1);
+
+                    int posL = (int)Mathf.Floor(relativePos); //from this pos
+                    int posH = (int)Mathf.Ceil(relativePos); //to this pos
+
+
+
 
                     transform.position = orginPos + LerpByDistance(path[posL].localPosition, path[posH].localPosition,
                         relativePos - Mathf.Floor(relativePos));

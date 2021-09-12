@@ -10,7 +10,7 @@ public class BankerWeapon : PlayerWeapon
     public float punchCooldown;
     private float timeSincePunch;
 
-    public float punchVelocity = 6;
+    //public float punchVelocity = 6;
 
     public Vector3 swingRot;
 
@@ -93,7 +93,7 @@ public class BankerWeapon : PlayerWeapon
         player.playerCam.currentOffset -= swingRot;
 
         player.CmdSpawnObject(0, Vector3.zero, transform.eulerAngles, true, true);
-        player.velocity += transform.forward * punchVelocity;
+        //player.velocity += transform.forward * punchVelocity;
         base.UsePrimary();
         punchHand.transform.position -= transform.forward * 0.75f;
     }

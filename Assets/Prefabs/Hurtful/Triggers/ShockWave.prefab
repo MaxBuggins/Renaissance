@@ -116,7 +116,7 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.7
+      scalar: 0.35
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -9714,6 +9714,9 @@ MonoBehaviour:
   syncInterval: 0.1
   damage: 15
   hurtType: 4
+  statusEffect: 0
+  statusMagnitude: 0
+  statusDuration: 0
   destoryOnHurt: 0
   damagePerSeconds: 0
   ignorOwner: 0
@@ -9735,7 +9738,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03b00ce9a51350a4394266b8e44c1429, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unParentOnStart: 0
+  unParentOnStart: 1
   destroyDelay: 0.2
   destoryOnServer: 0
 --- !u!1 &6906018285293153184
@@ -9750,6 +9753,7 @@ GameObject:
   - component: {fileID: 2850861620797694919}
   - component: {fileID: 3245667310274715570}
   - component: {fileID: 870468503161567437}
+  - component: {fileID: 5410283280797845663}
   m_Layer: 0
   m_Name: ShockWave
   m_TagString: Untagged
@@ -10410,7 +10414,7 @@ ParticleSystem:
     radiusThickness: 1
     donutRadius: 0.2
     m_Position: {x: 0, y: 0, z: 0}
-    m_Rotation: {x: 90, y: 0, z: 0}
+    m_Rotation: {x: 0, y: 90, z: 0}
     m_Scale: {x: 1, y: 1, z: 1}
     placementMode: 0
     m_MeshMaterialIndex: 0
@@ -14650,3 +14654,18 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &5410283280797845663
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6906018285293153184}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 03b00ce9a51350a4394266b8e44c1429, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  unParentOnStart: 0
+  destroyDelay: 1
+  destoryOnServer: 0

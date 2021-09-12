@@ -21,17 +21,12 @@ public class BoxerWeapon : PlayerWeapon
 
     public float throwVelocity = 21;
 
-    [Header("Charge Propertys")]
+    [Header("GroundPound Propertys")]
     public float chargeDuration = 2.75f;
     private float chargeTime;
     public float chargeSpeed = 5;
+    public float minDistanceFromGround = 3;
 
-    //public float pushForceMultipyer = 5;
-    //public float gravityMultiplyer = 0.5f;
-
-    //to store default values
-    //private float orginalPushForce;
-    //private float orginalGravitY;
 
     private Vector3 chargeDirection;
 
@@ -135,12 +130,14 @@ public class BoxerWeapon : PlayerWeapon
     [Client]
     public override void UseSpecial()
     {
-        if (player.paused)
+        if (player.paused || player.DistanceFromGround() < minDistanceFromGround)
             return;
+
 
         //whould like base.useSpecial to run this but havent figured that out yet give me 7 years
         if (player.special - specialCost < 0) //not special enough falount 7 refrence (ADIAN HOLDSWORTH)
             return;
+
 
         base.UseSpecial();
 

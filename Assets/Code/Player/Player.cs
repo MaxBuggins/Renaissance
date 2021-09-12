@@ -47,6 +47,8 @@ public class Player : NetworkBehaviour
     [HideInInspector] public float pushForce = 5f;
     [HideInInspector] public float slideFriction = 0.3f;
 
+    public float specialChargeRate;
+
     [Header("Player Internals")]
 
     public Vector3 velocity;
@@ -157,9 +159,9 @@ public class Player : NetworkBehaviour
                 {
                     specialChargeTime += Time.fixedDeltaTime;
 
-                    if (specialChargeTime > playerClass.specialChargeRate)
+                    if (specialChargeTime > specialChargeRate)
                     {
-                        CmdAddSpecial(1);
+                        ServerAddSpecial(1);
                         specialChargeTime = 0;
                     }
                 }
@@ -445,6 +447,8 @@ public class Player : NetworkBehaviour
 
         special = playerClass.spawnSpecial;
         health = playerClass.maxHealth;
+
+        specialChargeRate = playerClass.specialChargeRate;
     }
 
     [Client]
@@ -470,6 +474,8 @@ public class Player : NetworkBehaviour
 
         pushForce = playerClass.pushForce;
         slideFriction = playerClass.slideFriction;
+
+        specialChargeRate = playerClass.specialChargeRate;
     }
 
     [ClientCallback]
@@ -529,16 +535,9 @@ public class Player : NetworkBehaviour
     [Command(requiresAuthority = false)] //oh no hackers are gonna hack it ahhhHHHHhhhHHHHhH
     public void CmdAddSpecial(int amount) //can take away special as well Server will update owner special ONLY
     {
-        AddSpecial(amount);
+        ServerAddSpecial(amount);
     }
 
-    [Server]
-    public void AddSpecial(int amount) //negative works too
-    {
-        special += amount;
-        special = Mathf.Clamp(special, 0, maxSpecial); //TOOO SPECIAL am i right ladeys
-        TargetUpdateSpecial(netIdentity.connectionToClient, special);
-    }
     [Server]
     public void ServerAddSpecial(int amount) //Same as CmdAddSpecial except if called from server
     {
@@ -675,5 +674,17 @@ public class Player : NetworkBehaviour
         }
 
         return (false);
+    }
+
+    public float DistanceFromGround()
+    {
+        RaycastHit hit = new RaycastHit();
+        if (Physics.Raycast(transform.position, -Vector3.up,out hit, 100, layerMask: 17))
+        {
+            var distanceToGround = hit.distance;
+            return (distanceToGround);
+        }
+
+        return (Mathf.Infinity);
     }
 }
