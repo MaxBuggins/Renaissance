@@ -17,6 +17,9 @@ public class SkyCam : MonoBehaviour
 
     private void Update()
     {
+        if (pCam == null)
+            SetCam();
+
         transform.position = (pCam.transform.position * movementScale) - offset;
         transform.localRotation = pCam.transform.rotation; 
     }
