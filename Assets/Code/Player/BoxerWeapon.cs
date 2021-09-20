@@ -26,6 +26,8 @@ public class BoxerWeapon : PlayerWeapon
     private float chargeTime;
     public float chargeSpeed = 5;
     public float minDistanceFromGround = 3;
+    public float jumpHeight = 4;
+    public float afterJumpDelay = 0.65f;
 
 
     private Vector3 chargeDirection;
@@ -130,24 +132,28 @@ public class BoxerWeapon : PlayerWeapon
     [Client]
     public override void UseSpecial()
     {
-        if (player.paused || player.DistanceFromGround() < minDistanceFromGround)
-            return;
-
+        if (player.paused)
+            return; 
 
         //whould like base.useSpecial to run this but havent figured that out yet give me 7 years
         if (player.special - specialCost < 0) //not special enough falount 7 refrence (ADIAN HOLDSWORTH)
             return;
 
+        if (player.DistanceFromGround() < minDistanceFromGround)
+        {
+            player.velocity.y = Mathf.Sqrt(jumpHeight * -2.0f * player.gravitY * 2); //physics reasons
+            Invoke(nameof(GroundPound), afterJumpDelay);
+            return;
+        }
 
+        GroundPound();
+    }
+
+    public void GroundPound()
+    {
         base.UseSpecial();
 
         player.velocity = Vector3.zero;
-
-        //orginalPushForce = player.pushForce;
-        //player.pushForce *= pushForceMultipyer;
-
-        //orginalGravitY = player.gravitY;
-        //player.gravitY *= gravityMultiplyer;
 
         float maxXZ = 0.6f;
 
@@ -156,8 +162,6 @@ public class BoxerWeapon : PlayerWeapon
             Mathf.Clamp(transform.forward.z, -maxXZ, maxXZ)).normalized;
 
         chargeTime = 0;
-
-        //player.CmdSpawnObject(2, -Vector3.up, Vector3.zero, false, true);
     }
 
     public override void EndSpecial()

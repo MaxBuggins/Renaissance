@@ -59,6 +59,10 @@ public class OnIdle : NetworkBehaviour
             special += minSpecial;
             player.specialChargeRate = special;
 
+            if (player.special >= player.maxSpecial)
+                player.Hurt(5);
+
+
             timeSinceMovement = 0;
         }
         /*

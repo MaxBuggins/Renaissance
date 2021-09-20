@@ -9,13 +9,16 @@ public class SkyCam : MonoBehaviour
     void Start()
     {
 
-        Invoke(nameof(SetCam), 0.1f);
+        Invoke(nameof(SetCam), 0.2f);
     }
 
     private void Update()
     {
-        if(pCam == null)
+        if (pCam == null)
+        {
             Invoke(nameof(SetCam), 0.1f);
+            return;
+        }
 
         transform.localRotation = pCam.transform.rotation; 
     }

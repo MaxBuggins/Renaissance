@@ -35,15 +35,15 @@ Material:
     m_TexEnvs:
     - _BaseMap:
         m_Texture: {fileID: 2800000, guid: d859ef4e5ac4fbc4484da2eeb4181f58, type: 3}
-        m_Scale: {x: 0.25, y: 0.25}
+        m_Scale: {x: 0.125, y: 0.125}
         m_Offset: {x: 0, y: 0}
     - _BumpMap:
-        m_Texture: {fileID: 2800000, guid: c2d5e82d21320d14d9d962ece4dea696, type: 3}
+        m_Texture: {fileID: 2800000, guid: a173a041fb00e1948af37481139a5739, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _DetailAlbedoMap:
         m_Texture: {fileID: 0}
-        m_Scale: {x: 0.25, y: 0.25}
+        m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _DetailMask:
         m_Texture: {fileID: 2800000, guid: 102331dca7d4bdd45a190e390947b2b6, type: 3}
@@ -59,7 +59,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     - _MainTex:
         m_Texture: {fileID: 2800000, guid: d859ef4e5ac4fbc4484da2eeb4181f58, type: 3}
-        m_Scale: {x: 0.25, y: 0.25}
+        m_Scale: {x: 0.125, y: 0.125}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
         m_Texture: {fileID: 0}
@@ -99,7 +99,7 @@ Material:
     - _Cull: 2
     - _Cutoff: 0.5
     - _DetailAlbedoMapScale: 1
-    - _DetailNormalMapScale: 2
+    - _DetailNormalMapScale: 1.5
     - _DstBlend: 0
     - _EnvironmentReflections: 1
     - _GlossMapScale: 0
@@ -110,7 +110,7 @@ Material:
     - _Parallax: 0.06
     - _QueueOffset: 0
     - _ReceiveShadows: 1
-    - _Smoothness: 0.15
+    - _Smoothness: 0.16
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1

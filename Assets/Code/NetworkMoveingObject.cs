@@ -6,10 +6,11 @@ using Mirror;
 public class NetworkMoveingObject : MonoBehaviour
 {
     public enum MoveMode { constantDirectionRight, constantDirectionForward, loop, resetLoop}
-    public MoveMode moveMode = MoveMode.constantDirectionRight; 
+    public MoveMode moveMode = MoveMode.constantDirectionRight;
 
-    public float moveSpeed = 5;
     public float startTime = 0;
+    public float moveSpeed = 5;
+    public float moveDelay = 0;
 
     private Vector3 orginPos; //I trust mirror is efficent
     public Transform[] path;
@@ -51,26 +52,28 @@ public class NetworkMoveingObject : MonoBehaviour
 
     void Start()
     {
+        startTime -= (float)NetworkTime.time;
         orginPos = transform.position;
     }
 
     //for all clients and server
     void FixedUpdate()
     {
+        float time = (float)NetworkTime.time + startTime;
 
-        float relativePos = (((float)NetworkTime.time + startTime) * moveSpeed) / path.Length;
+        float relativePos = (time * moveSpeed) / path.Length;
 
         switch (moveMode)
         {
             case (MoveMode.constantDirectionRight):
                 {
-                    transform.position = orginPos + transform.right * moveSpeed * (float)NetworkTime.time;
+                    transform.position = orginPos + transform.right * moveSpeed * time;
                     break;
                 }
 
             case (MoveMode.constantDirectionForward):
                 {
-                    transform.position = orginPos + transform.forward * moveSpeed * (float)NetworkTime.time;
+                    transform.position = orginPos + transform.forward * moveSpeed * time;
                     break;
                 }
 
@@ -91,9 +94,6 @@ public class NetworkMoveingObject : MonoBehaviour
 
                     int posL = (int)Mathf.Floor(relativePos); //from this pos
                     int posH = (int)Mathf.Ceil(relativePos); //to this pos
-
-
-
 
                     transform.position = orginPos + LerpByDistance(path[posL].localPosition, path[posH].localPosition,
                         relativePos - Mathf.Floor(relativePos));

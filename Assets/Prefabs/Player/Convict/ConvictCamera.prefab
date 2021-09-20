@@ -278,7 +278,9 @@ MonoBehaviour:
   throwVelocity: 14
   chargeDuration: 0.6
   chargeSpeed: 300
-  minDistanceFromGround: 3.5
+  minDistanceFromGround: 3
+  jumpHeight: 3
+  afterJumpDelay: 0.45
   punchHand: {fileID: 7790930438919165224}
   shootPos: {fileID: 3443185902300044381}
   projectile: {fileID: 2809265603616378744, guid: 48120d00173fdf94ea015c5ef7850de3, type: 3}

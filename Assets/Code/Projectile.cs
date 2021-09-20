@@ -19,6 +19,7 @@ public class Projectile : NetworkBehaviour
 
     public float projectileWidth = 0.3f;
     public int destoryOnHits = 0;
+    public bool destoryOnPlayerHit = true;
     public bool disableOnHit = false;
 
     [Header("Internals")]
@@ -99,21 +100,25 @@ public class Projectile : NetworkBehaviour
                         if (dmg < damage * minDmgMultiplyer) //min of 25% at about the distance of fog
                             dmg = (int)(damage * minDmgMultiplyer);
                     }
-                        
+
                     hurtful.HurtPlayer(player, dmg, hurtful.hurtType);
-                    print(dmg);
-                    DestroySelfHit();
+
+                    if(destoryOnPlayerHit)
+                        DestroySelfHit();
                 }
                 else
                 {
                     if (hitSplat != null)
                         Instantiate(hitSplat, hit.point, Quaternion.LookRotation(hit.normal));
+                }
+
+                if (destoryOnHits > -1)
+                {
 
                     destoryOnHits -= 1;
 
                     if (destoryOnHits < 0)
                         DestroySelfHit();
-
                     else
                     {
                         Vector3 forw = transform.forward;

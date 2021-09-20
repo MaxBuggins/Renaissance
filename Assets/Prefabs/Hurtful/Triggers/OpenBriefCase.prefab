@@ -5144,8 +5144,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
-  damage: 10
+  damage: 6
   hurtType: 4
+  statusEffect: 0
+  statusMagnitude: 0
+  statusDuration: 0
   destoryOnHurt: 0
   damagePerSeconds: 0.1
   ignorOwner: 0
@@ -5201,6 +5204,7 @@ MonoBehaviour:
   lockY: 0
   lockZ: 1
   fallToFloorSpeed: 8
+  radius: 0.2
 --- !u!1 &7811810888126195352
 GameObject:
   m_ObjectHideFlags: 0

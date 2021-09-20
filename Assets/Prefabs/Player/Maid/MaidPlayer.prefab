@@ -240,7 +240,7 @@ MonoBehaviour:
   cameraPrefab: {fileID: 5393368813326551947, guid: 21ebc6363fc389a43a08104efd4d3a4f, type: 3}
   corpsePrefab: {fileID: 4591324641192208067, guid: 0b1550e55a3b1834a90401ea51d3e4fd, type: 3}
   spawnableObjects:
-  - {fileID: 5237687366650787784, guid: ee3f1c0f5d951bd45872020d2f805069, type: 3}
+  - {fileID: 1648451155831128, guid: 8af3b97aa9cf4b545b494ece58511c3d, type: 3}
   - {fileID: 398733306034927849, guid: d431fcfd73d684842a65dd020a942d49, type: 3}
   - {fileID: 2416424484485989447, guid: de87859a11ffe424083c5915901b3463, type: 3}
   - {fileID: 3947019621467730363, guid: 272214a59f920b3488d1f0c75efde7c0, type: 3}
@@ -269,7 +269,7 @@ MonoBehaviour:
   idleVelocity: 40
   effectDelay: 0.4
   hurtType: 9
-  minSpecial: 0.65
+  minSpecial: 0.5
 --- !u!1001 &2578867430320109276
 PrefabInstance:
   m_ObjectHideFlags: 0

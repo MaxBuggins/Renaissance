@@ -371,7 +371,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
-  damage: 40
+  damage: 15
   startDmgFallOff: 20
   minDmgMultiplyer: 0.25
   destroyDelay: 5
@@ -380,6 +380,7 @@ MonoBehaviour:
   airRistance: 0
   projectileWidth: 0.3
   destoryOnHits: 0
+  destoryOnPlayerHit: 1
   disableOnHit: 0
   mask:
     serializedVersion: 2
@@ -403,6 +404,9 @@ MonoBehaviour:
   syncInterval: 0.1
   damage: 40
   hurtType: 6
+  statusEffect: 0
+  statusMagnitude: 0
+  statusDuration: 0
   destoryOnHurt: 1
   damagePerSeconds: 1.25
   ignorOwner: 0

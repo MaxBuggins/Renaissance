@@ -17,22 +17,20 @@ public class MaidWeapon : PlayerWeapon
     public float fireRate = 0.25f;
     private float fireTime = 0;
 
-    private bool left = true;
-
     public Vector3 throwRot;
 
     [Header("IceSummon Propertys")]
     public LayerMask summonMask = -1;
     public Vector3 summonRot;
-    public enum iceShape {cube, sphere, pyrsim}
-    public iceShape currentShape = iceShape.cube;
+    public enum IceShape {cube, sphere, pyrsim}
+    public IceShape currentShape = IceShape.cube;
 
 
     [Header("Weapon Refrences")]
     public GameObject punchHand;
 
-    public Transform shootPosL;
-    public Transform shootPosR;
+    public Transform shootPosPlate;
+    public Transform shootPosColdDust;
 
     protected override void Start()
     {
@@ -59,29 +57,16 @@ public class MaidWeapon : PlayerWeapon
         if (player.paused)
             return;
 
-        if (fireTime < fireRate)
+        if (fireTime < fireRate || timeSincePunch < punchCooldown)
             return;
 
 
-        if (left)
-            player.CmdSpawnObject(1, shootPosL.position, shootPosL.eulerAngles, false, false);
-        else
-            player.CmdSpawnObject(1, shootPosR.position, shootPosR.eulerAngles, false, false);
 
-        left = !left;
+        player.CmdSpawnObject(1, shootPosPlate.position, shootPosPlate.eulerAngles, false, false);
+
 
         base.UsePrimary();
         fireTime = 0;
-    }
-
-    void Punch()
-    {
-        player.playerCam.currentOffset -= throwRot;
-
-        player.CmdSpawnObject(0, Vector3.zero, transform.eulerAngles, true, true);
-        player.velocity += transform.forward * punchVelocity;
-        base.UseSeconday();
-        punchHand.transform.position -= transform.forward * 0.75f;
     }
 
 
@@ -100,17 +85,33 @@ public class MaidWeapon : PlayerWeapon
         timeSincePunch = 0;
     }
 
+    void Punch()
+    {
+        player.playerCam.currentOffset -= throwRot;
+
+        player.CmdSpawnObject(0, shootPosColdDust.position, shootPosColdDust.eulerAngles, false, false);
+        player.velocity += transform.forward * punchVelocity;
+        base.UseSeconday();
+        punchHand.transform.position -= transform.forward * 0.75f;
+    }
+
     [Client]
     public override void UseSpecial()
     {
         if (player.paused)
             return;
 
+        int cost = specialCost;
+
+        if (currentShape == IceShape.cube)
+            cost *= 3;
+
         //whould like base.useSpecial to run this but havent figured that out yet give me 7 years
-        if (player.special - specialCost < 0) //not special enough falount 7 refrence (ADIAN HOLDSWORTH)
+        if (player.special - cost < 0) //not special enough falount 7 refrence (ADIAN HOLDSWORTH)
             return;
 
-        base.UseSpecial();
+        player.CmdAddSpecial(-cost);
+        specialIsActive = true;
 
         //player.playerCam.currentOffset -= summonRot * 1.3f;
 
@@ -119,17 +120,17 @@ public class MaidWeapon : PlayerWeapon
 
         switch (currentShape)
         {
-            case (iceShape.cube):
+            case (IceShape.cube):
                 {
                     spawnTrans = player.transform.position - Vector3.up * 3.25f;
                     break;
                 }
-            case (iceShape.sphere):
+            case (IceShape.sphere):
                 {
                     spawnTrans = player.transform.position + transform.forward * 7f;
                     break;
                 }
-            case (iceShape.pyrsim):
+            case (IceShape.pyrsim):
                 {
                     RaycastHit hit;
                     Ray ray = new Ray(transform.position, transform.forward);
@@ -157,7 +158,7 @@ public class MaidWeapon : PlayerWeapon
 
     public override void Reload()
     {
-        int length = Enum.GetNames(typeof(iceShape)).Length;
+        int length = Enum.GetNames(typeof(IceShape)).Length;
         if ((int)currentShape >= length - 1)
             currentShape = 0;
         else

@@ -31,9 +31,9 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7935343524830523206}
-  - {fileID: 4354686659312455489}
   - {fileID: 5624049179950405140}
   - {fileID: 8479220974113682902}
+  - {fileID: 3185851520079001358}
   m_Father: {fileID: 5393368813326551951}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -84,9 +84,9 @@ MonoBehaviour:
   summonRot: {x: 0, y: 0, z: 0}
   currentShape: 0
   punchHand: {fileID: 4846895922063691242}
-  shootPosL: {fileID: 7935343524830523206}
-  shootPosR: {fileID: 4354686659312455489}
---- !u!1 &4812618580071507097
+  shootPosPlate: {fileID: 7935343524830523206}
+  shootPosColdDust: {fileID: 3185851520079001358}
+--- !u!1 &2484588101316860163
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -94,28 +94,28 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 4354686659312455489}
+  - component: {fileID: 3185851520079001358}
   m_Layer: 3
-  m_Name: ShootPosR
+  m_Name: ShootPosColdDust
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4354686659312455489
+--- !u!4 &3185851520079001358
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4812618580071507097}
+  m_GameObject: {fileID: 2484588101316860163}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.5, y: -0.3, z: 0}
+  m_LocalPosition: {x: 0.25, y: 0, z: 0}
   m_LocalScale: {x: 0.2, y: 0.25, z: 0.25}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7694451540138146118}
-  m_RootOrder: 1
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4846895922063691242
 GameObject:
@@ -148,7 +148,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7694451540138146118}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: -15}
 --- !u!33 &6650126286723773153
 MeshFilter:
@@ -210,7 +210,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7935343524830523206}
   m_Layer: 3
-  m_Name: ShootPosL
+  m_Name: ShootPosPlate
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -262,7 +262,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7694451540138146118}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 15}
 --- !u!33 &4299592144833180974
 MeshFilter:

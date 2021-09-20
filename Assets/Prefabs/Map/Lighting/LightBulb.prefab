@@ -128,7 +128,7 @@ LineRenderer:
     alignment: 0
     textureMode: 1
     shadowBias: 0.5
-    generateLightingData: 0
+    generateLightingData: 1
   m_UseWorldSpace: 0
   m_Loop: 0
 --- !u!1 &3969378674300151790
@@ -262,10 +262,10 @@ Light:
   m_Type: 2
   m_Shape: 0
   m_Color: {r: 1, g: 0.94634145, b: 0.8, a: 1}
-  m_Intensity: 10
-  m_Range: 15
-  m_SpotAngle: 30
-  m_InnerSpotAngle: 21.80208
+  m_Intensity: 4
+  m_Range: 10
+  m_SpotAngle: 179
+  m_InnerSpotAngle: 150
   m_CookieSize: 10
   m_Shadows:
     m_Type: 1

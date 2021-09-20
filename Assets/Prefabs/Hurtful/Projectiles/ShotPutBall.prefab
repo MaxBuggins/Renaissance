@@ -427,9 +427,10 @@ MonoBehaviour:
   destroyDelay: 5
   forwardSpeed: 30
   gravitY: -25
-  airRistance: 8
+  airRistance: 14
   projectileWidth: 0.5
   destoryOnHits: 0
+  destoryOnPlayerHit: 1
   disableOnHit: 0
   mask:
     serializedVersion: 2

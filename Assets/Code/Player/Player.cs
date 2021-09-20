@@ -449,6 +449,8 @@ public class Player : NetworkBehaviour
         health = playerClass.maxHealth;
 
         specialChargeRate = playerClass.specialChargeRate;
+
+        killStreak = 0;
     }
 
     [Client]
