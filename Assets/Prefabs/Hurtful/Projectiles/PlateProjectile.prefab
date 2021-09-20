@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 6139015506753870290}
   - component: {fileID: 2498712985804974270}
   m_Layer: 6
-  m_Name: KnifeProjectile
+  m_Name: PlateProjectile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -93,12 +93,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
-  damage: 30
+  damage: 35
   startDmgFallOff: 12
   minDmgMultiplyer: 0.25
   destroyDelay: 4
-  forwardSpeed: 30
-  gravitY: -10
+  forwardSpeed: 35
+  gravitY: -11
   airRistance: 0.25
   projectileWidth: 0.4
   destoryOnHits: 0
@@ -133,9 +133,9 @@ MonoBehaviour:
   damagePerSeconds: 1.25
   ignorOwner: 1
   moveForce: 1
-  collisionForce: 0
+  collisionForce: 1
   upwardsForce: 0
-  maxVelocity: 0
+  maxVelocity: 5
   owner: {fileID: 0}
   ownerID: 0
 --- !u!82 &2498712985804974270
