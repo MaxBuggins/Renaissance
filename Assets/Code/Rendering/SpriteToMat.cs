@@ -16,7 +16,7 @@ public class SpriteToMat : MonoBehaviour
         ApplySprite(sprite);
     }
 
-    void ApplySprite(Sprite sprite)
+    public void ApplySprite(Sprite sprite)
     {
         var croppedTexture = new Texture2D((int)sprite.rect.width, (int)sprite.rect.height);
         var pixels = sprite.texture.GetPixels((int)sprite.textureRect.x,
