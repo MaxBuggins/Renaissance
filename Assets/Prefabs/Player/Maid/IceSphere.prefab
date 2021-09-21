@@ -577,7 +577,7 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 0.15
+      scalar: 0.25
       minScalar: 0.1
       maxCurve:
         serializedVersion: 2
@@ -5115,9 +5115,8 @@ MonoBehaviour:
   lockX: 1
   lockY: 1
   lockZ: 1
-  fallToFloorSpeed: 8
-  radius: 1.5
-  useTrigger: 0
+  fallToFloorSpeed: 17
+  radius: 1
 --- !u!1 &4978680088449047367
 GameObject:
   m_ObjectHideFlags: 0

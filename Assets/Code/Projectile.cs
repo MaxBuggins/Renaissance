@@ -90,6 +90,9 @@ public class Projectile : NetworkBehaviour
                 Player player = hit.collider.gameObject.GetComponent<Player>();
                 if (player != null)
                 {
+                    if (hurtful.ignorOwner && player == hurtful.owner)
+                        return; //dont interact with the shooter
+
                     float dist = Vector3.Distance(orginPos, transform.position);
                     int dmg = damage;
 
@@ -185,7 +188,6 @@ public class Projectile : NetworkBehaviour
             RaycastHit hit;
             if (Physics.SphereCast(transform.position, 0.2f, transform.forward * 0.4f, out hit))
             {
-
                 transform.parent = hit.transform;
             }
         }
