@@ -14397,8 +14397,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveMode: 1
-  moveSpeed: 5
   startTime: 0
+  moveSpeed: 7
+  moveDelay: 0
   path: []
 --- !u!65 &7953759381789505612
 BoxCollider:

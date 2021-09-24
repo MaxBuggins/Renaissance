@@ -139,6 +139,8 @@ public class BoxerWeapon : PlayerWeapon
         if (player.special - specialCost < 0) //not special enough falount 7 refrence (ADIAN HOLDSWORTH)
             return;
 
+        player.CmdAddSpecial(-specialCost);
+
         if (player.DistanceFromGround() < minDistanceFromGround)
         {
             player.velocity.y = Mathf.Sqrt(jumpHeight * -2.0f * player.gravitY * 2); //physics reasons
@@ -151,7 +153,7 @@ public class BoxerWeapon : PlayerWeapon
 
     public void GroundPound()
     {
-        base.UseSpecial();
+        specialIsActive = true;
 
         player.velocity = Vector3.zero;
 

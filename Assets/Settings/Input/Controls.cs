@@ -114,6 +114,14 @@ public partial class @Controls : IInputActionCollection2, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Spectate"",
+                    ""type"": ""Button"",
+                    ""id"": ""ff468679-1707-41c4-9a3e-b388b0707410"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -391,6 +399,17 @@ public partial class @Controls : IInputActionCollection2, IDisposable
                     ""action"": ""Reload"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""877466ec-ebee-45ed-a1e1-b51af95e859c"",
+                    ""path"": ""<Keyboard>/period"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Spectate"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -410,6 +429,7 @@ public partial class @Controls : IInputActionCollection2, IDisposable
         m_Game_Message = m_Game.FindAction("Message", throwIfNotFound: true);
         m_Game_React = m_Game.FindAction("React", throwIfNotFound: true);
         m_Game_Reload = m_Game.FindAction("Reload", throwIfNotFound: true);
+        m_Game_Spectate = m_Game.FindAction("Spectate", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -480,6 +500,7 @@ public partial class @Controls : IInputActionCollection2, IDisposable
     private readonly InputAction m_Game_Message;
     private readonly InputAction m_Game_React;
     private readonly InputAction m_Game_Reload;
+    private readonly InputAction m_Game_Spectate;
     public struct GameActions
     {
         private @Controls m_Wrapper;
@@ -495,6 +516,7 @@ public partial class @Controls : IInputActionCollection2, IDisposable
         public InputAction @Message => m_Wrapper.m_Game_Message;
         public InputAction @React => m_Wrapper.m_Game_React;
         public InputAction @Reload => m_Wrapper.m_Game_Reload;
+        public InputAction @Spectate => m_Wrapper.m_Game_Spectate;
         public InputActionMap Get() { return m_Wrapper.m_Game; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -537,6 +559,9 @@ public partial class @Controls : IInputActionCollection2, IDisposable
                 @Reload.started -= m_Wrapper.m_GameActionsCallbackInterface.OnReload;
                 @Reload.performed -= m_Wrapper.m_GameActionsCallbackInterface.OnReload;
                 @Reload.canceled -= m_Wrapper.m_GameActionsCallbackInterface.OnReload;
+                @Spectate.started -= m_Wrapper.m_GameActionsCallbackInterface.OnSpectate;
+                @Spectate.performed -= m_Wrapper.m_GameActionsCallbackInterface.OnSpectate;
+                @Spectate.canceled -= m_Wrapper.m_GameActionsCallbackInterface.OnSpectate;
             }
             m_Wrapper.m_GameActionsCallbackInterface = instance;
             if (instance != null)
@@ -574,6 +599,9 @@ public partial class @Controls : IInputActionCollection2, IDisposable
                 @Reload.started += instance.OnReload;
                 @Reload.performed += instance.OnReload;
                 @Reload.canceled += instance.OnReload;
+                @Spectate.started += instance.OnSpectate;
+                @Spectate.performed += instance.OnSpectate;
+                @Spectate.canceled += instance.OnSpectate;
             }
         }
     }
@@ -591,5 +619,6 @@ public partial class @Controls : IInputActionCollection2, IDisposable
         void OnMessage(InputAction.CallbackContext context);
         void OnReact(InputAction.CallbackContext context);
         void OnReload(InputAction.CallbackContext context);
+        void OnSpectate(InputAction.CallbackContext context);
     }
 }

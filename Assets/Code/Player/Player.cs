@@ -54,7 +54,7 @@ public class Player : NetworkBehaviour
     public Vector3 velocity;
     private float maxVelocity = 200;
 
-    private float fallTime; //for counting seconds of falling
+    [HideInInspector] public float fallTime; //for counting seconds of falling
     private float deadTime;
 
     [HideInInspector] public bool paused;
@@ -111,6 +111,7 @@ public class Player : NetworkBehaviour
         controls.Game.Pause.performed += funnyer => Pause(!paused);
 
         controls.Game.ChangeClass.performed += funnyiest => ChangeClass(Random.Range(0,3));
+        controls.Game.Spectate.performed += funnyiestest => Spectate();
 
         controls.Game.React.performed += moreFUNNY => CmdReact((int)moreFUNNY.ReadValue<float>());
 
@@ -647,11 +648,24 @@ public class Player : NetworkBehaviour
         CmdChangeClass(classObjIndex);
     }
 
+    [Client]
+    void Spectate()
+    {
+        playerWeapon.controls.Dispose();
+
+        CmdSpectate();
+    }
+
     [Command]
     void CmdChangeClass(int classObjIndex)
     {
         myNetworkManager.ChangePlayer(connectionToClient, myNetworkManager.spawnPrefabs[classObjIndex]);
-        //Hurt(9999);
+    }
+
+    [Command]
+    void CmdSpectate()
+    {
+        myNetworkManager.ChangePlayer(connectionToClient, myNetworkManager.playerPrefab);
     }
 
     [Command]

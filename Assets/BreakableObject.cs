@@ -2,9 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
+using Pixelplacement;
 
 public class BreakableObject : NetworkBehaviour
 {
+    public bool scaleOverTime = false;
+    public Vector3 startScale = Vector3.zero;
+    public Vector3 endScale = Vector3.one;
+    public float scaleingDuration = 1.25f;
+    public AnimationCurve scaleCurve;
+
     public float health = 30;
     public float damagePerSec = 1;
 
@@ -19,6 +26,12 @@ public class BreakableObject : NetworkBehaviour
             enabled = false;
 
         render = GetComponent<Renderer>();
+
+        if (scaleOverTime)
+        {
+            transform.localScale = startScale;
+            Tween.LocalScale(transform, endScale, scaleingDuration, 0, scaleCurve);
+        }
     }
 
     [Server]

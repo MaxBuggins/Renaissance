@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
 
-public enum HurtType { Death, Water, Train, Punch, ShotPut, DeflectingBullet, BriefCase, ShockWave, Squash, Freeze}
+public enum HurtType { Death, Water, Train, Punch, ShotPut, DeflectingBullet, BriefCase, ShockWave, Squash, Freeze, Plate}
 
 
 //Server only script

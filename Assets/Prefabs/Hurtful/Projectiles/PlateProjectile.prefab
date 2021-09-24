@@ -106,7 +106,7 @@ MonoBehaviour:
   disableOnHit: 0
   mask:
     serializedVersion: 2
-    m_Bits: 1531
+    m_Bits: 251
   hitObject: {fileID: 3166567389878841269, guid: 646947f155ac7384c8c486cfa71ac4f7, type: 3}
   hitSplat: {fileID: 0}
   destoyCall: {fileID: 0}
@@ -125,7 +125,7 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0.1
   damage: 0
-  hurtType: 0
+  hurtType: 10
   statusEffect: 0
   statusMagnitude: 0
   statusDuration: 0
@@ -5047,7 +5047,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 46c2470f7178f8447b99d5a3f4b83b4a, type: 2}
+  - {fileID: 2100000, guid: 5fd7d1ce550dc3a41ababf72dd10bede, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

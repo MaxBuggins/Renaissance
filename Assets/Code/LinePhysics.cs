@@ -20,6 +20,7 @@ public class LinePhysics : MonoBehaviour
         hurtful = GetComponentInParent<Hurtful>();
         endPos = hurtful.owner.transform;
 
+
         //Invoke(nameof(AddSegment), segmentDelay);
     }
 

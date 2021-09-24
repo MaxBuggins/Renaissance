@@ -135,9 +135,8 @@ public class MaidWeapon : PlayerWeapon
                         spawnTrans = hit.point;
                     }
                     else
-                        spawnTrans = player.transform.position + transform.forward * 25f + Vector3.up;
+                        spawnTrans = player.transform.position + transform.forward * 25f;
 
-                    spawnTrans += Vector3.up * 8;
                     break;
                 }
             case (IceShape.pyrsim):

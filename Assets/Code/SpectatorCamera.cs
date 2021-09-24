@@ -5,6 +5,8 @@ using Mirror;
 
 public class SpectatorCamera : NetworkBehaviour
 {
+    private Controls controls;
+
     private NetworkIdentity identity;
     private MyNetworkManager networkManager;
 
@@ -12,12 +14,17 @@ public class SpectatorCamera : NetworkBehaviour
     {
         identity = GetComponent<NetworkIdentity>();
         networkManager = FindObjectOfType<MyNetworkManager>();
+
+        controls = new Controls();
+
+        controls.Game.ChangeClass.performed += funnyiest => ChangeClass(Random.Range(0, 3));
+
+        controls.Enable();
     }
 
 
     void Update()
     {
-        ChangeClass(1);
     }
 
 
