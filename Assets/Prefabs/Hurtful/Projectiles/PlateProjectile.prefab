@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 398733306034927842}
   - component: {fileID: 934650866890984948}
   - component: {fileID: 398733306034927852}
+  - component: {fileID: 5701454581124422678}
   - component: {fileID: 6139015506753870290}
   - component: {fileID: 2498712985804974270}
   m_Layer: 6
@@ -100,13 +101,44 @@ MonoBehaviour:
   forwardSpeed: 35
   gravitY: -11
   airRistance: 0.25
-  projectileWidth: 0.4
+  projectileWidth: 0.1
   destoryOnHits: 0
   destoryOnPlayerHit: 1
   disableOnHit: 0
   mask:
     serializedVersion: 2
-    m_Bits: 251
+    m_Bits: 243
+  hitObject: {fileID: 3166567389878841269, guid: 646947f155ac7384c8c486cfa71ac4f7, type: 3}
+  hitSplat: {fileID: 0}
+  destoyCall: {fileID: 0}
+--- !u!114 &5701454581124422678
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 398733306034927849}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f49b83f111a64bc7a5275af4f6f930b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
+  damage: 35
+  startDmgFallOff: 12
+  minDmgMultiplyer: 0.25
+  destroyDelay: 4
+  forwardSpeed: 35
+  gravitY: -11
+  airRistance: 0.25
+  projectileWidth: 0.48
+  destoryOnHits: 0
+  destoryOnPlayerHit: 1
+  disableOnHit: 0
+  mask:
+    serializedVersion: 2
+    m_Bits: 8
   hitObject: {fileID: 3166567389878841269, guid: 646947f155ac7384c8c486cfa71ac4f7, type: 3}
   hitSplat: {fileID: 0}
   destoyCall: {fileID: 0}

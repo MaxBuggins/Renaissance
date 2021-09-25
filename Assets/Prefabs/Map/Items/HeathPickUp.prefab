@@ -119,10 +119,12 @@ MonoBehaviour:
   rotSpeed: 100
   isActive: 1
   respawn: 1
-  respawnDelay: 7
+  respawnDelay: 10
   health: 50
   special: 0
   powerUp: 0
+  models: []
+  materials: []
 --- !u!114 &7339264607688957714
 MonoBehaviour:
   m_ObjectHideFlags: 0

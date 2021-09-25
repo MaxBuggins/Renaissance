@@ -57,7 +57,7 @@ public class MaidWeapon : PlayerWeapon
         if (player.paused)
             return;
 
-        if (fireTime < fireRate || timeSincePunch < punchCooldown)
+        if (fireTime < fireRate || timeSincePunch < punchCooldown / 1.5f)
             return;
 
 
