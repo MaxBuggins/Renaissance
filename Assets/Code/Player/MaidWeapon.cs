@@ -14,7 +14,9 @@ public class MaidWeapon : PlayerWeapon
     public float punchVelocity = 6;
 
     [Header("PlateThrow Propertys")]
-    public float fireRate = 0.25f;
+    private float fireRate;
+    public float minFireRate = 0.2f;
+    public float maxFireRate = 0.4f;
     private float fireTime = 0;
 
     public Vector3 throwRot;
@@ -61,12 +63,12 @@ public class MaidWeapon : PlayerWeapon
             return;
 
 
-
         player.CmdSpawnObject(1, shootPosPlate.position, shootPosPlate.eulerAngles, false, false);
 
 
         base.UsePrimary();
         fireTime = 0;
+        fireRate = UnityEngine.Random.Range(minFireRate, maxFireRate);
     }
 
 
@@ -103,18 +105,6 @@ public class MaidWeapon : PlayerWeapon
 
         int cost = specialCost;
 
-        if (currentShape == IceShape.cube)
-            cost *= 3;
-
-        //whould like base.useSpecial to run this but havent figured that out yet give me 7 years
-        if (player.special - cost < 0) //not special enough falount 7 refrence (ADIAN HOLDSWORTH)
-            return;
-
-        player.CmdAddSpecial(-cost);
-        specialIsActive = true;
-
-        //player.playerCam.currentOffset -= summonRot * 1.3f;
-
         Vector3 spawnTrans = player.transform.position;
         Vector3 spawnRot = Vector3.zero;
 
@@ -122,11 +112,13 @@ public class MaidWeapon : PlayerWeapon
         {
             case (IceShape.cube):
                 {
+                    cost *= 3;
                     spawnTrans = player.transform.position - Vector3.up * 3.25f;
                     break;
                 }
             case (IceShape.sphere):
                 {
+                    cost *= 2;
                     RaycastHit hit;
                     Ray ray = new Ray(transform.position, transform.forward);
 
@@ -158,6 +150,14 @@ public class MaidWeapon : PlayerWeapon
                 }
         }
 
+        //whould like base.useSpecial to run this but havent figured that out yet give me 7 years
+        if (player.special - cost < 0) //not special enough falount 7 refrence (ADIAN HOLDSWORTH)
+            return;
+
+        player.CmdAddSpecial(-cost);
+        specialIsActive = true;
+
+        //player.playerCam.currentOffset -= summonRot * 1.3f;
 
         spawnTrans = Vector3Int.RoundToInt(spawnTrans);
 

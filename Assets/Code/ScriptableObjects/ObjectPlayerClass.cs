@@ -7,6 +7,13 @@ public enum PlayerClass { Banker, Convict, Maid }
 [CreateAssetMenu(fileName = "Player Class", menuName = "PlayerClass", order = 1)]
 public class ObjectPlayerClass : ScriptableObject
 {
+    [Header("Bluff Text")]
+    public string discription;
+    public string lore;
+    [Range(0, 10)] public float specialRateing = 5;
+    [Range(0, 10)] public float primaryRateing = 7;
+    [Range(0, 10)] public float movementRateing = 8;
+
     [Header("Player Stats")]
     public PlayerClass playerClass = PlayerClass.Convict;
     public int maxHealth = 100;

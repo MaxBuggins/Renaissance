@@ -412,6 +412,107 @@ public partial class @Controls : IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""WorldMap"",
+            ""id"": ""472b8e30-ecc0-4854-b155-925feaf11770"",
+            ""actions"": [
+                {
+                    ""name"": ""Select"",
+                    ""type"": ""Button"",
+                    ""id"": ""f5c268e6-56de-4e9d-b645-131044e1c384"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""Move"",
+                    ""type"": ""Value"",
+                    ""id"": ""bc719200-9948-4ea6-95c0-6697464ebfb7"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""29373cfc-313b-4e46-a4c1-937ed4f37f90"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Select"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0a17bc3e-1151-4ae3-9c1b-d881fd9394a2"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Select"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""2D Vector"",
+                    ""id"": ""a0701dda-e711-4584-a2c1-5759abf09683"",
+                    ""path"": ""2DVector"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Move"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""up"",
+                    ""id"": ""67069e34-cf27-4a64-a1d4-95bb10c12538"",
+                    ""path"": ""<Keyboard>/w"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""down"",
+                    ""id"": ""d84e8875-bc86-41dd-8bc5-575ff116070b"",
+                    ""path"": ""<Keyboard>/s"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""left"",
+                    ""id"": ""2e75d8c1-c90a-4c47-8130-f2e581dfc1b4"",
+                    ""path"": ""<Keyboard>/a"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""right"",
+                    ""id"": ""508d193d-af41-40cb-a877-25eddd570514"",
+                    ""path"": ""<Keyboard>/d"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                }
+            ]
         }
     ],
     ""controlSchemes"": []
@@ -430,6 +531,10 @@ public partial class @Controls : IInputActionCollection2, IDisposable
         m_Game_React = m_Game.FindAction("React", throwIfNotFound: true);
         m_Game_Reload = m_Game.FindAction("Reload", throwIfNotFound: true);
         m_Game_Spectate = m_Game.FindAction("Spectate", throwIfNotFound: true);
+        // WorldMap
+        m_WorldMap = asset.FindActionMap("WorldMap", throwIfNotFound: true);
+        m_WorldMap_Select = m_WorldMap.FindAction("Select", throwIfNotFound: true);
+        m_WorldMap_Move = m_WorldMap.FindAction("Move", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -606,6 +711,47 @@ public partial class @Controls : IInputActionCollection2, IDisposable
         }
     }
     public GameActions @Game => new GameActions(this);
+
+    // WorldMap
+    private readonly InputActionMap m_WorldMap;
+    private IWorldMapActions m_WorldMapActionsCallbackInterface;
+    private readonly InputAction m_WorldMap_Select;
+    private readonly InputAction m_WorldMap_Move;
+    public struct WorldMapActions
+    {
+        private @Controls m_Wrapper;
+        public WorldMapActions(@Controls wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Select => m_Wrapper.m_WorldMap_Select;
+        public InputAction @Move => m_Wrapper.m_WorldMap_Move;
+        public InputActionMap Get() { return m_Wrapper.m_WorldMap; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(WorldMapActions set) { return set.Get(); }
+        public void SetCallbacks(IWorldMapActions instance)
+        {
+            if (m_Wrapper.m_WorldMapActionsCallbackInterface != null)
+            {
+                @Select.started -= m_Wrapper.m_WorldMapActionsCallbackInterface.OnSelect;
+                @Select.performed -= m_Wrapper.m_WorldMapActionsCallbackInterface.OnSelect;
+                @Select.canceled -= m_Wrapper.m_WorldMapActionsCallbackInterface.OnSelect;
+                @Move.started -= m_Wrapper.m_WorldMapActionsCallbackInterface.OnMove;
+                @Move.performed -= m_Wrapper.m_WorldMapActionsCallbackInterface.OnMove;
+                @Move.canceled -= m_Wrapper.m_WorldMapActionsCallbackInterface.OnMove;
+            }
+            m_Wrapper.m_WorldMapActionsCallbackInterface = instance;
+            if (instance != null)
+            {
+                @Select.started += instance.OnSelect;
+                @Select.performed += instance.OnSelect;
+                @Select.canceled += instance.OnSelect;
+                @Move.started += instance.OnMove;
+                @Move.performed += instance.OnMove;
+                @Move.canceled += instance.OnMove;
+            }
+        }
+    }
+    public WorldMapActions @WorldMap => new WorldMapActions(this);
     public interface IGameActions
     {
         void OnJump(InputAction.CallbackContext context);
@@ -620,5 +766,10 @@ public partial class @Controls : IInputActionCollection2, IDisposable
         void OnReact(InputAction.CallbackContext context);
         void OnReload(InputAction.CallbackContext context);
         void OnSpectate(InputAction.CallbackContext context);
+    }
+    public interface IWorldMapActions
+    {
+        void OnSelect(InputAction.CallbackContext context);
+        void OnMove(InputAction.CallbackContext context);
     }
 }

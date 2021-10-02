@@ -156,18 +156,375 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 0
-        width: 96
-        height: 96
+        y: 240
+        width: 32
+        height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 5, y: 4, z: 6, w: 5}
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
       spriteID: 7683114786cead94ab00ac3df8ca3a0e
       internalID: -1178016730
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UITiles_1
+      rect:
+        serializedVersion: 2
+        x: 65
+        y: 250
+        width: 62
+        height: 5
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 68c3b2a63b57e5146b4e192cfd878f91
+      internalID: -47154180
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UITiles_2
+      rect:
+        serializedVersion: 2
+        x: 129
+        y: 250
+        width: 30
+        height: 5
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 1, y: 1, z: 1, w: 1}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b7a32c40e934e364c8e10438772fdc7f
+      internalID: 2110984154
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UITiles_3
+      rect:
+        serializedVersion: 2
+        x: 65
+        y: 245
+        width: 62
+        height: 5
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 84ecbed9c3d68094cbd166e7532e25ba
+      internalID: -1209072403
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UITiles_4
+      rect:
+        serializedVersion: 2
+        x: 65
+        y: 240
+        width: 62
+        height: 5
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 945b2dd0f71b7144e81e835ce3f545db
+      internalID: -998833438
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UITiles_5
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 225
+        width: 48
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 26a1fac81b1c0464b9de2435db43bd6f
+      internalID: -792850055
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UITiles_6
+      rect:
+        serializedVersion: 2
+        x: 65
+        y: 235
+        width: 62
+        height: 5
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6157527ce6f926c45baf5dc80127deb4
+      internalID: 1378020561
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UITiles_7
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 194
+        width: 12
+        height: 12
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5a4ef2d78bc605d4581a444b2f774cf4
+      internalID: 1791165810
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UITiles_8
+      rect:
+        serializedVersion: 2
+        x: 18
+        y: 194
+        width: 12
+        height: 12
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 15fac313e09b3fc4bb53b0a50becf216
+      internalID: -1586241428
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UITiles_9
+      rect:
+        serializedVersion: 2
+        x: 3
+        y: 178
+        width: 8
+        height: 12
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 487582835c6227440928e88026e16a03
+      internalID: 647814187
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UITiles_10
+      rect:
+        serializedVersion: 2
+        x: 19
+        y: 179
+        width: 10
+        height: 11
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 50215154b9429d74ebde2336542f6d6f
+      internalID: -652758151
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UITiles_11
+      rect:
+        serializedVersion: 2
+        x: 35
+        y: 181
+        width: 11
+        height: 7
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1822bf2317b142a4eb895f879b5274c0
+      internalID: -549136909
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UITiles_12
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 163
+        width: 10
+        height: 9
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 97b05ae1e48b8be4eaf05a916f57be18
+      internalID: -492968517
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UITiles_13
+      rect:
+        serializedVersion: 2
+        x: 19
+        y: 163
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bbbde5050cc1a2b4093583c643ab8eec
+      internalID: -1302739341
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UITiles_14
+      rect:
+        serializedVersion: 2
+        x: 34
+        y: 164
+        width: 11
+        height: 7
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1de126ab54595474189d1447317b8fd7
+      internalID: 1677863734
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UITiles_15
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 136
+        width: 72
+        height: 24
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 25b1f6532cde8434493b5ca2e6206e77
+      internalID: -2021132862
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UITiles_16
+      rect:
+        serializedVersion: 2
+        x: 84
+        y: 132
+        width: 24
+        height: 24
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 062c1d1c2d1f45647b42a84f36c862d3
+      internalID: 1686691578
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UITiles_17
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 112
+        width: 72
+        height: 23
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 869579f1b3fcdb24881d71f956f1d00a
+      internalID: 1593813174
       vertices: []
       indices: 
       edges: []
@@ -183,7 +540,24 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
+      UITiles_2: 2110984154
       UITiles_0: -1178016730
+      UITiles_10: -652758151
+      UITiles_1: -47154180
+      UITiles_9: 647814187
+      UITiles_5: -792850055
+      UITiles_11: -549136909
+      UITiles_14: 1677863734
+      UITiles_17: 1593813174
+      UITiles_7: 1791165810
+      UITiles_8: -1586241428
+      UITiles_15: -2021132862
+      UITiles_3: -1209072403
+      UITiles_4: -998833438
+      UITiles_13: -1302739341
+      UITiles_6: 1378020561
+      UITiles_12: -492968517
+      UITiles_16: 1686691578
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

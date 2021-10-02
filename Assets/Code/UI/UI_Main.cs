@@ -7,14 +7,19 @@ using TMPro;
 public class UI_Main : MonoBehaviour
 {
     public Sprite[] deathSprites;
+    public ObjectPlayerClass[] classes;
     public Sprite[] classSprites;
 
-
+    public PlayerBase playerBase;
     [HideInInspector] public Player player;
 
     public UI_Base[] uiBases;
+
+    public GameObject gameUI;
     public GameObject deathUI;
     public GameObject pauseUI;
+    public GameObject classUI;
+
     public Image reloadRing;
     public Image classPreview;
 
@@ -24,6 +29,8 @@ public class UI_Main : MonoBehaviour
     public Transform killFeed;
     public GameObject killLine;
 
+    public UI_ClassDetails classDetails;
+
     public TMP_InputField msgBox;
 
     private Controls controls;
@@ -32,7 +39,6 @@ public class UI_Main : MonoBehaviour
     private void Start()
     {
         levelManager = FindObjectOfType<LevelManager>();
-
 
         controls = new Controls();
 
@@ -106,5 +112,20 @@ public class UI_Main : MonoBehaviour
     public void SendMsg(string msg)
     {
         print(msg);
+    }
+
+    public void DisplayClassDetails(int classNum)
+    {
+        classUI.SetActive(true);
+        gameUI.SetActive(false);
+        classDetails.DisplayDetails(classes[classNum]);
+    }
+
+    public void ChangeClass(int classNum)
+    {
+        playerBase.ChangeClass(classNum);
+        classUI.SetActive(false);
+        gameUI.SetActive(true);
+        player.Pause(false, false);
     }
 }

@@ -31,6 +31,7 @@ public class PlayerWeapon : NetworkBehaviour
         controls = new Controls();
 
         controls.Game.Primary.performed += funny => UsePrimary();
+        controls.Game.Primary.performed += funny => primaryHeld = true;
         controls.Game.Primary.canceled += funny => primaryHeld = false;
 
         controls.Game.Seconday.performed += funnyer => UseSeconday();
@@ -55,8 +56,6 @@ public class PlayerWeapon : NetworkBehaviour
     {
         if (player.paused)
             return;
-
-        primaryHeld = true;
     }
 
     public virtual void UseSeconday()

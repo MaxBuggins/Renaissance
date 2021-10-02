@@ -76,7 +76,8 @@ MonoBehaviour:
   punchDelay: 0.05
   punchCooldown: 0.75
   punchVelocity: 0
-  fireRate: 0.4
+  minFireRate: 0.4
+  maxFireRate: 0.5
   throwRot: {x: 0, y: 0, z: 0}
   summonMask:
     serializedVersion: 2
