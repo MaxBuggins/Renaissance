@@ -97,6 +97,7 @@ public class Player : PlayerBase
         body.GetComponent<MeshRenderer>().shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.ShadowsOnly;
 
         clientManager = FindObjectOfType<ClientManager>();
+        clientManager.player = this;
         uIMain = FindObjectOfType<UI_Main>();
         uIMain.player = this;
 

@@ -5,6 +5,8 @@ using Mirror;
 
 public class ClientManager : MonoBehaviour
 {
+    public Player player;
+
     public string playerName = "NoNameNed";
     public Color playerColour = Color.white;
 
