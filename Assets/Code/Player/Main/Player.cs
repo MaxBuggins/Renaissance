@@ -89,6 +89,8 @@ public class Player : PlayerBase
 
     private PlayerAbove playerAbove;
 
+    public GameObject spawnOnDeath;
+
     public override void OnStartLocalPlayer() //just for the local client
     {
         playerAnimator = GetComponentInChildren<PlayerAnimator>();
@@ -589,12 +591,21 @@ public class Player : PlayerBase
             playerAbove.topLight.intensity = 0;
             score -= 1;
 
-            //if (dropOnDeath == null)
-            //return;
+            if (spawnOnDeath == null)
+                return;
+            
+            GameObject spawned = Instantiate(spawnOnDeath, transform.position, Quaternion.identity, null);
+            ItemPickUp item = spawned.GetComponent<ItemPickUp>();
 
-            //GameObject spawned = Instantiate(dropOnDeath, transform.position, transform.rotation, null);
+            if (item != null)
+            {
+                item.respawn = false;
+                SelfDestruct sD = item.gameObject.AddComponent<SelfDestruct>();
+                sD.destoryOnServer = true;
+                sD.destroyDelay = 7;
+            }
 
-            //NetworkServer.Spawn(spawned);
+            NetworkServer.Spawn(spawned);
         }
     }
 

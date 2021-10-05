@@ -3,7 +3,17 @@ guid: 62476e6a08ca2144ba4a2c9ebf182bbc
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - uIMain: {instanceID: 0}
+  - playerClass: {instanceID: 0}
+  - cameraPrefab: {instanceID: 0}
+  - corpsePrefab: {instanceID: 0}
+  - body: {instanceID: 0}
+  - playerAnimator: {instanceID: 0}
+  - playerCam: {instanceID: 0}
+  - playerWeapon: {instanceID: 0}
+  - character: {instanceID: 0}
+  - spawnOnDeath: {fileID: 1754768130989649110, guid: f40998b1713f81545b30077f05af76d6, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

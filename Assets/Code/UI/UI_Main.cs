@@ -64,7 +64,7 @@ public class UI_Main : MonoBehaviour
         {
             for(int i = 0; i < players.Count; i ++)
             {
-                if (player.score > players[i].score)
+                if (player.score >= players[i].score)
                 {
                     players.Insert(i, player);
                     break;

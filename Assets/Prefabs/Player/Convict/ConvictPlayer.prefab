@@ -208,6 +208,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
+  uIMain: {fileID: 0}
   score: 0
   killStreak: 0
   maxHealth: 100
@@ -250,7 +251,7 @@ MonoBehaviour:
   playerCam: {fileID: 0}
   playerWeapon: {fileID: 0}
   character: {fileID: 0}
-  uIMain: {fileID: 0}
+  spawnOnDeath: {fileID: 7339264607688957704, guid: b16a37cba27aff04c8623be7dab1e040, type: 3}
 --- !u!1 &563881048252376983
 GameObject:
   m_ObjectHideFlags: 0

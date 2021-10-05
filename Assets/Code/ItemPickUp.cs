@@ -126,9 +126,4 @@ public class ItemPickUp : NetworkBehaviour
                 }
         }
     }
-
-    void OnDestroy()
-    {
-        Destroy(transform.parent.gameObject);
-    }
 }

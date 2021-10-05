@@ -350,6 +350,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
+  uIMain: {fileID: 0}
   score: 0
   killStreak: 0
   maxHealth: 100
@@ -388,12 +389,12 @@ MonoBehaviour:
   - {fileID: 2416424484485989447, guid: de87859a11ffe424083c5915901b3463, type: 3}
   - {fileID: 3947019621467730363, guid: 272214a59f920b3488d1f0c75efde7c0, type: 3}
   - {fileID: 9047717480058153344, guid: fed5371fdefbb56428bb210f1aa0c2fb, type: 3}
-  body: {fileID: 0}
+  body: {fileID: 3778667129035929041}
   playerAnimator: {fileID: 0}
   playerCam: {fileID: 0}
   playerWeapon: {fileID: 0}
   character: {fileID: 0}
-  uIMain: {fileID: 0}
+  spawnOnDeath: {fileID: 1754768130989649110, guid: f40998b1713f81545b30077f05af76d6, type: 3}
 --- !u!114 &1286640440610392614
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -475,6 +476,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3108096802641132069, guid: 5eb1cad28e7f1774c92bbab60861991f, type: 3}
   m_PrefabInstance: {fileID: 2578867430320109276}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &3778667129035929041 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1709538238800872205, guid: 5eb1cad28e7f1774c92bbab60861991f, type: 3}
+  m_PrefabInstance: {fileID: 2578867430320109276}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da4636009a0d6c342a2b38174ebbf301, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &3272000681710786499
 PrefabInstance:
   m_ObjectHideFlags: 0
