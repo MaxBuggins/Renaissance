@@ -12,12 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 335a9229772eeda46a38c93c625ed126, type: 3}
   m_Name: Maid
   m_EditorClassIdentifier: 
-  discription: lol
-  lore: lol
+  noise: '"SHHHhhhhhh"'
+  discription: Throwing plates might not be the most effective weapon. So use that
+    ice for cover and give them the sniffles, makes that the least of their troubles.
+  lore: ahhhhhhhhhhhh i froze but i work so not yet i guess
   specialRateing: 10
-  primaryRateing: 6
-  movementRateing: 6
-  playerClass: 2
+  primaryRateing: 4
+  movementRateing: 7.4
+  classSprite: {fileID: -1461599321, guid: 70fbd5fc4d34fbd49ae226942d548b39, type: 3}
+  playerClass: 4
   maxHealth: 100
   maxSpecial: 50
   spawnSpecial: 25

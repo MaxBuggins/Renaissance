@@ -12,12 +12,12 @@ public class ClientManager : MonoBehaviour
 
     public string selectedMap = "MainMenu";
 
-    private NetworkManager netManager;
+    private MyNetworkManager netManager;
 
     void Awake()
     {
         DontDestroyOnLoad(gameObject);
-        netManager = FindObjectOfType<NetworkManager>();
+        netManager = FindObjectOfType<MyNetworkManager>();
 
         playerName = "NoNameNed" + Random.Range(0, 99);
         playerColour = new Color(Random.Range(0f, 1f), Random.Range(0f, 1f), Random.Range(0f, 1f));
@@ -25,7 +25,6 @@ public class ClientManager : MonoBehaviour
 
     void Update()
     {
-        
     }
 
     public void UpdateInfo(string newName = default)
@@ -42,4 +41,5 @@ public class ClientManager : MonoBehaviour
         selectedMap = mapName;
         netManager.onlineScene = selectedMap; 
     }
+
 }

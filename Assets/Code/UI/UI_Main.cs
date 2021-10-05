@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.EventSystems;
 
 public class UI_Main : MonoBehaviour
 {
     public Sprite[] deathSprites;
     public ObjectPlayerClass[] classes;
-    public Sprite[] classSprites;
 
     public PlayerBase playerBase;
     [HideInInspector] public Player player;
@@ -17,6 +17,8 @@ public class UI_Main : MonoBehaviour
 
     public GameObject gameUI;
     public GameObject deathUI;
+    public Image killerIcon;
+    public Image killerLeter;
     public GameObject pauseUI;
     public GameObject classUI;
 
@@ -34,11 +36,13 @@ public class UI_Main : MonoBehaviour
     public TMP_InputField msgBox;
 
     private Controls controls;
+    private EventSystem eventSystem;
 
 
     private void Start()
     {
         levelManager = FindObjectOfType<LevelManager>();
+        eventSystem = FindObjectOfType<EventSystem>();
 
         controls = new Controls();
 
@@ -72,8 +76,7 @@ public class UI_Main : MonoBehaviour
         foreach (UI_Base ui in uiBases)
             ui.UpdateInfo();
 
-        classPreview.sprite = classSprites[(int)player.playerClass.playerClass];
-        deathUI.SetActive(player.health <= 0); //bit of a coder
+        classPreview.sprite = classes[(int)player.playerClass.playerClass].classSprite;
     }
 
     public void UIAddKillFeed(string killer, string dier, int hurtType)
@@ -86,9 +89,18 @@ public class UI_Main : MonoBehaviour
         kL.UpdateInfo();
     }
 
+    public void OnDeathUI(bool active)
+    {
+        deathUI.SetActive(active);
+        //killerIcon.sprite = classes[killerClassNum].classSprite;
+        //killerLeter.sprite = classes[killerClassNum].classLeter;
+    }
+
     public void Pause(bool pause)
     {
         pauseUI.SetActive(pause);
+        classUI.SetActive(false);
+        gameUI.SetActive(!pause);
     }
 
     public void MsgBox()
@@ -126,6 +138,8 @@ public class UI_Main : MonoBehaviour
         playerBase.ChangeClass(classNum);
         classUI.SetActive(false);
         gameUI.SetActive(true);
-        player.Pause(false, false);
+        eventSystem.SetSelectedGameObject(null);
+        if(player != null)
+            player.Pause(false, 0);
     }
 }

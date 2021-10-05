@@ -11,9 +11,10 @@ public class SpectatorCamera : PlayerBase
 
     void Start()
     {
+        base.Start();
         identity = GetComponent<NetworkIdentity>();
         if (!identity.isLocalPlayer) //only the spectator uses this
-            enabled = false;
+            gameObject.SetActive(false);
 
         controls = new Controls();
 

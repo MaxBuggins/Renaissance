@@ -16,19 +16,12 @@ public class LevelManager : NetworkBehaviour
 
     private UI_Main playerUI;
 
-    private NetworkManagerHUD hud;
-
     void Start()
     {
         audioSource = GetComponent<AudioSource>();
         audioDistortion = GetComponent<AudioDistortionFilter>();
 
         playerUI = FindObjectOfType<UI_Main>();
-
-        hud = FindObjectOfType<NetworkManagerHUD>();
-
-        if (hud != null) //TEMPARAY
-            hud.showGUI = false;
 
         foreach(Transform child in transform)
         {

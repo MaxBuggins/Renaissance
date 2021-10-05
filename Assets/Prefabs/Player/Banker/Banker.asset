@@ -12,12 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 335a9229772eeda46a38c93c625ed126, type: 3}
   m_Name: Banker
   m_EditorClassIdentifier: 
-  discription: Gun shoots
+  noise: '"Ca-Ching"'
+  discription: Shoot your gun...  You could also wave your briefcase around paper
+    cuts hurt.
   lore: A man. remor has it.
-  specialRateing: 5
+  specialRateing: 4
   primaryRateing: 9
-  movementRateing: 7
-  playerClass: 0
+  movementRateing: 6
+  classSprite: {fileID: 1303225409, guid: 70fbd5fc4d34fbd49ae226942d548b39, type: 3}
+  playerClass: 1
   maxHealth: 100
   maxSpecial: 10
   spawnSpecial: 4

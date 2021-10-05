@@ -12,27 +12,32 @@ public class PlayerBase : NetworkBehaviour
 
     public UI_Main uIMain;
 
-    void Awake()
+    public void Start()
     {
         myNetworkManager = FindObjectOfType<MyNetworkManager>();
         clientManager = FindObjectOfType<ClientManager>();
         levelManager = FindObjectOfType<LevelManager>();
 
-        //if (!netIdentity.isLocalPlayer)
-            //return;
+        if (!netIdentity.isLocalPlayer)
+            return;
 
         uIMain = FindObjectOfType<UI_Main>();
         uIMain.playerBase = this;
     }
 
-    [Client]
     public void ChangeClass(int classObjIndex)
     {
         Player player = GetComponent<Player>();
         if (player != null)
-            player.playerWeapon.controls.Dispose();
+        {
+            if(player.playerWeapon != null)
+                player.playerWeapon.controls.Dispose();
+        }
 
-        CmdChangeClass(classObjIndex);
+        if(!netIdentity.isServer)
+            CmdChangeClass(classObjIndex);
+        else
+            myNetworkManager.ChangePlayer(connectionToClient, myNetworkManager.spawnPrefabs[classObjIndex]);
     }
 
     [Client]

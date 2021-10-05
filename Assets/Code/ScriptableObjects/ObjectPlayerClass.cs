@@ -2,17 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum PlayerClass { Banker, Convict, Maid }
+public enum PlayerClass { Artist, Banker, Convict, Fireman, Maid, Vet }
 
 [CreateAssetMenu(fileName = "Player Class", menuName = "PlayerClass", order = 1)]
 public class ObjectPlayerClass : ScriptableObject
 {
     [Header("Bluff Text")]
+    public string noise = "Ugh";
     public string discription;
     public string lore;
     [Range(0, 10)] public float specialRateing = 5;
     [Range(0, 10)] public float primaryRateing = 7;
     [Range(0, 10)] public float movementRateing = 8;
+    public Sprite classSprite;
 
     [Header("Player Stats")]
     public PlayerClass playerClass = PlayerClass.Convict;

@@ -18,10 +18,11 @@ public class UI_Health : UI_Base
     {
         float fill = (float)ui_Main.player.health / (float)ui_Main.player.maxHealth;
 
-        if (fill != healthBar.fillAmount)
+        if (healthText.text != ui_Main.player.health.ToString()) //dont do this if health doesnt change
         {
             healthBar.transform.localScale = Vector3.one; //reset the scale incase called too quickly
             healthText.transform.localScale = Vector3.one;
+
             Tween.LocalScale(healthBar.transform, Vector3.one * hurtScale / 2, hurtDuration, 0, hurtCurve);
             Tween.LocalScale(healthText.transform, Vector3.one * hurtScale, hurtDuration, 0, hurtCurve);
 

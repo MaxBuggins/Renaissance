@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 1389204367115464033}
   m_Layer: 0
   m_Name: SpectatorCamera
-  m_TagString: Untagged
+  m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -160,7 +160,7 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   rotationLerpTime: 0.025
-  invertY: 0
+  invertY: 1
 --- !u!114 &1389204367115464032
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -175,6 +175,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
+  uIMain: {fileID: 0}
 --- !u!114 &1389204367115464033
 MonoBehaviour:
   m_ObjectHideFlags: 0

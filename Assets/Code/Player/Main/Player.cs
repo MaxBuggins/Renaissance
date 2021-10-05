@@ -107,10 +107,9 @@ public class Player : PlayerBase
         controls.Game.Move.performed += ctx => move = ctx.ReadValue<Vector2>();
         controls.Game.Move.canceled += ctx => move = Vector2.zero;
 
-        controls.Game.Pause.performed += funnyer => Pause(!paused);
+        controls.Game.Pause.performed += funnyer => Pause(!paused, 1);
 
-        controls.Game.ChangeClass.performed += funnyiest => uIMain.DisplayClassDetails(0);
-        controls.Game.ChangeClass.performed += funniestest => Pause(true, false);
+        controls.Game.ChangeClass.performed += funnyiest => Pause(!paused, 2);
 
         controls.Game.Spectate.performed += funnyiestestest => Spectate();
 
@@ -132,10 +131,13 @@ public class Player : PlayerBase
         lastPos = transform.position;
 
         uIMain.UIUpdate(); //update the ui now that everything is set
+
+        base.OnStartLocalPlayer();
     }
 
     private void Start() //for all to run
     {
+        base.Start();
         character = GetComponent<CharacterController>();
         audioSource = GetComponent<AudioSource>();
         netTrans = GetComponent<NetworkTransform>();
@@ -190,16 +192,6 @@ public class Player : PlayerBase
     //all run
     private void LateUpdate()
     {
-        //if (Mathf.Abs(Vector3.Distance(transform.position, lastPos)) > 0.1f)
-        //{
-        //   if (audioSource.isPlaying)
-        //       return;
-
-        //   audioSource.clip = playerClass.walkCycle;
-        //    audioSource.Play();
-        //}
-        //For all clients to run so they can hear really great sounds like RUN,RUN run from the sanvwich
-
         float fallSpeed = (transform.position.y - lastPos.y);
 
 
@@ -274,13 +266,21 @@ public class Player : PlayerBase
         }
     }
 
-    public void Pause(bool pause, bool pauseMenu = true)
+    public void Pause(bool pause, int menuType)
     {
         //Disable controls somehow without disabling pause control
         paused = pause;
 
-        if(pauseMenu)
+        if (menuType == 1)
             uIMain.Pause(pause);
+
+        else if (menuType == 2) //stupid ui code is 
+        {
+            if (pause)
+                uIMain.DisplayClassDetails(0);
+            else
+                uIMain.Pause(false);
+        }
 
         if (pause == true)
             Cursor.lockState = CursorLockMode.None;
@@ -422,6 +422,9 @@ public class Player : PlayerBase
         if (isLocalPlayer)
         {
             playerCam.onDeath();
+
+            uIMain.UIUpdate();
+            uIMain.OnDeathUI(!alive);
             GetComponentInChildren<PlayerWeapon>().EndSpecial();
 
             if (alive == true)
@@ -586,7 +589,7 @@ public class Player : PlayerBase
             score -= 1;
 
             //if (dropOnDeath == null)
-                //return;
+            //return;
 
             //GameObject spawned = Instantiate(dropOnDeath, transform.position, transform.rotation, null);
 

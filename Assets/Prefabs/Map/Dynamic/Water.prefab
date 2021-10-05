@@ -133,12 +133,15 @@ MonoBehaviour:
   syncInterval: 0.1
   damage: 9999
   hurtType: 1
+  statusEffect: 0
+  statusMagnitude: 0
+  statusDuration: 0
   destoryOnHurt: 0
   damagePerSeconds: 0.2
   ignorOwner: 1
   moveForce: 1
   collisionForce: 0
-  upwardsForce: 0
+  upwardsForce: 15
   maxVelocity: 0
   owner: {fileID: 0}
   ownerID: 0

@@ -5,6 +5,27 @@ using Mirror;
 
 public class MyNetworkManager : NetworkManager
 {
+    public override void OnClientConnect(NetworkConnection conn)
+    {
+        var hud = FindObjectOfType<NetworkManagerHUD>();
+
+        if (hud != null) //TEMPARAY
+            hud.showGUI = false;
+
+        base.OnClientConnect(conn);
+    }
+
+    public override void OnClientDisconnect(NetworkConnection conn)
+    {
+        var hud = FindObjectOfType<NetworkManagerHUD>();
+
+        if (hud != null) //TEMPARAY
+            hud.showGUI = true;
+
+        Cursor.lockState = CursorLockMode.None;
+
+        base.OnClientDisconnect(conn);
+    }
 
     public void ChangePlayer(NetworkConnection conn, GameObject newPrefab)
     {
