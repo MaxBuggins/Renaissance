@@ -1012,8 +1012,8 @@
     ],
     "m_VertexContext": {
         "m_Position": {
-            "x": 0.00005435943603515625,
-            "y": -20.799962997436525
+            "x": 2381.60009765625,
+            "y": 1343.2000732421875
         },
         "m_Blocks": [
             {
@@ -1046,10 +1046,10 @@
                 "m_Id": "5a051603add345268f2f4ad9e7315b14"
             },
             {
-                "m_Id": "3a9b01d0e9e54cd7b716595d67569c52"
+                "m_Id": "3475919b4f3244948aa396aaadd9fa87"
             },
             {
-                "m_Id": "3475919b4f3244948aa396aaadd9fa87"
+                "m_Id": "3a9b01d0e9e54cd7b716595d67569c52"
             },
             {
                 "m_Id": "cac3a5ecb00e46149b964fa1c023c675"
@@ -1060,7 +1060,8 @@
         "serializedMesh": {
             "m_SerializedMesh": "{\"mesh\":{\"fileID\":10209,\"guid\":\"0000000000000000e000000000000000\",\"type\":0}}",
             "m_Guid": ""
-        }
+        },
+        "preventRotation": false
     },
     "m_Path": "Shader Graphs",
     "m_GraphPrecision": 1,
@@ -5004,7 +5005,7 @@
     "m_SurfaceType": 1,
     "m_ZTestMode": 4,
     "m_ZWriteControl": 0,
-    "m_AlphaMode": 0,
+    "m_AlphaMode": 1,
     "m_RenderFace": 0,
     "m_AlphaClip": false,
     "m_CastShadows": true,

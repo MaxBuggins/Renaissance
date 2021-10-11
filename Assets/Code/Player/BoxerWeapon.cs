@@ -65,13 +65,13 @@ public class BoxerWeapon : PlayerWeapon
 
             if (chargeTime >= chargeDuration)
             {
-                player.CmdSpawnObject(3, player.transform.position - Vector3.up, Vector3.zero, false, false);
+                player.CmdSpawnObject(2, player.transform.position - Vector3.up, Vector3.zero, false, false);
                 EndSpecial();
             }
 
             else if (player.character.isGrounded)
             {
-                player.CmdSpawnObject(3, player.transform.position - Vector3.up, Vector3.zero, false, false);
+                player.CmdSpawnObject(2, player.transform.position - Vector3.up, Vector3.zero, false, false);
                 EndSpecial();
             }
         }
@@ -95,7 +95,7 @@ public class BoxerWeapon : PlayerWeapon
 
     void Punch()
     {
-        player.CmdSpawnObject(0, Vector3.zero, transform.eulerAngles, true, true);
+        player.CmdSpawnObject(0, Vector3.zero, transform.eulerAngles, false, true);
         player.velocity += transform.forward * punchVelocity;
 
 

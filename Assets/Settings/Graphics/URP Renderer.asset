@@ -70,7 +70,7 @@ MonoBehaviour:
     dBufferSettings:
       surfaceData: 0
     screenSpaceSettings:
-      normalBlend: 1
-      useGBuffer: 1
+      normalBlend: 2
+      useGBuffer: 0
   m_CopyDepthPS: {fileID: 4800000, guid: d6dae50ee9e1bfa4db75f19f99355220, type: 3}
   m_DBufferClear: {fileID: 4800000, guid: f056d8bd2a1c7e44e9729144b4c70395, type: 3}

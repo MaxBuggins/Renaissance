@@ -23,6 +23,8 @@ public class ClientManager : MonoBehaviour
 
         playerName = "NoNameNed" + Random.Range(0, 99);
         playerColour = new Color(Random.Range(0f, 1f), Random.Range(0f, 1f), Random.Range(0f, 1f));
+
+        UpdateMap(selectedMap);
     }
 
     void Update()

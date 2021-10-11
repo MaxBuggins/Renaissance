@@ -22,7 +22,7 @@ MonoBehaviour:
   movementRateing: 8
   classSprite: {fileID: 1253338970, guid: 70fbd5fc4d34fbd49ae226942d548b39, type: 3}
   playerClass: 2
-  maxHealth: 130
+  maxHealth: 150
   maxSpecial: 10
   spawnSpecial: 4
   specialChargeRate: 6
@@ -31,7 +31,7 @@ MonoBehaviour:
   sideSpeedMultiplyer: 0.9
   airMovementMultiplyer: 0.6
   gravitY: -50
-  fricktion: 3.25
+  fricktion: 3.6
   maxMoveVelocity: 10
   jumpHeight: 1
   coyotTime: 0.3

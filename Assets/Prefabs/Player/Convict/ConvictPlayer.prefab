@@ -35,7 +35,6 @@ Transform:
   m_Children:
   - {fileID: 1297409024068175120}
   - {fileID: 2423154569267946658}
-  - {fileID: 3817251354746444796}
   - {fileID: 5619366544013268854}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -244,7 +243,6 @@ MonoBehaviour:
   spawnableObjects:
   - {fileID: 9135064866333483514, guid: e5d4d549e335e3e4dad3c3d49731c6fc, type: 3}
   - {fileID: 2809265603616378744, guid: 48120d00173fdf94ea015c5ef7850de3, type: 3}
-  - {fileID: 5992463858369092232, guid: 924991733bc480f4ea9f9751f10ac2ce, type: 3}
   - {fileID: 8654127821600653479, guid: 8a320f3a023063741a32ae1781436924, type: 3}
   body: {fileID: 3357997336564841528}
   playerAnimator: {fileID: 4466835560443636596}
@@ -281,9 +279,10 @@ Transform:
   m_LocalPosition: {x: 0, y: -1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 3817251354746444796}
   m_Father: {fileID: 103855353412878191}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!82 &4834736964788235404
 AudioSource:
@@ -529,11 +528,11 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 103855353412878191}
+    m_TransformParent: {fileID: 5619366544013268854}
     m_Modifications:
     - target: {fileID: 102834390934132011, guid: 924991733bc480f4ea9f9751f10ac2ce, type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 102834390934132011, guid: 924991733bc480f4ea9f9751f10ac2ce, type: 3}
       propertyPath: m_LocalScale.x
@@ -549,7 +548,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 102834390934132011, guid: 924991733bc480f4ea9f9751f10ac2ce, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.75
+      value: 0.25
       objectReference: {fileID: 0}
     - target: {fileID: 102834390934132011, guid: 924991733bc480f4ea9f9751f10ac2ce, type: 3}
       propertyPath: m_LocalPosition.z

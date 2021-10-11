@@ -20,7 +20,7 @@ public class UI_ClassDetails : MonoBehaviour
         title.text = playerClass.name;
         noise.text = playerClass.noise;
         discription.text = playerClass.discription;
-        health.fillAmount = (float)playerClass.maxHealth / 130;
+        health.fillAmount = (float)playerClass.maxHealth / 150;
         speed.fillAmount = playerClass.movementRateing / 10;
         special.fillAmount = playerClass.specialRateing / 10;
         primary.fillAmount = playerClass.primaryRateing / 10;

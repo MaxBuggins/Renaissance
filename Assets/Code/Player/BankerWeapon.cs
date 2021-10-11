@@ -92,7 +92,7 @@ public class BankerWeapon : PlayerWeapon
     {
         player.playerCam.currentOffset -= swingRot;
 
-        player.CmdSpawnObject(0, Vector3.zero, transform.eulerAngles, true, true);
+        player.CmdSpawnObject(0, Vector3.zero, transform.eulerAngles, false, true);
         //player.velocity += transform.forward * punchVelocity;
         base.UsePrimary();
         punchHand.transform.position -= transform.forward * 0.75f;

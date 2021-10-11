@@ -21,7 +21,7 @@ public class ItemPickUp : NetworkBehaviour
 
     public enum PowerUp { None, Jump, Speed }
 
-    public int health;
+    [Range(0,1)] public float healthPercentage; //relative to player max health
     public int special;
     public PowerUp powerUp = PowerUp.None;
 
@@ -73,7 +73,7 @@ public class ItemPickUp : NetworkBehaviour
             if (player.health <= 0)
                 return;
 
-            player.Hurt(-health); //makes player gain health (WACKY)
+            player.Hurt((int)(-player.maxHealth * healthPercentage)); //makes player gain health (WACKY)
             player.ServerAddSpecial(special);
 
             if (powerUp != PowerUp.None)
