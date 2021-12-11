@@ -9,6 +9,8 @@ public class MoveingObject : MonoBehaviour
     public MoveMode moveMode = MoveMode.constantDirectionRight;
     
     public float moveSpeed = 5;
+
+    public bool localDistance = false;
     public float stopDistance = 0;
 
     private Vector3 orginPos;
@@ -45,7 +47,17 @@ public class MoveingObject : MonoBehaviour
                 }
         }
 
-        if (Vector3.Distance(orginPos, transform.position) > stopDistance)
-            enabled = false;
+
+        if (localDistance)
+        {
+            if (Vector3.Distance(Vector3.zero, transform.localPosition) > stopDistance)
+            {
+                enabled = false;
+            }
+        }
+
+        else
+            if (Vector3.Distance(orginPos, transform.position) > stopDistance)
+                enabled = false;
     }
 }

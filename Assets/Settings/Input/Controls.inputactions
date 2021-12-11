@@ -11,7 +11,8 @@
                     "id": "6a0062fa-e993-4865-b9cd-6c9779f69e00",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "Move",
@@ -19,7 +20,8 @@
                     "id": "d9e4ae90-b421-43cc-be28-02f11c25d445",
                     "expectedControlType": "Vector2",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": true
                 },
                 {
                     "name": "Look",
@@ -27,7 +29,8 @@
                     "id": "dbfcc4c5-c275-4692-a6a1-291a69aa3a41",
                     "expectedControlType": "Vector2",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": true
                 },
                 {
                     "name": "Primary",
@@ -35,7 +38,8 @@
                     "id": "f35b7fa4-681f-45c6-ae7f-64674c497c15",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "Seconday",
@@ -43,7 +47,8 @@
                     "id": "ea21c587-262c-4c4b-a8cc-ab5a324c9973",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "Special",
@@ -51,7 +56,8 @@
                     "id": "5a32aada-c0a8-4d4d-9781-5caf8a554204",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "Pause",
@@ -59,7 +65,8 @@
                     "id": "68b19e54-7a96-4f17-8a41-9f3febe35be1",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "ChangeClass",
@@ -67,7 +74,8 @@
                     "id": "674189a9-1a0f-48ef-9af7-cf1cee37eece",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "Message",
@@ -75,7 +83,8 @@
                     "id": "2b7241a5-5153-479c-8d97-60a0cc0e736c",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "React",
@@ -83,7 +92,8 @@
                     "id": "07426cf9-8fd7-4b9c-b382-7d9923ed386d",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": true
                 },
                 {
                     "name": "Reload",
@@ -91,7 +101,8 @@
                     "id": "2dc5acf4-2b0c-4e91-8d71-72aaf486a863",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "Spectate",
@@ -99,7 +110,17 @@
                     "id": "ff468679-1707-41c4-9a3e-b388b0707410",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "ShowScore",
+                    "type": "Button",
+                    "id": "42ed3010-dd39-4603-bc40-e7c23208cf81",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -388,6 +409,17 @@
                     "action": "Spectate",
                     "isComposite": false,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "318da4b6-a994-4786-9a3c-349b4919b49f",
+                    "path": "<Keyboard>/tab",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ShowScore",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         },
@@ -401,7 +433,8 @@
                     "id": "f5c268e6-56de-4e9d-b645-131044e1c384",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "Move",
@@ -409,7 +442,8 @@
                     "id": "bc719200-9948-4ea6-95c0-6697464ebfb7",
                     "expectedControlType": "Vector2",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": true
                 }
             ],
             "bindings": [

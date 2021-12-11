@@ -88,7 +88,6 @@ public class BoxerWeapon : PlayerWeapon
         if (timeSincePunch < punchCooldown)
             return;
 
-        punchHand.transform.position += transform.forward * 0.75f;
         Invoke(nameof(Punch), punchDelay);
         timeSincePunch = 0;
     }
@@ -103,7 +102,6 @@ public class BoxerWeapon : PlayerWeapon
         player.playerCam.currentOffset += punchRot;
 
         base.UsePrimary();
-        punchHand.transform.position -= transform.forward * 0.75f;
     }
 
 

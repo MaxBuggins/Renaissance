@@ -13,13 +13,18 @@ MonoBehaviour:
   m_Name: Banker
   m_EditorClassIdentifier: 
   noise: '"Ca-Ching"'
-  discription: Shoot your gun...  You could also wave your briefcase around paper
-    cuts hurt.
+  discription: Shoot your gun...  Wave your briefcase around and give the enemy paper
+    cuts.
   lore: A man. remor has it.
   specialRateing: 4
   primaryRateing: 9
   movementRateing: 6
   classSprite: {fileID: 1303225409, guid: 70fbd5fc4d34fbd49ae226942d548b39, type: 3}
+  Leter: {fileID: -319085203, guid: 909c879f86d2b88448676866d9ea33fe, type: 3}
+  color:
+    serializedVersion: 2
+    rgba: 5898198
+  pattern: {fileID: -62998697, guid: 70ad3053f0d05684f85c9b1f7bb5c9e5, type: 3}
   playerClass: 1
   maxHealth: 100
   maxSpecial: 10

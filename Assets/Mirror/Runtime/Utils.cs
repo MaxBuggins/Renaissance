@@ -23,12 +23,6 @@ namespace Mirror
         ClientRpc
     }
 
-    [Obsolete("Version has never been used, neither by UNET nor by Mirror.")]
-    public enum Version
-    {
-        Current = 1
-    }
-
     // channels are const ints instead of an enum so people can add their own
     // channels (can't extend an enum otherwise).
     //
@@ -40,11 +34,6 @@ namespace Mirror
     {
         public const int Reliable = 0;      // ordered
         public const int Unreliable = 1;    // unordered
-
-        [Obsolete("Use Channels.Reliable instead")]
-        public const int DefaultReliable = Reliable;
-        [Obsolete("Use Channels.Unreliable instead")]
-        public const int DefaultUnreliable = Unreliable;
     }
 
     // -- helpers for float conversion without allocations --
@@ -117,10 +106,16 @@ namespace Mirror
 
             if (prefab == null)
             {
-                Debug.LogError("Failed to find prefab parent for scene object [name:" + gameObject.name + "]");
+                Debug.LogError($"Failed to find prefab parent for scene object [name:{gameObject.name}]");
                 return false;
             }
             return true;
         }
+
+        // is a 2D point in screen? (from ummorpg)
+        // (if width = 1024, then indices from 0..1023 are valid (=1024 indices)
+        public static bool IsPointInScreen(Vector2 point) =>
+            0 <= point.x && point.x < Screen.width &&
+            0 <= point.y && point.y < Screen.height;
     }
 }

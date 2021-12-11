@@ -23,7 +23,7 @@ namespace Mirror
         // internal buffer
         // byte[] pointer would work, but we use ArraySegment to also support
         // the ArraySegment constructor
-        internal ArraySegment<byte> buffer;
+        ArraySegment<byte> buffer;
 
         /// <summary>Next position to read from the buffer</summary>
         // 'int' is the best type for .Position. 'short' is too small if we send >32kb which would result in negative .Position
@@ -32,6 +32,9 @@ namespace Mirror
 
         /// <summary>Total number of bytes to read from buffer</summary>
         public int Length => buffer.Count;
+
+        /// <summary>Remaining bytes that can be read, for convenience.</summary>
+        public int Remaining => Length - Position;
 
         public NetworkReader(byte[] bytes)
         {
@@ -43,11 +46,25 @@ namespace Mirror
             buffer = segment;
         }
 
+        // sometimes it's useful to point a reader on another buffer instead of
+        // allocating a new reader (e.g. NetworkReaderPool)
+        public void SetBuffer(byte[] bytes)
+        {
+            buffer = new ArraySegment<byte>(bytes);
+            Position = 0;
+        }
+
+        public void SetBuffer(ArraySegment<byte> segment)
+        {
+            buffer = segment;
+            Position = 0;
+        }
+
         public byte ReadByte()
         {
             if (Position + 1 > buffer.Count)
             {
-                throw new EndOfStreamException("ReadByte out of range:" + ToString());
+                throw new EndOfStreamException($"ReadByte out of range:{ToString()}");
             }
             return buffer.Array[buffer.Offset + Position++];
         }
@@ -59,7 +76,7 @@ namespace Mirror
             // check if passed byte array is big enough
             if (count > bytes.Length)
             {
-                throw new EndOfStreamException("ReadBytes can't read " + count + " + bytes because the passed byte[] only has length " + bytes.Length);
+                throw new EndOfStreamException($"ReadBytes can't read {count} + bytes because the passed byte[] only has length {bytes.Length}");
             }
 
             ArraySegment<byte> data = ReadBytesSegment(count);
@@ -73,7 +90,7 @@ namespace Mirror
             // check if within buffer limits
             if (Position + count > buffer.Count)
             {
-                throw new EndOfStreamException("ReadBytesSegment can't read " + count + " bytes because it would read past the end of the stream. " + ToString());
+                throw new EndOfStreamException($"ReadBytesSegment can't read {count} bytes because it would read past the end of the stream. {ToString()}");
             }
 
             // return the segment
@@ -112,20 +129,9 @@ namespace Mirror
         public static byte ReadByte(this NetworkReader reader) => reader.ReadByte();
         public static sbyte ReadSByte(this NetworkReader reader) => (sbyte)reader.ReadByte();
         public static char ReadChar(this NetworkReader reader) => (char)reader.ReadUShort();
-
-        // Deprecated 2021-05-18
-        [Obsolete("We've cleaned up the API. Use ReadBool instead.")]
-        public static bool ReadBoolean(this NetworkReader reader) => reader.ReadBool();
         public static bool ReadBool(this NetworkReader reader) => reader.ReadByte() != 0;
-
-        // Deprecated 2021-05-18
-        [Obsolete("We've cleaned up the API. Use ReadShort instead.")]
-        public static short ReadInt16(this NetworkReader reader) => reader.ReadShort();
         public static short ReadShort(this NetworkReader reader) => (short)reader.ReadUShort();
 
-        // Deprecated 2021-05-18
-        [Obsolete("We've cleaned up the API. Use ReadUShort instead.")]
-        public static ushort ReadUInt16(this NetworkReader reader) => reader.ReadUShort();
         public static ushort ReadUShort(this NetworkReader reader)
         {
             ushort value = 0;
@@ -134,14 +140,8 @@ namespace Mirror
             return value;
         }
 
-        // Deprecated 2021-05-18
-        [Obsolete("We've cleaned up the API. Use ReadInt instead.")]
-        public static int ReadInt32(this NetworkReader reader) => reader.ReadInt();
         public static int ReadInt(this NetworkReader reader) => (int)reader.ReadUInt();
 
-        // Deprecated 2021-05-18
-        [Obsolete("We've cleaned up the API. Use ReadUInt instead.")]
-        public static uint ReadUInt32(this NetworkReader reader) => reader.ReadUInt();
         public static uint ReadUInt(this NetworkReader reader)
         {
             uint value = 0;
@@ -152,14 +152,8 @@ namespace Mirror
             return value;
         }
 
-        // Deprecated 2021-05-18
-        [Obsolete("We've cleaned up the API. Use ReadLong instead.")]
-        public static long ReadInt64(this NetworkReader reader) => reader.ReadLong();
         public static long ReadLong(this NetworkReader reader) => (long)reader.ReadULong();
 
-        // Deprecated 2021-05-18
-        [Obsolete("We've cleaned up the API. Use ReadULong instead.")]
-        public static ulong ReadUInt64(this NetworkReader reader) => reader.ReadULong();
         public static ulong ReadULong(this NetworkReader reader)
         {
             ulong value = 0;
@@ -174,9 +168,6 @@ namespace Mirror
             return value;
         }
 
-        // Deprecated 2021-05-18
-        [Obsolete("We've cleaned up the API. Use ReadSingle instead.")]
-        public static float ReadSingle(this NetworkReader reader) => reader.ReadFloat();
         public static float ReadFloat(this NetworkReader reader)
         {
             UIntFloat converter = new UIntFloat();
@@ -213,7 +204,7 @@ namespace Mirror
             // make sure it's within limits to avoid allocation attacks etc.
             if (realSize >= NetworkWriter.MaxStringLength)
             {
-                throw new EndOfStreamException("ReadString too long: " + realSize + ". Limit is: " + NetworkWriter.MaxStringLength);
+                throw new EndOfStreamException($"ReadString too long: {realSize}. Limit is: {NetworkWriter.MaxStringLength}");
             }
 
             ArraySegment<byte> data = reader.ReadBytesSegment(realSize);
@@ -244,12 +235,20 @@ namespace Mirror
 
         public static Vector2 ReadVector2(this NetworkReader reader) => new Vector2(reader.ReadFloat(), reader.ReadFloat());
         public static Vector3 ReadVector3(this NetworkReader reader) => new Vector3(reader.ReadFloat(), reader.ReadFloat(), reader.ReadFloat());
+        // TODO add nullable support to weaver instead
+        public static Vector3? ReadVector3Nullable(this NetworkReader reader) => reader.ReadBool() ? ReadVector3(reader) : default;
         public static Vector4 ReadVector4(this NetworkReader reader) => new Vector4(reader.ReadFloat(), reader.ReadFloat(), reader.ReadFloat(), reader.ReadFloat());
         public static Vector2Int ReadVector2Int(this NetworkReader reader) => new Vector2Int(reader.ReadInt(), reader.ReadInt());
         public static Vector3Int ReadVector3Int(this NetworkReader reader) => new Vector3Int(reader.ReadInt(), reader.ReadInt(), reader.ReadInt());
         public static Color ReadColor(this NetworkReader reader) => new Color(reader.ReadFloat(), reader.ReadFloat(), reader.ReadFloat(), reader.ReadFloat());
+        // TODO add nullable support to weaver instead
+        public static Color? ReadColorNullable(this NetworkReader reader) => reader.ReadBool() ? new Color(reader.ReadFloat(), reader.ReadFloat(), reader.ReadFloat(), reader.ReadFloat()) : default;
         public static Color32 ReadColor32(this NetworkReader reader) => new Color32(reader.ReadByte(), reader.ReadByte(), reader.ReadByte(), reader.ReadByte());
+        // TODO add nullable support to weaver instead
+        public static Color32? ReadColor32Nullable(this NetworkReader reader) => reader.ReadBool() ? new Color32(reader.ReadByte(), reader.ReadByte(), reader.ReadByte(), reader.ReadByte()) : default;
         public static Quaternion ReadQuaternion(this NetworkReader reader) => new Quaternion(reader.ReadFloat(), reader.ReadFloat(), reader.ReadFloat(), reader.ReadFloat());
+        // TODO add nullable support to weaver instead
+        public static Quaternion? ReadQuaternionNullable(this NetworkReader reader) => reader.ReadBool() ? ReadQuaternion(reader) : default;
         public static Rect ReadRect(this NetworkReader reader) => new Rect(reader.ReadFloat(), reader.ReadFloat(), reader.ReadFloat(), reader.ReadFloat());
         public static Plane ReadPlane(this NetworkReader reader) => new Plane(reader.ReadVector3(), reader.ReadFloat());
         public static Ray ReadRay(this NetworkReader reader) => new Ray(reader.ReadVector3(), reader.ReadVector3());
@@ -303,10 +302,15 @@ namespace Mirror
             if (netId == 0)
                 return null;
 
-            if (NetworkIdentity.spawned.TryGetValue(netId, out NetworkIdentity identity))
-            {
-                return identity;
-            }
+            // look in server spawned
+            if (NetworkServer.active &&
+                NetworkServer.spawned.TryGetValue(netId, out NetworkIdentity serverIdentity))
+                return serverIdentity;
+
+            // look in client spawned
+            if (NetworkClient.active &&
+                NetworkClient.spawned.TryGetValue(netId, out NetworkIdentity clientIdentity))
+                return clientIdentity;
 
             // a netId not being in spawned is common.
             // for example, "[SyncVar] NetworkIdentity target" netId would not
@@ -317,23 +321,19 @@ namespace Mirror
 
         public static NetworkBehaviour ReadNetworkBehaviour(this NetworkReader reader)
         {
-            uint netId = reader.ReadUInt();
-            if (netId == 0)
-                return null;
-
-            // if netId is not 0, then index is also sent to read before returning
-            byte componentIndex = reader.ReadByte();
-
-            if (NetworkIdentity.spawned.TryGetValue(netId, out NetworkIdentity identity))
-            {
-                return identity.NetworkBehaviours[componentIndex];
-            }
+            // reuse ReadNetworkIdentity, get the component at index
+            NetworkIdentity identity = ReadNetworkIdentity(reader);
 
             // a netId not being in spawned is common.
             // for example, "[SyncVar] NetworkBehaviour target" netId would not
             // be known on client if the monster walks out of proximity for a
             // moment. no need to log any error or warning here.
-            return null;
+            if (identity == null)
+                return null;
+
+            // if identity isn't null, then index is also sent to read before returning
+            byte componentIndex = reader.ReadByte();
+            return identity.NetworkBehaviours[componentIndex];
         }
 
         public static T ReadNetworkBehaviour<T>(this NetworkReader reader) where T : NetworkBehaviour
@@ -396,7 +396,8 @@ namespace Mirror
 
         public static Uri ReadUri(this NetworkReader reader)
         {
-            return new Uri(reader.ReadString());
+            string uriString = reader.ReadString();
+            return (string.IsNullOrEmpty(uriString) ? null : new Uri(uriString));
         }
     }
 }

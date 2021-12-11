@@ -32,10 +32,9 @@ public class OnIdle : NetworkBehaviour
 
     void Update()
     {
-
         if (player.health == 0)
         {
-            spawnDelay = 2;
+            spawnDelay = 1.5f;
             return;
         }
 
@@ -59,11 +58,10 @@ public class OnIdle : NetworkBehaviour
             special += minSpecial;
             player.specialChargeRate = special;
 
-            //if (player.special >= player.maxSpecial)
-                //player.Hurt(5);
-
-
             timeSinceMovement = 0;
+
+            //if (player.special >= player.maxSpecial)
+            //player.Hurt(5);
         }
         /*
 
@@ -86,16 +84,16 @@ public class OnIdle : NetworkBehaviour
         }
         */
 
-            //else if (timeSinceIdle > effectDelay)
-            //{
-            //player.AddSpecial(moveSpecial);
+        //else if (timeSinceIdle > effectDelay)
+        //{
+        //player.AddSpecial(moveSpecial);
 
-            //if(player.special == 0)
-            //{
-            //    player.Hurt(damagePer);
-            //}
-            //ResetTimer();
-            //}
+        //if(player.special == 0)
+        //{
+        //    player.Hurt(damagePer);
+        //}
+        //ResetTimer();
+        //}
     }
 
     void ResetTimer()

@@ -5,18 +5,28 @@ using Mirror;
 
 public class Spawner : NetworkBehaviour
 {
+    public Transform[] spawnPoints;
     public float spawnDelay;
 
     public GameObject gObject;
 
     void Start()
     {
-        Invoke(nameof(SpawnObject), spawnDelay);
+        if (spawnPoints.Length < 1)
+        {
+            spawnPoints = new Transform[1];
+            spawnPoints[0] = transform;
+        }
+
+            Invoke(nameof(SpawnObject), spawnDelay);
     }
 
     void SpawnObject()
     {
-        var spawn = Instantiate(gObject, transform.position, transform.rotation);
+        Transform trans = spawnPoints[Random.Range(0, spawnPoints.Length)];
+        var spawn = Instantiate(gObject, trans.position, trans.rotation);
+        
+     
         NetworkServer.Spawn(spawn);
 
         //repeat

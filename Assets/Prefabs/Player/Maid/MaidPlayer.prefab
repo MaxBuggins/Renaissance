@@ -351,17 +351,11 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0.1
   uIMain: {fileID: 0}
-  score: 0
-  killStreak: 0
   maxHealth: 100
   health: 100
   statusEffects: []
   maxSpecial: 10
   special: 4
-  playerName: NoNameNed
-  playerColour:
-    serializedVersion: 2
-    rgba: 4294967295
   playerClass: {fileID: 11400000, guid: 5cd36182f1eca7941ad109a277a1e739, type: 2}
   cameraOffset: {x: 0, y: 1, z: 0}
   speed: 5
@@ -377,11 +371,17 @@ MonoBehaviour:
   slideFriction: 0.3
   specialChargeRate: 0
   velocity: {x: 0, y: 0, z: 0}
+  Grounded: 1
+  canStand: 1
+  GroundLayers:
+    serializedVersion: 2
+    m_Bits: 1
   fallTime: 0
   paused: 0
   move: {x: 0, y: 0}
   lastPos: {x: 0, y: 0, z: 0}
-  cameraPrefab: {fileID: 5393368813326551947, guid: 21ebc6363fc389a43a08104efd4d3a4f, type: 3}
+  stats: {fileID: 0}
+  cameraPrefab: {fileID: 6812694105276302867, guid: fb1774c1f61fb414894f61a6d3adc2f6, type: 3}
   corpsePrefab: {fileID: 4591324641192208067, guid: 0b1550e55a3b1834a90401ea51d3e4fd, type: 3}
   spawnableObjects:
   - {fileID: 1648451155831128, guid: 8af3b97aa9cf4b545b494ece58511c3d, type: 3}

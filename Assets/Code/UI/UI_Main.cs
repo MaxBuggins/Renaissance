@@ -22,11 +22,13 @@ public class UI_Main : MonoBehaviour
     public GameObject pauseUI;
     public GameObject classUI;
 
+
     public Image reloadRing;
     public Image classPreview;
 
     [HideInInspector] public LevelManager levelManager;
-    [HideInInspector] public List<Player> players = new List<Player>();
+    [HideInInspector] public GameManager gameManager;
+    [HideInInspector] public List<PlayerStats> players = new List<PlayerStats>();
 
     public Transform killFeed;
     public GameObject killLine;
@@ -41,6 +43,7 @@ public class UI_Main : MonoBehaviour
 
     private void Start()
     {
+        gameManager = FindObjectOfType<GameManager>();
         levelManager = FindObjectOfType<LevelManager>();
         eventSystem = FindObjectOfType<EventSystem>();
 
@@ -49,6 +52,8 @@ public class UI_Main : MonoBehaviour
         controls.Game.Message.performed += HOWCANBEBEYONDFUNNY => MsgBox();
 
         controls.Enable();
+
+        players.AddRange(FindObjectsOfType<PlayerStats>());
     }
 
     private void Update()
@@ -59,19 +64,8 @@ public class UI_Main : MonoBehaviour
 
     public void UIUpdate()
     {
-        players.Clear();
-        foreach (Player player in FindObjectsOfType<Player>()) //sort players by score
-        {
-            for(int i = 0; i < players.Count; i ++)
-            {
-                if (player.score >= players[i].score)
-                {
-                    players.Insert(i, player);
-                    break;
-                }
-            }
-            players.Add(player);
-        }
+        players.Sort((p1, p2) => p1.GetScore().CompareTo(p2.GetScore()));
+
 
         foreach (UI_Base ui in uiBases)
             ui.UpdateInfo();
@@ -124,6 +118,11 @@ public class UI_Main : MonoBehaviour
     public void SendMsg(string msg)
     {
         print(msg);
+    }
+
+    public void DisplayScoreBoard()
+    {
+
     }
 
     public void DisplayClassDetails(int classNum)

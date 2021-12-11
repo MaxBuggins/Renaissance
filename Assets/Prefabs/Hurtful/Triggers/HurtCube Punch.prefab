@@ -97,7 +97,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveMode: 1
   moveSpeed: 8
-  stopDistance: 0
+  localDistance: 1
+  stopDistance: 1.25
   path: []
 --- !u!114 &4971274179170382205
 MonoBehaviour:
@@ -112,7 +113,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   unParentOnStart: 0
-  destroyDelay: 0.185
+  destroyDelay: 0.4
   destoryOnServer: 0
 --- !u!1001 &3220047257303096215
 PrefabInstance:
@@ -151,11 +152,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5938456748870400620, guid: 38ea8a53ce5786448b74a77c00b66c67, type: 3}
       propertyPath: damage
-      value: 60
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 5938456748870400620, guid: 38ea8a53ce5786448b74a77c00b66c67, type: 3}
       propertyPath: hurtType
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5938456748870400620, guid: 38ea8a53ce5786448b74a77c00b66c67, type: 3}
+      propertyPath: moveForce
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5938456748870400620, guid: 38ea8a53ce5786448b74a77c00b66c67, type: 3}
       propertyPath: maxVelocity
@@ -163,7 +168,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5938456748870400620, guid: 38ea8a53ce5786448b74a77c00b66c67, type: 3}
       propertyPath: upwardsForce
-      value: 1.5
+      value: 1.25
       objectReference: {fileID: 0}
     - target: {fileID: 5938456748870400620, guid: 38ea8a53ce5786448b74a77c00b66c67, type: 3}
       propertyPath: destoryOnHurt
@@ -171,7 +176,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5938456748870400620, guid: 38ea8a53ce5786448b74a77c00b66c67, type: 3}
       propertyPath: collisionForce
-      value: 7
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 5938456748870400621, guid: 38ea8a53ce5786448b74a77c00b66c67, type: 3}
       propertyPath: m_Name

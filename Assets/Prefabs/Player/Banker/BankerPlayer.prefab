@@ -350,17 +350,11 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0.1
   uIMain: {fileID: 0}
-  score: 0
-  killStreak: 0
   maxHealth: 100
   health: 100
   statusEffects: []
   maxSpecial: 10
   special: 4
-  playerName: 
-  playerColour:
-    serializedVersion: 2
-    rgba: 4294967295
   playerClass: {fileID: 11400000, guid: 1ebd20b878b7de34dbd4906890f7f1c4, type: 2}
   cameraOffset: {x: 0, y: 1, z: 0}
   speed: 5
@@ -376,10 +370,16 @@ MonoBehaviour:
   slideFriction: 0.3
   specialChargeRate: 0
   velocity: {x: 0, y: 0, z: 0}
+  Grounded: 1
+  canStand: 1
+  GroundLayers:
+    serializedVersion: 2
+    m_Bits: 1
   fallTime: 0
   paused: 0
   move: {x: 0, y: 0}
   lastPos: {x: 0, y: 0, z: 0}
+  stats: {fileID: 0}
   cameraPrefab: {fileID: 9007433884827842136, guid: 6c8aaff8b5eb674418a7f9f35c1a16e5, type: 3}
   corpsePrefab: {fileID: 4591324641192208067, guid: 0b1550e55a3b1834a90401ea51d3e4fd, type: 3}
   spawnableObjects:
@@ -418,7 +418,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7807619710598069721}
   m_LocalRotation: {x: -0.7071069, y: -0, z: -0, w: 0.70710677}
-  m_LocalPosition: {x: 0, y: 1, z: 0}
+  m_LocalPosition: {x: 0, y: 1.25, z: 0}
   m_LocalScale: {x: 1.6999999, y: 1.7000002, z: 1.7000002}
   m_ConstrainProportionsScale: 0
   m_Children: []

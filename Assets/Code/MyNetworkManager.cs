@@ -5,12 +5,21 @@ using Mirror;
 
 public class MyNetworkManager : NetworkManager
 {
+    public GameManager gameManager;
+
+    private void Awake()
+    {
+        gameManager = FindObjectOfType<GameManager>();
+        base.Awake();
+    }
+
     public override void OnClientConnect(NetworkConnection conn)
     {
         var hud = FindObjectOfType<NetworkManagerHUD>();
 
-        if (hud != null) //TEMPARAY
-            hud.showGUI = false;
+
+        //if (hud != null) //TEMPARAY
+            //hud.showGUI = false;
 
         base.OnClientConnect(conn);
     }
@@ -19,13 +28,28 @@ public class MyNetworkManager : NetworkManager
     {
         var hud = FindObjectOfType<NetworkManagerHUD>();
 
-        if (hud != null) //TEMPARAY
-            hud.showGUI = true;
+        //if (hud != null) //TEMPARAY
+            //hud.showGUI = true;
 
         Cursor.lockState = CursorLockMode.None;
 
         base.OnClientDisconnect(conn);
     }
+
+/*    public override void OnServerConnect(NetworkConnection conn)
+    {
+
+        PlayerStats playerStat = new PlayerStats();
+
+        gameManager.players.Add(conn.connectionId, playerStat);
+    }
+
+    public override void OnServerDisconnect(NetworkConnection conn)
+    {
+
+        gameManager.players.Remove(conn.connectionId);
+
+    }*/
 
     public void ChangePlayer(NetworkConnection conn, GameObject newPrefab)
     {

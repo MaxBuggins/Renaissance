@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 8086225401986516955}
   - component: {fileID: 1709538238800872205}
   - component: {fileID: 350749121047991361}
+  - component: {fileID: 7063537848656712937}
   m_Layer: 0
   m_Name: PlayerRender
   m_TagString: Untagged
@@ -149,3 +150,16 @@ MonoBehaviour:
     - {fileID: 2297411782406639750, guid: 23738a1366f4d304dae09b673209d745, type: 3}
   blank: {fileID: 2100000, guid: 056509b39ccf46347a7b6f0858ee59fc, type: 2}
   immunityBlank: {fileID: 2100000, guid: 75a21c452e1612f4c8d6b75c3687c6fb, type: 2}
+--- !u!135 &7063537848656712937
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 57809475373917424}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.15
+  m_Center: {x: 0.03, y: 0.73, z: 0}

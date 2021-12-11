@@ -168,7 +168,7 @@ MonoBehaviour:
   sceneId: 0
   serverOnly: 0
   visible: 0
-  m_AssetId: 
+  m_AssetId: 83228cefa628a6b46bcf46fc94816d37
   hasSpawned: 0
 --- !u!114 &422674725444494011
 MonoBehaviour:
@@ -185,14 +185,20 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0.01
   clientAuthority: 1
-  localPositionSensitivity: 0.05
-  localRotationSensitivity: 5
-  localScaleSensitivity: 0.1
-  compressRotation: 1
-  interpolateScale: 1
-  interpolateRotation: 1
-  interpolatePosition: 1
+  sendInterval: 0.05
+  syncPosition: 1
+  syncRotation: 1
   syncScale: 1
+  interpolatePosition: 1
+  interpolateRotation: 1
+  interpolateScale: 1
+  bufferTimeMultiplier: 1
+  bufferSizeLimit: 64
+  catchupThreshold: 4
+  catchupMultiplier: 0.1
+  showGizmos: 0
+  showOverlay: 0
+  overlayColor: {r: 0, g: 0, b: 0, a: 0.5}
 --- !u!114 &7994302210847483638
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -208,17 +214,20 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0.1
   uIMain: {fileID: 0}
-  score: 0
+  userName: ERROR
+  colour:
+    serializedVersion: 2
+    rgba: 4278190080
+  kills: 0
   killStreak: 0
+  assists: 0
+  deaths: 0
+  bonusScore: 0
   maxHealth: 100
   health: 100
   statusEffects: []
   maxSpecial: 10
   special: 4
-  playerName: 
-  playerColour:
-    serializedVersion: 2
-    rgba: 4294967295
   playerClass: {fileID: 11400000, guid: 111dcb192fc61f74cbb00309b9cc4f68, type: 2}
   cameraOffset: {x: 0, y: 1, z: 0}
   speed: 5
@@ -234,6 +243,11 @@ MonoBehaviour:
   slideFriction: 0.3
   specialChargeRate: 0
   velocity: {x: 0, y: 0, z: 0}
+  Grounded: 1
+  canStand: 1
+  GroundLayers:
+    serializedVersion: 2
+    m_Bits: 1
   fallTime: 0
   paused: 0
   move: {x: 0, y: 0}
@@ -548,7 +562,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 102834390934132011, guid: 924991733bc480f4ea9f9751f10ac2ce, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.25
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 102834390934132011, guid: 924991733bc480f4ea9f9751f10ac2ce, type: 3}
       propertyPath: m_LocalPosition.z
@@ -619,12 +633,20 @@ PrefabInstance:
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 5992463858369092232, guid: 924991733bc480f4ea9f9751f10ac2ce, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5992463858369092232, guid: 924991733bc480f4ea9f9751f10ac2ce, type: 3}
       propertyPath: m_TagString
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 8990392293239064048, guid: 924991733bc480f4ea9f9751f10ac2ce, type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 7994302210847483638}
     - target: {fileID: 9105334002308903621, guid: 924991733bc480f4ea9f9751f10ac2ce, type: 3}
       propertyPath: m_AssetId
-      value: 
+      value: 83228cefa628a6b46bcf46fc94816d37
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 2814226512313473711, guid: 924991733bc480f4ea9f9751f10ac2ce, type: 3}

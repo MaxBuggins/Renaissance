@@ -9,9 +9,9 @@ public class SpectatorCamera : PlayerBase
 
     private NetworkIdentity identity;
 
-    void Start()
+    void Start() //ignore the green
     {
-        base.Start();
+        base.Start(); //fixes the green
         identity = GetComponent<NetworkIdentity>();
         if (!identity.isLocalPlayer) //only the spectator uses this
             gameObject.SetActive(false);

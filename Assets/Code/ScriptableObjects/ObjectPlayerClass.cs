@@ -15,6 +15,9 @@ public class ObjectPlayerClass : ScriptableObject
     [Range(0, 10)] public float primaryRateing = 7;
     [Range(0, 10)] public float movementRateing = 8;
     public Sprite classSprite;
+    public Sprite Leter;
+    public Color32 color;
+    public Sprite pattern;
 
     [Header("Player Stats")]
     public PlayerClass playerClass = PlayerClass.Convict;

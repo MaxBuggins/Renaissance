@@ -129,6 +129,8 @@ public class Hurtful : NetworkBehaviour
     [Server]
     public void HurtPlayer(Player player, int damage, HurtType type)
     {
+        print(name + " does " + damage + " to " + player.userName);
+
         if (damage == 0)
             return;
 
@@ -151,7 +153,7 @@ public class Hurtful : NetworkBehaviour
 
         if (owner != null)
         {
-            player.Hurt(damage, type, owner.playerName);
+            player.Hurt(damage, type, owner.userName);
         }
         else
             player.Hurt(damage, type, "");
@@ -165,7 +167,7 @@ public class Hurtful : NetworkBehaviour
             if (owner != null && owner != player) //on owner acturlly killing something (Like a Boss Baby)
             {
                 owner.killStreak += 1;
-                owner.score += 2;
+                owner.kills += 1;
             }
         }
 

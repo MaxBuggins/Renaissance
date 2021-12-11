@@ -6,9 +6,26 @@ using TMPro;
 
 public class Player : PlayerBase
 {
-    [Header("Player Stats")]
-    [SyncVar] public int score = 0;
-    [HideInInspector] [SyncVar] public int killStreak = 0;
+    [Header("Player Charteristics")]
+
+    [SyncVar(hook = nameof(OnNameChanged))]
+    public string userName = "ERROR";
+    [SyncVar(hook = nameof(OnColorChanged))]
+    public Color32 colour = Color.black;
+
+    [SyncVar]
+    public int kills = 0; //umm no idear what this could mean
+    [SyncVar]
+    public int killStreak = 0; //how many kills before you respawn
+
+    [SyncVar]
+    public int assists = 0; //if you were helpful in someones death
+
+    [SyncVar]
+    public int deaths = 0; //you die you death
+
+    [SyncVar]
+    public int bonusScore = 0; //For gameMode unique scores like capturing a flag
 
     [HideInInspector] public int maxHealth = 100;
     [SyncVar(hook = nameof(OnHealthChanged))]
@@ -21,11 +38,6 @@ public class Player : PlayerBase
 
     private float specialChargeTime = 0;
 
-    [Header("Player Info")]
-    [SyncVar(hook = nameof(OnNameChanged))]
-    [HideInInspector] public string playerName = "NoNameNed";
-    [SyncVar(hook = nameof(OnColorChanged))]
-    [HideInInspector] public Color32 playerColour = Color.white;
 
     public ObjectPlayerClass playerClass;
 
@@ -45,7 +57,7 @@ public class Player : PlayerBase
     [HideInInspector] public float coyotTime = 0.3f; //lol mesh has good idears NO WAY
 
     [HideInInspector] public float pushForce = 5f;
-    [HideInInspector] public float slideFriction = 0.3f;
+    public float slideFriction = 0.3f;
 
     public float specialChargeRate;
 
@@ -54,18 +66,34 @@ public class Player : PlayerBase
     public Vector3 velocity;
     private float maxVelocity = 200;
 
-    [HideInInspector] public float fallTime; //for counting seconds of falling
+    [Header("Player Grounded")]
+    [Tooltip("If the character is grounded or not. Not part of the CharacterController built in grounded check")]
+    public bool Grounded = true;
+    public bool canStand = true;
+    [Tooltip("Useful for rough ground")]
+    private float GroundedOffset = 0.85f;
+    [Tooltip("The radius of the grounded check. Should match the radius of the CharacterController")]
+    private float GroundedRadius = 0.35f;
+    [Tooltip("What layers the character uses as ground")]
+    public LayerMask GroundLayers;
+
+    private float jumpDelay;
+    [Tooltip("Time you have been falling")]
+    [HideInInspector] public float fallTime = 0; //for counting seconds of falling downwards
+
     private float deadTime;
 
     [HideInInspector] public bool paused;
 
     [HideInInspector] public Vector2 move;
     [HideInInspector] public Vector3 lastPos;
-    private Vector3 floorNormal;
+    private Vector3 floorNormal = Vector3.up;
 
     [HideInInspector]public Controls controls;
 
     [Header("Refrences")]
+    //public PlayerStats stats;
+
     public GameObject cameraPrefab;
     public GameObject corpsePrefab;
     public GameObject[] spawnableObjects;
@@ -125,8 +153,6 @@ public class Player : PlayerBase
 
         playerWeapon = playerCam.GetComponentInChildren<PlayerWeapon>(); //this is a solution
 
-        CmdSetupPlayer(clientManager.playerName, clientManager.playerColour);
-
         OwnerSpawnPlayer();
         //get the server to spawn player aswell
         CmdSpawnPlayer();
@@ -141,6 +167,7 @@ public class Player : PlayerBase
     private void Start() //for all to run
     {
         base.Start();
+        //stats = GetComponent<PlayerStats>();
         character = GetComponent<CharacterController>();
         audioSource = GetComponent<AudioSource>();
         netTrans = GetComponent<NetworkTransform>();
@@ -175,6 +202,12 @@ public class Player : PlayerBase
             }
         }
 
+        if (Grounded == false && velocity.y < 0)
+            fallTime += Time.fixedDeltaTime;
+
+        else
+            fallTime = 0;
+
 
         if (!isLocalPlayer) //only the player runs whats next
             return;
@@ -187,8 +220,10 @@ public class Player : PlayerBase
             return;
         }
 
+        Grounded = IsGrounded();
+
         Movement();
-        IsGrounded();
+        ApplyGravity();
 
     }
 
@@ -224,7 +259,7 @@ public class Player : PlayerBase
 
         Vector3 movement = transform.right * x + transform.forward * z;
 
-        if (fallTime > coyotTime)
+        if (jumpDelay > coyotTime)
             movement = movement * airMovementMultiplyer;
 
         if (Mathf.Abs(velocity.x) < maxMoveVelocity && Mathf.Abs(velocity.z) < maxMoveVelocity)
@@ -238,21 +273,24 @@ public class Player : PlayerBase
         if (paused) //Temp
             movement = Vector3.zero;
 
+        //Character sliding of surfaces
+        if (Grounded && canStand == false)
+        {
+            Vector3 slopeMovement = Vector3.zero;
+            slopeMovement.x = (1f - floorNormal.y) * floorNormal.x * (1f - slideFriction);
+            slopeMovement.z = (1f - floorNormal.y) * floorNormal.z * (1f - slideFriction);
+
+            //velocity += slopeMovement * -gravitY;
+        }
+
         character.Move((movement + velocity) * Time.fixedDeltaTime); //apply movement to charhcter contoler
 
         velocity += transform.right * x + transform.forward * z;
 
         //isGrounded = (Vector3.Angle(Vector3.up, floorNormal) <= slopeLimit);
 
-        velocity.x = Mathf.Lerp(velocity.x, 0, fricktion * Time.fixedDeltaTime);
-        velocity.z = Mathf.Lerp(velocity.z, 0, fricktion * Time.fixedDeltaTime);
-
-        //Character sliding of surfaces
-        if (character.isGrounded)
-        {
-            velocity.x += (1f - floorNormal.y) * floorNormal.x * (1f - slideFriction);
-            velocity.z += (1f - floorNormal.y) * floorNormal.z * (1f - slideFriction);
-        }
+        velocity.x = Mathf.LerpUnclamped(velocity.x, 0, fricktion * Time.fixedDeltaTime);
+        velocity.z = Mathf.LerpUnclamped(velocity.z, 0, fricktion * Time.fixedDeltaTime);
 
     }
 
@@ -262,10 +300,22 @@ public class Player : PlayerBase
         if (paused)
             return;
 
-        if (fallTime < coyotTime)
+        if (jumpDelay < coyotTime && canStand)
         {
-            fallTime = coyotTime;
-            velocity.y = Mathf.Sqrt(jumpHeight * -2.0f * gravitY * 2); //physics reasons 
+/*        
+ *            RaycastHit hit;
+            if (Physics.Raycast(transform.position, -transform.up, out hit, GroundLayers))
+            {
+                floorNormal = hit.normal;
+            }*/
+
+            jumpDelay = coyotTime;
+            float jumpForce = Mathf.Sqrt(jumpHeight * -2.0f * gravitY * 2);
+            Vector3 jumpVelocity = floorNormal * jumpForce;
+            velocity.x += jumpVelocity.x; //x and z are added to
+            velocity.y = jumpVelocity.y; //y gets set
+            velocity.z += jumpVelocity.z;
+            //velocity.y = Mathf.Sqrt(jumpHeight * -2.0f * gravitY * 2); //physics reasons 
         }
     }
 
@@ -291,25 +341,41 @@ public class Player : PlayerBase
             Cursor.lockState = CursorLockMode.Locked;
     }
 
-    [ClientCallback]
-    void IsGrounded()
-    {
-        bool canStand = (Vector3.Angle(Vector3.up, floorNormal) <= character.slopeLimit);
 
-        if (character.isGrounded == true && canStand)
+    bool IsGrounded()
+    {
+        // set sphere position, with offset
+        Vector3 spherePosition = new Vector3(transform.position.x, transform.position.y - GroundedOffset, transform.position.z);
+        bool isGrounded = Physics.CheckSphere(spherePosition, GroundedRadius, GroundLayers, QueryTriggerInteraction.Ignore);
+
+        if (isGrounded || character.isGrounded) //final check if the player can stand
+        {
+            //bool canStand = (Vector3.Angle(Vector3.up, floorNormal) <= character.slopeLimit);
+            //isGrounded = canStand;
+            isGrounded = true;
+        }
+
+        return (isGrounded);
+    }
+
+    [ClientCallback]
+    void ApplyGravity()
+    {
+        if (Grounded)
         {
             if (velocity.y < 0) //if falling
                 velocity.y = 0; //if grounded then no need to fall
 
-            if (fallTime > 0)
-                fallTime -= Time.fixedDeltaTime * 3;
+            if (jumpDelay > 0)
+                jumpDelay -= Time.fixedDeltaTime * 3;
         }
         else
         {
             velocity.y += gravitY * Time.fixedDeltaTime; //two deltra time cause PHJYSCIS
 
-            if (fallTime < coyotTime)
-                fallTime += Time.fixedDeltaTime;
+
+            if (jumpDelay < coyotTime)
+                jumpDelay += Time.fixedDeltaTime;
 
             //transform.parent = null;
             //transform.rotation = new Quaternion(0, transform.rotation.y, 0, transform.rotation.w);
@@ -320,6 +386,18 @@ public class Player : PlayerBase
     private void OnControllerColliderHit(ControllerColliderHit hit)
     {
         floorNormal = hit.normal;
+
+        float standAngle = Vector3.Angle(Vector3.up, floorNormal);
+
+        if (Mathf.Approximately(standAngle, 90) || standAngle > 90)
+        {
+            floorNormal = Vector3.up;
+            canStand = true;
+        }
+        else
+        {
+            //canStand = standAngle < character.slopeLimit;
+        }
 
         if (!isServer)
             return;
@@ -343,10 +421,11 @@ public class Player : PlayerBase
         body.velocity = pushDir * pushForce;
     }
 
+
     void OnNameChanged(string _Old, string _New)
     {
         //playerAbove.playerNameText.text = playerName;
-        if(isLocalPlayer)
+        if (isLocalPlayer)
             uIMain.UIUpdate();
     }
 
@@ -359,6 +438,7 @@ public class Player : PlayerBase
         //playerMaterialClone.color = _New;
         //GetComponent<Renderer>().material = playerMaterialClone;
     }
+
 
     void OnHealthChanged(int _Old, int _New)
     {
@@ -436,20 +516,12 @@ public class Player : PlayerBase
     }
 
     [Command]
-    public void CmdSetupPlayer(string _name, Color _col)
-    {
-        // player info sent to server, then server updates sync vars which handles it on all clients
-        playerName = _name;
-        playerColour = _col;
-    }
-
-    [Command]
     public void CmdSpawnPlayer()
     {
-        if (netTrans != null)
+        if (netTrans != null && levelManager != null)
         {
             Transform sPoint = levelManager.GetSpawnPoint();
-            netTrans.ServerTeleport(sPoint.position, sPoint.rotation); //spawns player across the server at point
+            netTrans.CmdTeleport(sPoint.position); //spawns player across the server at point
         }
 
         maxHealth = playerClass.maxHealth;
@@ -573,6 +645,19 @@ public class Player : PlayerBase
     }
 
     [Server]
+    public void addScore(int points)
+    {
+        bonusScore += points;
+        TargetUpdateUI(connectionToClient); //update the UI of this user
+    }
+
+    [TargetRpc]
+    public void TargetUpdateUI(NetworkConnection target)
+    {
+        uIMain.UIUpdate();
+    }
+
+    [Server]
     public void Hurt(int damage, HurtType hurtType = HurtType.Death, string killer = "") //can be used to heal just do -damage
     {
         if (health <= 0 || hasEffect(StatusEffect.EffectType.immunity))
@@ -587,9 +672,9 @@ public class Player : PlayerBase
 
         if(health <= 0)
         {
-            levelManager.sendKillMsg(killer, playerName, hurtType);
+            levelManager.sendKillMsg(killer, userName, hurtType);
             playerAbove.topLight.intensity = 0;
-            score -= 1;
+            deaths += 1;
 
             if (spawnOnDeath == null)
                 return;
@@ -667,9 +752,9 @@ public class Player : PlayerBase
     bool hasEffect(StatusEffect.EffectType effectType)
     {
 
-        foreach(StatusEffect stats in statusEffects)
+        foreach(StatusEffect effect in statusEffects)
         {
-            if (stats.effectType == effectType)
+            if (effect.effectType == effectType)
                 return (true);
         }
 
@@ -686,5 +771,17 @@ public class Player : PlayerBase
         }
 
         return (Mathf.Infinity);
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        Color transparentGreen = new Color(0.0f, 1.0f, 0.0f, 0.35f);
+        Color transparentRed = new Color(1.0f, 0.0f, 0.0f, 0.35f);
+
+        if (Grounded) Gizmos.color = transparentGreen;
+        else Gizmos.color = transparentRed;
+
+        // when selected, draw a gizmo in the position of, and matching radius of, the grounded collider
+        Gizmos.DrawSphere(new Vector3(transform.position.x, transform.position.y - GroundedOffset, transform.position.z), GroundedRadius);
     }
 }

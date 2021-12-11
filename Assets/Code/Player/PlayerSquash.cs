@@ -5,12 +5,13 @@ using Mirror;
 
 public class PlayerSquash : MonoBehaviour
 {
-    public float damagePerSpeed = 30;
+    public float damagePerSpeed = 100;
+    public float minFallTime = 0.3f;
 
     public Collider _collider;
 
     public Hurtful hurtful;
-    private Player player;
+    public Player player;
 
     void Start()
     {
@@ -20,21 +21,25 @@ public class PlayerSquash : MonoBehaviour
         if (hurtful == null)
             hurtful = GetComponent<Hurtful>();
 
-        player = GetComponentInParent<Player>();
+        if(player == null)
+            player = GetComponentInParent<Player>();
 
         enabled = player.netIdentity.isServer;
     }
 
+    [Server]
     void Update()
     {
-        float fallSpeed = (player.transform.position.y - player.lastPos.y) * Time.deltaTime;
-        fallSpeed *= 100;
-
-        fallSpeed = Mathf.Abs(fallSpeed);
-
-        hurtful.damage = (int)(fallSpeed * damagePerSpeed);
-
-        if (hurtful.damage <= 10)
+        if (player.fallTime < minFallTime)
+        {
             hurtful.damage = 0;
+            return;
+        }
+
+
+        float fallDamage = Mathf.Pow(player.fallTime, 1.6f) * damagePerSpeed; //thanks desmos
+
+
+        hurtful.damage = (int)(fallDamage);
     }
 }

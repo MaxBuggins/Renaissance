@@ -87,6 +87,7 @@ MonoBehaviour:
   - {fileID: 5237687366650787784, guid: ee3f1c0f5d951bd45872020d2f805069, type: 3}
   - {fileID: 2462042429367237735, guid: 2d6931d4808f06f4da2a63ec9a426ff2, type: 3}
   - {fileID: 1648451155831128, guid: 8af3b97aa9cf4b545b494ece58511c3d, type: 3}
+  gameManager: {fileID: 0}
 --- !u!114 &8227039606038242249
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -101,7 +102,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Port: 7777
   NoDelay: 1
-  Interval: 10
+  Interval: 50
   Timeout: 10000
   FastResend: 2
   CongestionWindow: 0

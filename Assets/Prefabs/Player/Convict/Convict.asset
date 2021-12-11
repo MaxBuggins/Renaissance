@@ -14,13 +14,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   noise: '"Urgh"'
   discription: Get in close with your ball and chain, and then a few jabs hits will
-    finish the job. Worst-case scenario, smash the ground as hard as you can.
+    finish the job. Worst-case scenario, break the ground.
   lore: A heavy man who's convicted of stealing a fish, every time they ship him
     off, he falls through the deck.
   specialRateing: 4
   primaryRateing: 5
   movementRateing: 8
   classSprite: {fileID: 1253338970, guid: 70fbd5fc4d34fbd49ae226942d548b39, type: 3}
+  Leter: {fileID: -655045784, guid: 909c879f86d2b88448676866d9ea33fe, type: 3}
+  color:
+    serializedVersion: 2
+    rgba: 4283221247
+  pattern: {fileID: 1335024404, guid: 70ad3053f0d05684f85c9b1f7bb5c9e5, type: 3}
   playerClass: 2
   maxHealth: 150
   maxSpecial: 10

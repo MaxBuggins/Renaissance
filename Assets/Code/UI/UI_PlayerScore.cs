@@ -12,16 +12,16 @@ public class UI_PlayerScore : UI_Base
 
     public override void UpdateInfo()
     {
-        if (ui_Main.players.Count <= scorePos - 1)
+        return;
+        PlayerStats stats = ui_Main.players[scorePos - 1];
+
+        if(stats == null)
         {
-            scoreText.text = ("No Player");
-            scoreText.color = Color.clear;
+            scoreText.text = ("");
             return;
         }
 
-        Player topScorer = ui_Main.players[scorePos - 1];
-
-        scoreText.text = (topScorer.playerName + ": "+ topScorer.score);
-        scoreText.color = topScorer.playerColour;
+        scoreText.text = (stats.name + ": "+ stats.GetScore());
+        scoreText.color = stats.colour;
     }
 }

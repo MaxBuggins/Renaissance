@@ -5,6 +5,8 @@ using Mirror;
 
 public class PlayerBase : NetworkBehaviour
 {
+    //public PlayerStats stats;
+
     [Header("Player Refrences")]
     private MyNetworkManager myNetworkManager;
     private ClientManager clientManager;
@@ -17,6 +19,8 @@ public class PlayerBase : NetworkBehaviour
         myNetworkManager = FindObjectOfType<MyNetworkManager>();
         clientManager = FindObjectOfType<ClientManager>();
         levelManager = FindObjectOfType<LevelManager>();
+
+
 
         if (!netIdentity.isLocalPlayer)
             return;
@@ -59,4 +63,5 @@ public class PlayerBase : NetworkBehaviour
     {
         myNetworkManager.ChangePlayer(connectionToClient, myNetworkManager.playerPrefab);
     }
+
 }
