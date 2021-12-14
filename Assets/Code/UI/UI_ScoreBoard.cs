@@ -23,7 +23,7 @@ public class UI_ScoreBoard : UI_Base
             {
                 UI_scoreRow row = scoreRows[scoreRows.Count - 1];
                 scoreRows.Remove(row);
-                Destroy(row);
+                Destroy(row.gameObject);
             }
 
             if (scoreRows.Count < ui_Main.players.Count)
