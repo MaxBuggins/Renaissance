@@ -1133,8 +1133,6 @@ GameObject:
   m_Component:
   - component: {fileID: 5729840572336077451}
   - component: {fileID: 8515481704128516362}
-  - component: {fileID: 4586071622142737605}
-  - component: {fileID: 6845052643705817725}
   m_Layer: 10
   m_Name: IronRing.001
   m_TagString: Player
@@ -1235,36 +1233,6 @@ SkinnedMeshRenderer:
     m_Center: {x: -7.4854994, y: 7.4545918, z: 2.533409}
     m_Extent: {x: 2.2925155, y: 1.7588463, z: 2.246725}
   m_DirtyAABB: 0
---- !u!114 &4586071622142737605
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5457540454225615651}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  outlineMode: 0
-  outlineColor: {r: 0, g: 0, b: 0, a: 1}
-  outlineWidth: 5
-  precomputeOutline: 0
-  bakeKeys: []
-  bakeValues: []
---- !u!114 &6845052643705817725
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5457540454225615651}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe6d940bbf3d912439605ad4a63a9ab1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &6021036055158754765
 GameObject:
   m_ObjectHideFlags: 0
@@ -1309,8 +1277,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2063158440520840652}
   - component: {fileID: 7511033900385184694}
-  - component: {fileID: 3257376669562275182}
-  - component: {fileID: 8904775861296060076}
   m_Layer: 10
   m_Name: IronRing
   m_TagString: Player
@@ -1412,36 +1378,6 @@ SkinnedMeshRenderer:
     m_Center: {x: 3.8583956, y: -5.2604938, z: 1.0882357}
     m_Extent: {x: 2.231408, y: 2.1845345, z: 3.371255}
   m_DirtyAABB: 0
---- !u!114 &3257376669562275182
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6227459715884970195}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  outlineMode: 0
-  outlineColor: {r: 0, g: 0, b: 0, a: 1}
-  outlineWidth: 5
-  precomputeOutline: 0
-  bakeKeys: []
-  bakeValues: []
---- !u!114 &8904775861296060076
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6227459715884970195}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe6d940bbf3d912439605ad4a63a9ab1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &6810853207344422488
 GameObject:
   m_ObjectHideFlags: 0
