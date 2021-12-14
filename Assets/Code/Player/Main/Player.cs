@@ -7,25 +7,7 @@ using TMPro;
 public class Player : PlayerBase
 {
     [Header("Player Charteristics")]
-
-    [SyncVar(hook = nameof(OnNameChanged))]
-    public string userName = "ERROR";
-    [SyncVar(hook = nameof(OnColorChanged))]
-    public Color32 colour = Color.black;
-
-    [SyncVar]
-    public int kills = 0; //umm no idear what this could mean
-    [SyncVar]
-    public int killStreak = 0; //how many kills before you respawn
-
-    [SyncVar]
-    public int assists = 0; //if you were helpful in someones death
-
-    [SyncVar]
-    public int deaths = 0; //you die you death
-
-    [SyncVar]
-    public int bonusScore = 0; //For gameMode unique scores like capturing a flag
+    public PlayerStats playerStats;
 
     [HideInInspector] public int maxHealth = 100;
     [SyncVar(hook = nameof(OnHealthChanged))]
@@ -66,20 +48,22 @@ public class Player : PlayerBase
     public Vector3 velocity;
     private float maxVelocity = 200;
 
+    public float angleVelocity;
+
     [Header("Player Grounded")]
     [Tooltip("If the character is grounded or not. Not part of the CharacterController built in grounded check")]
     public bool Grounded = true;
     public bool canStand = true;
     [Tooltip("Useful for rough ground")]
-    private float GroundedOffset = 0.85f;
+    public float GroundedOffset = 0.85f;
     [Tooltip("The radius of the grounded check. Should match the radius of the CharacterController")]
-    private float GroundedRadius = 0.35f;
+    public float GroundedRadius = 0.4f;
     [Tooltip("What layers the character uses as ground")]
     public LayerMask GroundLayers;
 
     private float jumpDelay;
     [Tooltip("Time you have been falling")]
-    [HideInInspector] public float fallTime = 0; //for counting seconds of falling downwards
+    public float fallTime = 0; //for counting seconds of falling downwards
 
     private float deadTime;
 
@@ -87,6 +71,8 @@ public class Player : PlayerBase
 
     [HideInInspector] public Vector2 move;
     [HideInInspector] public Vector3 lastPos;
+    [HideInInspector] public float lastYRot;
+
     private Vector3 floorNormal = Vector3.up;
 
     [HideInInspector]public Controls controls;
@@ -99,7 +85,7 @@ public class Player : PlayerBase
     public GameObject[] spawnableObjects;
 
     [Header("Unity Stuff Internals")]
-    public DirectionalSprite body;
+    public Renderer body;
     [HideInInspector] public PlayerAnimator playerAnimator;
 
     [HideInInspector] public PlayerCamera playerCam;
@@ -122,12 +108,18 @@ public class Player : PlayerBase
     public override void OnStartLocalPlayer() //just for the local client
     {
         playerAnimator = GetComponentInChildren<PlayerAnimator>();
-        body = playerAnimator.GetComponent<DirectionalSprite>();
         //so the player doesnt see own body but still can see its shadow
-        body.GetComponent<MeshRenderer>().shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.ShadowsOnly;
+        body.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.ShadowsOnly;
+        foreach(Renderer render in body.GetComponentsInChildren<Renderer>())
+        {
+            render.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.ShadowsOnly;
+        }
 
         clientManager = FindObjectOfType<ClientManager>();
         clientManager.player = this;
+
+        playerStats.CmdSetUpPlayer(clientManager.playerName, clientManager.playerColour);
+
         uIMain = FindObjectOfType<UI_Main>();
         uIMain.player = this;
 
@@ -141,6 +133,8 @@ public class Player : PlayerBase
         controls.Game.Pause.performed += funnyer => Pause(!paused, 1);
 
         controls.Game.ChangeClass.performed += funnyiest => Pause(!paused, 2);
+
+        controls.Game.ShowScore.performed += funnyiest => Pause(!paused, 3);
 
         controls.Game.Spectate.performed += funnyiestestest => Spectate();
 
@@ -174,13 +168,13 @@ public class Player : PlayerBase
         hurtful = GetComponent<Hurtful>();
         playerAbove = GetComponentInChildren<PlayerAbove>();
         playerAnimator = GetComponentInChildren<PlayerAnimator>();
-        body = playerAnimator.GetComponent<DirectionalSprite>();
+        //body = playerAnimator.GetComponent<DirectionalSprite>();
 
-        myNetworkManager = FindObjectOfType<MyNetworkManager>();
         levelManager = FindObjectOfType<LevelManager>();
+        myNetworkManager = FindObjectOfType<MyNetworkManager>();
 
         //clients need to run to sync up with gamers allready gameing
-        playerAbove.topLight.intensity = killStreak * 1.5f;
+        playerAbove.topLight.intensity = playerStats.killStreak * 1.5f;
     }
 
     void FixedUpdate()
@@ -202,6 +196,8 @@ public class Player : PlayerBase
             }
         }
 
+        Grounded = IsGrounded();
+
         if (Grounded == false && velocity.y < 0)
             fallTime += Time.fixedDeltaTime;
 
@@ -220,8 +216,6 @@ public class Player : PlayerBase
             return;
         }
 
-        Grounded = IsGrounded();
-
         Movement();
         ApplyGravity();
 
@@ -230,10 +224,14 @@ public class Player : PlayerBase
     //all run
     private void LateUpdate()
     {
-        float fallSpeed = (transform.position.y - lastPos.y);
+        angleVelocity = transform.eulerAngles.y - lastYRot;
 
+        if (!isLocalPlayer) //only the player runs whats next
+        {
+            velocity = transform.position - lastPos;
+        }
 
-        if (fallSpeed > 0.26f)
+        if (velocity.y > 0.26f)
         {
             if (audioSource.isPlaying)
                 return;
@@ -243,6 +241,7 @@ public class Player : PlayerBase
         }
 
         lastPos = transform.position; //must be done after movement and stuff
+        lastYRot = transform.eulerAngles.y;
     }
 
     [ClientCallback] //only for a client to run
@@ -274,13 +273,10 @@ public class Player : PlayerBase
             movement = Vector3.zero;
 
         //Character sliding of surfaces
-        if (Grounded && canStand == false)
+        if (canStand == false)
         {
-            Vector3 slopeMovement = Vector3.zero;
-            slopeMovement.x = (1f - floorNormal.y) * floorNormal.x * (1f - slideFriction);
-            slopeMovement.z = (1f - floorNormal.y) * floorNormal.z * (1f - slideFriction);
-
-            //velocity += slopeMovement * -gravitY;
+            movement.x = (1f - floorNormal.y) * floorNormal.x * (1f - slideFriction);
+            movement.z = (1f - floorNormal.y) * floorNormal.z * (1f - slideFriction);
         }
 
         character.Move((movement + velocity) * Time.fixedDeltaTime); //apply movement to charhcter contoler
@@ -292,6 +288,7 @@ public class Player : PlayerBase
         velocity.x = Mathf.LerpUnclamped(velocity.x, 0, fricktion * Time.fixedDeltaTime);
         velocity.z = Mathf.LerpUnclamped(velocity.z, 0, fricktion * Time.fixedDeltaTime);
 
+        canStand = (Vector3.Angle(Vector3.up, floorNormal) <= character.slopeLimit);
     }
 
     [ClientCallback]
@@ -300,7 +297,7 @@ public class Player : PlayerBase
         if (paused)
             return;
 
-        if (jumpDelay < coyotTime && canStand)
+        if (jumpDelay < coyotTime)
         {
 /*        
  *            RaycastHit hit;
@@ -335,6 +332,16 @@ public class Player : PlayerBase
                 uIMain.Pause(false);
         }
 
+        else if (menuType == 3) //stupid ui code is 
+        {
+            if (pause)
+            {
+                uIMain.DisplayScoreBoard();
+            }
+            else
+                uIMain.Pause(false);
+        }
+
         if (pause == true)
             Cursor.lockState = CursorLockMode.None;
         else
@@ -350,8 +357,7 @@ public class Player : PlayerBase
 
         if (isGrounded || character.isGrounded) //final check if the player can stand
         {
-            //bool canStand = (Vector3.Angle(Vector3.up, floorNormal) <= character.slopeLimit);
-            //isGrounded = canStand;
+            //canStand = (Vector3.Angle(Vector3.up, floorNormal) <= character.slopeLimit);
             isGrounded = true;
         }
 
@@ -392,7 +398,7 @@ public class Player : PlayerBase
         if (Mathf.Approximately(standAngle, 90) || standAngle > 90)
         {
             floorNormal = Vector3.up;
-            canStand = true;
+            //canStand = true;
         }
         else
         {
@@ -420,25 +426,6 @@ public class Player : PlayerBase
         // Apply the push
         body.velocity = pushDir * pushForce;
     }
-
-
-    void OnNameChanged(string _Old, string _New)
-    {
-        //playerAbove.playerNameText.text = playerName;
-        if (isLocalPlayer)
-            uIMain.UIUpdate();
-    }
-
-    void OnColorChanged(Color32 _Old, Color32 _New) //fixed colours to 32 bits 0-255 int, while listening to Miitopia soundtrack 
-    {
-        //playerAbove.playerNameText.color = _New;
-        if (isLocalPlayer)
-            uIMain.UIUpdate();
-        //playerMaterialClone = new Material(GetComponent<Renderer>().material);
-        //playerMaterialClone.color = _New;
-        //GetComponent<Renderer>().material = playerMaterialClone;
-    }
-
 
     void OnHealthChanged(int _Old, int _New)
     {
@@ -472,7 +459,7 @@ public class Player : PlayerBase
             }
         }
 
-        if (_Old <= 0 && _New > 0) //on death
+        if (_Old <= 0 && _New > 0) //on alive
         {
             ApplyEffect(StatusEffect.EffectType.immunity, 3);
             PlayerAlive(true);
@@ -483,10 +470,12 @@ public class Player : PlayerBase
     void PlayerAlive(bool alive) //I will run Mesh.PlayerAlive(false)
     {
         transform.parent = null; //incase on moveing platform   
-        character.enabled = alive;
         playerAbove.gameObject.SetActive(alive);
         body.gameObject.SetActive(alive);
         body.transform.position = transform.position + -Vector3.up; //bug fix
+        character.enabled = alive;
+
+        playerAnimator.Death(!alive);
 
         if (alive == true)
         {
@@ -499,7 +488,7 @@ public class Player : PlayerBase
         playerClass.deathSound.Length)]);
 
             GameObject corpse = Instantiate(corpsePrefab, body.transform.position, transform.rotation);
-            corpse.GetComponent<Rigidbody>().velocity = (transform.position - lastPos) * 2;
+            corpse.GetComponentInChildren<Rigidbody>().velocity = (transform.position - lastPos) * 4;
         }
 
         if (isLocalPlayer)
@@ -518,11 +507,9 @@ public class Player : PlayerBase
     [Command]
     public void CmdSpawnPlayer()
     {
-        if (netTrans != null && levelManager != null)
-        {
-            Transform sPoint = levelManager.GetSpawnPoint();
-            netTrans.CmdTeleport(sPoint.position); //spawns player across the server at point
-        }
+        Transform sPoint = levelManager.GetSpawnPoint();
+        netTrans.RpcTeleport(sPoint.position); //spawns player across the server at point
+        transform.position = sPoint.position;
 
         maxHealth = playerClass.maxHealth;
         maxSpecial = playerClass.maxSpecial;
@@ -532,7 +519,9 @@ public class Player : PlayerBase
 
         specialChargeRate = playerClass.specialChargeRate;
 
-        killStreak = 0;
+        playerStats.killStreak = 0;
+
+        character.enabled = true;
     }
 
     [Client]
@@ -560,6 +549,8 @@ public class Player : PlayerBase
         slideFriction = playerClass.slideFriction;
 
         specialChargeRate = playerClass.specialChargeRate;
+
+        velocity = Vector3.zero;
     }
 
     [ClientCallback]
@@ -647,7 +638,7 @@ public class Player : PlayerBase
     [Server]
     public void addScore(int points)
     {
-        bonusScore += points;
+        playerStats.bonusScore += points;
         TargetUpdateUI(connectionToClient); //update the UI of this user
     }
 
@@ -672,9 +663,10 @@ public class Player : PlayerBase
 
         if(health <= 0)
         {
-            levelManager.sendKillMsg(killer, userName, hurtType);
+            character.enabled = false;
+            levelManager.sendKillMsg(killer, playerStats.userName, hurtType);
             playerAbove.topLight.intensity = 0;
-            deaths += 1;
+            playerStats.deaths += 1;
 
             if (spawnOnDeath == null)
                 return;
@@ -723,7 +715,7 @@ public class Player : PlayerBase
     {
         if (kill)
         {
-            playerAbove.topLight.intensity = killStreak * 1.5f;
+            playerAbove.topLight.intensity = playerStats.killStreak * 1.5f;
             audioSource.PlayOneShot(playerClass.killPlayerSound[Random.Range(0, playerClass.killPlayerSound.Length)]);
             //playerCam.focus = 
         }

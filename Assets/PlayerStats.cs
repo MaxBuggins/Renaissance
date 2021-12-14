@@ -5,9 +5,9 @@ using Mirror;
 
 public class PlayerStats : NetworkBehaviour //player details to keep track off even after the game
 {
-    [SyncVar(hook = nameof(OnNameChanged))]
+    [SyncVar]
     public string userName = "ERROR";
-    [SyncVar(hook = nameof(OnColorChanged))]
+    [SyncVar]
     public Color32 colour = Color.black;
 
     [SyncVar]
@@ -21,38 +21,33 @@ public class PlayerStats : NetworkBehaviour //player details to keep track off e
     [SyncVar]
     public int deaths = 0; //you die you death
 
-    [SyncVar]
+    [SyncVar(hook = nameof(OnScoreChange))]
     public int bonusScore = 0; //For gameMode unique scores like capturing a flag
 
     [Header("UnityStuff")]
     private UI_Main uI_Main;
+    [HideInInspector] public Player player;
 
     private void Awake()
     {
         uI_Main = FindObjectOfType<UI_Main>();
+        player = GetComponent<Player>();
     }
 
-    void OnNameChanged(string _Old, string _New)
+    [Command]
+    public void CmdSetUpPlayer(string name, Color32 _colour)
     {
-        //playerAbove.playerNameText.text = playerName;
-        if (isLocalPlayer)
-            uI_Main.UIUpdate();
+        userName = name;
+        colour = _colour;
     }
 
-    void OnColorChanged(Color32 _Old, Color32 _New) //fixed colours to 32 bits 0-255 int, while listening to Miitopia soundtrack 
+    void OnScoreChange(int _Old, int _New)
     {
-        //playerAbove.playerNameText.color = _New;
-        if (isLocalPlayer)
-            uI_Main.UIUpdate();
-        //playerMaterialClone = new Material(GetComponent<Renderer>().material);
-        //playerMaterialClone.color = _New;
-        //GetComponent<Renderer>().material = playerMaterialClone;
+        uI_Main.UIUpdate();
     }
-
 
     public int GetScore() //common conversion for main score
     {
-        return (kills * 3 + assists + deaths * -1 + bonusScore);
+        return (kills * 5 + assists * 2 + deaths * -1 + bonusScore);
     }
-
 }

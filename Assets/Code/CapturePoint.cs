@@ -24,7 +24,12 @@ public class CapturePoint : MonoBehaviour
         if(pointTime > pointDelay)
         {
             foreach (Player player in playersIn)
-                player.addScore(1);
+            {
+                if (player.health > 0)
+                    player.addScore(1);
+                else
+                    playersIn.Remove(player);
+            }
 
             pointTime = 0;
         }

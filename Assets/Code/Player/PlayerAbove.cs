@@ -27,12 +27,17 @@ public class PlayerAbove : MonoBehaviour
         if (currentReaction != null || index >= reactions.Length) //one reaction at a time
             return;
 
+        if (index == 1)
+        {
+            player.playerAnimator.Dance();
+        }
+
         currentReaction = Instantiate(reactions[index], transform);
 
         ParticleSystem.MainModule settings = currentReaction.GetComponent<ParticleSystem>().main;
 
         if (settings.startColor.color != Color.white)
-            settings.startColor = new ParticleSystem.MinMaxGradient(player.colour);
+            settings.startColor = new ParticleSystem.MinMaxGradient(player.playerStats.colour);
 
         Invoke(nameof(EndReaction), reactDuration);
     }

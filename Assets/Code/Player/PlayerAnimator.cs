@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Pixelplacement;
+using Mirror;
 
 [System.Serializable]
 public class SpriteDirections
@@ -9,6 +10,7 @@ public class SpriteDirections
     public Sprite[] sprites;
 }
     
+[RequireComponent(typeof(Animator))]
 public class PlayerAnimator : MonoBehaviour
 {
     private float timer = 0;
@@ -16,7 +18,9 @@ public class PlayerAnimator : MonoBehaviour
     private int animationPos = 0;
 
     public float moveAmount = 0.25f;
-    public Vector3 lastPos;
+    public float speedMultiplyer = 4;
+
+    public float rotateAmount = 0.5f;
 
     [Header("Hurt")]
     public float hurtScale = 1.1f;
@@ -27,36 +31,70 @@ public class PlayerAnimator : MonoBehaviour
     public SpriteDirections[] idleSprites;
     public SpriteDirections[] runSprites;
 
+    public GameObject ragdoll;
+
     [Header("Materials")]
     public Material blank;
     public Material immunityBlank;
 
     private DirectionalSprite directionalSprite;
     private Player player;
+    public Animator animator;
 
 
     void Start()
     {
-        directionalSprite = GetComponent<DirectionalSprite>();
+        //directionalSprite = GetComponent<DirectionalSprite>();
         player = GetComponentInParent<Player>();
+        animator = GetComponent<Animator>();
+
+        if (!player.isLocalPlayer)
+        {
+            enabled = false;
+        }
     }
 
-    private void Update()
+
+    private void FixedUpdate()
     {
-
-
         if (player.health > 0)
         {
-            Move();
-        }
-        //else
+            if (player.velocity.magnitude > moveAmount)
+            {
+                animator.SetFloat("Moveing", player.velocity.magnitude * speedMultiplyer * Time.fixedDeltaTime);
+            }
+            else
+            {
+                animator.SetFloat("Moveing", 0);
+                //animator.speed = 1;
+                //animator.speed = player.lastYRot * speedMultiplyer * Time.fixedDeltaTime;
+            }
 
+            animator.SetBool("Falling", player.fallTime > 0.1f);
+        }
+
+    }
+
+    public void primaryAttack()
+    {
+        animator.SetTrigger("Primary");
+    }
+
+    public void secondaryAttack()
+    {
+        animator.SetTrigger("Secondary");
+    }
+
+    public void Dance()
+    {
+        animator.SetTrigger("Dance");
     }
 
     private void Move()
     {
-        directionalSprite.constantFollow = false;
-        directionalSprite.directionalSprites = new List<Sprite>(runSprites[0].sprites);
+        //animator.SetBool("Moveing", player.character.velocity.magnitude > moveAmount);
+        //directionalSprite.constantFollow = false;
+        //directionalSprite.directionalSprites = new List<Sprite>(runSprites[0].sprites);
     }
 
     void Hurt()
@@ -65,22 +103,10 @@ public class PlayerAnimator : MonoBehaviour
                 0, hurtCurve);
     }
 
-    /*
-    public void Death()
-    {
-        timer += Time.deltaTime;
-        if (animationPos < deathSprites.Length - 1)
-        {
-            if (timer > 0.25f)
-            {
-                timer = 0;
-                animationPos += 1;
-            }
-        }
 
-        directionalSprite.constantFollow = true;
-        directionalSprite.directionalSprites.Clear();
-        directionalSprite.directionalSprites.Add(deathSprites[animationPos]);
-        directionalSprite.SetUp();
-    } */
+    public void Death(bool dead)
+    {
+        //if(dead)
+            //Instantiate(ragdoll, transform.position, transform.rotation);
+    }
 }

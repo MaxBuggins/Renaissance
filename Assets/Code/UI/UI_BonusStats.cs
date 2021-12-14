@@ -26,7 +26,7 @@ public class UI_BonusStats : UI_Base
         letterImage.sprite = uI_Main.player.playerClass.Leter;
 
         patternImage.sprite = uI_Main.player.playerClass.pattern;
-        patternImage.color = uI_Main.player.colour;
+        patternImage.color = uI_Main.player.playerStats.colour;
     }
 
     void ShowInfo()

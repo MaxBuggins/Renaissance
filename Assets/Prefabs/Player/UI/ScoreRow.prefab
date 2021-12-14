@@ -281,6 +281,7 @@ GameObject:
   - component: {fileID: 7017543355375662621}
   - component: {fileID: 4751832501184188520}
   - component: {fileID: 5000997190948558519}
+  - component: {fileID: 3613513217934598987}
   m_Layer: 5
   m_Name: ScoreRow
   m_TagString: Untagged
@@ -352,6 +353,25 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &3613513217934598987
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2858550802774485701}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f03f950eb401e8148aca77b785350d67, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  letter: {fileID: 6172160895646338418}
+  banner: {fileID: 5000997190948558519}
+  userName: {fileID: 6929239868753950740}
+  kills: {fileID: 4269471556143242457}
+  assits: {fileID: 6777564934940388648}
+  deaths: {fileID: 748666974835793439}
+  score: {fileID: 5131831658018275455}
 --- !u!1 &4546933864128408245
 GameObject:
   m_ObjectHideFlags: 0

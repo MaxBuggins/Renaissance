@@ -21,6 +21,7 @@ public class UI_Main : MonoBehaviour
     public Image killerLeter;
     public GameObject pauseUI;
     public GameObject classUI;
+    public GameObject scoreBoard;
 
 
     public Image reloadRing;
@@ -52,8 +53,6 @@ public class UI_Main : MonoBehaviour
         controls.Game.Message.performed += HOWCANBEBEYONDFUNNY => MsgBox();
 
         controls.Enable();
-
-        players.AddRange(FindObjectsOfType<PlayerStats>());
     }
 
     private void Update()
@@ -62,9 +61,18 @@ public class UI_Main : MonoBehaviour
             reloadRing.fillAmount = player.playerWeapon.reloadPerstenage;
     }
 
+    public void UpdatePlayerList()
+    {
+        players.Clear();
+        players.AddRange(FindObjectsOfType<PlayerStats>());
+    }
+
     public void UIUpdate()
     {
+        UpdatePlayerList(); //Temps
+
         players.Sort((p1, p2) => p1.GetScore().CompareTo(p2.GetScore()));
+        players.Reverse();
 
 
         foreach (UI_Base ui in uiBases)
@@ -95,6 +103,7 @@ public class UI_Main : MonoBehaviour
         pauseUI.SetActive(pause);
         classUI.SetActive(false);
         gameUI.SetActive(!pause);
+        scoreBoard.SetActive(false);
     }
 
     public void MsgBox()
@@ -122,7 +131,7 @@ public class UI_Main : MonoBehaviour
 
     public void DisplayScoreBoard()
     {
-
+        scoreBoard.SetActive(true);
     }
 
     public void DisplayClassDetails(int classNum)

@@ -20,8 +20,6 @@ public class PlayerBase : NetworkBehaviour
         clientManager = FindObjectOfType<ClientManager>();
         levelManager = FindObjectOfType<LevelManager>();
 
-
-
         if (!netIdentity.isLocalPlayer)
             return;
 

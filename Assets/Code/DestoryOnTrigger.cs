@@ -18,6 +18,9 @@ public class DestoryOnTrigger : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        if (other.tag == "Player")
+            return;
+
         if(triggerPrefab != null)
         {
             Instantiate(triggerPrefab, other.transform.position + Vector3.up * 0.75f, triggerPrefab.transform.rotation, null);

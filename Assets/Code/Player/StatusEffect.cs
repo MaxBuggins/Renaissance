@@ -23,8 +23,8 @@ public class StatusEffect : MonoBehaviour
         player = GetComponent<Player>();
         audioSource = GetComponent<AudioSource>();
 
-        if (effectType == EffectType.immunity)
-            player.body.GetComponent<MeshRenderer>().material = player.playerAnimator.immunityBlank;
+        //if (effectType == EffectType.immunity)
+            //player.body.material = player.playerAnimator.immunityBlank;
     }
 
     public void Update()
@@ -68,7 +68,7 @@ public class StatusEffect : MonoBehaviour
         {
             case (EffectType.immunity):
                 {
-                    player.body.GetComponent<MeshRenderer>().material = player.playerAnimator.blank;
+                    //player.body.material = player.playerAnimator.blank;
                     break;
                 }
 

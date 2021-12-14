@@ -97,8 +97,6 @@ public class BoxerWeapon : PlayerWeapon
         player.CmdSpawnObject(0, Vector3.zero, transform.eulerAngles, false, true);
         player.velocity += transform.forward * punchVelocity;
 
-
-
         player.playerCam.currentOffset += punchRot;
 
         base.UsePrimary();
@@ -114,6 +112,8 @@ public class BoxerWeapon : PlayerWeapon
         if (throwTime < throwCoolDown)
             return;
 
+        base.UseSeconday();
+
         Invoke(nameof(Throw), throwDelay);
         throwTime = 0;
     }
@@ -124,7 +124,6 @@ public class BoxerWeapon : PlayerWeapon
 
         player.CmdSpawnObject(1, shootPos.position, shootPos.eulerAngles, false, false);
         player.velocity += shootPos.forward * throwVelocity;
-        base.UseSeconday();
     }
 
     [Client]
@@ -152,6 +151,7 @@ public class BoxerWeapon : PlayerWeapon
     public void GroundPound()
     {
         specialIsActive = true;
+        playerAnimator.animator.SetBool("Falling", true);
 
         player.velocity = Vector3.zero;
 
@@ -166,6 +166,8 @@ public class BoxerWeapon : PlayerWeapon
 
     public override void EndSpecial()
     {
+        playerAnimator.animator.SetBool("Falling", false);
+
         //gotta reset the player
         //player.pushForce = orginalPushForce;
         //player.gravitY = orginalGravitY;

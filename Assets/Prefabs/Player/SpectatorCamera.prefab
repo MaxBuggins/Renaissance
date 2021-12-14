@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 1389204367115464029}
   - component: {fileID: 1389204367115464032}
   - component: {fileID: 1389204367115464033}
+  - component: {fileID: 2600055493457787154}
   m_Layer: 0
   m_Name: SpectatorCamera
   m_TagString: MainCamera
@@ -191,5 +192,28 @@ MonoBehaviour:
   sceneId: 0
   serverOnly: 0
   visible: 0
-  m_AssetId: 
+  m_AssetId: f68871c6723bacb409bf28b876088920
   hasSpawned: 0
+--- !u!114 &2600055493457787154
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1389204367115464027}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26c4fe7267152944c88a52fd6a566faa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
+  userName: ERROR
+  colour:
+    serializedVersion: 2
+    rgba: 4278190080
+  kills: 0
+  killStreak: 0
+  assists: 0
+  deaths: 0
+  bonusScore: 0

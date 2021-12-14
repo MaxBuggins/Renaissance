@@ -19,7 +19,8 @@ public class PlayerWeapon : NetworkBehaviour
 
     [Header("Unity Things")]
     public Player player;
-    public Animator animator;
+    private Animator animator;
+    [HideInInspector] public PlayerAnimator playerAnimator;
 
 
     protected virtual void Start()
@@ -29,6 +30,7 @@ public class PlayerWeapon : NetworkBehaviour
 
         player = GetComponentInParent<Player>();
         animator = GetComponent<Animator>();
+        playerAnimator = player.playerAnimator;
 
         controls = new Controls();
 
@@ -59,8 +61,11 @@ public class PlayerWeapon : NetworkBehaviour
         if (player.paused)
             return;
 
-        if(animator != null)
+        if (animator != null)
+        {
+            playerAnimator.primaryAttack();
             animator.SetTrigger("Primary");
+        }
     }
 
     public virtual void UseSeconday()
@@ -69,7 +74,10 @@ public class PlayerWeapon : NetworkBehaviour
             return;
 
         if (animator != null)
+        {
+            playerAnimator.secondaryAttack();
             animator.SetTrigger("Secondary");
+        }
     }
 
     public virtual void UseSpecial()

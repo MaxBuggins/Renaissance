@@ -15,41 +15,34 @@ public class MyNetworkManager : NetworkManager
 
     public override void OnClientConnect(NetworkConnection conn)
     {
-        var hud = FindObjectOfType<NetworkManagerHUD>();
-
 
         //if (hud != null) //TEMPARAY
-            //hud.showGUI = false;
+        //hud.showGUI = false;
 
         base.OnClientConnect(conn);
     }
 
     public override void OnClientDisconnect(NetworkConnection conn)
     {
-        var hud = FindObjectOfType<NetworkManagerHUD>();
-
         //if (hud != null) //TEMPARAY
-            //hud.showGUI = true;
+        //hud.showGUI = true;
 
         Cursor.lockState = CursorLockMode.None;
 
         base.OnClientDisconnect(conn);
     }
 
-/*    public override void OnServerConnect(NetworkConnection conn)
-    {
+    //public override void OnServerConnect(NetworkConnection conn)
+    //{
+        //conn.identity.gameObject.AddComponent<PlayerStats>();
+    //}
 
-        PlayerStats playerStat = new PlayerStats();
+        //public override void OnServerDisconnect(NetworkConnection conn)
+        //{
 
-        gameManager.players.Add(conn.connectionId, playerStat);
-    }
+            //gameManager.players.Remove(conn.connectionId);
 
-    public override void OnServerDisconnect(NetworkConnection conn)
-    {
-
-        gameManager.players.Remove(conn.connectionId);
-
-    }*/
+        //}
 
     public void ChangePlayer(NetworkConnection conn, GameObject newPrefab)
     {
@@ -59,8 +52,8 @@ public class MyNetworkManager : NetworkManager
             return;
         }
 
-        if(conn.clientOwnedObjects.Count <= 0)
-        {   
+        if (conn.clientOwnedObjects.Count <= 0)
+        {
             // Instantiate the new player object and broadcast to clients
             NetworkServer.ReplacePlayerForConnection(conn, Instantiate(newPrefab));
             return;
@@ -68,9 +61,22 @@ public class MyNetworkManager : NetworkManager
 
         // Cache a reference to the current player object
         GameObject oldPlayer = conn.identity.gameObject;
+        PlayerStats oldPlayerStats = conn.identity.GetComponent<PlayerStats>();
 
         // Instantiate the new player object and broadcast to clients
         NetworkServer.ReplacePlayerForConnection(conn, Instantiate(newPrefab));
+        PlayerStats newPlayerStats = conn.identity.GetComponent<PlayerStats>();
+
+        if (newPlayerStats != null && oldPlayerStats != null)
+        {
+            newPlayerStats.userName = oldPlayerStats.userName;
+            newPlayerStats.colour = oldPlayerStats.colour;
+            newPlayerStats.kills = oldPlayerStats.kills;
+            newPlayerStats.killStreak = oldPlayerStats.killStreak;
+            newPlayerStats.assists = oldPlayerStats.assists;
+            newPlayerStats.deaths = oldPlayerStats.deaths;
+            newPlayerStats.bonusScore = oldPlayerStats.bonusScore;
+        }
 
         // Remove the previous player object that's now been replaced
         NetworkServer.Destroy(oldPlayer);
