@@ -31,17 +31,17 @@ MonoBehaviour:
   maxSpecial: 10
   spawnSpecial: 4
   specialChargeRate: 6
-  speed: 1.3
-  backSpeedMultiplyer: 0.75
+  speed: 1.4
+  backSpeedMultiplyer: 0.7
   sideSpeedMultiplyer: 0.9
   airMovementMultiplyer: 0.6
   gravitY: -50
-  fricktion: 4
+  fricktion: 7
   maxMoveVelocity: 12
   jumpHeight: 1
   coyotTime: 0.3
   pushForce: 5
-  slideFriction: 0.3
+  slideFriction: 0.38
   bloodPerDamage: 6
   bloodObj: {fileID: 4042699645445107381, guid: 7fb82f213c9f852439196b1d1949b407, type: 3}
   idleSprites:

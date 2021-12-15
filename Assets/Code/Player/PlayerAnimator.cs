@@ -84,29 +84,15 @@ public class PlayerAnimator : MonoBehaviour
     {
         animator.SetTrigger("Secondary");
     }
+    public void Hurt()
+    {
+        animator.SetTrigger("Hurt");
+        //Tween.LocalScale(transform, transform.localScale * hurtScale, hurtDuration,
+                //0, hurtCurve);
+    }
 
     public void Dance()
     {
         animator.SetTrigger("Dance");
-    }
-
-    private void Move()
-    {
-        //animator.SetBool("Moveing", player.character.velocity.magnitude > moveAmount);
-        //directionalSprite.constantFollow = false;
-        //directionalSprite.directionalSprites = new List<Sprite>(runSprites[0].sprites);
-    }
-
-    void Hurt()
-    {
-        Tween.LocalScale(transform, transform.localScale * hurtScale, hurtDuration,
-                0, hurtCurve);
-    }
-
-
-    public void Death(bool dead)
-    {
-        //if(dead)
-            //Instantiate(ragdoll, transform.position, transform.rotation);
     }
 }

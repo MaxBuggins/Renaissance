@@ -39,9 +39,9 @@ public class Player : PlayerBase
     [HideInInspector] public float coyotTime = 0.3f; //lol mesh has good idears NO WAY
 
     [HideInInspector] public float pushForce = 5f;
-    public float slideFriction = 0.3f;
+    [HideInInspector] public float slideFriction = 0.3f;
 
-    public float specialChargeRate;
+    [HideInInspector] public float specialChargeRate;
 
     [Header("Player Internals")]
 
@@ -61,6 +61,8 @@ public class Player : PlayerBase
     [Tooltip("What layers the character uses as ground")]
     public LayerMask GroundLayers;
 
+    private float distanceToFeet;
+
     private float jumpDelay;
     [Tooltip("Time you have been falling")]
     public float fallTime = 0; //for counting seconds of falling downwards
@@ -75,7 +77,7 @@ public class Player : PlayerBase
 
     private Vector3 floorNormal = Vector3.up;
 
-    [HideInInspector]public Controls controls;
+    [HideInInspector] public Controls controls;
 
     [Header("Refrences")]
     //public PlayerStats stats;
@@ -175,9 +177,10 @@ public class Player : PlayerBase
 
         //clients need to run to sync up with gamers allready gameing
         playerAbove.topLight.intensity = playerStats.killStreak * 1.5f;
+        distanceToFeet = character.bounds.extents.y - character.center.y;
     }
 
-    void FixedUpdate()
+    void Update()
     {
         if (isServer)
         {
@@ -185,7 +188,7 @@ public class Player : PlayerBase
             {
                 if (special < maxSpecial) //only gain special when not at max
                 {
-                    specialChargeTime += Time.fixedDeltaTime;
+                    specialChargeTime += Time.deltaTime;
 
                     if (specialChargeTime > specialChargeRate)
                     {
@@ -199,7 +202,7 @@ public class Player : PlayerBase
         Grounded = IsGrounded();
 
         if (Grounded == false && velocity.y < 0)
-            fallTime += Time.fixedDeltaTime;
+            fallTime += Time.deltaTime;
 
         else
             fallTime = 0;
@@ -265,8 +268,8 @@ public class Player : PlayerBase
             movement *= speed;
         else
         {
-            x = 0;
-            z = 0;
+            movement.x = 0;
+            movement.z = 0;
         }
 
         if (paused) //Temp
@@ -275,20 +278,16 @@ public class Player : PlayerBase
         //Character sliding of surfaces
         if (canStand == false)
         {
-            movement.x = (1f - floorNormal.y) * floorNormal.x * (1f - slideFriction);
-            movement.z = (1f - floorNormal.y) * floorNormal.z * (1f - slideFriction);
+            movement.x += (1f - floorNormal.y) * floorNormal.x * (1f - slideFriction);
+            movement.z += (1f - floorNormal.y) * floorNormal.z * (1f - slideFriction);
         }
 
-        character.Move((movement + velocity) * Time.fixedDeltaTime); //apply movement to charhcter contoler
+        character.Move((movement + velocity) * Time.deltaTime); //apply movement to charhcter contoler
 
-        velocity += transform.right * x + transform.forward * z;
+        velocity += movement;
 
-        //isGrounded = (Vector3.Angle(Vector3.up, floorNormal) <= slopeLimit);
-
-        velocity.x = Mathf.LerpUnclamped(velocity.x, 0, fricktion * Time.fixedDeltaTime);
-        velocity.z = Mathf.LerpUnclamped(velocity.z, 0, fricktion * Time.fixedDeltaTime);
-
-        canStand = (Vector3.Angle(Vector3.up, floorNormal) <= character.slopeLimit);
+        velocity.x = Mathf.LerpUnclamped(velocity.x, 0, fricktion * Time.deltaTime);
+        velocity.z = Mathf.LerpUnclamped(velocity.z, 0, fricktion * Time.deltaTime);
     }
 
     [ClientCallback]
@@ -299,20 +298,12 @@ public class Player : PlayerBase
 
         if (jumpDelay < coyotTime)
         {
-/*        
- *            RaycastHit hit;
-            if (Physics.Raycast(transform.position, -transform.up, out hit, GroundLayers))
-            {
-                floorNormal = hit.normal;
-            }*/
-
             jumpDelay = coyotTime;
-            float jumpForce = Mathf.Sqrt(jumpHeight * -2.0f * gravitY * 2);
+            float jumpForce = Mathf.Sqrt(jumpHeight * -2.0f * gravitY * 1.8f);
             Vector3 jumpVelocity = floorNormal * jumpForce;
-            velocity.x += jumpVelocity.x; //x and z are added to
+            velocity.x += jumpVelocity.x; //x and z are added for political reasons
             velocity.y = jumpVelocity.y; //y gets set
             velocity.z += jumpVelocity.z;
-            //velocity.y = Mathf.Sqrt(jumpHeight * -2.0f * gravitY * 2); //physics reasons 
         }
     }
 
@@ -357,8 +348,20 @@ public class Player : PlayerBase
 
         if (isGrounded || character.isGrounded) //final check if the player can stand
         {
-            //canStand = (Vector3.Angle(Vector3.up, floorNormal) <= character.slopeLimit);
             isGrounded = true;
+        }
+
+        RaycastHit hit;
+        if (Physics.SphereCast(transform.position, 0.5f, -transform.up, out hit, maxDistance: distanceToFeet * 2, GroundLayers, QueryTriggerInteraction.Ignore))
+        {
+            if (Mathf.Approximately(floorNormal.y, 1))
+            {
+                floorNormal = Vector3.up;
+                canStand = true;
+            }
+
+            floorNormal = hit.normal;
+            canStand = (Vector3.Angle(Vector3.up, floorNormal) <= character.slopeLimit);
         }
 
         return (isGrounded);
@@ -373,15 +376,15 @@ public class Player : PlayerBase
                 velocity.y = 0; //if grounded then no need to fall
 
             if (jumpDelay > 0)
-                jumpDelay -= Time.fixedDeltaTime * 3;
+                jumpDelay -= Time.deltaTime * 3;
         }
         else
         {
-            velocity.y += gravitY * Time.fixedDeltaTime; //two deltra time cause PHJYSCIS
+            velocity.y += gravitY * Time.deltaTime; //two deltra time cause PHJYSCIS
 
 
             if (jumpDelay < coyotTime)
-                jumpDelay += Time.fixedDeltaTime;
+                jumpDelay += Time.deltaTime;
 
             //transform.parent = null;
             //transform.rotation = new Quaternion(0, transform.rotation.y, 0, transform.rotation.w);
@@ -391,19 +394,19 @@ public class Player : PlayerBase
 
     private void OnControllerColliderHit(ControllerColliderHit hit)
     {
-        floorNormal = hit.normal;
+/*        floorNormal = hit.normal;
 
         float standAngle = Vector3.Angle(Vector3.up, floorNormal);
 
-        if (Mathf.Approximately(standAngle, 90) || standAngle > 90)
+        if (Mathf.Approximately(standAngle, 90))
         {
             floorNormal = Vector3.up;
-            //canStand = true;
+            canStand = true;
         }
         else
         {
             //canStand = standAngle < character.slopeLimit;
-        }
+        }*/
 
         if (!isServer)
             return;
@@ -436,6 +439,8 @@ public class Player : PlayerBase
         if (_Old > _New) //if damage taken
         {
             int damage = _Old - _New;
+
+            playerAnimator.Hurt();
 
             if (isLocalPlayer)
                 playerCam.Shake((float)damage / maxHealth);
@@ -474,8 +479,6 @@ public class Player : PlayerBase
         body.gameObject.SetActive(alive);
         body.transform.position = transform.position + -Vector3.up; //bug fix
         character.enabled = alive;
-
-        playerAnimator.Death(!alive);
 
         if (alive == true)
         {
@@ -597,6 +600,8 @@ public class Player : PlayerBase
     {
         velocity += vel;
         velocity = Vector3.ClampMagnitude(velocity, maxVelocity); //no more infinit death demension
+
+        Grounded = false; //reset the check
     }
 
     [TargetRpc]
