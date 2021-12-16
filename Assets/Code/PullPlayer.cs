@@ -5,6 +5,10 @@ using UnityEngine;
 public class PullPlayer : OnCall
 {
     public float pullForce;
+
+    [Header("Modifyers")]
+    public float rootAmount = 2.5f;
+    public float upMultiplyer = 1;
     public float addUpForce = 1;
 
 
@@ -13,13 +17,13 @@ public class PullPlayer : OnCall
 
         Vector3 force = (transform.position - player.transform.position) * pullForce;
 
-        float yDist = (transform.position - player.transform.position).y;
+        if (force.y > 0)
+        {
+            force.y = Mathf.Pow(force.y, 1f / rootAmount);
+            force.y *= upMultiplyer;
 
-        yDist += addUpForce;
-
-        float upForce = Mathf.Sqrt(addUpForce * -2.0f * player.gravitY);
-
-        force.y += upForce;
+            force += Vector3.up * addUpForce;
+        }
 
         player.TargetAddVelocity(player.connectionToClient, force);
 

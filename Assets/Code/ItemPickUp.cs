@@ -13,20 +13,23 @@ public class ItemPickUp : NetworkBehaviour
 
     private Vector3 orginPos;
 
-    [Header("Item Propertys")]
+    [Header("PickUp Propertys")]
     public bool isActive = true;
     public bool respawn = true;
     public float respawnDelay;
     private float respawnTime;
 
-    public enum PowerUp { None, Jump, Speed }
+    //public enum PowerUp { None, Jump, Speed }
 
+    [Header("Item Effects")]
     [Range(0,1)] public float healthPercentage; //relative to player max health
     public int special;
-    public PowerUp powerUp = PowerUp.None;
+    public StatusEffect.EffectType effect = StatusEffect.EffectType.none;
+    public float magnitude = 1;
+    public float duration = 5;
 
-    public Mesh[] models;
-    public Material[] materials;
+    //public Mesh[] models;
+    //public Material[] materials;
 
     [Header("Internals")]
     private Renderer render;
@@ -76,10 +79,10 @@ public class ItemPickUp : NetworkBehaviour
             player.Hurt((int)(-player.maxHealth * healthPercentage)); //makes player gain health (WACKY)
             player.ServerAddSpecial(special);
 
-            if (powerUp != PowerUp.None)
+            if (effect != StatusEffect.EffectType.none)
             {
                 NetworkIdentity target = player.netIdentity;
-                ApplyPowerUp(target.connectionToClient);
+                player.ApplyEffect(effect, duration, magnitude);
             }
 
             if (respawn)
@@ -102,28 +105,5 @@ public class ItemPickUp : NetworkBehaviour
         trigger.enabled = active;
 
         isActive = active;
-    }
-
-    [TargetRpc]
-    void ApplyPowerUp(NetworkConnection target)
-    {
-        Player player = target.identity.GetComponentInChildren<Player>();
-        switch (powerUp)
-        {
-            case (PowerUp.Jump):
-                {
-                    player.jumpHeight *= 1.5f;
-                    player.gravitY /= 1.2f;
-
-                    break;
-                }
-
-            case (PowerUp.Speed):
-                {
-                    player.speed *= 1.35f;
-                    player.maxMoveVelocity *= 1.5f;
-                    break;
-                }
-        }
     }
 }

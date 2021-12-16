@@ -286,6 +286,7 @@ public class Player : PlayerBase
 
         velocity += movement;
 
+        //if(Grounded)
         velocity.x = Mathf.LerpUnclamped(velocity.x, 0, fricktion * Time.deltaTime);
         velocity.z = Mathf.LerpUnclamped(velocity.z, 0, fricktion * Time.deltaTime);
     }

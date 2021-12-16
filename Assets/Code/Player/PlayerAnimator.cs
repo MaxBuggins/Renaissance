@@ -70,7 +70,12 @@ public class PlayerAnimator : MonoBehaviour
                 //animator.speed = player.lastYRot * speedMultiplyer * Time.fixedDeltaTime;
             }
 
-            animator.SetBool("Falling", player.fallTime > 0.1f);
+            if (player.canStand == false)
+            {
+                animator.SetBool("Falling", true);
+            }
+            else
+                animator.SetBool("Falling", player.fallTime > 0.1f);
         }
 
     }

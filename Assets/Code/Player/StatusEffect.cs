@@ -5,7 +5,7 @@ using Mirror;
 
 public class StatusEffect : MonoBehaviour
 {
-    public enum EffectType {immunity, sneeze, }
+    public enum EffectType {none, immunity, sneeze, speed}
     public EffectType effectType;
 
     public float duration = Mathf.Infinity;
@@ -24,7 +24,17 @@ public class StatusEffect : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
 
         //if (effectType == EffectType.immunity)
-            //player.body.material = player.playerAnimator.immunityBlank;
+        //player.body.material = player.playerAnimator.immunityBlank;
+
+        switch (effectType)
+        {
+            case (EffectType.speed):
+                {
+                    player.speed *= magnitude;
+                    player.maxMoveVelocity *= magnitude / 2;
+                    break;
+                }
+        }
     }
 
     public void Update()
@@ -75,6 +85,12 @@ public class StatusEffect : MonoBehaviour
             case (EffectType.sneeze):
                 {
                     audioSource.PlayOneShot(player.playerClass.sneeze[Random.Range(0, player.playerClass.sneeze.Length)]);
+                    break;
+                }
+                            case (EffectType.speed):
+                {
+                    player.speed = player.playerClass.speed;
+                    player.maxMoveVelocity = player.playerClass.maxMoveVelocity;
                     break;
                 }
 
