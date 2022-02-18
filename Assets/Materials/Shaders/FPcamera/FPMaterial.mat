@@ -21,14 +21,13 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: FPMaterial
-  m_Shader: {fileID: -6465566751694194690, guid: ae78fb6187ab0dc4c8c927d233fbbd89, type: 3}
+  m_Shader: {fileID: -6465566751694194690, guid: 0bc0496b506665e418d18f583fbcac56, type: 3}
   m_ShaderKeywords: _ALPHATEST_ON _SURFACE_TYPE_TRANSPARENT
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: 3000
-  stringTagMap:
-    RenderType: Transparent
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
   disabledShaderPasses:
   - SHADOWCASTER
   - DepthOnly
@@ -61,11 +60,14 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
+    - Vector1_69584776e93446e7b01765925f4e0b98: 0.15
     - _AlphaClip: 1
     - _Blend: 0
     - _CastShadows: 0
+    - _ColourCount: 20
     - _Cull: 2
     - _DstBlend: 10
+    - _OutlineThickness: 1
     - _QueueControl: 0
     - _QueueOffset: 0
     - _SrcBlend: 5
@@ -73,5 +75,6 @@ Material:
     - _ZTest: 4
     - _ZWrite: 0
     - _ZWriteControl: 0
-    m_Colors: []
+    m_Colors:
+    - _OutlineColour: {r: 0, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []

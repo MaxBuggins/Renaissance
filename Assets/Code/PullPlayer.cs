@@ -25,7 +25,7 @@ public class PullPlayer : OnCall
             force += Vector3.up * addUpForce;
         }
 
-        player.TargetAddVelocity(player.connectionToClient, force);
+        player.TargetSetVelocity(player.connectionToClient, force);
 
         base.Call(player);
     }

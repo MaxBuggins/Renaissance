@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 4435056062337533748}
   - component: {fileID: 6418019998240728620}
   - component: {fileID: 8282159081371431232}
+  - component: {fileID: 6795281278996883181}
   m_Layer: 10
   m_Name: Plate_cell.001
   m_TagString: Untagged
@@ -115,6 +116,45 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &6795281278996883181
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2079123170073033}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 12451883548fb6546bda66c83809fe2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  endScale: {x: 0, y: 0, z: 0}
+  delay: 2
+  duration: 1.5
+  scaleCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 2
+      outSlope: 2
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &702530008651101591
 GameObject:
   m_ObjectHideFlags: 0
@@ -4974,6 +5014,7 @@ GameObject:
   - component: {fileID: 2124825333407089582}
   - component: {fileID: 4262958467420546748}
   - component: {fileID: 3203711836407778979}
+  - component: {fileID: 2934166427123527814}
   m_Layer: 10
   m_Name: Plate_cell
   m_TagString: Untagged
@@ -5076,6 +5117,45 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &2934166427123527814
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 962321013016093766}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 12451883548fb6546bda66c83809fe2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  endScale: {x: 0, y: 0, z: 0}
+  delay: 2
+  duration: 1.5
+  scaleCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 2
+      outSlope: 2
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &1202876964260459141
 GameObject:
   m_ObjectHideFlags: 0
@@ -5089,6 +5169,7 @@ GameObject:
   - component: {fileID: 4385535678749383213}
   - component: {fileID: 8777394992114162822}
   - component: {fileID: 5057055323048298015}
+  - component: {fileID: 1561850889368685096}
   m_Layer: 10
   m_Name: Plate_cell.002
   m_TagString: Untagged
@@ -5191,6 +5272,45 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &1561850889368685096
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1202876964260459141}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 12451883548fb6546bda66c83809fe2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  endScale: {x: 0, y: 0, z: 0}
+  delay: 2
+  duration: 1.5
+  scaleCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 2
+      outSlope: 2
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &3166567389878841269
 GameObject:
   m_ObjectHideFlags: 0
@@ -5203,6 +5323,7 @@ GameObject:
   - component: {fileID: 7480407909957855995}
   - component: {fileID: 6766493298943739787}
   - component: {fileID: 1865297534876587266}
+  - component: {fileID: 6701502650785921624}
   m_Layer: 10
   m_Name: PlateHit
   m_TagString: Untagged
@@ -5246,6 +5367,7 @@ MonoBehaviour:
   unParentOnStart: 0
   destroyDelay: 3.5
   destoryOnServer: 0
+  unParentTransOnDestory: []
 --- !u!114 &6766493298943739787
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5361,6 +5483,20 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &6701502650785921624
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3166567389878841269}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98ef4dcf5841cf54384e03e81753fb21, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  minRandomRot: {x: 0, y: 0, z: 0}
+  maxRandomRot: {x: 0, y: 360, z: 0}
 --- !u!1 &4514500219463269294
 GameObject:
   m_ObjectHideFlags: 0
@@ -10195,6 +10331,7 @@ GameObject:
   - component: {fileID: 101363113649265919}
   - component: {fileID: 2144950562347097371}
   - component: {fileID: 5240273172097801955}
+  - component: {fileID: 8038405125565032973}
   m_Layer: 10
   m_Name: Plate_cell.003
   m_TagString: Untagged
@@ -10297,3 +10434,42 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &8038405125565032973
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6814501632636922777}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 12451883548fb6546bda66c83809fe2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  endScale: {x: 0, y: 0, z: 0}
+  delay: 2
+  duration: 1.5
+  scaleCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 2
+      outSlope: 2
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4

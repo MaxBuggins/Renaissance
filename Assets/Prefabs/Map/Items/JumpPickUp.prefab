@@ -119,9 +119,11 @@ MonoBehaviour:
   isActive: 1
   respawn: 1
   respawnDelay: 7
-  health: 0
+  healthPercentage: 0
   special: 0
-  powerUp: 1
+  effect: 0
+  magnitude: 1
+  duration: 5
 --- !u!114 &2780692786815223214
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -137,5 +139,5 @@ MonoBehaviour:
   sceneId: 0
   serverOnly: 0
   visible: 0
-  m_AssetId: 
+  m_AssetId: 056a1c9aae1dec94791947dea4d72cdf
   hasSpawned: 0

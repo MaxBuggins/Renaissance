@@ -6,7 +6,7 @@ using Mirror;
 public class Spawner : NetworkBehaviour
 {
     public Transform[] spawnPoints;
-    public float spawnDelay;
+    public Vector2 spawnDelay;
 
     public GameObject gObject;
 
@@ -18,7 +18,7 @@ public class Spawner : NetworkBehaviour
             spawnPoints[0] = transform;
         }
 
-            Invoke(nameof(SpawnObject), spawnDelay);
+            Invoke(nameof(SpawnObject), Random.Range(spawnDelay.x, spawnDelay.y));
     }
 
     void SpawnObject()
@@ -30,7 +30,7 @@ public class Spawner : NetworkBehaviour
         NetworkServer.Spawn(spawn);
 
         //repeat
-        Invoke(nameof(SpawnObject), spawnDelay);
+        Invoke(nameof(SpawnObject), Random.Range(spawnDelay.x, spawnDelay.y));
     }
 
 }

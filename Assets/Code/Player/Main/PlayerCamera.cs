@@ -7,14 +7,14 @@ using UnityEngine.Rendering;
 public class PlayerCamera : MonoBehaviour
 {
     [Header("Variables")]
-    public float mouseLookSensitivty = 25;
+    public float mouseLookSensitivty = 18;
     public float gamepadLookSensitivty = 50;
 
     private float xRotation = 0f;
 
     [Header("HeadBob")]
-    public float bobSpeed;
-    public float bobAmount;
+    public float bobSpeed = 1;
+    public float bobAmount = 0.25f;
     private float bobTime = 0;
 
     [Header("Shake")]
@@ -71,7 +71,6 @@ public class PlayerCamera : MonoBehaviour
 
         if (player.health > 0)
         {
-
             player.transform.Rotate(Vector3.up * mouseX);
 
         }
@@ -107,8 +106,11 @@ public class PlayerCamera : MonoBehaviour
 
     public void Shake(float amount = 1)
     {
-        if (amount > 1.8f) //stop BIG SHAKEs (only at hungry hacks)
-            amount = 1.8f;
+        //better than 2 if statements (but thats probs what the fuction does so000.
+        amount = Mathf.Clamp(amount, 0.15f, 1.8f); //stop BIG SHAKEs (only at hungry hacks)
+
+        if (player == null)
+            return;
 
         Vector3 orignalPosition = player.cameraOffset;
 

@@ -28,8 +28,6 @@ public class ItemPickUp : NetworkBehaviour
     public float magnitude = 1;
     public float duration = 5;
 
-    //public Mesh[] models;
-    //public Material[] materials;
 
     [Header("Internals")]
     private Renderer render;
@@ -46,6 +44,7 @@ public class ItemPickUp : NetworkBehaviour
 
     void Update()
     {
+
         if (isServer && isActive == false)
         {
             respawnTime += Time.deltaTime;
@@ -61,6 +60,16 @@ public class ItemPickUp : NetworkBehaviour
         transform.localPosition = new Vector3(orginPos.x, yPos, orginPos.z);
 
         transform.localEulerAngles = new Vector3(0, Time.time * rotSpeed, 0);
+    }
+
+    [ClientRpc]
+    public void RpcSetItemPosition(Vector3 position)
+    {
+        transform.position = position;
+        transform.eulerAngles = Vector3.zero;
+
+        orginPos = position;
+        orginPos += Vector3.up * sinHeight * 1.5f;
     }
 
 

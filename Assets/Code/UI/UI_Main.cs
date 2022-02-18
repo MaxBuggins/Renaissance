@@ -8,7 +8,7 @@ using UnityEngine.EventSystems;
 public class UI_Main : MonoBehaviour
 {
     public Sprite[] deathSprites;
-    public ObjectPlayerClass[] classes;
+    public ObjectPlayerClass[] playersClasses;
 
     public PlayerBase playerBase;
     [HideInInspector] public Player player;
@@ -78,7 +78,7 @@ public class UI_Main : MonoBehaviour
         foreach (UI_Base ui in uiBases)
             ui.UpdateInfo();
 
-        classPreview.sprite = classes[(int)player.playerClass.playerClass].classSprite;
+        classPreview.sprite = player.playerClass.classSprite;
     }
 
     public void UIAddKillFeed(string killer, string dier, int hurtType)
@@ -131,14 +131,15 @@ public class UI_Main : MonoBehaviour
 
     public void DisplayScoreBoard()
     {
-        scoreBoard.SetActive(true);
+        scoreBoard.SetActive(!scoreBoard.activeSelf);
     }
 
     public void DisplayClassDetails(int classNum)
     {
         classUI.SetActive(true);
         gameUI.SetActive(false);
-        classDetails.DisplayDetails(classes[classNum]);
+
+        classDetails.DisplayDetails(playersClasses[classNum]);
     }
 
     public void ChangeClass(int classNum)

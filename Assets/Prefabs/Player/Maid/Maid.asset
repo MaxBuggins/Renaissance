@@ -26,25 +26,25 @@ MonoBehaviour:
     rgba: 0
   pattern: {fileID: -405019255, guid: 70ad3053f0d05684f85c9b1f7bb5c9e5, type: 3}
   playerClass: 4
-  maxHealth: 100
+  upperCase: 0
+  maxHealth: 80
   maxSpecial: 50
   spawnSpecial: 25
   specialChargeRate: 7
-  speed: 1
-  backSpeedMultiplyer: 0.8
-  sideSpeedMultiplyer: 1.3
-  airMovementMultiplyer: 0.6
-  gravitY: -35
+  speed: 0.5
+  backSpeedMultiplyer: 0.5
+  sideSpeedMultiplyer: 1
+  airMovementMultiplyer: 0.7
+  gravitY: -30
   fricktion: 1.25
-  maxMoveVelocity: 8.5
-  jumpHeight: 1
-  coyotTime: 0.3
+  maxMoveVelocity: 16
+  jumpHeight: 1.3
+  coyotTime: 0.35
   pushForce: 5
   slideFriction: 0.175
+  convertHealingToSpecial: 0
   bloodPerDamage: 6
   bloodObj: {fileID: 1207537085215162026, guid: 2f1d1a06d7338834693ab8f9e900b6ea, type: 3}
-  idleSprites: []
-  runSprites: []
   hurtSound:
   - {fileID: 8300000, guid: 9d780eba4074daa42af6b3183c4b1313, type: 3}
   deathSound:

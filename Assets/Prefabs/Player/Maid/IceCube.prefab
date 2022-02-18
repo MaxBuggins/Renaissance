@@ -18,9 +18,10 @@ GameObject:
   - component: {fileID: 3449134518196044383}
   - component: {fileID: 3435046561231341020}
   - component: {fileID: 2368605440447062322}
+  - component: {fileID: 8543969402713020635}
   m_Layer: 0
   m_Name: IceCube
-  m_TagString: Untagged
+  m_TagString: DontDestory
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -120,7 +121,7 @@ MonoBehaviour:
   sceneId: 0
   serverOnly: 0
   visible: 0
-  m_AssetId: 
+  m_AssetId: de87859a11ffe424083c5915901b3463
   hasSpawned: 0
 --- !u!114 &3779863052690745657
 MonoBehaviour:
@@ -136,6 +137,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveMode: 2
   moveSpeed: 4
+  startDelay: 0
+  localDistance: 0
   stopDistance: 2
   path: []
 --- !u!114 &5154850458860346180
@@ -5108,6 +5111,22 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     vectorLabel1_3: W
+--- !u!54 &8543969402713020635
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2416424484485989447}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &5306710814064086401
 GameObject:
   m_ObjectHideFlags: 0
@@ -14910,6 +14929,7 @@ MonoBehaviour:
   unParentOnStart: 0
   destroyDelay: 3
   destoryOnServer: 0
+  unParentTransOnDestory: []
 --- !u!114 &6831220586028199959
 MonoBehaviour:
   m_ObjectHideFlags: 0

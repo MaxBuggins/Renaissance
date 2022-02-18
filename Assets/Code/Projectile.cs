@@ -4,33 +4,40 @@ using Mirror;
 
 public class Projectile : NetworkBehaviour
 {
-    [Header("Projectile Propertys")]
+    public float destroyDelay = 5;
+
+    [Header("Projectile Damage")]
     public int damage;
-    private Vector3 orginPos;
+    protected Vector3 orginPos;
 
     public float startDmgFallOff = 12;
     public float minDmgMultiplyer = 0.25f;
 
-    public float destroyDelay = 5;
-    //public float initalForce = 5;
+    [Header("Projectile Movement")]
     public float forwardSpeed = 5; //if less than 0 then its a instant raycast
     public float gravitY = -9;
     public float airRistance = 0.1f;
+    private float totalAirRistance = 0;
 
     public float projectileWidth = 0.3f;
+
+    [Header("Projectile HitRequirements")]
     public int destoryOnHits = 0;
+    public bool bounceOffPlayerOnly = false;
     public bool destoryOnPlayerHit = true;
     public bool disableOnHit = false;
+    public bool mustHitNormalGround = false;
 
     [Header("Internals")]
     public LayerMask mask;
+    public Vector3 velocity;
     private Vector3 lastPos;
-    private Vector3 velocity;
 
     [Header("Projectile Refrences")]
     private NetworkTransform netTrans;
-    private Hurtful hurtful;
+    protected Hurtful hurtful;
 
+    public bool serverSpawnHitObject = false;
     public GameObject hitObject;
     public GameObject hitSplat;
 
@@ -38,7 +45,7 @@ public class Projectile : NetworkBehaviour
 
 
     // Server and Clients must run
-    void Awake()
+    public void Awake()
     {
         netTrans = GetComponent<NetworkTransform>();
         hurtful = GetComponent<Hurtful>();
@@ -71,23 +78,24 @@ public class Projectile : NetworkBehaviour
         */
     }
 
-    void Update()
+    protected void Update()
     {
         velocity.y += gravitY * Time.deltaTime;
         transform.position = transform.position + ((Vector3.up * velocity.y)
-            + (transform.forward * forwardSpeed)) * Time.deltaTime;
+            + (transform.forward * (forwardSpeed + totalAirRistance))) * Time.deltaTime;
 
-        forwardSpeed -= airRistance * Time.deltaTime;
+        totalAirRistance -= airRistance * Time.deltaTime;
 
         if (isServer)//Adian Smells of car fuel
         {
             //Ray ray = new Ray(transform.position, player.position - transform.position)
             RaycastHit hit;
-            if (Physics.SphereCast(transform.position, projectileWidth, transform.position - lastPos,
-                out hit, maxDistance: Mathf.Abs(Vector3.Distance(transform.position, lastPos)) * 1.25f,
+            //Debug.DrawLine(lastPos, transform.position, Color.green, 10);
+            if (Physics.SphereCast(lastPos, projectileWidth, transform.position - lastPos,
+                out hit, maxDistance: Mathf.Abs(Vector3.Distance(transform.position, lastPos) * 1.1f),
                 mask, QueryTriggerInteraction.Ignore))
             {
-                Player player = hit.collider.gameObject.GetComponent<Player>();
+                Player player = hit.collider.gameObject.GetComponentInParent<Player>();
                 if (player != null)
                 {
                     if (hurtful.ignorOwner && player == hurtful.owner)
@@ -106,7 +114,12 @@ public class Projectile : NetworkBehaviour
 
                     hurtful.HurtPlayer(player, dmg, hurtful.hurtType);
 
-                    if(destoryOnPlayerHit)
+                    if (bounceOffPlayerOnly)
+                    {
+                        destoryOnHits += 1;
+                    }
+
+                    else if(destoryOnPlayerHit)
                         DestroySelfHit();
                 }
                 else
@@ -115,21 +128,32 @@ public class Projectile : NetworkBehaviour
                         Instantiate(hitSplat, hit.point, Quaternion.LookRotation(hit.normal));
                 }
 
+
+
+                if(mustHitNormalGround == true && Vector3.Dot(hit.normal, Vector2.up) < 0.9f) //Dot your nannny
+                    destoryOnHits++; //allows the projectile to be hit again 
+
+                print(hit.normal);
+
                 if (destoryOnHits > -1)
                 {
-
                     destoryOnHits -= 1;
 
                     if (destoryOnHits < 0)
                         DestroySelfHit();
                     else
                     {
-                        Vector3 forw = transform.forward;
+                        Vector3 forw = (transform.position - lastPos).normalized;
                         Vector3 mirrored = Vector3.Reflect(forw, hit.normal);
                         transform.rotation = Quaternion.LookRotation(mirrored, transform.up);
                         transform.position = hit.point;
+                        velocity = Vector3.zero; //reset for gravity projectiles
+                        totalAirRistance = 0;
 
-                        RpcSyncProjectile(transform.position, transform.eulerAngles, true);
+                        if(hurtful != null)
+                            hurtful.ignorOwner = false;
+
+                        RpcSyncProjectile(transform.position, transform.eulerAngles, !bounceOffPlayerOnly);
                     }
                 }
             }
@@ -144,6 +168,14 @@ public class Projectile : NetworkBehaviour
         if (hitObject != null)
         {
             GameObject obj = Instantiate(hitObject, lastPos, transform.rotation);
+
+            ItemPickUp item = obj.GetComponent<ItemPickUp>(); //only map spawned items should respawn (LAZY CODE)
+            if (item != null)
+                item.respawn = false;
+
+
+            if (serverSpawnHitObject)
+                NetworkServer.Spawn(obj);
 
             Hurtful hurt = obj.GetComponentInChildren<Hurtful>();
             if (hurt != null)
@@ -164,8 +196,11 @@ public class Projectile : NetworkBehaviour
     [ClientRpc]
     void RpcDestroySelfHit()
     {
-        if(hitObject != null)
-            Instantiate(hitObject, lastPos, transform.rotation);
+        if(hitObject != null && serverSpawnHitObject == false)
+            Instantiate(hitObject, transform.position, transform.rotation);
+
+        if (hitSplat != null)
+            Instantiate(hitSplat, transform.position, transform.rotation);
 
         //if (hitSplat != null)
         //Instantiate(hitSplat, lastPos, transform.rotation);
@@ -198,9 +233,15 @@ public class Projectile : NetworkBehaviour
     void RpcSyncProjectile(Vector3 pos, Vector3 rot, bool hit)
     {
         if (hit && hitObject != null)
-            Instantiate(hitObject, lastPos, transform.rotation);
+            Instantiate(hitObject, transform.position, transform.rotation);
+
+        if (hitSplat != null)
+            Instantiate(hitSplat, transform.position, transform.rotation);
 
         transform.position = pos;
         transform.eulerAngles = rot;
+
+        velocity = Vector3.zero; //reset for gravity projectiles
+        totalAirRistance = 0;
     }
 }

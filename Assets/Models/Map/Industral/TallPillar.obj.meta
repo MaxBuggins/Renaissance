@@ -3,7 +3,17 @@ guid: 0a6cc925f64e5f6499f0781a02d26ea0
 ModelImporter:
   serializedVersion: 21202
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Dirt
+    second: {fileID: 2100000, guid: 3045efdda441e57498260954ca23ea59, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: RedBricks
+    second: {fileID: 2100000, guid: ef01a278a11eb7743a06a0dda96c415a, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

@@ -974,8 +974,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   unParentOnStart: 0
-  destroyDelay: 15
+  destroyDelay: 30
   destoryOnServer: 0
+  unParentTransOnDestory: []
 --- !u!1 &3330555581596520382
 GameObject:
   m_ObjectHideFlags: 0

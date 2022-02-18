@@ -25,7 +25,7 @@ public class LevelManager : NetworkBehaviour
 
         foreach(Transform child in transform)
         {
-            if (child.tag == "SpawnPoint")
+            if (child.tag == "Respawn")
                 spawnPoints.Add(child);
         }
     }

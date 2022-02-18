@@ -16,8 +16,15 @@ public class LinePhysics : MonoBehaviour
     {
         lineRender = GetComponent<LineRenderer>();
 
+        if (lineRender == null)
+        {
+            enabled = false;
+            return;
+        }
+
         //very hard coded and bad but no idear how to do any other way
         hurtful = GetComponentInParent<Hurtful>();
+
         endPos = hurtful.owner.transform;
 
 

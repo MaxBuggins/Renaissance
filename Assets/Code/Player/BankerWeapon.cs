@@ -15,6 +15,7 @@ public class BankerWeapon : PlayerWeapon
     public Vector3 swingRot;
 
     [Header("Shoot Propertys")]
+    public int bulletCost = 0;
     public float fireRate = 0.4f;
     private float fireTime = 0;
 
@@ -29,17 +30,26 @@ public class BankerWeapon : PlayerWeapon
     public float returnDelay = 1;
     private float timeSinceThrow;
 
+    [Header("Lotto Options")]
+    public bool lottoSpecial = false;
+    private PlayerLotto lotto;
+
 
     [Header("Weapon Refrences")]
-    public GameObject punchHand;
     public GameObject briefCase;
 
     public Transform shootPos;
+    public LayerMask shootHitLayer;
+
+    private Animator animator;
 
     protected override void Start()
     {
+        animator = GetComponent<Animator>();
         player = GetComponentInParent<Player>();
+        lotto = player.GetComponent<PlayerLotto>();
 
+        timeSinceThrow = returnDelay;
         clipAmount = clipSize;
 
         base.Start();
@@ -65,6 +75,8 @@ public class BankerWeapon : PlayerWeapon
                 clipAmount = clipSize;
                 reloading = false;
                 reloadTime = 0;
+
+                animator.ResetTrigger("Primary");
             }
         }
 
@@ -74,7 +86,7 @@ public class BankerWeapon : PlayerWeapon
     }
 
     [Client]
-    public override void UsePrimary()
+    public override void UseSeconday()
     {
         if (player.paused)
             return;
@@ -83,8 +95,8 @@ public class BankerWeapon : PlayerWeapon
             return;
 
 
-        punchHand.transform.position += transform.forward * 0.75f;
         Invoke(nameof(Punch), punchDelay);
+        base.UseSeconday();
         timeSincePunch = 0;
     }
 
@@ -94,13 +106,11 @@ public class BankerWeapon : PlayerWeapon
 
         player.CmdSpawnObject(0, Vector3.zero, transform.eulerAngles, false, true);
         //player.velocity += transform.forward * punchVelocity;
-        base.UsePrimary();
-        punchHand.transform.position -= transform.forward * 0.75f;
     }
 
 
     [Client]
-    public override void UseSeconday()
+    public override void UsePrimary()
     {
         if (player.paused || reloading)
             return;
@@ -108,20 +118,53 @@ public class BankerWeapon : PlayerWeapon
         if (fireTime < fireRate)
             return;
 
-        if (clipAmount <= 0)
+        if (clipAmount <= 0 && clipSize > 0)
         {
+            animator.SetTrigger("Reload");
             reloading = true;
             return;
         }
 
+        if (bulletCost > 0)
+        {
+            if (player.special - bulletCost < 0)
+                return;
+
+            player.CmdAddSpecial(-bulletCost);
+
+        }
         clipAmount -= 1;
 
-        player.CmdSpawnObject(1, shootPos.position, shootPos.eulerAngles, false, false);
-        base.UseSeconday();
+        Ray ray = new Ray(transform.position, transform.forward);
+        RaycastHit hit;
+
+        //Debug.DrawRay(transform.position, transform.forward * 1000, Color.red, 10);
+
+        if (Physics.Raycast(ray, out hit, 7000, shootHitLayer, QueryTriggerInteraction.Ignore))
+        {
+            Vector3 _direction = (hit.point - shootPos.position).normalized;
+            Quaternion _lookRotation = Quaternion.LookRotation(_direction);
+
+            player.CmdSpawnObject(1, shootPos.position, _lookRotation.eulerAngles, false, false);
+
+        }
+
+        else
+            player.CmdSpawnObject(1, shootPos.position, shootPos.eulerAngles, false, false);
+
+        base.UsePrimary();
         fireTime = 0;
 
-        if (clipAmount <= 0)
+        CheckIfReload();
+    }
+
+    public void CheckIfReload()
+    {
+        if (clipAmount <= 0 && clipSize > 0)
+        {
+            animator.SetTrigger("Reload");
             reloading = true;
+        }
     }
 
     [Client]
@@ -136,11 +179,16 @@ public class BankerWeapon : PlayerWeapon
 
         base.UseSpecial();
 
+        if (lottoSpecial == true)
+        {
+            lotto.CmdEnterLotto();
+            return;
+        }
+
         player.playerCam.currentOffset -= swingRot * 1.3f;
 
         timeSinceThrow = 0;
-        briefCase.SetActive(false);
-        punchHand.transform.position += transform.forward * 0.75f;
+        //briefCase.SetActive(false);
 
         Invoke(nameof(ActivateBriefCase), returnDelay);
 
@@ -149,13 +197,15 @@ public class BankerWeapon : PlayerWeapon
 
     void ActivateBriefCase()
     {
-        punchHand.transform.position -= transform.forward * 0.75f;
         briefCase.SetActive(true);
     }
 
     public override void Reload()
     {
-        if(clipAmount < clipSize)
+        if (clipAmount < clipSize)
+        {
             reloading = true;
+            animator.SetTrigger("Reload");
+        }
     }
 }

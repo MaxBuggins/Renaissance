@@ -427,20 +427,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
-  damage: 20
-  startDmgFallOff: 20
-  minDmgMultiplyer: 0.25
   destroyDelay: 5
-  forwardSpeed: 30
+  damage: 20
+  startDmgFallOff: 25
+  minDmgMultiplyer: 0.25
+  forwardSpeed: 28
   gravitY: -25
-  airRistance: 12
+  airRistance: 10
   projectileWidth: 0.5
   destoryOnHits: 0
+  bounceOffPlayerOnly: 0
   destoryOnPlayerHit: 1
   disableOnHit: 0
   mask:
     serializedVersion: 2
-    m_Bits: 507
+    m_Bits: 473
+  velocity: {x: 0, y: 0, z: 0}
   hitObject: {fileID: 6906018285293153184, guid: 2b1f33066f196634cbb4661d4a46f5aa, type: 3}
   hitSplat: {fileID: 354691278180113158, guid: ec1ce332d44e5aa4687631fbb4af931f, type: 3}
   destoyCall: {fileID: 1476269009965310601}
@@ -487,4 +489,4 @@ MonoBehaviour:
   pullForce: 7
   rootAmount: 5.25
   upMultiplyer: 15
-  addUpForce: 3
+  addUpForce: 2.5

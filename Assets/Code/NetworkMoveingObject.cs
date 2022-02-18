@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
+using Pixelplacement;
 
 public class NetworkMoveingObject : MonoBehaviour
 {
@@ -14,6 +15,8 @@ public class NetworkMoveingObject : MonoBehaviour
 
     private Vector3 orginPos; //I trust mirror is efficent
     public Transform[] path;
+
+    private int nextStage = 0;
 
     private NetworkIdentity identity;
 

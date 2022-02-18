@@ -266,36 +266,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: PlayerSprites_6
-      rect:
-        serializedVersion: 2
-        x: 3
-        y: 403
-        width: 17
-        height: 19
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: bb49c72abfb19a249bf96521f41797c7
-      internalID: 1207927014
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
       name: PlayerSprites_7
       rect:
         serializedVersion: 2
-        x: 43
-        y: 404
-        width: 13
-        height: 21
+        x: 36
+        y: 337
+        width: 52
+        height: 88
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -308,36 +287,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: PlayerSprites_8
-      rect:
-        serializedVersion: 2
-        x: 94
-        y: 405
-        width: 23
-        height: 20
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 8988b1284ab50ab47bab8edfa76b65f2
-      internalID: 294575845
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
       name: PlayerSprites_9
       rect:
         serializedVersion: 2
         x: 167
-        y: 395
+        y: 385
         width: 15
         height: 23
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -345,27 +303,6 @@ TextureImporter:
       bones: []
       spriteID: 37d7d1c74412d1e4b9cf1bf0d058e3fb
       internalID: 895734257
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: PlayerSprites_10
-      rect:
-        serializedVersion: 2
-        x: 276
-        y: 391
-        width: 27
-        height: 28
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 666f554a48a378a4fb68ac0ab93ad70f
-      internalID: 1606033506
       vertices: []
       indices: 
       edges: []
@@ -496,6 +433,69 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: PlayerSprites_17
+      rect:
+        serializedVersion: 2
+        x: 382
+        y: 304
+        width: 82
+        height: 94
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 91de13abb62dbec43a7ab35e526d1c9b
+      internalID: -1366141868
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerSprites_18
+      rect:
+        serializedVersion: 2
+        x: 263
+        y: 12
+        width: 46
+        height: 95
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6a3ffbd70636ebd42a845fba1a397407
+      internalID: -504080219
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerSprites_19
+      rect:
+        serializedVersion: 2
+        x: 101
+        y: 18
+        width: 33
+        height: 71
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 301d140ddcca54647b80c0b0164933a4
+      internalID: 2144395056
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -513,10 +513,13 @@ TextureImporter:
       PlayerSprites_4: -1764100316
       PlayerSprites_10: 1606033506
       PlayerSprites_9: 895734257
+      PlayerSprites_17: -1366141868
+      PlayerSprites_19: 2144395056
       PlayerSprites_5: 686872335
       PlayerSprites_12: -772100800
       PlayerSprites_13: -1461599321
       PlayerSprites_8: 294575845
+      PlayerSprites_18: -504080219
       PlayerSprites_1: 1303225409
       PlayerSprites_11: -1433595287
       PlayerSprites_6: 1207927014

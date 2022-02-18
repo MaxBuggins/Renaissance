@@ -19,29 +19,39 @@ public class UI_Special : UI_Base
 
      public override void UpdateInfo()
     {
+        string displayString = ui_Main.player.special.ToString();
+        float fillAmount = (float)ui_Main.player.special / (float)ui_Main.player.maxSpecial;
+
         switch (ui_Main.player.playerClass.playerClass)
         {
             case (PlayerClass.Maid):
                 {
                     int index = (int)ui_Main.player.playerWeapon.GetComponent<MaidWeapon>().currentShape;
-                    specialIcon.sprite = specialSprites[index];
+                    specialIcon.sprite = specialSprites[3 + index];
                     break;
                 }
             case (PlayerClass.Banker):
                 {
-                    specialIcon.sprite = specialSprites[3];
+                    specialIcon.sprite = specialSprites[1];
+                    fillAmount = 1;
+
+                    if(ui_Main.player.playerClass.upperCase)
+                        displayString = "$" + ((float)ui_Main.player.special / 100).ToString();
+
+                    else
+                        displayString = "$" + (ui_Main.player.special * 100).ToString();
+
                     break;
                 }
 
             case (PlayerClass.Convict):
                 {
-                    specialIcon.sprite = specialSprites[3];
+                    specialIcon.sprite = specialSprites[2];
                     break;
                 }
         }
 
-        //ui_Main.player.playerWeapon
-        specialBar.fillAmount = (float)ui_Main.player.special / (float)ui_Main.player.maxSpecial;
-        specialText.text = ui_Main.player.special.ToString();
+        specialBar.fillAmount = fillAmount;
+        specialText.text = displayString;
     }
 }

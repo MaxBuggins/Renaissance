@@ -7,20 +7,29 @@ public class OnIdle : NetworkBehaviour
 {
     private Player player;
 
-    public float spawnDelay = 2;
+    public float spawnDelay = 1.5f;
+    private float timeSinceSpawn = 0;
 
-    public float idleVelocity = 0.4f;
-    private bool idle;
+    //public float maxIdleMagnitude = 0.25f;
 
-    public float effectDelay = 0.3f;
-    public HurtType hurtType = HurtType.Death;
-    public float minSpecial = 0.2f;
+    public float idleTimeForSpecial = 0.9f;
+    private float timeSinceIdle;
 
-    //public int idleSpecial = 2;
+
+
+
+    //public float idleVelocity = 0.4f;
+
+    //public float effectDelay = 0.3f;
+    //public HurtType hurtType = HurtType.Death;
+    //public float minSpecial = 0.2f;
+
     //public int moveSpecial = -1;
 
-    private float timeSinceMovement = 0;
-    private float timeSinceIdle = 0;
+    //private float timeSinceMovement = 0;
+    //private float timeSinceIdle = 0;
+
+    private Vector3 lastPos;
 
     void Start()
     {
@@ -30,39 +39,56 @@ public class OnIdle : NetworkBehaviour
         player = GetComponent<Player>();
     }
 
+    [ClientCallback] //VERY hackable but whos gonna hack this thing anyway
     void Update()
     {
         if (player.health == 0)
         {
-            spawnDelay = 1.5f;
+            timeSinceSpawn = 0;
             return;
         }
 
-        if(spawnDelay > 0)
+        if(timeSinceSpawn < spawnDelay)
         {
-            spawnDelay -= Time.deltaTime;
+            timeSinceSpawn += Time.deltaTime;
             return;
         }
 
-
-        timeSinceMovement += Time.deltaTime;
-
-        Vector3 velocity = (transform.position - player.lastPos);
-        velocity.y = 0; //falling and jumping dont count
-        idle = velocity.magnitude < idleVelocity; //magnitude is allways posative thanks aids
-
-
-        if (timeSinceMovement > effectDelay)
+        if(player.move == Vector2.zero)
         {
-            float special = velocity.magnitude * player.playerClass.specialChargeRate;
-            special += minSpecial;
-            player.specialChargeRate = special;
+            timeSinceIdle += Time.deltaTime;
 
-            timeSinceMovement = 0;
-
-            //if (player.special >= player.maxSpecial)
-            //player.Hurt(5);
+            if (timeSinceIdle > idleTimeForSpecial)
+            {
+                player.CmdAddSpecial(1);
+                timeSinceIdle = 0;
+            }
         }
+        else
+            timeSinceIdle = 0;
+
+        //float velMag = (transform.position - lastPos).magnitude;
+
+        //if(velMag <= maxIdleMagnitude)
+
+
+        //lastPos = transform.position;
+
+        /*        velocity.y = 0; //falling and jumping dont count
+                idle = velocity.magnitude < idleVelocity; //magnitude is allways posative thanks aids
+
+
+                if (timeSinceMovement > effectDelay)
+                {
+                    float special = velocity.magnitude * player.playerClass.specialChargeRate;
+                    special += minSpecial;
+                    player.specialChargeRate = special;
+
+                    timeSinceMovement = 0;
+
+                    //if (player.special >= player.maxSpecial)
+                    //player.Hurt(5);
+                }*/
         /*
 
         else
@@ -96,14 +122,14 @@ public class OnIdle : NetworkBehaviour
         //}
     }
 
-    void ResetTimer()
-    {
-        timeSinceIdle = 0;
-        timeSinceMovement = 0;
-    }
+    //void ResetTimer()
+    //{
+        //timeSinceIdle = 0;
+        //timeSinceMovement = 0;
+    //}
 
-    private void Enable()
-    {
-        enabled = true;
-    }
+    //private void Enable()
+    //{
+        //enabled = true;
+    //}
 }

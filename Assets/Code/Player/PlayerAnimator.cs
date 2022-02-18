@@ -27,19 +27,18 @@ public class PlayerAnimator : MonoBehaviour
     public float hurtDuration = 0.5f;
     public AnimationCurve hurtCurve;
 
-    [Header("Sprites")]
-    public SpriteDirections[] idleSprites;
-    public SpriteDirections[] runSprites;
+    //[Header("Sprites")]
+    //public SpriteDirections[] idleSprites;
+    //public SpriteDirections[] runSprites;
 
-    public GameObject ragdoll;
 
     [Header("Materials")]
     public Material blank;
     public Material immunityBlank;
 
-    private DirectionalSprite directionalSprite;
+    //private DirectionalSprite directionalSprite;
     private Player player;
-    public Animator animator;
+    [HideInInspector] public Animator animator;
 
 
     void Start()
@@ -89,6 +88,14 @@ public class PlayerAnimator : MonoBehaviour
     {
         animator.SetTrigger("Secondary");
     }
+
+    public void Special()
+    {
+        animator.SetTrigger("Special");
+        //Tween.LocalScale(transform, transform.localScale * hurtScale, hurtDuration,
+        //0, hurtCurve);
+    }
+
     public void Hurt()
     {
         animator.SetTrigger("Hurt");

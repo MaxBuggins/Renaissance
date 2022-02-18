@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 4076801902477686691}
   - component: {fileID: 4099894757249232928}
   - component: {fileID: 4003847625180386510}
+  - component: {fileID: 425583283593109587}
   m_Layer: 0
   m_Name: IceSphere
   m_TagString: Untagged
@@ -106,7 +107,7 @@ MonoBehaviour:
   sceneId: 0
   serverOnly: 0
   visible: 0
-  m_AssetId: 
+  m_AssetId: 272214a59f920b3488d1f0c75efde7c0
   hasSpawned: 0
 --- !u!135 &971401956762228870
 SphereCollider:
@@ -5127,6 +5128,22 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     vectorLabel1_3: W
+--- !u!54 &425583283593109587
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3947019621467730363}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &4978680088449047367
 GameObject:
   m_ObjectHideFlags: 0
@@ -14929,6 +14946,7 @@ MonoBehaviour:
   unParentOnStart: 0
   destroyDelay: 3
   destoryOnServer: 0
+  unParentTransOnDestory: []
 --- !u!114 &5297115825210607083
 MonoBehaviour:
   m_ObjectHideFlags: 0

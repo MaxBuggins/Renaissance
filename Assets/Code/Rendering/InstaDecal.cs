@@ -5,9 +5,12 @@ using UnityEngine.Rendering.Universal;
 
 public class InstaDecal : MonoBehaviour
 {
+    public bool deParentOnStart = false;
     public float despawnDelay = 60;
     public Material[] randomMats;
     //public Color colour;
+
+    //private float positionMultiple = 0.125f;
 
     private DecalProjector projector;
 
@@ -16,10 +19,23 @@ public class InstaDecal : MonoBehaviour
         Destroy(gameObject, despawnDelay);
         projector = GetComponent<DecalProjector>();
 
-        if(randomMats.Length > 0)
+
+        if (deParentOnStart)
+            transform.parent = null;
+
+        Vector3 gridPos = new Vector3(RoundToMultiple(transform.position.x),
+        RoundToMultiple(transform.position.y),
+        RoundToMultiple(transform.position.z));
+
+        transform.position = gridPos;
+
+
+        if (randomMats.Length > 0)
             projector.material = randomMats[Random.Range(0, randomMats.Length)];
 
         //projector.material.color = colour; effects all for some reason
+
+
 
         int mask = ~LayerMask.GetMask("Hurt");
        
@@ -37,5 +53,8 @@ public class InstaDecal : MonoBehaviour
         }
     }
 
-
+    public float RoundToMultiple(float a)
+    {
+        return a = Mathf.Round(a * 8f) / 8;
+    }
 }

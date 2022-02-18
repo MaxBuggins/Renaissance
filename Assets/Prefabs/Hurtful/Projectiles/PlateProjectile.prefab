@@ -55,7 +55,7 @@ MonoBehaviour:
   sceneId: 0
   serverOnly: 0
   visible: 0
-  m_AssetId: 
+  m_AssetId: d431fcfd73d684842a65dd020a942d49
   hasSpawned: 0
 --- !u!114 &934650866890984948
 MonoBehaviour:
@@ -72,14 +72,20 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 2
   clientAuthority: 0
-  localPositionSensitivity: 5
-  localRotationSensitivity: 5
-  localScaleSensitivity: 1
-  compressRotation: 1
-  interpolateScale: 1
-  interpolateRotation: 1
-  interpolatePosition: 1
+  sendInterval: 0.05
+  syncPosition: 1
+  syncRotation: 1
   syncScale: 1
+  interpolatePosition: 1
+  interpolateRotation: 1
+  interpolateScale: 1
+  bufferTimeMultiplier: 1
+  bufferSizeLimit: 64
+  catchupThreshold: 4
+  catchupMultiplier: 0.1
+  showGizmos: 0
+  showOverlay: 0
+  overlayColor: {r: 0, g: 0, b: 0, a: 0.5}
 --- !u!114 &398733306034927852
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -94,20 +100,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
+  destroyDelay: 4
   damage: 35
   startDmgFallOff: 12
   minDmgMultiplyer: 0.25
-  destroyDelay: 4
   forwardSpeed: 35
   gravitY: -11
   airRistance: 0.25
   projectileWidth: 0.1
   destoryOnHits: 0
+  bounceOffPlayerOnly: 0
   destoryOnPlayerHit: 1
   disableOnHit: 0
   mask:
     serializedVersion: 2
     m_Bits: 243
+  velocity: {x: 0, y: 0, z: 0}
   hitObject: {fileID: 3166567389878841269, guid: 646947f155ac7384c8c486cfa71ac4f7, type: 3}
   hitSplat: {fileID: 0}
   destoyCall: {fileID: 0}
@@ -125,20 +133,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
+  destroyDelay: 4
   damage: 35
   startDmgFallOff: 12
   minDmgMultiplyer: 0.25
-  destroyDelay: 4
   forwardSpeed: 35
   gravitY: -11
   airRistance: 0.25
   projectileWidth: 0.48
   destoryOnHits: 0
+  bounceOffPlayerOnly: 0
   destoryOnPlayerHit: 1
   disableOnHit: 0
   mask:
     serializedVersion: 2
     m_Bits: 8
+  velocity: {x: 0, y: 0, z: 0}
   hitObject: {fileID: 3166567389878841269, guid: 646947f155ac7384c8c486cfa71ac4f7, type: 3}
   hitSplat: {fileID: 0}
   destoyCall: {fileID: 0}
@@ -292,7 +302,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5166646611917914881}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0.5}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4988,7 +4998,7 @@ ParticleSystemRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_RenderMode: 1
+  m_RenderMode: 0
   m_MeshDistribution: 0
   m_SortMode: 0
   m_MinParticleSize: 0
@@ -5045,7 +5055,7 @@ Transform:
   m_GameObject: {fileID: 5731291662124998912}
   m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.9, y: 1.9, z: 1.9}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 398733306034927853}
@@ -5127,7 +5137,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6862589658930124536}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0.75}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

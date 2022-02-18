@@ -10,6 +10,7 @@
 using UnityEngine;
 using System;
 using Pixelplacement;
+using Mirror;
 
 #pragma warning disable 0168
 

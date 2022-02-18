@@ -18,7 +18,7 @@ public class PlayerWeapon : NetworkBehaviour
     public float reloadPerstenage = 0; //for UI
 
     [Header("Unity Things")]
-    public Player player;
+    protected Player player;
     private Animator animator;
     [HideInInspector] public PlayerAnimator playerAnimator;
 
@@ -61,9 +61,10 @@ public class PlayerWeapon : NetworkBehaviour
         if (player.paused)
             return;
 
+        playerAnimator.primaryAttack();
+
         if (animator != null)
         {
-            playerAnimator.primaryAttack();
             animator.SetTrigger("Primary");
         }
     }
@@ -73,9 +74,10 @@ public class PlayerWeapon : NetworkBehaviour
         if (player.paused)
             return;
 
+        playerAnimator.secondaryAttack();
+
         if (animator != null)
         {
-            playerAnimator.secondaryAttack();
             animator.SetTrigger("Secondary");
         }
     }
@@ -85,6 +87,9 @@ public class PlayerWeapon : NetworkBehaviour
         if (player.paused)
             return;
 
+        animator.SetTrigger("Special");
+
+        playerAnimator.Special();
         player.CmdAddSpecial(-specialCost);
 
         specialIsActive = true;

@@ -18,7 +18,7 @@ public class DestoryOnTrigger : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Player")
+        if (other.tag == "Player" || other.tag == "DontDestory")
             return;
 
         if(triggerPrefab != null)
@@ -29,8 +29,8 @@ public class DestoryOnTrigger : MonoBehaviour
         Rigidbody rb = other.GetComponent<Rigidbody>();
         if (rb != null)
         {
-            Destroy(rb.gameObject);
+            Destroy(rb.gameObject, destroyDelay);
             return;
         }
-    }
+    } 
 }

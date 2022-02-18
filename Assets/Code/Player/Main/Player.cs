@@ -80,14 +80,15 @@ public class Player : PlayerBase
     [HideInInspector] public Controls controls;
 
     [Header("Refrences")]
-    //public PlayerStats stats;
-
     public GameObject cameraPrefab;
     public GameObject corpsePrefab;
     public GameObject[] spawnableObjects;
 
+    public Material iceMat;
+
     [Header("Unity Stuff Internals")]
     public Renderer body;
+    public Renderer equipmentRender;
     [HideInInspector] public PlayerAnimator playerAnimator;
 
     [HideInInspector] public PlayerCamera playerCam;
@@ -105,6 +106,7 @@ public class Player : PlayerBase
 
     private PlayerAbove playerAbove;
 
+    public float spawnRandomRot = 0;
     public GameObject spawnOnDeath;
 
     public override void OnStartLocalPlayer() //just for the local client
@@ -115,6 +117,17 @@ public class Player : PlayerBase
         foreach(Renderer render in body.GetComponentsInChildren<Renderer>())
         {
             render.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.ShadowsOnly;
+        }
+
+        if (equipmentRender != null)
+        {
+            equipmentRender.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.ShadowsOnly;
+
+            foreach (Renderer render in equipmentRender.transform.GetComponentsInChildren<Renderer>())
+            {
+
+                render.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.ShadowsOnly;
+            }
         }
 
         clientManager = FindObjectOfType<ClientManager>();
@@ -136,7 +149,7 @@ public class Player : PlayerBase
 
         controls.Game.ChangeClass.performed += funnyiest => Pause(!paused, 2);
 
-        controls.Game.ShowScore.performed += funnyiest => Pause(!paused, 3);
+        controls.Game.ShowScore.performed += funnyiest => uIMain.DisplayScoreBoard();
 
         controls.Game.Spectate.performed += funnyiestestest => Spectate();
 
@@ -184,7 +197,7 @@ public class Player : PlayerBase
     {
         if (isServer)
         {
-            if (health > 0) //only gain special when alive / gameing
+            if (health > 0 & specialChargeRate > 0) //only gain special when alive / gameing
             {
                 if (special < maxSpecial) //only gain special when not at max
                 {
@@ -207,11 +220,13 @@ public class Player : PlayerBase
         else
             fallTime = 0;
 
+    }
+
+    void FixedUpdate()
+    {
 
         if (!isLocalPlayer) //only the player runs whats next
             return;
-
-        //velocity += transform.position - lastPos;
 
         if (health <= 0)
         {
@@ -222,6 +237,7 @@ public class Player : PlayerBase
         Movement();
         ApplyGravity();
 
+        lastPos = transform.position;
     }
 
     //all run
@@ -243,7 +259,7 @@ public class Player : PlayerBase
                 (0,playerClass.jumpSound.Length)]);
         }
 
-        lastPos = transform.position; //must be done after movement and stuff
+        //lastPos = transform.position; //must be done after movement and stuff
         lastYRot = transform.eulerAngles.y;
     }
 
@@ -260,17 +276,26 @@ public class Player : PlayerBase
         x = x * sideSpeedMultiplyer;
 
         Vector3 movement = transform.right * x + transform.forward * z;
+        float airMult = 1f;
 
         if (jumpDelay > coyotTime)
-            movement = movement * airMovementMultiplyer;
-
-        if (Mathf.Abs(velocity.x) < maxMoveVelocity && Mathf.Abs(velocity.z) < maxMoveVelocity)
-            movement *= speed;
-        else
         {
-            movement.x = 0;
-            movement.z = 0;
+            movement = movement * airMovementMultiplyer;
+            airMult = airMovementMultiplyer;
         }
+
+        movement *= speed;
+        Vector3 localVelocity = transform.InverseTransformDirection(velocity);
+
+        if (Mathf.Abs(localVelocity.x) > maxMoveVelocity * sideSpeedMultiplyer * airMult)
+            movement *= 0;
+
+        else if (localVelocity.z > maxMoveVelocity * airMult)
+            movement *= 0;
+
+        else if (localVelocity.z < -maxMoveVelocity * backSpeedMultiplyer * airMult)
+            movement *= 0;
+
 
         if (paused) //Temp
             movement = Vector3.zero;
@@ -278,17 +303,17 @@ public class Player : PlayerBase
         //Character sliding of surfaces
         if (canStand == false)
         {
-            movement.x += (1f - floorNormal.y) * floorNormal.x * (1f - slideFriction);
-            movement.z += (1f - floorNormal.y) * floorNormal.z * (1f - slideFriction);
+            //movement.x += (1f - floorNormal.y) * floorNormal.x * (1f - slideFriction);
+            //movement.z += (1f - floorNormal.y) * floorNormal.z * (1f - slideFriction);
         }
 
-        character.Move((movement + velocity) * Time.deltaTime); //apply movement to charhcter contoler
+        character.Move((movement + velocity) * Time.fixedDeltaTime); //apply movement to charhcter contoler
 
         velocity += movement;
 
         //if(Grounded)
-        velocity.x = Mathf.LerpUnclamped(velocity.x, 0, fricktion * Time.deltaTime);
-        velocity.z = Mathf.LerpUnclamped(velocity.z, 0, fricktion * Time.deltaTime);
+        velocity.x = Mathf.LerpUnclamped(velocity.x, 0, fricktion * Time.fixedDeltaTime);
+        velocity.z = Mathf.LerpUnclamped(velocity.z, 0, fricktion * Time.fixedDeltaTime);
     }
 
     [ClientCallback]
@@ -303,7 +328,7 @@ public class Player : PlayerBase
             float jumpForce = Mathf.Sqrt(jumpHeight * -2.0f * gravitY * 1.8f);
             Vector3 jumpVelocity = floorNormal * jumpForce;
             velocity.x += jumpVelocity.x; //x and z are added for political reasons
-            velocity.y = jumpVelocity.y; //y gets set
+            velocity.y = jumpForce; //y gets set
             velocity.z += jumpVelocity.z;
         }
     }
@@ -320,16 +345,6 @@ public class Player : PlayerBase
         {
             if (pause)
                 uIMain.DisplayClassDetails(0);
-            else
-                uIMain.Pause(false);
-        }
-
-        else if (menuType == 3) //stupid ui code is 
-        {
-            if (pause)
-            {
-                uIMain.DisplayScoreBoard();
-            }
             else
                 uIMain.Pause(false);
         }
@@ -377,18 +392,16 @@ public class Player : PlayerBase
                 velocity.y = 0; //if grounded then no need to fall
 
             if (jumpDelay > 0)
-                jumpDelay -= Time.deltaTime * 3;
+                jumpDelay -= Time.fixedDeltaTime * 3;
         }
         else
         {
-            velocity.y += gravitY * Time.deltaTime; //two deltra time cause PHJYSCIS
+            velocity.y += gravitY * Time.fixedDeltaTime; //two deltra time cause PHJYSCIS
 
 
             if (jumpDelay < coyotTime)
-                jumpDelay += Time.deltaTime;
+                jumpDelay += Time.fixedDeltaTime;
 
-            //transform.parent = null;
-            //transform.rotation = new Quaternion(0, transform.rotation.y, 0, transform.rotation.w);
         }
     }
 
@@ -477,9 +490,9 @@ public class Player : PlayerBase
     {
         transform.parent = null; //incase on moveing platform   
         playerAbove.gameObject.SetActive(alive);
-        body.gameObject.SetActive(alive);
         body.transform.position = transform.position + -Vector3.up; //bug fix
         character.enabled = alive;
+        body.transform.parent.gameObject.SetActive(alive);
 
         if (alive == true)
         {
@@ -491,8 +504,42 @@ public class Player : PlayerBase
             audioSource.PlayOneShot(playerClass.deathSound[Random.Range(0,
         playerClass.deathSound.Length)]);
 
-            GameObject corpse = Instantiate(corpsePrefab, body.transform.position, transform.rotation);
-            corpse.GetComponentInChildren<Rigidbody>().velocity = (transform.position - lastPos) * 4;
+
+            if (hasEffect(StatusEffect.EffectType.sneeze))
+            {
+                Transform frozenCorpse = Instantiate(body.transform.parent, transform.position, transform.rotation, null);
+
+                frozenCorpse.GetChild(0).gameObject.SetActive(true);
+
+                Destroy(frozenCorpse.GetComponent<PlayerAnimator>());
+                Destroy(frozenCorpse.GetComponent<Animator>());
+
+                frozenCorpse.GetComponentInChildren<Collider>().enabled = false;
+
+                Renderer[] frozenCorpseRenders = frozenCorpse.GetComponentsInChildren<Renderer>();
+
+                foreach (Renderer render in frozenCorpseRenders)
+                {
+                    render.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.On;
+
+                    Material[] matArray = new Material[render.materials.Length];
+                    for (int m = 0; m < render.materials.Length; m++)
+                    {
+                        matArray[m] = iceMat;
+
+                        //render.materials[m].surface
+                        //render.materials[m].color = iceColour;
+                        //render.materials[m].SetFloat("Smoothness", 1);
+                    }
+
+                    render.materials= matArray;
+                }
+            }
+            else
+            {
+                GameObject corpse = Instantiate(corpsePrefab, body.transform.position, transform.rotation);
+                corpse.GetComponentInChildren<Rigidbody>().velocity = (transform.position - lastPos) * 4;
+            }
         }
 
         if (isLocalPlayer)
@@ -511,7 +558,7 @@ public class Player : PlayerBase
     [Command]
     public void CmdSpawnPlayer()
     {
-        Transform sPoint = levelManager.GetSpawnPoint();
+        Transform sPoint = levelManager.GetSpawnPoint(); //THIS WILL ERROR IF NO SPAWN POINTS
         netTrans.RpcTeleport(sPoint.position); //spawns player across the server at point
         transform.position = sPoint.position;
 
@@ -596,6 +643,38 @@ public class Player : PlayerBase
             NetworkServer.Spawn(spawned);
     }
 
+    [Command]
+    public void CmdShootObject(int objID, Vector3 pos, Vector3 rot, bool serverOnly, bool addVelocity)
+    {
+        if (health <= 0) //dead players cant spawn objects
+            return;
+
+        Transform parent = null;
+
+        GameObject spawned = Instantiate(spawnableObjects[objID], pos, Quaternion.Euler(rot), parent);
+
+        Hurtful hurt = spawned.GetComponentInChildren<Hurtful>();
+        if (hurt != null)
+        {
+            hurt.owner = this;
+            hurt.ownerID = netIdentity.netId;
+        }
+
+        if (addVelocity)
+        {
+            Projectile projectile = spawned.GetComponentInChildren<Projectile>();
+
+            if (projectile != null)
+            {
+                projectile.velocity += velocity;;
+            }
+        }
+
+
+        if (serverOnly == false) //spawns on clients as well
+            NetworkServer.Spawn(spawned);
+    }
+
     [TargetRpc]
     public void TargetAddVelocity(NetworkConnection target, Vector3 vel) //TEMP apply to local player only
     {
@@ -603,6 +682,7 @@ public class Player : PlayerBase
         velocity = Vector3.ClampMagnitude(velocity, maxVelocity); //no more infinit death demension
 
         Grounded = false; //reset the check
+        jumpDelay = 3;
     }
 
     [TargetRpc]
@@ -657,6 +737,15 @@ public class Player : PlayerBase
     [Server]
     public void Hurt(int damage, HurtType hurtType = HurtType.Death, string killer = "") //can be used to heal just do -damage
     {
+        print(hurtType);
+
+        //convert healing to special and added it
+        if(playerClass.convertHealingToSpecial && damage < 0)
+        {
+            special -= (damage / 10);
+            return;
+        }
+
         if (health <= 0 || hasEffect(StatusEffect.EffectType.immunity))
             return;
 
@@ -676,9 +765,15 @@ public class Player : PlayerBase
 
             if (spawnOnDeath == null)
                 return;
-            
-            GameObject spawned = Instantiate(spawnOnDeath, transform.position, Quaternion.identity, null);
-            ItemPickUp item = spawned.GetComponent<ItemPickUp>();
+
+            Vector3 spawnRot = spawnOnDeath.transform.eulerAngles;
+
+            spawnRot += new Vector3(Random.Range(-spawnRandomRot, spawnRandomRot),
+                Random.Range(-spawnRandomRot, spawnRandomRot),
+                Random.Range(-spawnRandomRot, spawnRandomRot));
+
+            GameObject spawned = Instantiate(spawnOnDeath, transform.position, Quaternion.Euler(spawnRot), null);
+/*            ItemPickUp item = spawned.GetComponent<ItemPickUp>();
 
             if (item != null)
             {
@@ -686,7 +781,7 @@ public class Player : PlayerBase
                 SelfDestruct sD = item.gameObject.AddComponent<SelfDestruct>();
                 sD.destoryOnServer = true;
                 sD.destroyDelay = 7;
-            }
+            }*/
 
             NetworkServer.Spawn(spawned);
         }
@@ -757,6 +852,12 @@ public class Player : PlayerBase
         }
 
         return (false);
+    }
+
+    [ServerCallback]
+    public void OnCrush()
+    {
+        Hurt(1000, HurtType.Squash);
     }
 
     public float DistanceFromGround()

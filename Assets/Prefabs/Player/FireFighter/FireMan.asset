@@ -22,30 +22,40 @@ MonoBehaviour:
   primaryRateing: 9
   movementRateing: 5
   classSprite: {fileID: -772100800, guid: 70fbd5fc4d34fbd49ae226942d548b39, type: 3}
-  playerClass: 4
+  Leter: {fileID: -261887607, guid: 909c879f86d2b88448676866d9ea33fe, type: 3}
+  color:
+    serializedVersion: 2
+    rgba: 0
+  pattern: {fileID: 1228303701, guid: 70ad3053f0d05684f85c9b1f7bb5c9e5, type: 3}
+  playerClass: 3
   maxHealth: 130
   maxSpecial: 10
   spawnSpecial: 4
   specialChargeRate: 6
-  speed: 5
-  backSpeedMultiplyer: 0.65
-  sideSpeedMultiplyer: 0.8
-  airMovementMultiplyer: 0.6
-  gravitY: -10
+  speed: 4
+  backSpeedMultiplyer: 0.7
+  sideSpeedMultiplyer: 0.85
+  airMovementMultiplyer: 1.25
+  gravitY: -50
   fricktion: 5
-  maxMoveVelocity: 6
-  jumpHeight: 2
+  maxMoveVelocity: 9
+  jumpHeight: 1.1
   coyotTime: 0.3
   pushForce: 5
   slideFriction: 0.3
   bloodPerDamage: 6
-  bloodObj: {fileID: 0}
-  idleSprites: []
-  runSprites: []
-  hurtSound: []
-  deathSound: []
-  jumpSound: []
-  hurtPlayerSound: []
-  killPlayerSound: []
-  spawnSound: []
-  sneeze: []
+  bloodObj: {fileID: 4042699645445107381, guid: 7fb82f213c9f852439196b1d1949b407, type: 3}
+  hurtSound:
+  - {fileID: 8300000, guid: d78a7fe29da806b45826103aefca3131, type: 3}
+  deathSound:
+  - {fileID: 8300000, guid: d78a7fe29da806b45826103aefca3131, type: 3}
+  jumpSound:
+  - {fileID: 8300000, guid: d78a7fe29da806b45826103aefca3131, type: 3}
+  hurtPlayerSound:
+  - {fileID: 8300000, guid: d78a7fe29da806b45826103aefca3131, type: 3}
+  killPlayerSound:
+  - {fileID: 8300000, guid: d78a7fe29da806b45826103aefca3131, type: 3}
+  spawnSound:
+  - {fileID: 8300000, guid: d78a7fe29da806b45826103aefca3131, type: 3}
+  sneeze:
+  - {fileID: 8300000, guid: d78a7fe29da806b45826103aefca3131, type: 3}

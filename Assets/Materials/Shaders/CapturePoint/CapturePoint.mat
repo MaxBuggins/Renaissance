@@ -32,6 +32,10 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
+    - _FrenselTexture:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _HologramScanlines:
         m_Texture: {fileID: 2800000, guid: 24dc710c84c19e64580b68d0181c0015, type: 3}
         m_Scale: {x: 1, y: 1}
@@ -50,17 +54,24 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _GlitchStrength: 0.5
-    - _NoiseScale: 15
-    - _NoiseStrength: 1
-    - _Pixelation: 32
+    - _GlitchStrength: 0.25
+    - _NoiseScale: 20
+    - _NoiseStrength: 2
+    - _Offset: 0
+    - _Pixelation: 2
+    - _Power: 1
     - _QueueControl: 0
     - _QueueOffset: 0
     - _ScanlineOffset: 0
+    - _ScorllSpeed: 0.2
     - _ScrollSpeed: 0.25
     - _VibrateSpeed: 0.01
     m_Colors:
-    - _FresnelColor: {r: 5.992157, g: 0.2509804, b: 4.047059, a: 1}
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _FrenselTileing: {r: 8, g: 8, b: 0, a: 0}
+    - _FresnelColor: {r: 4.538554, g: 0, b: 4.759381, a: 1}
     - _HologramTiling: {r: 1, g: 1, b: 0, a: 0}
-    - _MainColor: {r: 0.9411765, g: 0, b: 1.5058824, a: 1}
+    - _MainColor: {r: 0.4453125, g: 0.375, b: 0.5, a: 0.61960787}
+    - _MainTileing: {r: 2, g: 2, b: 0, a: 0}
+    - _Other: {r: 1.0592737, g: 1.0592737, b: 1.0592737, a: 1}
   m_BuildTextureStacks: []

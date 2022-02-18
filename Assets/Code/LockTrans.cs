@@ -28,7 +28,7 @@ public class LockTrans : MonoBehaviour
         transform.position += -transform.up * fallToFloorSpeed * Time.deltaTime;
 
         RaycastHit hit;
-        if (Physics.SphereCast(transform.position, radius, transform.position - lastPos,
+        if (Physics.SphereCast(lastPos, radius, transform.position - lastPos,
             out hit, maxDistance: Mathf.Abs(Vector3.Distance(transform.position, lastPos)) * 1.25f,
             3, QueryTriggerInteraction.Ignore))
 

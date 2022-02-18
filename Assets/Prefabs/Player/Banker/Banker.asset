@@ -15,7 +15,8 @@ MonoBehaviour:
   noise: '"Ca-Ching"'
   discription: Shoot your gun...  Wave your briefcase around and give the enemy paper
     cuts.
-  lore: A man. remor has it.
+  lore: After winning big in the Colonial Lottery at a young age he invested heavily,
+    especially into glass production, earning him far more.
   specialRateing: 4
   primaryRateing: 9
   movementRateing: 6
@@ -26,61 +27,25 @@ MonoBehaviour:
     rgba: 5898198
   pattern: {fileID: -62998697, guid: 70ad3053f0d05684f85c9b1f7bb5c9e5, type: 3}
   playerClass: 1
+  upperCase: 0
   maxHealth: 100
-  maxSpecial: 10
-  spawnSpecial: 4
-  specialChargeRate: 6
-  speed: 3.4
+  maxSpecial: 2147483647
+  spawnSpecial: 0
+  specialChargeRate: 4
+  speed: 3
   backSpeedMultiplyer: 0.75
   sideSpeedMultiplyer: 0.85
   airMovementMultiplyer: 0.8
   gravitY: -45
-  fricktion: 4.6
-  maxMoveVelocity: 8.75
-  jumpHeight: 1.25
+  fricktion: 6
+  maxMoveVelocity: 9
+  jumpHeight: 1.3
   coyotTime: 0.3
   pushForce: 5
   slideFriction: 0.3
+  convertHealingToSpecial: 0
   bloodPerDamage: 6
   bloodObj: {fileID: 4042699645445107381, guid: 7fb82f213c9f852439196b1d1949b407, type: 3}
-  idleSprites:
-  - sprites:
-    - {fileID: 413156840755760695, guid: 23738a1366f4d304dae09b673209d745, type: 3}
-    - {fileID: 2441019502588024314, guid: 23738a1366f4d304dae09b673209d745, type: 3}
-    - {fileID: 7688922097738120662, guid: 23738a1366f4d304dae09b673209d745, type: 3}
-    - {fileID: 8985399047891230677, guid: 23738a1366f4d304dae09b673209d745, type: 3}
-    - {fileID: -5720904569308390162, guid: 23738a1366f4d304dae09b673209d745, type: 3}
-    - {fileID: 2297411782406639750, guid: 23738a1366f4d304dae09b673209d745, type: 3}
-    - {fileID: -3249214463345771897, guid: 23738a1366f4d304dae09b673209d745, type: 3}
-    - {fileID: -1291543204221815371, guid: 23738a1366f4d304dae09b673209d745, type: 3}
-  runSprites:
-  - sprites:
-    - {fileID: 413156840755760695, guid: 23738a1366f4d304dae09b673209d745, type: 3}
-    - {fileID: 2441019502588024314, guid: 23738a1366f4d304dae09b673209d745, type: 3}
-    - {fileID: 7688922097738120662, guid: 23738a1366f4d304dae09b673209d745, type: 3}
-    - {fileID: 8985399047891230677, guid: 23738a1366f4d304dae09b673209d745, type: 3}
-    - {fileID: -5720904569308390162, guid: 23738a1366f4d304dae09b673209d745, type: 3}
-    - {fileID: 2297411782406639750, guid: 23738a1366f4d304dae09b673209d745, type: 3}
-    - {fileID: -3249214463345771897, guid: 23738a1366f4d304dae09b673209d745, type: 3}
-    - {fileID: -1291543204221815371, guid: 23738a1366f4d304dae09b673209d745, type: 3}
-  - sprites:
-    - {fileID: 1716428757421185310, guid: 23738a1366f4d304dae09b673209d745, type: 3}
-    - {fileID: -1908012197000059245, guid: 23738a1366f4d304dae09b673209d745, type: 3}
-    - {fileID: 7642121998985546407, guid: 23738a1366f4d304dae09b673209d745, type: 3}
-    - {fileID: -7998092371977231552, guid: 23738a1366f4d304dae09b673209d745, type: 3}
-    - {fileID: -7960038829780392371, guid: 23738a1366f4d304dae09b673209d745, type: 3}
-    - {fileID: 5112307684931944905, guid: 23738a1366f4d304dae09b673209d745, type: 3}
-    - {fileID: 3458325166074194876, guid: 23738a1366f4d304dae09b673209d745, type: 3}
-    - {fileID: -3813713662765532409, guid: 23738a1366f4d304dae09b673209d745, type: 3}
-  - sprites:
-    - {fileID: -4750493162203507306, guid: 23738a1366f4d304dae09b673209d745, type: 3}
-    - {fileID: -2582935948704923956, guid: 23738a1366f4d304dae09b673209d745, type: 3}
-    - {fileID: -5676158683494239367, guid: 23738a1366f4d304dae09b673209d745, type: 3}
-    - {fileID: 6175642595340742148, guid: 23738a1366f4d304dae09b673209d745, type: 3}
-    - {fileID: 203287126649310728, guid: 23738a1366f4d304dae09b673209d745, type: 3}
-    - {fileID: -6016983691727615726, guid: 23738a1366f4d304dae09b673209d745, type: 3}
-    - {fileID: -5365574036531687053, guid: 23738a1366f4d304dae09b673209d745, type: 3}
-    - {fileID: 4341794467128116274, guid: 23738a1366f4d304dae09b673209d745, type: 3}
   hurtSound:
   - {fileID: 8300000, guid: 9d780eba4074daa42af6b3183c4b1313, type: 3}
   - {fileID: 8300000, guid: 4b16930e429d58142b0ef6f547d3fa83, type: 3}

@@ -43,7 +43,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1295877839699179701}
-  m_Mesh: {fileID: 2061150301263699924, guid: ee3b58098bbb0e8409af865d3b6f547c, type: 3}
+  m_Mesh: {fileID: -6901855651183265238, guid: 0cec0bb13474d8a4d9a0b494ec40ba85, type: 3}
 --- !u!23 &1295877839699179696
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -122,7 +122,7 @@ MonoBehaviour:
   healthPercentage: 0
   special: 0
   effect: 3
-  magnitude: 2
+  magnitude: 2.5
   duration: 7
 --- !u!114 &1295877839699179695
 MonoBehaviour:

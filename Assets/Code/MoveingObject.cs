@@ -9,6 +9,7 @@ public class MoveingObject : MonoBehaviour
     public MoveMode moveMode = MoveMode.constantDirectionRight;
     
     public float moveSpeed = 5;
+    public float startDelay = 0;
 
     public bool localDistance = false;
     public float stopDistance = 0;
@@ -22,6 +23,17 @@ public class MoveingObject : MonoBehaviour
 
         if (stopDistance <= 0)
             stopDistance = Mathf.Infinity;
+
+        if (startDelay > 0)
+        {
+            enabled = false;
+            Invoke(nameof(Enable), startDelay);
+        }
+    }
+
+    public void Enable()
+    {
+        enabled = true;
     }
 
     //for all clients and server

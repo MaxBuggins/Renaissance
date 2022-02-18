@@ -20,6 +20,7 @@ public class MaidWeapon : PlayerWeapon
     private float fireTime = 0;
 
     public Vector3 throwRot;
+    public LayerMask shootHitLayer;
 
     [Header("IceSummon Propertys")]
     public LayerMask summonMask = -1;
@@ -63,7 +64,18 @@ public class MaidWeapon : PlayerWeapon
             return;
 
 
-        player.CmdSpawnObject(1, shootPosPlate.position, shootPosPlate.eulerAngles, false, false);
+        Ray ray = new Ray(transform.position, transform.forward);
+        RaycastHit hit;
+
+        if (Physics.Raycast(ray, out hit, 7000, shootHitLayer, QueryTriggerInteraction.Ignore))
+        {
+            Vector3 _direction = (hit.point - shootPosPlate.position).normalized;
+            Quaternion _lookRotation = Quaternion.LookRotation(_direction);
+
+            player.CmdSpawnObject(1, shootPosPlate.position, _lookRotation.eulerAngles, false, false);
+        }
+        else
+            player.CmdSpawnObject(1, shootPosPlate.position, shootPosPlate.eulerAngles, false, false);
 
 
         base.UsePrimary();
@@ -91,7 +103,7 @@ public class MaidWeapon : PlayerWeapon
     {
         player.playerCam.currentOffset -= throwRot;
 
-        player.CmdSpawnObject(0, shootPosColdDust.position, shootPosColdDust.eulerAngles, false, false);
+        player.CmdSpawnObject(0, shootPosColdDust.position + player.velocity / 6f, shootPosColdDust.eulerAngles, false, false);
         player.velocity += transform.forward * punchVelocity;
         base.UseSeconday();
         punchHand.transform.position -= transform.forward * 0.75f;

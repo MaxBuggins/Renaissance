@@ -96,13 +96,13 @@ public class Hurtful : NetworkBehaviour
     {
         if (other.tag == "Player")
         {
-            var player = other.GetComponent<Player>();
+            var player = other.GetComponentInParent<Player>();
             if (player != null)
             {
                 if (ignorOwner == false || player != owner)
                 {
                     //if(damagePerSeconds <= 0)
-                        HurtPlayer(player, damage, hurtType);
+                    HurtPlayer(player, damage, hurtType);
                     inTrigger.Add(player);
 
                     if (owner != null)
@@ -118,7 +118,7 @@ public class Hurtful : NetworkBehaviour
     {
         if (other.tag == "Player")
         {
-            var player = other.GetComponent<Player>();
+            var player = other.GetComponentInParent<Player>();
             if (player != null)
             {
                 inTrigger.Remove(player);
@@ -151,15 +151,15 @@ public class Hurtful : NetworkBehaviour
             player.TargetAddVelocity(player.connectionToClient, (vel * collisionForce) + (vel.magnitude * Vector3.up * upwardsForce));
         }
 
+        if (statusMagnitude > 0)
+            player.ServerApplyEffect(statusEffect, statusDuration, statusMagnitude);
+
         if (owner != null)
         {
             player.Hurt(damage, type, owner.playerStats.userName);
         }
         else
             player.Hurt(damage, type, "");
-
-        if (statusMagnitude > 0)
-            player.ServerApplyEffect(statusEffect, statusDuration, statusMagnitude);
 
         if (player.health <= 0)
         {

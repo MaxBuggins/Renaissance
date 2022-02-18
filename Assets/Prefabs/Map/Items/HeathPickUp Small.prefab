@@ -122,9 +122,9 @@ MonoBehaviour:
   respawnDelay: 7
   healthPercentage: 0.25
   special: 0
-  powerUp: 0
-  models: []
-  materials: []
+  effect: 0
+  magnitude: 1
+  duration: 5
 --- !u!114 &1754768130989649100
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -159,7 +159,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4860789928384345800, guid: f4e5994b50ef8d542bccc8964e8b1af5, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.25
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4860789928384345800, guid: f4e5994b50ef8d542bccc8964e8b1af5, type: 3}
       propertyPath: m_LocalPosition.z
