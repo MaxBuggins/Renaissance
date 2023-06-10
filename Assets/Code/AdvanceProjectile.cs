@@ -6,6 +6,9 @@ using Pixelplacement;
 
 public class AdvanceProjectile : Projectile
 {
+
+    //Custom cool projectile that builds off base projectile adding tracking and rotations and cool stuff
+
     [Header("Rotation")]
     public float startDistance = 0;
 
