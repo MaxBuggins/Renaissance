@@ -67,7 +67,6 @@ public class StatusEffect : MonoBehaviour
 
     public void Update()
     {
-
         duration -= Time.deltaTime;
 
         if (duration < 0) //end of duration do client and server end effects
