@@ -4,9 +4,12 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.EventSystems;
+using JetBrains.Annotations;
 
 public class UI_Main : MonoBehaviour
 {
+    public static UI_Main instance;
+
     public Sprite[] deathSprites;
     public ObjectPlayerClass[] playersClasses;
 
@@ -23,6 +26,7 @@ public class UI_Main : MonoBehaviour
     public GameObject classUI;
     public GameObject scoreBoard;
 
+    public GameObject ScratchTicketSequence;
 
     public Image reloadRing;
     public Image classPreview;
@@ -41,6 +45,14 @@ public class UI_Main : MonoBehaviour
     private Controls controls;
     private EventSystem eventSystem;
 
+
+    private void Awake()
+    {
+        if (instance == null)
+            instance = this;
+        else
+            Destroy(this);
+    }
 
     private void Start()
     {
@@ -150,5 +162,14 @@ public class UI_Main : MonoBehaviour
         eventSystem.SetSelectedGameObject(null);
         if(player != null)
             player.Pause(false, 0);
+    }
+
+    public void ScratchLottoTicket(string prize, Sprite prizeSprite)
+    {
+        UI_LottoTicket uI_LottoTicket = Instantiate(ScratchTicketSequence, transform).GetComponent<UI_LottoTicket>();
+
+        uI_LottoTicket.backImage.sprite = prizeSprite;
+        uI_LottoTicket.resultText.text = prize;
+
     }
 }

@@ -9642,6 +9642,7 @@ MonoBehaviour:
   unParentOnStart: 1
   destroyDelay: 1.5
   destoryOnServer: 0
+  unParentTransOnDestory: []
 --- !u!82 &5535189834598328332
 AudioSource:
   m_ObjectHideFlags: 0
@@ -28964,8 +28965,8 @@ GameObject:
   - component: {fileID: 8654127821600653473}
   - component: {fileID: 7451050680048342441}
   - component: {fileID: 8654127821600653477}
-  - component: {fileID: 8654127821600653478}
   - component: {fileID: 2422404446275382801}
+  - component: {fileID: 8654127821600653478}
   m_Layer: 7
   m_Name: BigShockWave
   m_TagString: Untagged
@@ -29020,6 +29021,22 @@ MonoBehaviour:
   visible: 0
   m_AssetId: 8a320f3a023063741a32ae1781436924
   hasSpawned: 0
+--- !u!114 &2422404446275382801
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8654127821600653479}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 03b00ce9a51350a4394266b8e44c1429, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  unParentOnStart: 0
+  destroyDelay: 0.5
+  destoryOnServer: 0
+  unParentTransOnDestory: []
 --- !u!114 &8654127821600653478
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -29048,21 +29065,6 @@ MonoBehaviour:
   maxVelocity: 7
   owner: {fileID: 0}
   ownerID: 0
---- !u!114 &2422404446275382801
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8654127821600653479}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 03b00ce9a51350a4394266b8e44c1429, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  unParentOnStart: 0
-  destroyDelay: 0.5
-  destoryOnServer: 0
 --- !u!1001 &8665891727788281454
 PrefabInstance:
   m_ObjectHideFlags: 0

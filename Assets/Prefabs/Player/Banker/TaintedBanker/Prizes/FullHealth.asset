@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8580a5714fe909c48b476d667505006f, type: 3}
   m_Name: FullHealth
   m_EditorClassIdentifier: 
+  prizeSprite: {fileID: 493437516, guid: c5f0963682adb4b429a2a9683a6d79c1, type: 3}
   chance: 1
   health: 1000
   special: 0
@@ -19,6 +20,7 @@ MonoBehaviour:
   effect: 0
   magnitude: 1
   duration: 3
+  networkSpawnObject: {fileID: 0}
   spawnOnWin: {fileID: 7978244888288145371, guid: 167b94b3a98df45498c121ed3d3ef5fd, type: 3}
   spawnInLocalSpace: 0
   spawnOffset: {x: 0, y: 1.5, z: 0}

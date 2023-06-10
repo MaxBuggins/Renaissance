@@ -740,9 +740,9 @@ public class Player : PlayerBase
         print(hurtType);
 
         //convert healing to special and added it
-        if(playerClass.convertHealingToSpecial && damage < 0)
+        if (playerClass.convertHealingToSpecial && damage < 0 && hurtType != HurtType.Gambling)
         {
-            special -= (damage / 10);
+            special -= (damage / 2);
             return;
         }
 

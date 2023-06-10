@@ -6,6 +6,8 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "NewPrize", menuName = "Prize", order = 2)]
 public class ObjectPrize : ScriptableObject
 {
+    public Sprite prizeSprite;
+
     public float chance; //higher the more chance (relative to other prizes)
 
     [Header("Winnings")]
@@ -17,6 +19,9 @@ public class ObjectPrize : ScriptableObject
     public StatusEffect.EffectType effect;
     public float magnitude = 1;
     public float duration = 3;
+
+    [Header("SpawnObject")]
+    public GameObject networkSpawnObject;
 
     [Header("Decor")]
     public GameObject spawnOnWin;

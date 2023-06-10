@@ -182,6 +182,7 @@ public class BankerWeapon : PlayerWeapon
         if (lottoSpecial == true)
         {
             lotto.CmdEnterLotto();
+            timeSinceThrow = 0;
             return;
         }
 

@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8580a5714fe909c48b476d667505006f, type: 3}
+  m_Name: Sneeze
+  m_EditorClassIdentifier: 
+  prizeSprite: {fileID: 21300000, guid: 9e9e011a34083594aa5175f173bbec23, type: 3}
+  chance: 0.5
+  health: 0
+  special: 0
+  score: 0
+  effect: 2
+  magnitude: 30
+  duration: 0.2
+  networkSpawnObject: {fileID: 0}
+  spawnOnWin: {fileID: 809594734405412426, guid: 9eb32dc83d6b3e143ae7b6817efb3440, type: 3}
+  spawnInLocalSpace: 0
+  spawnOffset: {x: 0, y: 1, z: 0}

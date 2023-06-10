@@ -8,6 +8,10 @@ public class PlayerLotto : NetworkBehaviour
     public ObjectPrize[] prizes;
     private float totalChance;
 
+    public float prizeRedeemDelay = 0.4f;
+
+    private ObjectPrize currentPrize;
+
     public Player player;
 
 
@@ -23,12 +27,12 @@ public class PlayerLotto : NetworkBehaviour
     [Command]
     public void CmdEnterLotto()
     {
-        float winingNumber = Random.Range(0, totalChance);
+        float winingNumber = UnityEngine.Random.Range(0, totalChance);
         RedeemPrize(winingNumber);
     }
 
     [Server]
-    public void RedeemPrize(float winingNumber)
+    private void RedeemPrize(float winingNumber)
     {
         int index = 0;
         foreach (ObjectPrize prize in prizes)
@@ -37,32 +41,74 @@ public class PlayerLotto : NetworkBehaviour
 
             if (winingNumber <= 0)
             {
-                RpcDisplayPrize(index);
+                bool isUseless = (player.health >= player.maxHealth && prize.health > 0);//Health prize is usless if at full health
 
-                if (prize.health != 0)
+                if (isUseless == false)
                 {
-                    player.health += prize.health;
-                    //prevents infiti health stacking
-                    //if (player.health + prize.health > player.maxHealth)
-                        //player.health = player.maxHealth;
-                    //else
-                        //player.health += prize.health;
+                    TargetDisplayPrize(netIdentity.connectionToClient ,index);
+
+                    currentPrize = prize;
+                    Invoke(nameof(ActivatePrize), prizeRedeemDelay);
+                    return;
                 }
-
-                if (prize.special != 0)
-                    player.ServerAddSpecial(prize.special);
-
-
-                return;
             }
             index++;
         }
     }
 
-    [ClientRpc]
-    public void RpcDisplayPrize(int index)
+    [Server]
+    private void ActivatePrize()
     {
-        if(prizes[index].spawnInLocalSpace)
+        if (currentPrize.networkSpawnObject != null)
+        {
+            GameObject spawned = Instantiate(currentPrize.networkSpawnObject, transform.position, transform.rotation, null);
+
+            Hurtful hurt = spawned.GetComponentInChildren<Hurtful>();
+            if (hurt != null)
+            {
+                hurt.owner = player;
+                hurt.ownerID = netIdentity.netId;
+            }
+
+            NetworkServer.Spawn(spawned);
+        }
+
+        if (currentPrize.health != 0)
+        {
+            player.Hurt(-currentPrize.health, HurtType.Gambling, "Self");
+        }
+
+        if (currentPrize.score > 0)
+        {
+            player.addScore(currentPrize.score);
+        }
+
+        if (currentPrize.effect != StatusEffect.EffectType.none)
+        {
+            player.ApplyEffect(currentPrize.effect, currentPrize.duration, currentPrize.magnitude);
+        }
+  
+
+        if (currentPrize.special != 0)
+            player.ServerAddSpecial(currentPrize.special);
+    }
+
+    [TargetRpc]
+    public void TargetDisplayPrize(NetworkConnection target, int index)
+    {
+        UI_Main.instance.ScratchLottoTicket(prizes[index].name, prizes[index].prizeSprite);
+
+        if (prizes[index].spawnOnWin != null)
+        {
+            StartCoroutine(InstergateWinObject(index));
+        }
+    }
+
+    IEnumerator InstergateWinObject(int index)
+    {
+        yield return new WaitForSeconds(prizeRedeemDelay - 0.1f);
+
+        if (prizes[index].spawnInLocalSpace)
             Instantiate(prizes[index].spawnOnWin, transform.position + prizes[index].spawnOffset, Quaternion.identity, transform);
         else
             Instantiate(prizes[index].spawnOnWin, transform.position + prizes[index].spawnOffset, transform.rotation);

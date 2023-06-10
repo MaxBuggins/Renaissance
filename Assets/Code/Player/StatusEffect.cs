@@ -2,10 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
+using Pixelplacement;
 
 public class StatusEffect : MonoBehaviour
 {
-    public enum EffectType {none, immunity, sneeze, speed}
+    public enum EffectType {none, immunity, sneeze, speed, all}
     public EffectType effectType;
 
     public float duration = Mathf.Infinity;
@@ -30,11 +31,38 @@ public class StatusEffect : MonoBehaviour
         {
             case (EffectType.speed):
                 {
-                    player.speed *= magnitude;
+                    Tween.Value(player.speed, player.speed * magnitude, HandleSpeedChange, 0.5f, 0);
                     player.maxMoveVelocity *= magnitude / 2;
+
+                    if(player.isLocalPlayer == true)
+                    {
+                        Tween.Value(Camera.main.fieldOfView, Camera.main.fieldOfView + magnitude * 10, HandleFOVChange, 1f, 0);
+                    }
+
                     break;
                 }
+            case (EffectType.all):
+                {
+                    player.speed += magnitude;
+                    player.maxMoveVelocity *= magnitude / 2;
+                    player.jumpHeight += magnitude;
+                    player.gravitY += magnitude;
+                    player.fricktion += magnitude;
+                    player.specialChargeRate += magnitude;
+                    player.coyotTime += (magnitude / 10);
+                break;
+                }
         }
+    }
+
+    void HandleFOVChange(float value)
+    {
+        Camera.main.fieldOfView = value;
+    }
+
+    void HandleSpeedChange(float value)
+    {
+        player.speed = value;
     }
 
     public void Update()
@@ -87,13 +115,27 @@ public class StatusEffect : MonoBehaviour
                     audioSource.PlayOneShot(player.playerClass.sneeze[Random.Range(0, player.playerClass.sneeze.Length)]);
                     break;
                 }
-                            case (EffectType.speed):
+
+            case (EffectType.speed):
                 {
                     player.speed = player.playerClass.speed;
                     player.maxMoveVelocity = player.playerClass.maxMoveVelocity;
+
+                    Camera.main.fieldOfView = 95;
                     break;
                 }
+            case (EffectType.all):
+                {
+                    player.speed = player.playerClass.speed;
+                    player.maxMoveVelocity = player.playerClass.maxMoveVelocity;
+                    player.jumpHeight -= magnitude;
+                    player.gravitY -= magnitude;
+                    player.fricktion -= magnitude;
+                    player.specialChargeRate -= magnitude;
+                    player.coyotTime -= (magnitude / 10);
+                    break;
 
+                }
         }
 
         if (!player.netIdentity.isServer) //in case this is a host, wait for server stuff

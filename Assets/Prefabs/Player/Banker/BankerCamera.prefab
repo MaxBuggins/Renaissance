@@ -690,7 +690,6 @@ MonoBehaviour:
   specialCost: 4
   specialIsActive: 0
   reloadPerstenage: 0
-  player: {fileID: 0}
   playerAnimator: {fileID: 0}
   punchDelay: 0.05
   punchCooldown: 0.8
@@ -699,7 +698,7 @@ MonoBehaviour:
   fireRate: 0.1
   clipSize: 6
   reloadRate: 1.6
-  returnDelay: 2
+  returnDelay: 1
   lottoSpecial: 0
   briefCase: {fileID: 2336285566749598974}
   shootPos: {fileID: 3898542473802942025}
@@ -708,7 +707,7 @@ MonoBehaviour:
     m_Bits: 153
 --- !u!95 &7395849955475169580
 Animator:
-  serializedVersion: 4
+  serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -725,7 +724,7 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
+  m_KeepAnimatorStateOnDisable: 0
 --- !u!1 &8413850053759975780
 GameObject:
   m_ObjectHideFlags: 0

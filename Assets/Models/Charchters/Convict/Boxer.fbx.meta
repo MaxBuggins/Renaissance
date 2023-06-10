@@ -1,7 +1,7 @@
 fileFormatVersion: 2
 guid: a1722ffa09ebb134b801fb644f7a8c14
 ModelImporter:
-  serializedVersion: 21202
+  serializedVersion: 21300
   internalIDToNameTable: []
   externalObjects: {}
   materials:
@@ -76,9 +76,14 @@ ModelImporter:
     blendShapeNormalImportMode: 1
     normalSmoothingSource: 0
   referencedClips:
-  - 41cc9a68218753e4faa5925eb4d75ff2
+  - 16bb5730b69afc645bbb5f2cb5917371
   - 69a28667d7ee7094e91ddc1c2b48d324
   - 010c75d4be60a744590b38bf4a27a5ad
+  - 0a40a153c55a0754694416b4b1c67786
+  - d7117d4e65c136f478c1342a876130fa
+  - 51a826e1223cf834fa1314d25c5ac31f
+  - 2e5b8a03362454c4a8a6f5be3fadefc0
+  - b8023a4f5c075114d9298400c1cb5f6a
   importAnimation: 1
   humanDescription:
     serializedVersion: 3
@@ -91,7 +96,7 @@ ModelImporter:
     armStretch: 0.05
     legStretch: 0.05
     feetSpacing: 0
-    globalScale: 0.5
+    globalScale: 50
     rootMotionBoneName: 
     hasTranslationDoF: 0
     hasExtraRoot: 0
@@ -102,6 +107,7 @@ ModelImporter:
   humanoidOversampling: 1
   avatarSetup: 0
   addHumanoidExtraRootOnlyWhenUsingAvatar: 1
+  remapMaterialsIfMaterialImportModeIsNone: 1
   additionalBone: 0
   userData: 
   assetBundleName: 

@@ -200,9 +200,10 @@ GameObject:
   m_Component:
   - component: {fileID: 2216988534499643393}
   - component: {fileID: 214982527360520227}
-  m_Layer: 0
+  - component: {fileID: 8941522790994594615}
+  m_Layer: 3
   m_Name: HeadCollision
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -230,12 +231,27 @@ CapsuleCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1674240542477849085}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.5
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &8941522790994594615
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1674240542477849085}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ebf5174b71f31b84d8dff9d739f921a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageMultiplyer: 1.5
+  player: {fileID: 8462094196397894245}
+  theCollider: {fileID: 214982527360520227}
 --- !u!1 &1802561874603289329
 GameObject:
   m_ObjectHideFlags: 0
@@ -542,13 +558,15 @@ MonoBehaviour:
   - {fileID: 2462042429367237735, guid: 2d6931d4808f06f4da2a63ec9a426ff2, type: 3}
   - {fileID: 5323597611371909078, guid: ead3bf8bcc6089e44b59248213dad2cb, type: 3}
   - {fileID: 7756130730176725710, guid: 8f0f4951926ef9048b199f86132821db, type: 3}
+  iceMat: {fileID: 0}
   body: {fileID: 7061206795401087345}
   equipmentRender: {fileID: 4224915196727139881}
   playerAnimator: {fileID: 0}
   playerCam: {fileID: 0}
   playerWeapon: {fileID: 0}
   character: {fileID: 0}
-  spawnOnDeath: {fileID: 1754768130989649110, guid: f40998b1713f81545b30077f05af76d6, type: 3}
+  spawnRandomRot: 0
+  spawnOnDeath: {fileID: 496548519847021970, guid: 76abfa969f41071429d2391d52c8c5cc, type: 3}
 --- !u!114 &3260752437404608392
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -588,9 +606,22 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0.1
   prizes:
+  - {fileID: 11400000, guid: b9ae5ad4fae9829409401e5a251d8d4a, type: 2}
+  - {fileID: 11400000, guid: 58548ed794a393a4fa0145b0300b8731, type: 2}
   - {fileID: 11400000, guid: da289debc2534ad4591fa1fa700cc022, type: 2}
   - {fileID: 11400000, guid: d03fa317999ff924cb40f3377cbf8898, type: 2}
+  - {fileID: 11400000, guid: 2b697f91fd2a9754291f1d3bf64e9cfa, type: 2}
+  - {fileID: 11400000, guid: 45ac4478c0655794da4e10c65b9872e2, type: 2}
+  - {fileID: 11400000, guid: 17fec59527c1ed048b513026422d3e19, type: 2}
+  - {fileID: 11400000, guid: ec708ad5f70e9854c869deaccc9e374a, type: 2}
+  - {fileID: 11400000, guid: bc1516a0c629ec248b0bb090fb3bd7cc, type: 2}
+  - {fileID: 11400000, guid: 37ba91fa2abe3ad47a8cbd9e4ba8ab55, type: 2}
+  - {fileID: 11400000, guid: 85cbad000bf48894b8045df0d7bc54d2, type: 2}
+  - {fileID: 11400000, guid: 908f59e55cde9d240928886e866a2761, type: 2}
   - {fileID: 11400000, guid: 30b48c60461965d4586a756d364eeea5, type: 2}
+  - {fileID: 11400000, guid: 8e65ca72a2484ae4d95f6b48e3de0aac, type: 2}
+  - {fileID: 11400000, guid: e44ee8f51ba504a41aae735a6556a7b5, type: 2}
+  prizeRedeemDelay: 0.4
   player: {fileID: 8462094196397894245}
 --- !u!1 &2113849826943135009
 GameObject:
@@ -6590,7 +6621,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &1710043257148209463
 Animator:
-  serializedVersion: 4
+  serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -6607,7 +6638,7 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
+  m_KeepAnimatorStateOnDisable: 0
 --- !u!114 &6000148688017356296
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6631,7 +6662,6 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  ragdoll: {fileID: 3313782818603052261, guid: 009a23b712dd29145ac1a398da091707, type: 3}
   blank: {fileID: 0}
   immunityBlank: {fileID: 0}
   animator: {fileID: 1710043257148209463}

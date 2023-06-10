@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8580a5714fe909c48b476d667505006f, type: 3}
   m_Name: JackPot
   m_EditorClassIdentifier: 
+  prizeSprite: {fileID: 21300000, guid: cfc74838e99429b47b96157666eebc80, type: 3}
   chance: 1
   health: 0
   special: 100
@@ -19,6 +20,7 @@ MonoBehaviour:
   effect: 0
   magnitude: 1
   duration: 3
+  networkSpawnObject: {fileID: 0}
   spawnOnWin: {fileID: 1231549901820698732, guid: 419bef7083b43f5498bf972fdf749171, type: 3}
   spawnInLocalSpace: 0
-  spawnOffset: {x: 0, y: 3, z: 0}
+  spawnOffset: {x: 0, y: 1.5, z: 0}

@@ -14,9 +14,9 @@ public class MaidWeapon : PlayerWeapon
     public float punchVelocity = 6;
 
     [Header("PlateThrow Propertys")]
-    private float fireRate;
     public float minFireRate = 0.2f;
     public float maxFireRate = 0.4f;
+    private float fireRate;
     private float fireTime = 0;
 
     public Vector3 throwRot;

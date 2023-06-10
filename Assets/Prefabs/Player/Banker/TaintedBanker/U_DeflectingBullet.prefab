@@ -9775,7 +9775,7 @@ MonoBehaviour:
   damage: 35
   startDmgFallOff: 50
   minDmgMultiplyer: 0.3
-  forwardSpeed: 300
+  forwardSpeed: 250
   gravitY: 0
   airRistance: 0
   projectileWidth: 0.15
@@ -9783,10 +9783,12 @@ MonoBehaviour:
   bounceOffPlayerOnly: 0
   destoryOnPlayerHit: 1
   disableOnHit: 0
+  mustHitNormalGround: 0
   mask:
     serializedVersion: 2
     m_Bits: 507
   velocity: {x: 0, y: 0, z: 0}
+  serverSpawnHitObject: 0
   hitObject: {fileID: 1090678147105552, guid: bac6010fd61d72b419fb265a96000090, type: 3}
   hitSplat: {fileID: 354691278180113158, guid: ec1ce332d44e5aa4687631fbb4af931f, type: 3}
   destoyCall: {fileID: 0}
@@ -9988,7 +9990,7 @@ TrailRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Time: 0.35
+  m_Time: 100
   m_Parameters:
     serializedVersion: 3
     widthMultiplier: 0.15

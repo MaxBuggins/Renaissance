@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8580a5714fe909c48b476d667505006f, type: 3}
+  m_Name: +2
+  m_EditorClassIdentifier: 
+  prizeSprite: {fileID: 1473041525, guid: c5f0963682adb4b429a2a9683a6d79c1, type: 3}
+  chance: 2
+  health: 2
+  special: 2
+  score: 2
+  effect: 4
+  magnitude: 2
+  duration: 2
+  networkSpawnObject: {fileID: 0}
+  spawnOnWin: {fileID: 7978244888288145371, guid: 167b94b3a98df45498c121ed3d3ef5fd, type: 3}
+  spawnInLocalSpace: 0
+  spawnOffset: {x: 0, y: 1.5, z: 0}
