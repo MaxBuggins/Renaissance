@@ -46,12 +46,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 2100000, guid: 2c24d74091b2e084c9577a501cf03457, type: 2}
-  m_DrawDistance: 45
+  m_DrawDistance: 50
   m_FadeScale: 0.5
   m_StartAngleFade: 180
   m_EndAngleFade: 180
-  m_UVScale: {x: 1, y: 1}
+  m_UVScale: {x: 0.25, y: 0.5}
   m_UVBias: {x: 0, y: 0}
+  m_DecalLayerMask: 1
   m_ScaleMode: 0
   m_Offset: {x: 0, y: 0, z: 0}
   m_Size: {x: 2, y: 2, z: 0.75}
@@ -68,6 +69,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52686c84e33e89444a3b711f51ef4b62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  deParentOnStart: 0
   despawnDelay: 500
   randomMats:
   - {fileID: 2100000, guid: 2c24d74091b2e084c9577a501cf03457, type: 2}

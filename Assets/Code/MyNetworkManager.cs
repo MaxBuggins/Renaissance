@@ -13,23 +13,23 @@ public class MyNetworkManager : NetworkManager
         base.Awake();
     }
 
-    public override void OnClientConnect(NetworkConnection conn)
+    public override void OnClientConnect()
     {
 
         //if (hud != null) //TEMPARAY
         //hud.showGUI = false;
 
-        base.OnClientConnect(conn);
+        base.OnClientConnect();
     }
 
-    public override void OnClientDisconnect(NetworkConnection conn)
+    public override void OnClientDisconnect()
     {
         //if (hud != null) //TEMPARAY
         //hud.showGUI = true;
 
         Cursor.lockState = CursorLockMode.None;
 
-        base.OnClientDisconnect(conn);
+        base.OnClientDisconnect();
     }
 
     //public override void OnServerConnect(NetworkConnection conn)
@@ -52,10 +52,10 @@ public class MyNetworkManager : NetworkManager
             return;
         }
 
-        if (conn.clientOwnedObjects.Count <= 0)
+        if (conn.owned.Count <= 0)
         {
             // Instantiate the new player object and broadcast to clients
-            NetworkServer.ReplacePlayerForConnection(conn, Instantiate(newPrefab));
+            NetworkServer.ReplacePlayerForConnection(conn.identity.connectionToClient, Instantiate(newPrefab));
             return;
         }
 
@@ -64,7 +64,7 @@ public class MyNetworkManager : NetworkManager
         PlayerStats oldPlayerStats = conn.identity.GetComponent<PlayerStats>();
 
         // Instantiate the new player object and broadcast to clients
-        NetworkServer.ReplacePlayerForConnection(conn, Instantiate(newPrefab));
+        NetworkServer.ReplacePlayerForConnection(conn.identity.connectionToClient, Instantiate(newPrefab));
         PlayerStats newPlayerStats = conn.identity.GetComponent<PlayerStats>();
 
         if (newPlayerStats != null && oldPlayerStats != null)

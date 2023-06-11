@@ -60,9 +60,11 @@ public class Hurtful : NetworkBehaviour
 
         if (owner == null) //works
         {
-            NetworkIdentity.spawned.TryGetValue(ownerID, out ownerIdenity);
-            if(ownerIdenity != null)
-                owner = ownerIdenity.gameObject.GetComponent<Player>();
+            //netIdentity.netId
+            //NetworkIdentity.
+                //.TryGetValue(ownerID, out ownerIdenity);
+            //if(ownerIdenity != null)
+                //owner = ownerIdenity.gameObject.GetComponent<Player>();
         }
 
         lastPos = transform.position;

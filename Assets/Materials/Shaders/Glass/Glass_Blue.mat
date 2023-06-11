@@ -2,20 +2,24 @@
 %TAG !u! tag:unity3d.com,2011:
 --- !u!21 &2100000
 Material:
-  serializedVersion: 6
+  serializedVersion: 8
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Glass_Blue
   m_Shader: {fileID: -6465566751694194690, guid: f1e2989d41278d14083fb47ef54b53fc, type: 3}
-  m_ShaderKeywords: 
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
   m_LightmapFlags: 2
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
   stringTagMap: {}
   disabledShaderPasses: []
+  m_LockedProperties: 
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
@@ -48,9 +52,11 @@ Material:
     - Vector1_408fd01d6a584d44bcaddc64db14aaf0: 1
     - Vector1_7c00bee9589f488ebd047ce56275b5bd: 1
     - _IOR: 0
+    - _Metalic: 0.25
     - _Power: 1.5
     - _QueueControl: 0
     - _QueueOffset: 0
+    - _Reserltuion: 0.5
     m_Colors:
     - Vector2_4e25ce66f4c1437fb10f5b5ee403fec3: {r: 0.25, g: 0.25, b: 0, a: 0}
     - _Colour: {r: 1, g: 1, b: 1, a: 0}
@@ -67,4 +73,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0353a89b1f911e48b9e16bdc9f2e058, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  version: 5
+  version: 7

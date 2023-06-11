@@ -1,6 +1,8 @@
-using UnityEngine;
-using UnityEngine.SceneManagement;
+using System;
+using System.Collections;
+using System.Collections.Generic;
 using Mirror;
+using UnityEngine;
 
 /*
     Documentation: https://mirror-networking.gitbook.io/docs/components/network-authenticators
@@ -30,24 +32,32 @@ public class #SCRIPTNAME# : NetworkAuthenticator
     }
 
     /// <summary>
-    /// Called on server from OnServerAuthenticateInternal when a client needs to authenticate
+    /// Called on server from OnServerConnectInternal when a client needs to authenticate
     /// </summary>
     /// <param name="conn">Connection to client.</param>
-    public override void OnServerAuthenticate(NetworkConnection conn) { }
+    public override void OnServerAuthenticate(NetworkConnectionToClient conn) { }
 
     /// <summary>
     /// Called on server when the client's AuthRequestMessage arrives
     /// </summary>
     /// <param name="conn">Connection to client.</param>
     /// <param name="msg">The message payload</param>
-    public void OnAuthRequestMessage(NetworkConnection conn, AuthRequestMessage msg)
+    public void OnAuthRequestMessage(NetworkConnectionToClient conn, AuthRequestMessage msg)
     {
         AuthResponseMessage authResponseMessage = new AuthResponseMessage();
-
         conn.Send(authResponseMessage);
 
         // Accept the successful authentication
         ServerAccept(conn);
+    }
+
+    /// <summary>
+    /// Called when server stops, used to unregister message handlers if needed.
+    /// </summary>
+    public override void OnStopServer()
+    {
+        // Unregister the handler for the authentication request
+        NetworkServer.UnregisterHandler<AuthRequestMessage>();
     }
 
     #endregion
@@ -65,12 +75,11 @@ public class #SCRIPTNAME# : NetworkAuthenticator
     }
 
     /// <summary>
-    /// Called on client from OnClientAuthenticateInternal when a client needs to authenticate
+    /// Called on client from OnClientConnectInternal when a client needs to authenticate
     /// </summary>
     public override void OnClientAuthenticate()
     {
         AuthRequestMessage authRequestMessage = new AuthRequestMessage();
-
         NetworkClient.Send(authRequestMessage);
     }
 
@@ -82,6 +91,15 @@ public class #SCRIPTNAME# : NetworkAuthenticator
     {
         // Authentication has been accepted
         ClientAccept();
+    }
+
+    /// <summary>
+    /// Called when client stops, used to unregister message handlers if needed.
+    /// </summary>
+    public override void OnStopClient()
+    {
+        // Unregister the handler for the authentication response
+        NetworkClient.UnregisterHandler<AuthResponseMessage>();
     }
 
     #endregion
