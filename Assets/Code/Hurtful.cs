@@ -139,13 +139,13 @@ public class Hurtful : NetworkBehaviour
         if (player == owner && ignorOwner)
             return;
 
-        if (collisionForce != 0)
+        if (collisionForce != 0) //whats the point if its 0
         {
             Vector3 vel;
             if (moveForce || myCollider == null) //its a fix i guess
                 vel = (transform.position - lastPos) / Time.deltaTime;
             else
-                vel = (player.transform.position - transform.position).normalized * 3;
+                vel = (player.transform.position - myCollider.bounds.center).normalized * 3;
 
             if (maxVelocity > 0)
                 vel = Vector3.ClampMagnitude(vel, maxVelocity);

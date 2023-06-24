@@ -11,8 +11,6 @@ public class Hurtable : NetworkBehaviour
     public int maxHealth = 100;
     [SyncVar(hook = nameof(OnHealthChanged))] public int health = 100;
 
-
-
     [Server]
     public void Hurt(int damage, HurtType hurtType = HurtType.Death, NetworkIdentity attackerIdentity = null) //can be used to heal just do -damage
     {
