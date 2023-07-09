@@ -154,8 +154,8 @@ TextureImporter:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 24
-        height: 24
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -173,10 +173,10 @@ TextureImporter:
       name: PlayerMasks_1
       rect:
         serializedVersion: 2
-        x: 24
+        x: 32
         y: 0
-        width: 24
-        height: 24
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -186,48 +186,6 @@ TextureImporter:
       bones: []
       spriteID: f8c69330f6a9118408e45b50791b586c
       internalID: -1573019237
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: PlayerMasks_2
-      rect:
-        serializedVersion: 2
-        x: 48
-        y: 0
-        width: 24
-        height: 24
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: f09e5f817583fd347a8cf0add2ca99e9
-      internalID: 1174374378
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: PlayerMasks_3
-      rect:
-        serializedVersion: 2
-        x: 72
-        y: 0
-        width: 24
-        height: 24
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 3cd194289d02e4d4f9812296f0633a34
-      internalID: -1299109014
       vertices: []
       indices: 
       edges: []
@@ -245,8 +203,6 @@ TextureImporter:
     nameFileIdTable:
       PlayerMasks_0: -2109893218
       PlayerMasks_1: -1573019237
-      PlayerMasks_2: 1174374378
-      PlayerMasks_3: -1299109014
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

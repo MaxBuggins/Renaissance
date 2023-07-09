@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
 using TMPro;
+using Pixelplacement;
 
 public class Player : PlayerBase
 {
@@ -676,7 +677,7 @@ public class Player : PlayerBase
     }
 
     [TargetRpc]
-    public void TargetAddVelocity(NetworkConnection target, Vector3 vel) //TEMP apply to local player only
+    public override void TargetAddVelocity(NetworkConnection target, Vector3 vel) //TEMP apply to local player only
     {
         velocity += vel;
         velocity = Vector3.ClampMagnitude(velocity, maxVelocity); //no more infinit death demension
@@ -735,7 +736,7 @@ public class Player : PlayerBase
     }
 
     [Server]
-    public void Hurt(int damage, HurtType hurtType = HurtType.Death, string killer = "") //can be used to heal just do -damage
+    public override void Hurt(int damage, HurtType hurtType = HurtType.Death, NetworkIdentity hurtfulIdentity = null, NetworkIdentity killer = null) //can be used to heal just do -damage
     {
         print(hurtType);
 
@@ -759,7 +760,7 @@ public class Player : PlayerBase
         if(health <= 0)
         {
             character.enabled = false;
-            levelManager.sendKillMsg(killer, playerStats.userName, hurtType);
+            levelManager.sendKillMsg(killer.name, playerStats.userName, hurtType);
             playerAbove.topLight.intensity = 0;
             playerStats.deaths += 1;
 
@@ -773,35 +774,40 @@ public class Player : PlayerBase
                 Random.Range(-spawnRandomRot, spawnRandomRot));
 
             GameObject spawned = Instantiate(spawnOnDeath, transform.position, Quaternion.Euler(spawnRot), null);
-/*            ItemPickUp item = spawned.GetComponent<ItemPickUp>();
+            /*            ItemPickUp item = spawned.GetComponent<ItemPickUp>();
 
-            if (item != null)
-            {
-                item.respawn = false;
-                SelfDestruct sD = item.gameObject.AddComponent<SelfDestruct>();
-                sD.destoryOnServer = true;
-                sD.destroyDelay = 7;
-            }*/
+                        if (item != null)
+                        {
+                            item.respawn = false;
+                            SelfDestruct sD = item.gameObject.AddComponent<SelfDestruct>();
+                            sD.destoryOnServer = true;
+                            sD.destroyDelay = 7;
+                        }*/
 
             NetworkServer.Spawn(spawned);
         }
     }
 
+    public override void OnDeath()
+    {
+
+    }
+
     [Server]
-    public void ServerApplyEffect(StatusEffect.EffectType effect, float duration = Mathf.Infinity, float magnitude = 1)
+    public override void ServerApplyEffect(StatusEffect.EffectType effect, float duration = Mathf.Infinity, float magnitude = 1)
     {
         ClientApplyEffect(effect, duration, magnitude);
         ApplyEffect(effect, duration, magnitude);
     }
 
     [ClientRpc]
-    public void ClientApplyEffect(StatusEffect.EffectType effect, float duration, float magnitude)
+    public override void ClientApplyEffect(StatusEffect.EffectType effect, float duration, float magnitude)
     {
         if(!isServer)
             ApplyEffect(effect, duration, magnitude);
     }
 
-    public void ApplyEffect(StatusEffect.EffectType effect, float duration = Mathf.Infinity, float magnitude = 1)
+    public override void ApplyEffect(StatusEffect.EffectType effect, float duration = Mathf.Infinity, float magnitude = 1)
     {
         StatusEffect sEffect = (gameObject.AddComponent(typeof(StatusEffect)) as StatusEffect);
         sEffect.effectType = effect;

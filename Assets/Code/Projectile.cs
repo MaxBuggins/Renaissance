@@ -94,7 +94,7 @@ public class Projectile : NetworkBehaviour
                                 dmg = (int)(damage * minDmgMultiplyer);
                         }
 
-                        hurtful.HurtPlayer(player, dmg, hurtful.hurtType);
+                        hurtful.HurtSomething(player, dmg, hurtful.hurtType);
 
                         if (bounceOffPlayerOnly)
                         {
@@ -125,7 +125,7 @@ public class Projectile : NetworkBehaviour
                                     dmg = (int)(damage * minDmgMultiplyer);
                             }
 
-                            hurtful.HurtPlayer(playerHitBox.player, dmg, hurtful.hurtType);
+                            hurtful.HurtSomething(playerHitBox.player, dmg, hurtful.hurtType);
 
                             if (bounceOffPlayerOnly)
                             {
@@ -196,7 +196,7 @@ public class Projectile : NetworkBehaviour
         }
 
             if (destoyCall != null)
-            destoyCall.Call(hurtful.owner);
+                destoyCall.Call(hurtful.owner.GetComponent<Player>()); //Bad Code prey that the owner is a player
 
         //if (hitSplat != null)
             //Instantiate(hitSplat, lastPos, transform.rotation);

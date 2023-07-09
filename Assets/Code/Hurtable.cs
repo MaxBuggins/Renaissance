@@ -7,37 +7,57 @@ using Mirror;
 public class Hurtable : NetworkBehaviour
 {
     [SyncVar] protected NetworkIdentity lastAttackerIdenity; //MUST BE BEFORE HEALTH because of sync order
+    [SyncVar] protected NetworkIdentity lastHurtfulIdenity; //MUST BE BEFORE HEALTH because of sync order
 
     public int maxHealth = 100;
     [SyncVar(hook = nameof(OnHealthChanged))] public int health = 100;
 
     [Server]
-    public void Hurt(int damage, HurtType hurtType = HurtType.Death, NetworkIdentity attackerIdentity = null) //can be used to heal just do -damage
+    public virtual void Hurt(int damage, HurtType hurtType = HurtType.Death, NetworkIdentity hurtfulIdentity = null, NetworkIdentity attackerIdentity = null)
     {
-        if (health <= 0)
+        //dont kill the dead, also this isn't the place for healing go to Heal()
+        if (health <= 0 || damage < 0)
             return;
 
         lastAttackerIdenity = attackerIdentity;
+        lastHurtfulIdenity = hurtfulIdentity;
 
-        //prevents infiti health stacking
-        if (health - damage > maxHealth)
-            health = maxHealth;
-        else
-            health -= damage;
+        health -= damage;
 
         if (health <= 0)
         {
             if (attackerIdentity != null)
             {
-                Player killer = attackerIdentity.GetComponent<Player>();
-                if (killer != null)
-                {
+                //Player killer = attackerIdentity.GetComponent<Player>();
+                //if (killer != null)
+                //{
                     //killer.kills += 1;
-                }
+                //}
             }
 
             ServerDeath();
         }
+    }
+
+    [Server]
+    public virtual void Heal(int damage, HurtType hurtType = HurtType.Death, NetworkIdentity attackerIdentity = null, NetworkIdentity hurtfulIdenity = null, bool canRevive = false)
+    {
+        if (damage < 0)
+            return;
+
+        if (health <= 0 && canRevive == false)
+            return;
+
+        lastAttackerIdenity = attackerIdentity;
+        lastHurtfulIdenity = hurtfulIdenity;
+
+        //prevents infiti health stacking
+        if (health + damage > maxHealth)
+            health = maxHealth;
+        else
+            health += damage;
+
+       
     }
 
 
@@ -66,7 +86,7 @@ public class Hurtable : NetworkBehaviour
         }
     }
 
-    public virtual void OnHurt(int damage) //do somethin or other to a toaster
+    public virtual void OnHurt(int damage, Vector3 hitPos = default(Vector3), Vector3 hitRot = default(Vector3)) //do somethin or other to a toaster
     {
 
     }
@@ -108,6 +128,24 @@ public class Hurtable : NetworkBehaviour
 
     [TargetRpc]
     public virtual void TargetSetVelocity(NetworkConnection target, Vector3 vel, bool ignorZero)
+    {
+
+    }
+
+    [Server]
+    public virtual void ServerApplyEffect(StatusEffect.EffectType effect, float duration = Mathf.Infinity, float magnitude = 1)
+    {
+        ClientApplyEffect(effect, duration, magnitude);
+        ApplyEffect(effect, duration, magnitude);
+    }
+
+    [ClientRpc]
+    public virtual void ClientApplyEffect(StatusEffect.EffectType effect, float duration, float magnitude)
+    {
+
+    }
+
+    public virtual void ApplyEffect(StatusEffect.EffectType effect, float duration = Mathf.Infinity, float magnitude = 1)
     {
 
     }

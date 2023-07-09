@@ -75,7 +75,7 @@ public class PlayerLotto : NetworkBehaviour
 
         if (currentPrize.health != 0)
         {
-            player.Hurt(-currentPrize.health, HurtType.Gambling, "Self");
+            player.Hurt(-currentPrize.health, HurtType.Gambling, netIdentity);
         }
 
         if (currentPrize.score > 0)

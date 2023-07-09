@@ -15,7 +15,7 @@ public class AnchorPlayer : MonoBehaviour
     void Start()
     {
         hurtful = GetComponent<Hurtful>();
-        player = hurtful.owner;
+        player = hurtful.owner.GetComponent<Player>(); //Bad Code
 
         player.GetComponentInChildren<FireFighterWeapon>().fireHydrant = this.GetComponent<ClientActivated>(); //SPEGETTI
     }

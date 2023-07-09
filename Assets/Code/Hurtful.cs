@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
 
-public enum HurtType { Death, Water, Train, Punch, ShotPut, DeflectingBullet, BriefCase, ShockWave, Squash, Freeze, Plate, Gambling }
+public enum HurtType { Death, Water, Train, Punch, ShotPut, DeflectingBullet, BriefCase, ShockWave, Squash, Freeze, Plate, Gambling, Time }
 
 
 //Server only script
@@ -12,14 +12,14 @@ public class Hurtful : NetworkBehaviour
     [Header("Hurt")]
     public int damage = 1;
     public HurtType hurtType = HurtType.Death;
+    public bool destoryOnHurt = false;
+
+    [Header("StatusEffect")]
     public StatusEffect.EffectType statusEffect;
     public float statusMagnitude;
     public float statusDuration;
-    public bool destoryOnHurt = false;
 
-    public float damagePerSeconds = 1.25f;
-    private float timeSinceDamage = 0;
-
+    [Header("HurtRequirements")]
     public bool ignorOwner = true;
 
     [Header("Force")]
@@ -28,9 +28,7 @@ public class Hurtful : NetworkBehaviour
     public float upwardsForce = 0;
     public float maxVelocity = -1;
 
-    private List<Player> inTrigger = new List<Player>();
-
-    public Player owner; //who takes the credit for a hit
+    public Hurtable owner; //who takes the credit for a hit
     [HideInInspector][SyncVar] public uint ownerID;
 
     //[Header("RigidBodys")]
@@ -72,71 +70,20 @@ public class Hurtful : NetworkBehaviour
 
     [Server]
     private void Update()
-    {
-        //print(inTrigger.Count);
-        if (inTrigger.Count == 0)
-            return;
-
-        timeSinceDamage += Time.deltaTime;
-
-        if(timeSinceDamage > damagePerSeconds && damagePerSeconds > 0)
-        {
-            //foreach throws errors not sure why
-            for(int i = 0; i < inTrigger.Count; i++)
-            {
-            HurtPlayer(inTrigger[i], damage, hurtType);
-            }
-
-            timeSinceDamage = 0;
-        }
-
+    {     
         lastPos = transform.position;
     }
 
-    [Server]
-    void OnTriggerEnter(Collider other)
-    {
-        if (other.tag == "Player")
-        {
-            var player = other.GetComponentInParent<Player>();
-            if (player != null)
-            {
-                if (ignorOwner == false || player != owner)
-                {
-                    //if(damagePerSeconds <= 0)
-                    HurtPlayer(player, damage, hurtType);
-                    inTrigger.Add(player);
-
-                    if (owner != null)
-                        owner.ConfirmedHit(player.health <= 0);
-                }
-            }
-            return;
-        }
-    }
 
     [Server]
-    void OnTriggerExit(Collider other)
+    public void HurtSomething(Hurtable hurtable, int damage, HurtType type)
     {
-        if (other.tag == "Player")
-        {
-            var player = other.GetComponentInParent<Player>();
-            if (player != null)
-            {
-                inTrigger.Remove(player);
-            }
-        }
-    }
-
-    [Server]
-    public void HurtPlayer(Player player, int damage, HurtType type)
-    {
-        print(name + " does " + damage + " to " + player.playerStats.userName);
+        print(name + " does " + damage + " to " + hurtable.name);
 
         if (damage == 0)
             return;
 
-        if (player == owner && ignorOwner)
+        if (hurtable == owner && ignorOwner)
             return;
 
         if (collisionForce != 0) //whats the point if its 0
@@ -145,31 +92,30 @@ public class Hurtful : NetworkBehaviour
             if (moveForce || myCollider == null) //its a fix i guess
                 vel = (transform.position - lastPos) / Time.deltaTime;
             else
-                vel = (player.transform.position - myCollider.bounds.center).normalized * 3;
+                vel = (hurtable.transform.position - myCollider.bounds.center).normalized * 3;
 
             if (maxVelocity > 0)
                 vel = Vector3.ClampMagnitude(vel, maxVelocity);
 
-            player.TargetAddVelocity(player.connectionToClient, (vel * collisionForce) + (vel.magnitude * Vector3.up * upwardsForce));
+            hurtable.TargetAddVelocity(hurtable.connectionToClient, (vel * collisionForce) + (vel.magnitude * Vector3.up * upwardsForce));
         }
 
         if (statusMagnitude > 0)
-            player.ServerApplyEffect(statusEffect, statusDuration, statusMagnitude);
+            hurtable.ServerApplyEffect(statusEffect, statusDuration, statusMagnitude);
 
         if (owner != null)
         {
-            player.Hurt(damage, type, owner.playerStats.userName);
+            hurtable.Hurt(damage, type, netIdentity, owner.netIdentity);
         }
         else
-            player.Hurt(damage, type, "");
+            hurtable.Hurt(damage, type, netIdentity);
 
-        if (player.health <= 0)
-        {
-            inTrigger.Remove(player);
-            if (owner != null && owner != player) //on owner acturlly killing something (Like a Boss Baby)
+        if (hurtable.health <= 0)
+        {          
+            if (owner != null && owner != hurtable) //on owner acturlly killing something (Like a Boss Baby)
             {
-                owner.playerStats.killStreak += 1;
-                owner.playerStats.kills += 1;
+                //owner.playerStats.killStreak += 1;
+                //owner.playerStats.kills += 1;
             }
         }
 

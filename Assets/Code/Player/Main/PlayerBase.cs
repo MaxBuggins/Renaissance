@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
 
-public class PlayerBase : NetworkBehaviour
+public class PlayerBase : Hurtable
 {
     //public PlayerStats stats;
 
