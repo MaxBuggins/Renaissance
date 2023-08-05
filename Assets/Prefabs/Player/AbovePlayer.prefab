@@ -122,14 +122,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 474bcb49853aa07438625e644c072ee6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Version: 1
+  m_Version: 3
   m_UsePipelineSettings: 1
   m_AdditionalLightsShadowResolutionTier: 2
   m_LightLayerMask: 1
+  m_RenderingLayers: 1
   m_CustomShadowLayers: 0
   m_ShadowLayerMask: 1
+  m_ShadowRenderingLayers: 1
   m_LightCookieSize: {x: 1, y: 1}
   m_LightCookieOffset: {x: 0, y: 0}
+  m_SoftShadowQuality: 1
 --- !u!114 &6423905184201583343
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -163,7 +166,6 @@ GameObject:
   - component: {fileID: 2294004156848140763}
   - component: {fileID: 4552617901732361736}
   - component: {fileID: 6121167284176232061}
-  - component: {fileID: 1871324844903802271}
   m_Layer: 0
   m_Name: Name
   m_TagString: Player
@@ -325,24 +327,3 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_renderer: {fileID: 4552617901732361736}
   m_maskType: 0
---- !u!114 &1871324844903802271
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9215221967074832305}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: da4636009a0d6c342a2b38174ebbf301, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  constantFollow: 1
-  yAxisOnly: 1
-  lookOffset: {x: 0, y: 0, z: 0}
-  orginalRot: {x: 0, y: 0, z: 0}
-  randomSpirte: 0
-  scale: 1
-  directionalSprites: []
-  colour: {r: 1, g: 1, b: 1, a: 1}
-  sortAngle: 0
