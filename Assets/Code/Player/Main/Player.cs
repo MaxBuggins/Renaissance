@@ -677,7 +677,7 @@ public class Player : PlayerBase
     }
 
     [TargetRpc]
-    public override void TargetAddVelocity(NetworkConnection target, Vector3 vel) //TEMP apply to local player only
+    public void TargetAddVelocity(NetworkConnection target, Vector3 vel) //TEMP apply to local player only
     {
         velocity += vel;
         velocity = Vector3.ClampMagnitude(velocity, maxVelocity); //no more infinit death demension

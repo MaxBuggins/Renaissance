@@ -120,17 +120,6 @@ public class Hurtable : NetworkBehaviour
 
     }
 
-    [TargetRpc]
-    public virtual void TargetAddVelocity(NetworkConnection target, Vector3 vel)
-    {
-
-    }
-
-    [TargetRpc]
-    public virtual void TargetSetVelocity(NetworkConnection target, Vector3 vel, bool ignorZero)
-    {
-
-    }
 
     [Server]
     public virtual void ServerApplyEffect(StatusEffect.EffectType effect, float duration = Mathf.Infinity, float magnitude = 1)

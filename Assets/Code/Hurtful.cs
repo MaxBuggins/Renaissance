@@ -27,8 +27,8 @@ public class Hurtful : NetworkBehaviour
     public float collisionForce = 0;
     public float upwardsForce = 0;
     public float maxVelocity = -1;
-
-    public Hurtable owner; //who takes the credit for a hit
+    
+    [HideInInspector] public Hurtable owner; //who takes the credit for a hit
     [HideInInspector][SyncVar] public uint ownerID;
 
     //[Header("RigidBodys")]
@@ -97,7 +97,9 @@ public class Hurtful : NetworkBehaviour
             if (maxVelocity > 0)
                 vel = Vector3.ClampMagnitude(vel, maxVelocity);
 
-            hurtable.TargetAddVelocity(hurtable.connectionToClient, (vel * collisionForce) + (vel.magnitude * Vector3.up * upwardsForce));
+            Player player = hurtable.gameObject.GetComponent<Player>();
+            if (player != null)
+                player.TargetAddVelocity(hurtable.connectionToClient, (vel * collisionForce) + (vel.magnitude * Vector3.up * upwardsForce));
         }
 
         if (statusMagnitude > 0)

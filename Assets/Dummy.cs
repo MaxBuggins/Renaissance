@@ -38,7 +38,7 @@ public class Dummy : Hurtable
     {
         Vector3 killDirection = transform.position - lastHurtfulIdenity.transform.position;
 
-        Vector3 fallRot = new Vector3(0, (Mathf.Atan2(killDirection.x, killDirection.z) * Mathf.Rad2Deg), 0);
+        Vector3 fallRot = Quaternion.LookRotation(killDirection, Vector3.up).eulerAngles;   
         Tween.LocalRotation(stickTrans, fallRot, fallOverDuration, 0, falloverCurve);
         ballonHead.localScale = Vector3.zero;
         ballonExlode.SendEvent("OnPlay");
