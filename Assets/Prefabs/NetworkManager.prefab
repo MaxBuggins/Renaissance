@@ -47,10 +47,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dontDestroyOnLoad: 1
-  PersistNetworkManagerToOfflineScene: 1
   runInBackground: 1
   autoStartServerBuild: 1
-  serverTickRate: 60
+  autoConnectClientBuild: 0
+  sendRate: 60
   offlineScene: Assets/Scenes/MainMenu.unity
   onlineScene: Assets/Scenes/WaterBowl.unity
   transport: {fileID: 8227039606038242249}
@@ -62,7 +62,7 @@ MonoBehaviour:
   playerSpawnMethod: 1
   spawnPrefabs:
   - {fileID: 7734295212963660210, guid: 3f740045f05dc0f41ad1449366836f91, type: 3}
-  - {fileID: 103855353412878195, guid: 83228cefa628a6b46bcf46fc94816d37, type: 3}
+  - {fileID: 5348577526591683179, guid: 322befc0cd3b84d4ca07b520dde82c7c, type: 3}
   - {fileID: 7236831696719052984, guid: a8c9c7222cb8b8c4e88a582b40b1fa75, type: 3}
   - {fileID: 7916301289310832521, guid: b2a575a43641c5142927bd438fece166, type: 3}
   - {fileID: 1940741050443084768, guid: 42dbcaf4952965642a9ad82abb401c14, type: 3}
@@ -93,6 +93,18 @@ MonoBehaviour:
   - {fileID: 1754768130989649110, guid: f40998b1713f81545b30077f05af76d6, type: 3}
   - {fileID: 7339264607688957704, guid: b16a37cba27aff04c8623be7dab1e040, type: 3}
   - {fileID: 334409021358268253, guid: 4681ec3d893cd8a4996529abb44de7a1, type: 3}
+  - {fileID: 1381288636958736426, guid: d7663aa25ef885c4d9e0b469c9da576f, type: 3}
+  snapshotSettings:
+    bufferTimeMultiplier: 2
+    catchupNegativeThreshold: -1
+    catchupPositiveThreshold: 1
+    catchupSpeed: 0.019999999552965164
+    slowdownSpeed: 0.03999999910593033
+    driftEmaDuration: 1
+    dynamicAdjustment: 1
+    dynamicAdjustmentTolerance: 1
+    deliveryTimeEmaDuration: 2
+  timeInterpolationGui: 0
   gameManager: {fileID: 0}
 --- !u!114 &8227039606038242249
 MonoBehaviour:
@@ -106,16 +118,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b0fecffa3f624585964b0d0eb21b18e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Port: 7777
+  port: 7777
   DualMode: 1
   NoDelay: 1
   Interval: 50
   Timeout: 10000
+  RecvBufferSize: 7361536
+  SendBufferSize: 7361536
   FastResend: 2
-  CongestionWindow: 0
-  SendWindowSize: 4096
   ReceiveWindowSize: 4096
-  NonAlloc: 1
+  SendWindowSize: 4096
+  MaxRetransmit: 40
+  MaximizeSocketBuffers: 1
+  ReliableMaxMessageSize: 297433
+  UnreliableMaxMessageSize: 1195
   debugLog: 1
   statisticsGUI: 0
   statisticsLog: 0
