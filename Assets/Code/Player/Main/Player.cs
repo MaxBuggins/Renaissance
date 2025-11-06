@@ -442,7 +442,7 @@ public class Player : PlayerBase
         }
 
         // Apply the push
-        body.velocity = pushDir * pushForce;
+        body.linearVelocity = pushDir * pushForce;
     }
 
     void OnHealthChanged(int _Old, int _New)
@@ -539,7 +539,7 @@ public class Player : PlayerBase
             else
             {
                 GameObject corpse = Instantiate(corpsePrefab, body.transform.position, transform.rotation);
-                corpse.GetComponentInChildren<Rigidbody>().velocity = (transform.position - lastPos) * 4;
+                corpse.GetComponentInChildren<Rigidbody>().linearVelocity = (transform.position - lastPos) * 4;
             }
         }
 

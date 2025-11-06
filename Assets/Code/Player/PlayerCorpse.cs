@@ -18,7 +18,7 @@ public class PlayerCorpse : MonoBehaviour
     
     void deActive()
     {
-        if (Mathf.Abs(rb.velocity.magnitude) > minVelocity)
+        if (Mathf.Abs(rb.linearVelocity.magnitude) > minVelocity)
         {
             Invoke(nameof(deActive), deActiveDelay / 2);
             return;

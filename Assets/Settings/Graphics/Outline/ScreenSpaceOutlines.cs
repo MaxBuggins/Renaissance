@@ -49,7 +49,8 @@ public class ScreenSpaceOutlines : ScriptableRendererFeature {
 
     }
 
-    private class ViewSpaceNormalsTexturePass : ScriptableRenderPass {
+    private class ViewSpaceNormalsTexturePass : ScriptableRenderPass
+    {
 
         private ViewSpaceNormalsTextureSettings normalsTextureSettings;
         private FilteringSettings filteringSettings;
@@ -59,9 +60,11 @@ public class ScreenSpaceOutlines : ScriptableRendererFeature {
         private readonly Material normalsMaterial;
         private readonly Material occludersMaterial;
 
-        private readonly RenderTargetHandle normals;
+        // Replace RenderTargetHandle with RTHandle
+        private RTHandle normals;
 
-        public ViewSpaceNormalsTexturePass(RenderPassEvent renderPassEvent, LayerMask layerMask, LayerMask occluderLayerMask, ViewSpaceNormalsTextureSettings settings) {
+        public ViewSpaceNormalsTexturePass(RenderPassEvent renderPassEvent, LayerMask layerMask, LayerMask occluderLayerMask, ViewSpaceNormalsTextureSettings settings)
+        {
             this.renderPassEvent = renderPassEvent;
             this.normalsTextureSettings = settings;
             filteringSettings = new FilteringSettings(RenderQueueRange.opaque, layerMask);
@@ -74,29 +77,36 @@ public class ScreenSpaceOutlines : ScriptableRendererFeature {
                 new ShaderTagId("SRPDefaultUnlit")
             };
 
-            normals.Init("_SceneViewSpaceNormals");
+            // Remove normals.Init("_SceneViewSpaceNormals");
+            // RTHandle allocation will be done in Configure
+
             normalsMaterial = new Material(Shader.Find("Hidden/ViewSpaceNormals"));
 
             occludersMaterial = new Material(Shader.Find("Hidden/UnlitColor"));
             occludersMaterial.SetColor("_Color", normalsTextureSettings.backgroundColor);
         }
 
-        public override void Configure(CommandBuffer cmd, RenderTextureDescriptor cameraTextureDescriptor) {
+        public override void Configure(CommandBuffer cmd, RenderTextureDescriptor cameraTextureDescriptor)
+        {
             RenderTextureDescriptor normalsTextureDescriptor = cameraTextureDescriptor;
             normalsTextureDescriptor.colorFormat = normalsTextureSettings.colorFormat;
             normalsTextureDescriptor.depthBufferBits = normalsTextureSettings.depthBufferBits;
-            cmd.GetTemporaryRT(normals.id, normalsTextureDescriptor, normalsTextureSettings.filterMode);
 
-            ConfigureTarget(normals.Identifier());
+            // Allocate RTHandle instead of using RenderTargetHandle
+            normals = RTHandles.Alloc(normalsTextureDescriptor, name: "_SceneViewSpaceNormals", filterMode: normalsTextureSettings.filterMode);
+
+            ConfigureTarget(normals);
             ConfigureClear(ClearFlag.All, normalsTextureSettings.backgroundColor);
         }
 
-        public override void Execute(ScriptableRenderContext context, ref RenderingData renderingData) {
+        public override void Execute(ScriptableRenderContext context, ref RenderingData renderingData)
+        {
             if (!normalsMaterial || !occludersMaterial)
                 return;
 
             CommandBuffer cmd = CommandBufferPool.Get();
-            using (new ProfilingScope(cmd, new ProfilingSampler("SceneViewSpaceNormalsTextureCreation"))) {
+            using (new ProfilingScope(cmd, new ProfilingSampler("SceneViewSpaceNormalsTextureCreation")))
+            {
                 context.ExecuteCommandBuffer(cmd);
                 cmd.Clear();
 
@@ -117,8 +127,14 @@ public class ScreenSpaceOutlines : ScriptableRendererFeature {
             CommandBufferPool.Release(cmd);
         }
 
-        public override void OnCameraCleanup(CommandBuffer cmd) {
-            cmd.ReleaseTemporaryRT(normals.id);
+        public override void OnCameraCleanup(CommandBuffer cmd)
+        {
+            // Release RTHandle
+            if (normals != null)
+            {
+                normals.Release();
+                normals = null;
+            }
         }
 
     }
@@ -157,15 +173,27 @@ public class ScreenSpaceOutlines : ScriptableRendererFeature {
             cameraColorTarget = renderingData.cameraData.renderer.cameraColorTargetHandle;
         }
 
-        public override void Execute(ScriptableRenderContext context, ref RenderingData renderingData) {
+        public override void Execute(ScriptableRenderContext context, ref RenderingData renderingData)
+        {
             if (!screenSpaceOutlineMaterial)
                 return;
 
             CommandBuffer cmd = CommandBufferPool.Get();
-            using (new ProfilingScope(cmd, new ProfilingSampler("ScreenSpaceOutlines"))) {
+            using (new ProfilingScope(cmd, new ProfilingSampler("ScreenSpaceOutlines")))
+            {
 
-                Blit(cmd, cameraColorTarget, temporaryBuffer);
-                Blit(cmd, temporaryBuffer, cameraColorTarget, screenSpaceOutlineMaterial);
+                // Use RTHandles for source and destination as required by the new API
+                RTHandle cameraColorTargetHandle = renderingData.cameraData.renderer.cameraColorTargetHandle;
+                RTHandle temporaryBufferHandle = RTHandles.Alloc(temporaryBuffer, name: "_TemporaryBuffer");
+
+                // First blit: copy cameraColorTarget to temporaryBuffer
+                Blit(cmd, cameraColorTargetHandle, temporaryBufferHandle);
+
+                // Second blit: apply outline material from temporaryBuffer back to cameraColorTarget
+                Blit(cmd, temporaryBufferHandle, cameraColorTargetHandle, screenSpaceOutlineMaterial);
+
+                // Release the temporary RTHandle after use
+                temporaryBufferHandle.Release();
             }
 
             context.ExecuteCommandBuffer(cmd);
